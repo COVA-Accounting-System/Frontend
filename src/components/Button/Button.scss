@@ -1,0 +1,21 @@
+$primary-inventory-color: #50B26B;
+$font-color: #FFFFFF;
+$primary-accounting-color: #5184DA;
+
+
+.button{
+    color: $font-color;
+    border: none ;
+}
+
+.button-inventory-mode{
+    background-color: $primary-inventory-color;
+   
+}
+
+.button-accounting-mode{
+    background-color: $primary-accounting-color;
+}
+
+
+
