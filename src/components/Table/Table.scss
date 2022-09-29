@@ -1,0 +1,61 @@
+.data-table-container{
+    width: 100%;
+    height: 91%;
+    
+}
+
+.ag-theme-alpine {
+    --ag-foreground-color: #484848;
+    --ag-background-color: rgb(255, 255, 255);
+
+
+    --ag-border-color: #C3CAD6;
+    --ag-borders: solid 0.2vh; 
+    
+
+    --ag-header-foreground-color: #585858;
+    --ag-header-background-color: #F1F3F6;
+    --ag-odd-row-background-color: rgb(255, 255, 255);
+    --ag-header-column-resize-handle-color: #C3CAD6;
+
+    --ag-row-hover-color: rgb(242, 246, 253);
+    // --ag-grid-size: 0.93vh;
+    --ag-grid-size: 6.5px;
+    // --ag-font-size: 1.8vh;
+    --ag-font-size: 13px;
+    --ag-font-family: 'Open Sans';
+    font-weight: 500;
+    // border-radius: 10vh;
+    --ag-borders-row: solid 0.1vh;
+   
+    --ag-secondary-border-color: #d8dee8;  
+}
+
+
+
+.ag-theme-alpine .ag-header-row{
+    font-weight: 700;
+    // font-size: 2vh ;
+    font-size: 15px ;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+      /* Track */
+      ::-webkit-scrollbar-track {
+        background: #F1F3F6; 
+      }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #C3CAD6; 
+    border-radius: 0.4vh;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #9197a1; 
+  }

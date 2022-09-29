@@ -3,10 +3,11 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
-import Client from "./pages/InventoryMode/Client/Client";
 import Employee from './pages/InventoryMode/Employee/Employee'
 import { store } from "./app/store";
 import { Provider } from "react-redux";
+import InventoryMode from "./pages/InventoryMode/InventoryMode";
+import Client from "./pages/InventoryMode/Client/Client";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -14,7 +15,10 @@ root.render(
     <React.StrictMode>
       <Provider store={store}>
         <Routes>
-          <Route path="/client" element={<Client />} />
+          <Route path="/inventory-mode/" element={<InventoryMode />}>
+              <Route path="client" element={<Client />} />
+              <Route path="employee" element={<Employee />} />
+          </Route>
           <Route path="/employee" element={<Employee />} />
         </Routes>
       </Provider>

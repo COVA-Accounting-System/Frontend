@@ -1,0 +1,8 @@
+$test-color: #C2C2C2;
+
+.navbar-container{
+    // background-color: $test-color;
+    border: solid 0px $test-color;
+    width: 100%;
+    height: 11vh;
+}
