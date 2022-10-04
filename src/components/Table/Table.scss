@@ -5,7 +5,7 @@
 }
 
 .ag-theme-alpine {
-    --ag-foreground-color: #484848;
+    --ag-foreground-color: #585858;
     --ag-background-color: rgb(255, 255, 255);
 
 
@@ -39,23 +39,25 @@
     font-size: 15px ;
 }
 
-/* width */
-::-webkit-scrollbar {
-    width: 10px;
-  }
+// /* width */
+// ::-webkit-scrollbar {
+//     width: 10px;
+//     height: 10px;
+//   }
   
-      /* Track */
-      ::-webkit-scrollbar-track {
-        background: #F1F3F6; 
-      }
+//       /* Track */
+//       ::-webkit-scrollbar-track {
+//         background: #F1F3F6; 
+//       }
    
-  /* Handle */
-  ::-webkit-scrollbar-thumb {
-    background: #C3CAD6; 
-    border-radius: 0.4vh;
-  }
+//   /* Handle */
+//   ::-webkit-scrollbar-thumb {
+//     background: #C3CAD6; 
+//     border-radius: 0.4vh;
+//   }
   
-  /* Handle on hover */
-  ::-webkit-scrollbar-thumb:hover {
-    background: #9197a1; 
-  }
+//   /* Handle on hover */
+//   ::-webkit-scrollbar-thumb:hover {
+//     background: #9197a1; 
+//   }
+

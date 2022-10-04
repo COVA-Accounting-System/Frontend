@@ -1,30 +1,29 @@
-$icons-color: #C3CAD6;
+$icons-color: #c3cad6;
+$primary-color: #32b284;
 
 .icons-container {
   display: grid;
   grid-template-columns: 26% 26% 26%;
   grid-gap: 10%;
-}
 
-.icon-container {
-  text-align: center;
-  &:hover{
-    cursor: pointer;
-}
-}
+  .icon-container {
+    text-align: center;
+  }
 
-.icon {
+  .icon {
     color: $icons-color;
     vertical-align: middle;
     // font-size: 3.5vh;
     font-size: 25px;
-    &-visibility{
-        
+    &:hover {
+      cursor: pointer;
+      color: $primary-color;
     }
-    &-edit{
-
+    &-visibility {
     }
-    &-delete{
-
+    &-edit {
     }
+    &-delete {
+    }
+  }
 }

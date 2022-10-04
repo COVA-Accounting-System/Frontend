@@ -1,9 +1,7 @@
 import React from "react";
 import "./InventoryMode.scss";
-import Client from "./Client/Client";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import { Outlet } from "react-router-dom";
-import Employee from "./Employee/Employee";
 import Navbar from "../../components/NavBar/Navbar";
 
 

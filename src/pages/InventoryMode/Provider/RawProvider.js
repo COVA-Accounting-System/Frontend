@@ -1,43 +1,47 @@
 import React, { useMemo, useCallback, useRef } from "react";
 import { useSelector } from "react-redux";
-import { setInitialState } from "../../../reducers/product.reducer";
-import { getProducts } from "../../../services/product.service";
+import { setInitialState } from "../../../reducers/provider.reducer";
+import { getProviders } from "../../../services/provider.service";
 import useLoadInitialData from "../../../hooks/useLoadInitialData";
 import Table from "../../../components/Table/Table";
 import { Button } from "../../../components/Button/Button";
 import DataTableIcons from "../../../components/DataTableActions/DataTableIcons";
 import "../styles/Template.styles.scss";
 
-const Product = () => {
-
+const RowProvider = () => {
   const gridRef = useRef();
-
-  useLoadInitialData(getProducts, setInitialState);
-  const products = useSelector((state) =>
-    state.products.filter((product) => product.isVisible === true)
+  useLoadInitialData(getProviders, setInitialState);
+  const providers = useSelector((state) =>
+    state.providers.filter((provider) => provider.isVisible === true)
   );
 
   const columnDefs = useMemo(() => [
     {
-      headerName: "Producto",
-      field: "name",
+      headerName: "Tienda",
+      field: "storeName",
       resizable: true,
       sortable: true,
     },
     {
-      headerName: "Descripcion",
-      field: "description",
+      headerName: "NIT",
+      field: "nit",
       resizable: true,
       sortable: true,
     },
-    // { headerName: "Fotografia", field: "photography", resizable: true },
-    { headerName: "Precio por unidad", field: "unitPrice", resizable: true, sortable: true },
+    { headerName: "Teléfono", field: "phone", resizable: true},
+    { headerName: "Ciudad", field: "city", resizable: true, sortable: true },
     {
-      headerName: "Precio por docena",
-      field: "dozenPrice",
-      resizable: false,
+      headerName: "Pais",
+      field: "country",
+      resizable: true,
       sortable: false,
       // width: 120,
+    },
+    {
+      headerName: "Direccion",
+      field: "address",
+      resizable: false,
+      sortable: true,
     },
     {
       headerName: " ",
@@ -45,8 +49,23 @@ const Product = () => {
       cellRenderer: DataTableIcons,
       pinned: "right",
       width: 224,
+      minWidth: 224
     },
   ],[]);
+
+  const gridOptions = useMemo(() => ({
+    pagination: false,
+    onGridReady: (params) => {
+      params.columnApi.autoSizeAllColumns();
+    },
+    onGridSizeChanged: (params) => {
+      params.columnApi.autoSizeAllColumns();
+    },
+    columnDefs: columnDefs,
+    cacheQuickFilter: true,
+    animateRows: true,
+  }), [columnDefs]);
+
 
   const onFilterTextBoxChanged = useCallback(() => {
     gridRef.current.api.setQuickFilter(
@@ -54,27 +73,11 @@ const Product = () => {
     );
   }, []);
 
-
-  const gridOptions = useMemo(() => ({
-    pagination: false,
-    onGridReady: (params) => {
-      params.api.sizeColumnsToFit();
-      // params.columnApi.autoSizeAllColumns();
-    },
-    onGridSizeChanged: (params) => {
-      // params.columnApi.autoSizeAllColumns();
-      params.api.sizeColumnsToFit();
-    },
-    columnDefs: columnDefs,
-    cacheQuickFilter: true,
-    animateRows: true
-  }), [columnDefs])
-
   return (
     <div>
       <div className="page-container">
         <div className="elements-container">
-          <h1 className="page-title">Productos</h1>
+          <h1 className="page-title">Proveedores</h1>
           <div className="filter-container">
             <div className="input-container">
               <input
@@ -86,10 +89,9 @@ const Product = () => {
                 onInput={onFilterTextBoxChanged}
               />
             </div>
-
             <div className="button-container">
               <Button
-                label={"Crear producto"}
+                label={"Crear proveedor"}
                 type={"create"}
                 system={"inventory"}
               />
@@ -97,9 +99,9 @@ const Product = () => {
           </div>
           <div>
             <Table
-              rowData={products}
-              gridOptions={gridOptions}
+              rowData={providers}
               gridRef={gridRef}
+              gridOptions={gridOptions}
             />
           </div>
         </div>
@@ -108,4 +110,4 @@ const Product = () => {
   );
 };
 
-export default Product;
+export default RowProvider;

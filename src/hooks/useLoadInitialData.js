@@ -7,7 +7,7 @@ const useLoadInitialData = (loadFunction, loadInitialDataFunction) => {
     useEffect(() => {
         const data = loadFunction()
         data.then(res => dispatch(loadInitialDataFunction(res)))
-    }, [dispatch])
+    }, [])
 }
 
 export default useLoadInitialData

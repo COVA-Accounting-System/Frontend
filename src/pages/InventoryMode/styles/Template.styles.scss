@@ -1,4 +1,4 @@
-$title-color: #484848;
+$title-color: #5D6A7E;
 $subtitle-color: #a3aab7;
 $secondary-color: #C3CAD6;
 
@@ -46,7 +46,8 @@ $secondary-color: #C3CAD6;
     padding-left: 0.1vw;
     &:focus{
         outline: none;
-        border-bottom: 0.2vh solid $title-color;
+        border-bottom: 0.2vh solid #92a0b4;
+        // color: $title-color;
     }
     &::placeholder{
         color: $secondary-color;

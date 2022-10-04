@@ -1,7 +1,8 @@
-$primary-inventory-color: #50B26B;
+$primary-inventory-color: #32B284;
 $font-color: #FFFFFF;
 $primary-accounting-color: #5184DA;
-
+$secondary-global-color: #758399;
+$delete-color: #EE6270;
 
 .button{
     color: $font-color;
@@ -22,13 +23,47 @@ $primary-accounting-color: #5184DA;
 }
 
 .button-create{
-    font-weight: 800;
-    font-size: 3vh; 
+    font-weight: 600;
+    font-size: 2.9vh; 
     border-radius: 1.2vh;
     padding: 2vh 0 2vh 0;
     box-shadow: 0px 0.5vh 1.5vh #C2C2C2;
+    background-color: $secondary-global-color;
     &:hover{
-        background-color: #389B53;
+        background-color: $primary-inventory-color;
     }
 }
 
+.button-confirm-delete{
+    font-weight: 600;
+    font-size: 15px; 
+    border-radius: 1.2vh;
+    padding: 2vh 0 2vh 0;
+    box-shadow: 0px 0.5vh 1.5vh #C2C2C2;
+    background-color: $delete-color;
+    &:hover{
+        background-color: #dd5260;
+    }
+}
+
+.button-cancel{
+    font-weight: 600;
+    font-size: 15px; 
+    border-radius: 1.2vh;
+    padding: 2vh 0 2vh 0;
+    box-shadow: 0px 0.5vh 1.5vh #C2C2C2;
+    background-color: $secondary-global-color;
+    &:hover{
+        background-color: #6b778a;
+    }
+}
+
+.button-changeMode{
+    font-weight: 800;
+    font-size: 2.3vh;
+    padding: 2vh 3vw;
+    border-radius: 1.2vh;
+    &:hover{
+        background-color: $primary-accounting-color;
+    }
+}

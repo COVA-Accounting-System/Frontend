@@ -1,9 +1,79 @@
-$background-color: #F1F3F6;
+$background-color: #f1f3f6;
+// $font-color: #949eaf;
+$font-color: #758399;
+$primary-color: #32B284;
 
 
+.sidebar-container {
+  //   display: grid;
+  //   grid-template-rows: 100px 160px auto auto;
+  width: 17vw;
+  height: 100vh;
+  background-color: $background-color;
 
-.container{
-    width: 17vw;
-    height: 100vh;
-    background-color: $background-color;
+  .button-mode-container {
+    padding: 2vh 1.3vw 3vh 1.3vw;
+  }
+}
+
+ul {
+  list-style-type: none;
+}
+
+.element {
+  text-decoration: none;
+  color: $font-color;
+  font-weight: 500;
+  font-size: 15px;
+  display: flex;
+  padding-left: 3vw;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  //   align-items: flex-start;
+//   vertical-align: middle;
+  &:hover {
+    
+    color: $background-color;
+    background-color: $font-color;
+    // background-color: $primary-color;
+  }
+}
+
+.active{
+    color: $background-color;
+    background-color: $primary-color;
+    &:hover {
+        color: $background-color;
+    background-color: $primary-color;
+      }
+      &:active {
+        color: $background-color;
+        background-color: $primary-color;
+      }
+}
+
+
+.side-bar-icon {
+  font-size: 23px;
+}
+
+.element-name {
+  margin-left: 10px;
+//   padding-top: 2px;
+    padding-top: 0.5vh;
+}
+
+.elements-group {
+  margin-bottom: 15px;
+  margin-top: 15px;
+}
+
+.flex-ul-display{
+    display: flex;
+    color: $font-color;
+    font-weight: 600;
+    font-size: 12px;
+    padding-left: 1.3vw;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
