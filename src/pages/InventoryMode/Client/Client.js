@@ -6,7 +6,8 @@ import React, {
   useState,
 } from "react";
 import Table from "../../../components/Table/Table";
-import { getAllClients, deleteClient } from "../../../reducers/clients";
+import { getAllClients, deleteClient, setActualClient  } from "../../../reducers/clients";
+import { changeAction, changeEntity } from "../../../reducers/crud";
 import { Button } from "../../../components/Button/Button";
 import DataTableIcons from "../../../components/DataTableActions/DataTableIcons";
 import { useDispatch, useSelector } from "react-redux";
@@ -16,22 +17,17 @@ import ModalContainer from "../../../components/DialogModal/ModalContainer";
 const Client = () => {
   const dispatch = useDispatch();
   const gridRef = useRef();
-  const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [selectedClient, setSelectedClient] = useState({});
 
+  const [modalIsOpen, setModalIsOpen] = useState(false);
   const clients = useSelector((state) =>
     state.clients.data.filter((param) => param.isVisible === true)
   );
+  const actualClient = useSelector((state) => state.clients.actualClient);
 
   useEffect(() => {
     dispatch(getAllClients());
+    dispatch(changeEntity({ entity: "client", entityName: "cliente" }));
   }, [dispatch]);
-
-  const onFilterTextBoxChanged = useCallback(() => {
-    gridRef.current.api.setQuickFilter(
-      document.getElementById("filter-text-box").value
-    );
-  }, []);
 
   const columnDefs = useMemo(
     () => [
@@ -57,7 +53,18 @@ const Client = () => {
         cellRenderer: DataTableIcons,
         colId: "Actions",
         cellRendererParams: {
-          onClickDelete: () => setModalIsOpen(true),
+          onClickDelete: () => {
+            setModalIsOpen(true);
+            dispatch(changeAction("delete"));
+          },
+          onClickEdit: () => {
+            setModalIsOpen(true);
+            dispatch(changeAction("edit"));
+          },
+          onClickView: () => {
+            setModalIsOpen(true);
+            dispatch(changeAction("view"));
+          },
         },
       },
     ],
@@ -76,12 +83,24 @@ const Client = () => {
       columnDefs: columnDefs,
       cacheQuickFilter: true,
       onCellClicked: (params) => {
-        setSelectedClient(params.data);
+        dispatch(setActualClient(params.data));
       },
       animateRows: true,
     }),
     [columnDefs]
   );
+
+  const onFilterTextBoxChanged = useCallback(() => {
+    gridRef.current.api.setQuickFilter(
+      document.getElementById("filter-text-box").value
+    );
+  }, []);
+
+  const onDeleteButtonModal = () => {
+    dispatch(deleteClient(actualClient));
+    setModalIsOpen(false);
+  }
+
 
   return (
     <div>
@@ -104,6 +123,10 @@ const Client = () => {
                 label={"Crear cliente"}
                 type={"create"}
                 system={"inventory"}
+                onClick={() => {
+                  setModalIsOpen(true);
+                  dispatch(changeAction("create"));
+                }}
               />
             </div>
           </div>
@@ -117,12 +140,8 @@ const Client = () => {
         </div>
       </div>
       <ModalContainer
-        identity={"cliente"}
         isOpen={modalIsOpen}
-        onConfirmAction={() => {
-          dispatch(deleteClient(selectedClient));
-          setModalIsOpen(false);
-        }}
+        onDeleteButtonModal={onDeleteButtonModal}
         onRequestClose={() => setModalIsOpen(false)}
       />
     </div>

@@ -38,7 +38,26 @@ export const getAllClients = () => async (dispatch) => {
 
 export const deleteClient = (data) => async (dispatch) => {
   try {
-    await axios.put("http://localhost:4001/api/inventory/client/query", data);
+    await axios.put("http://localhost:4001/api/inventory/client/delete", data);
+    dispatch(getAllClients());
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+export const createClient = (data) => async (dispatch) => {
+  try {
+    await axios.post("http://localhost:4001/api/inventory/client", data);
+    dispatch(getAllClients());
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+export const updateClient = (data) => async (dispatch) => {
+  try {
+    console.log('aca upddatea')
+    await axios.put("http://localhost:4001/api/inventory/client/update", data);
     dispatch(getAllClients());
   } catch (err) {
     console.error(err);
