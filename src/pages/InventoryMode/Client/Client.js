@@ -6,7 +6,10 @@ import React, {
   useState,
 } from "react";
 import Table from "../../../components/Table/Table";
-import { getAllClients, deleteClient, setActualClient  } from "../../../reducers/clients";
+import {
+  getAllClients,
+  setActualClient,
+} from "../../../reducers/clients";
 import { changeAction, changeEntity } from "../../../reducers/crud";
 import { Button } from "../../../components/Button/Button";
 import DataTableIcons from "../../../components/DataTableActions/DataTableIcons";
@@ -22,7 +25,6 @@ const Client = () => {
   const clients = useSelector((state) =>
     state.clients.data.filter((param) => param.isVisible === true)
   );
-  const actualClient = useSelector((state) => state.clients.actualClient);
 
   useEffect(() => {
     dispatch(getAllClients());
@@ -53,18 +55,15 @@ const Client = () => {
         cellRenderer: DataTableIcons,
         colId: "Actions",
         cellRendererParams: {
-          onClickDelete: () => {
+          openModal: () => {
             setModalIsOpen(true);
-            dispatch(changeAction("delete"));
           },
-          onClickEdit: () => {
-            setModalIsOpen(true);
-            dispatch(changeAction("edit"));
+          setData: (data) => {
+            dispatch(setActualClient(data))
           },
-          onClickView: () => {
-            setModalIsOpen(true);
-            dispatch(changeAction("view"));
-          },
+          dispatchAction: (action) => {
+            dispatch(changeAction( action ));
+          }
         },
       },
     ],
@@ -82,10 +81,8 @@ const Client = () => {
       },
       columnDefs: columnDefs,
       cacheQuickFilter: true,
-      onCellClicked: (params) => {
-        dispatch(setActualClient(params.data));
-      },
-      animateRows: true,
+      // rowSelection: "single",
+      animateRows: true
     }),
     [columnDefs]
   );
@@ -95,11 +92,6 @@ const Client = () => {
       document.getElementById("filter-text-box").value
     );
   }, []);
-
-  const onDeleteButtonModal = () => {
-    dispatch(deleteClient(actualClient));
-    setModalIsOpen(false);
-  }
 
 
   return (
@@ -141,7 +133,6 @@ const Client = () => {
       </div>
       <ModalContainer
         isOpen={modalIsOpen}
-        onDeleteButtonModal={onDeleteButtonModal}
         onRequestClose={() => setModalIsOpen(false)}
       />
     </div>

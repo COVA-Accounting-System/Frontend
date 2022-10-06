@@ -6,8 +6,9 @@ import ViewForm from "./ViewModal/ViewForm";
 import { useSelector } from "react-redux";
 import "./DialogModal.scss";
 
-const ModalContainer = ({ isOpen, onRequestClose, onDeleteButtonModal }) => {
+const ModalContainer = ({ isOpen, onRequestClose }) => {
   const modalAction = useSelector((state) => state.crud.action);
+
   Modal.setAppElement("#root");
   return (
     <>
@@ -21,15 +22,11 @@ const ModalContainer = ({ isOpen, onRequestClose, onDeleteButtonModal }) => {
           <span className="material-symbols-outlined icon-form">close</span>
         </div>
         {modalAction === "delete" ? (
-          <ConfirmationModal
-            onClickCancel={onRequestClose}
-            onClickDelete={onDeleteButtonModal}
-          />
+          <ConfirmationModal onClickCancel={onRequestClose} />
         ) : null}
-        {modalAction === "create" ? <ClientForm onRequestClose={onRequestClose}
-        /> : null}
+        {modalAction === "create" ? <ClientForm onRequestClose={onRequestClose}/> : null}
         {modalAction === "view" ? <ViewForm /> : null}
-        {modalAction === "edit" ? <ClientForm /> : null}
+        {modalAction === "edit" ? <ClientForm onRequestClose={onRequestClose}/> : null}
       </Modal>
     </>
   );

@@ -1,10 +1,10 @@
 import React from 'react'
 import "../DialogModal.scss";
 
-const ViewForm = ({identity}) => {
+const ViewForm = () => {
   return (
     <div>
-        <h1> Ver {identity} </h1>
+        <h1> Ver </h1>
     </div>
   )
 }

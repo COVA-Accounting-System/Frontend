@@ -56,7 +56,6 @@ export const createClient = (data) => async (dispatch) => {
 
 export const updateClient = (data) => async (dispatch) => {
   try {
-    console.log('aca upddatea')
     await axios.put("http://localhost:4001/api/inventory/client/update", data);
     dispatch(getAllClients());
   } catch (err) {

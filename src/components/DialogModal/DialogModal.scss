@@ -44,33 +44,30 @@ $title-color: #5D6A7E;
 
 .confirmation-container {
   display: grid;
-  grid-template-rows: 80px 70px;
-  row-gap: 30px;
-  width: 500px;
-  height: 180px;
-  padding: 0px 20px 20px 20px;
-  text-align: center;
+  grid-template-rows: 70px 70px;
+  row-gap: 10px;
+  width: 400px;
+  height: 150px;
+  padding: 0px 30px 20px 30px;
+  // text-align: center;
   .confirmation-title {
-    font-weight: 600;
-    color: $secondary-global-color;
-    text-align: left;
-    padding-top: 0;
-    margin-top: 0px;
-
-    // padding-top: 5px;
-    padding-left: 10px;
+      margin-top: 0px;
+      font-size: 27px;
+      color: $title-color;
+      margin-bottom: 15px;
   }
   .confirmation-text {
     font-weight: 500;
     color: #6b778a;
     text-align: left;
-    padding-top: 5px;
-    padding-left: 10px;
+    padding-top: 0px;
   }
   .button-container {
-    display: grid;
-    grid-template-columns: 140px 110px 110px 110px;
-    column-gap: 10px;
+    display: inline-block;
+    text-align: right;
+    .button-cancel{
+      margin-left: 14px;
+    }
   }
 }
 

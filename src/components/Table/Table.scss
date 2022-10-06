@@ -8,10 +8,8 @@
     --ag-foreground-color: #585858;
     --ag-background-color: rgb(255, 255, 255);
 
-
     --ag-border-color: #C3CAD6;
     --ag-borders: solid 0.2vh; 
-    
 
     --ag-header-foreground-color: #585858;
     --ag-header-background-color: #F1F3F6;
@@ -19,7 +17,7 @@
     --ag-header-column-resize-handle-color: #C3CAD6;
 
     --ag-row-hover-color: rgb(242, 246, 253);
-    // --ag-grid-size: 0.93vh;
+    --ag-selected-row-background-color: rgb(242, 246, 253);
     --ag-grid-size: 6.5px;
     // --ag-font-size: 1.8vh;
     --ag-font-size: 13px;

@@ -8,7 +8,8 @@ import { useState } from "react";
 const ClientForm = ({ onRequestClose }) => {
   const entity = useSelector((state) => state.crud.entityName);
   const action = useSelector((state) => state.crud.action);
-  const editClient = useSelector((state) => state.clients.actualClient);
+  const client = useSelector((state) => state.clients.actualClient);
+  const dispatch = useDispatch();
 
   const [inputs, setInputs] = useState(
     action === "create"
@@ -18,10 +19,8 @@ const ClientForm = ({ onRequestClose }) => {
           phone: "",
           inDebt: "",
         }
-      : editClient
+      : client
   );
-
-  const dispatch = useDispatch();
 
   const handleInputChange = (event) => {
     setInputs({
@@ -44,7 +43,7 @@ const ClientForm = ({ onRequestClose }) => {
   return (
     <div>
         <div className="form-container">
-          <h1 className="form-title">Crear {entity}</h1>
+          <h1 className="form-title">{action ==="create" ? `Crear ${entity}` : `Editar ${entity}`}</h1>
           <div className="input-form-container">
             <input
               name="name"
@@ -99,7 +98,6 @@ const ClientForm = ({ onRequestClose }) => {
               label={"Guardar"}
               type={"confirm"}
               onClick={action === "create" ? onClickSave : onEditSave}
-              // onClick={onClickSave}
             ></Button>
           </div>
           <div className="form-footer"></div>

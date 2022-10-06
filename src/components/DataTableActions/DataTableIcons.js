@@ -1,7 +1,27 @@
 import React from "react";
 import "./DataTableIcons.scss";
 
-const DataTableIcons = ({ onClickDelete, onClickEdit, onClickView }) => {
+const DataTableIcons = (props) => {
+  const { data, openModal, dispatchAction, setData } = props;
+
+  const onClickDelete = () => {
+    dispatchAction("delete");
+    setData(data);
+    openModal();
+  };
+
+  const onClickEdit = () => {
+    dispatchAction("edit");
+    setData(data);
+    openModal();
+  };
+
+  const onClickView = () => {
+    dispatchAction("view");
+    setData(data);
+    openModal();
+  };
+
   return (
     <div>
       <div className="icons-container">
