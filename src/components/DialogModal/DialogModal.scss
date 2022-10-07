@@ -2,8 +2,7 @@ $secondary-global-color: #758399;
 $input-color: #bfc9da;
 $input-color-placeholder: #7a8ba7;
 $primary-color: #32b284;
-$title-color: #5D6A7E;
-
+$title-color: #5d6a7e;
 
 .modal-container {
   position: fixed;
@@ -31,13 +30,13 @@ $title-color: #5D6A7E;
   -ms-animation: fadeIn 0.3s;
 }
 
-.close-icon{
+.close-icon {
   text-align: right;
   color: $secondary-global-color;
   margin-bottom: 0;
   padding-top: 20px;
   padding-right: 20px;
-  :hover{
+  :hover {
     cursor: pointer;
   }
 }
@@ -51,10 +50,10 @@ $title-color: #5D6A7E;
   padding: 0px 30px 20px 30px;
   // text-align: center;
   .confirmation-title {
-      margin-top: 0px;
-      font-size: 27px;
-      color: $title-color;
-      margin-bottom: 15px;
+    margin-top: 0px;
+    font-size: 27px;
+    color: $title-color;
+    margin-bottom: 15px;
   }
   .confirmation-text {
     font-weight: 500;
@@ -65,26 +64,25 @@ $title-color: #5D6A7E;
   .button-container {
     display: inline-block;
     text-align: right;
-    .button-cancel{
+    .button-cancel {
       margin-left: 14px;
     }
   }
 }
 
-
-.form-container{
+.form-container {
   // padding: 0px 100px 20px 100px;
   text-align: center;
-  .form-title{
-      margin-top: 0px;
-      font-size: 27px;
-      color: $title-color;
-      margin-bottom: 15px;
+  .form-title {
+    margin-top: 0px;
+    font-size: 27px;
+    color: $title-color;
+    margin-bottom: 15px;
   }
-  .input-form-container{
+  .input-form-container {
     padding: 25px 75px 0px 75px;
 
-    .input-form{
+    .input-form {
       font-weight: 400;
       border-radius: 5px;
       border: 1px solid $input-color;
@@ -93,18 +91,17 @@ $title-color: #5D6A7E;
       padding: 10px 10px;
       box-sizing: border-box;
       color: $title-color;
-      &::placeholder{
+      &::placeholder {
         color: $input-color-placeholder;
       }
-      &:focus{
+      &:focus {
         outline: none;
         border: 1px solid $title-color;
         // color: $title-color;
       }
-      
     }
   }
-  .in-debt-warning{
+  .in-debt-warning {
     color: $input-color-placeholder;
     font-size: 12px;
     margin-top: 0px;
@@ -115,23 +112,58 @@ $title-color: #5D6A7E;
     margin-bottom: 25px;
     // padding-left: 80px;
     // padding-right: 80px;
-    .warning-icon{
+    .warning-icon {
       font-size: 12px;
       margin-right: 3px;
     }
   }
-  .button-container{
+  .button-container {
     padding-bottom: 45px;
     padding-top: 10px;
   }
-  .form-footer{
+  .form-footer {
     height: 10px;
     background-color: $primary-color;
     margin: 0px;
   }
 }
 
-
+.view-form {
+  text-align: center;
+  .title-container {
+    margin-top: 0px;
+    font-size: 27px;
+    color: $title-color;
+    margin-bottom: 35px;
+  }
+  .view-hr{
+    margin-top: 0px;
+    margin-bottom: 0px;
+    border: 1px solid #d6dce2;
+  }
+  .data-container {
+    padding-top: 20px;
+    margin-bottom: 50px;
+    .row-data-container {
+      margin-left: 50px;
+      margin-right: 50px;
+      margin-bottom: 30px;
+      width: 350px;
+      .row-data {
+        font-size: 17px;
+        font-weight: 500;
+        color: $secondary-global-color;
+      }
+    }
+  }
+  .form-footer {
+    height: 10px;
+    background-color: $primary-color;
+    margin: 0px;
+    // width: 500px;
+  }
+ 
+}
 
 @keyframes fadeIn {
   0% {
