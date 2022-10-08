@@ -1,19 +1,36 @@
-import React, { useMemo, useCallback, useRef } from "react";
-import { useSelector } from "react-redux";
-import { setInitialState } from "../../../reducers/employee.reducer";
-import { getAllEmployees } from "../../../services/employee.service";
-import useLoadInitialData from "../../../hooks/useLoadInitialData";
+import React, {
+  useMemo,
+  useCallback,
+  useRef,
+  useEffect,
+  useState,
+} from "react";
 import Table from "../../../components/Table/Table";
+import {
+  getAllEmployees,
+  setActualEmployee,
+} from "../../../reducers/employees";
+import { changeAction, changeEntity } from "../../../reducers/crud";
 import { Button } from "../../../components/Button/Button";
 import DataTableIcons from "../../../components/DataTableActions/DataTableIcons";
+import { useDispatch, useSelector } from "react-redux";
 import "../styles/Template.styles.scss";
+import ModalContainer from "../../../components/DialogModal/ModalContainer";
 
 const Employee = () => {
+  
+  const dispatch = useDispatch();
   const gridRef = useRef();
-  useLoadInitialData(getAllEmployees, setInitialState);
+
+  const [modalIsOpen, setModalIsOpen] = useState(false);
   const employees = useSelector((state) =>
-    state.employees.filter((employee) => employee.isVisible === true)
+    state.employees.data.filter((param) => param.isVisible === true)
   );
+
+  useEffect(() => {
+    dispatch(getAllEmployees());
+    dispatch(changeEntity({ entity: "employee", entityName: "empleado" }));
+  }, [dispatch]);
 
   const columnDefs = useMemo(() => [
     { headerName: "Nombre", field: "name", resizable: true, sortable: true },
@@ -52,34 +69,45 @@ const Employee = () => {
     {
       headerName: " ",
       resizable: false,
-      cellRenderer: DataTableIcons,
       pinned: "right",
-      width: 224,
       minWidth: 224,
-  
+      cellRenderer: DataTableIcons,
+      colId: "Actions",
+      cellRendererParams: {
+        openModal: () => {
+          setModalIsOpen(true);
+        },
+        setData: (data) => {
+          dispatch(setActualEmployee(data))
+        },
+        dispatchAction: (action) => {
+          dispatch(changeAction(action));
+        }
+      },
     },
   ],[]);
+
+  const gridOptions = useMemo(
+    () => ({
+      pagination: false,
+      onGridReady: (params) => {
+        params.columnApi.autoSizeAllColumns();
+      },
+      onGridSizeChanged: (params) => {
+        params.columnApi.autoSizeAllColumns();
+      },
+      columnDefs: columnDefs,
+      cacheQuickFilter: true,
+      animateRows: true
+    }),
+    [columnDefs]
+  );
 
   const onFilterTextBoxChanged = useCallback(() => {
     gridRef.current.api.setQuickFilter(
       document.getElementById("filter-text-box").value
     );
   }, []);
-
-  const gridOptions = useMemo(() => ({
-    pagination: false,
-    onGridReady: (params) => {
-      // params.api.sizeColumnsToFit();
-      params.columnApi.autoSizeAllColumns();
-    },
-    onGridSizeChanged: (params) => {
-      params.columnApi.autoSizeAllColumns();
-      // params.api.sizeColumnsToFit();
-    },
-    columnDefs: columnDefs,
-    cacheQuickFilter: true,
-    animateRows: true,
-  }), [columnDefs]);
 
   return (
     <div>
@@ -102,20 +130,29 @@ const Employee = () => {
                 label={"Crear empleado"}
                 type={"create"}
                 system={"inventory"}
+                onClick={() => {
+                  setModalIsOpen(true);
+                  dispatch(changeAction("create"));
+                }}
               />
             </div>
           </div>
           <div>
-            <Table
-              rowData={employees}
-              gridOptions={gridOptions}
+          <Table
               gridRef={gridRef}
+              gridOptions={gridOptions}
+              rowData={employees}
             />
           </div>
         </div>
       </div>
+      <ModalContainer
+        isOpen={modalIsOpen}
+        onRequestClose={() => setModalIsOpen(false)}
+      />
     </div>
   );
 };
 
 export default Employee;
+

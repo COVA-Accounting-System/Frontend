@@ -5,7 +5,7 @@ import "../DialogModal.scss";
 const ViewForm = () => {
   const client = useSelector((status) => status.clients.actualClient);
   const entity = useSelector((status) => status.crud.entityName);
-  const action = useSelector((status) => status.crud.action);
+ 
   return (
     <div className="view-form">
       <h1 className="title-container"> Ver {entity}</h1>

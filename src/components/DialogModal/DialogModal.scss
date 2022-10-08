@@ -101,6 +101,10 @@ $title-color: #5d6a7e;
       }
     }
   }
+  .input-form-container-employee{
+    @extend .input-form-container;
+    padding: 20px 75px 0px 75px;
+  }
   .in-debt-warning {
     color: $input-color-placeholder;
     font-size: 12px;
@@ -120,6 +124,11 @@ $title-color: #5d6a7e;
   .button-container {
     padding-bottom: 45px;
     padding-top: 10px;
+  }
+  .button-container-employee{
+    @extend .button-container;
+    padding-top: 40px;
+    padding-bottom: 40px;
   }
   .form-footer {
     height: 10px;

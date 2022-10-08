@@ -2,13 +2,13 @@ import React from "react";
 import "../DialogModal.scss";
 import { Button } from "../../Button/Button";
 import { useDispatch, useSelector } from "react-redux";
-import { createClient, updateClient } from "../../../reducers/clients";
+import { createEmployee, updateEmployee } from "../../../reducers/employees";
 import { useState } from "react";
 
-const ClientForm = ({ onRequestClose }) => {
+const EmployeeForm = ({ onRequestClose }) => {
   const entity = useSelector((state) => state.crud.entityName);
   const action = useSelector((state) => state.crud.action);
-  const client = useSelector((state) => state.clients.actualClient);
+  const employee = useSelector((state) => state.employees.actualEmployee);
   const dispatch = useDispatch();
 
   const [inputs, setInputs] = useState(
@@ -17,9 +17,12 @@ const ClientForm = ({ onRequestClose }) => {
           name: "",
           lastName: "",
           phone: "",
-          inDebt: "",
+          ci: "",
+          startDate: "",
+          nationality: "",
+          dateOfBirth: ""
         }
-      : client
+      : employee
   );
 
   const handleInputChange = (event) => {
@@ -30,12 +33,12 @@ const ClientForm = ({ onRequestClose }) => {
   };
 
   const onClickSave = () => {
-    dispatch(createClient(inputs));
+    dispatch(createEmployee(inputs));
     onRequestClose();
   };
 
   const onEditSave = () => {
-    dispatch(updateClient(inputs));
+    dispatch(updateEmployee(inputs));
     onRequestClose();
   };
 
@@ -53,7 +56,7 @@ const ClientForm = ({ onRequestClose }) => {
               onChange={handleInputChange}
             />
           </div>
-          <div className="input-form-container">
+          <div className="input-form-container-employee">
             <input
               name="lastName"
               className="input-form"
@@ -63,7 +66,7 @@ const ClientForm = ({ onRequestClose }) => {
               onChange={handleInputChange}
             />
           </div>
-          <div className="input-form-container">
+          <div className="input-form-container-employee">
             <input
               name="phone"
               className="input-form"
@@ -73,26 +76,47 @@ const ClientForm = ({ onRequestClose }) => {
               onChange={handleInputChange}
             />
           </div>
-          <div className="input-form-container">
+          <div className="input-form-container-employee">
             <input
-              name="inDebt"
+              name="ci"
               className="input-form"
               type="text"
-              placeholder="Deuda"
-              value={inputs.inDebt}
+              placeholder="Ci"
+              value={inputs.ci}
               onChange={handleInputChange}
             />
           </div>
-          <div className="in-debt-warning">
-            <span className="material-symbols-outlined warning-icon">
-              error
-            </span>
-            <span>
-              Esta es la cantidad que adeuda el cliente al momento de
-              registrarlo en el sistema
-            </span>
+          <div className="input-form-container-employee">
+            <input
+              name="startDate"
+              className="input-form"
+              type="text"
+              placeholder="Fecha de nacimiento"
+              value={inputs.startDate}
+              onChange={handleInputChange}
+            />
           </div>
-          <div className="button-container">
+          <div className="input-form-container-employee">
+            <input
+              name="nationality"
+              className="input-form"
+              type="text"
+              placeholder="Nacionalidad"
+              value={inputs.nationality}
+              onChange={handleInputChange}
+            />
+          </div>
+          <div className="input-form-container-employee">
+            <input
+              name="dateOfBirth"
+              className="input-form"
+              type="text"
+              placeholder="Fecha de nacimiento"
+              value={inputs.dateOfBirth}
+              onChange={handleInputChange}
+            />
+          </div>
+          <div className="button-container-employee">
             <Button
               label={"Guardar"}
               type={"confirm"}
@@ -105,4 +129,4 @@ const ClientForm = ({ onRequestClose }) => {
   );
 };
 
-export default ClientForm;
+export default EmployeeForm;
