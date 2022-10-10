@@ -3,6 +3,7 @@ import "../DialogModal.scss";
 import { Button } from "../../Button/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { createEmployee, updateEmployee } from "../../../reducers/employees";
+import * as toast from "../../../services/toastService";
 import { useState } from "react";
 
 const EmployeeForm = ({ onRequestClose }) => {
@@ -33,12 +34,26 @@ const EmployeeForm = ({ onRequestClose }) => {
   };
 
   const onClickSave = () => {
-    dispatch(createEmployee(inputs));
+    const employeeStatus = dispatch(createEmployee(inputs));
+    employeeStatus.then((response) => {
+      if (response) {
+        toast.invetorySuccess("Empleado creado con éxito");
+      } else {
+        toast.inventoryError("Error al crear empleado");
+      }
+    });
     onRequestClose();
   };
 
   const onEditSave = () => {
-    dispatch(updateEmployee(inputs));
+    const employeeStatus = dispatch(updateEmployee(inputs));
+    employeeStatus.then((response) => {
+      if (response) {
+        toast.invetorySuccess("Empleado actualizado con éxito");
+      } else {
+        toast.inventoryError("Error al editar empleado");
+      }
+    });
     onRequestClose();
   };
 
@@ -52,6 +67,7 @@ const EmployeeForm = ({ onRequestClose }) => {
               className="input-form"
               type="text"
               placeholder="Nombre"
+              spellCheck="false"
               value={inputs.name}
               onChange={handleInputChange}
             />
@@ -62,6 +78,7 @@ const EmployeeForm = ({ onRequestClose }) => {
               className="input-form"
               type="text"
               placeholder="Apellidos"
+              spellCheck="false"
               value={inputs.lastName}
               onChange={handleInputChange}
             />
@@ -72,6 +89,7 @@ const EmployeeForm = ({ onRequestClose }) => {
               className="input-form"
               type="text"
               placeholder="Teléfono"
+              spellCheck="false"
               value={inputs.phone}
               onChange={handleInputChange}
             />
@@ -82,6 +100,7 @@ const EmployeeForm = ({ onRequestClose }) => {
               className="input-form"
               type="text"
               placeholder="Ci"
+              spellCheck="false"
               value={inputs.ci}
               onChange={handleInputChange}
             />
@@ -91,7 +110,8 @@ const EmployeeForm = ({ onRequestClose }) => {
               name="startDate"
               className="input-form"
               type="text"
-              placeholder="Fecha de nacimiento"
+              placeholder="Fecha de inicio"
+              spellCheck="false"
               value={inputs.startDate}
               onChange={handleInputChange}
             />
@@ -102,6 +122,7 @@ const EmployeeForm = ({ onRequestClose }) => {
               className="input-form"
               type="text"
               placeholder="Nacionalidad"
+              spellCheck="false"
               value={inputs.nationality}
               onChange={handleInputChange}
             />
@@ -112,6 +133,7 @@ const EmployeeForm = ({ onRequestClose }) => {
               className="input-form"
               type="text"
               placeholder="Fecha de nacimiento"
+              spellCheck="false"
               value={inputs.dateOfBirth}
               onChange={handleInputChange}
             />

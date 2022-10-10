@@ -3,6 +3,7 @@ import "./InventoryMode.scss";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import { Outlet } from "react-router-dom";
 import Navbar from "../../components/NavBar/Navbar";
+import { Toaster } from "react-hot-toast";
 
 
 const InventoryMode = () => {
@@ -21,6 +22,7 @@ const InventoryMode = () => {
           </div>
         </div>
       </div>
+      <Toaster />
     </div>
   );
 };

@@ -21,25 +21,26 @@ const clientSlice = createSlice({
     addClient: (state, action) => {
       state.data.push(action.payload);
     },
-    removeClient: (state, action) => {
+    editClient: (state, action) => {
       state.data = state.data.map((client) => {
         if (client._id === action.payload._id) {
-          client.isVisible = false;
+          client = action.payload;
         }
         return client;
       });
-    },
+    }
   },
 });
 
-export const { setInitialState, addClient, setActualClient, removeClient } =
+export const { setInitialState, addClient, setActualClient, editClient } =
   clientSlice.actions;
 export default clientSlice.reducer;
 
+
 export const getAllClients = () => async (dispatch) => {
   try {
-    const data = await axios.get(API_URL);
-    dispatch(setInitialState(data.data));
+    const clients = await axios.get(API_URL);
+    dispatch(setInitialState(clients.data));
   } catch (err) {
     console.error(err);
   }
@@ -47,8 +48,9 @@ export const getAllClients = () => async (dispatch) => {
 
 export const createClient = (data) => async (dispatch) => {
   try {
-    await axios.post(API_URL, data);
-    dispatch(getAllClients());
+    const newClient = await axios.post(API_URL, data);
+    dispatch(addClient(newClient.data));
+    return newClient.status;
   } catch (err) {
     console.error(err);
   }
@@ -56,8 +58,9 @@ export const createClient = (data) => async (dispatch) => {
 
 export const deleteClient = (data) => async (dispatch) => {
   try {
-    await axios.put(`${API_URL}/delete`, data);
-    dispatch(removeClient(data));
+    const deletedClient = await axios.put(`${API_URL}/delete`, data);
+    dispatch(editClient(deletedClient.data));
+    return deletedClient.status
   } catch (err) {
     console.error(err);
   }
@@ -65,8 +68,9 @@ export const deleteClient = (data) => async (dispatch) => {
 
 export const updateClient = (data) => async (dispatch) => {
   try {
-    await axios.put(`${API_URL}/update`, data);
-    dispatch(getAllClients());
+    const updatedClient = await axios.put(`${API_URL}/update`, data);
+    dispatch(editClient(updatedClient.data));
+    return updatedClient.status;
   } catch (err) {
     console.error(err);
   }

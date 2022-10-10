@@ -4,6 +4,8 @@ import ConfirmationModal from "./DeleteModal/ConfirmationModal";
 import ClientForm from "./CreateModal/ClientForm";
 import EmployeeForm from "./CreateModal/EmployeeForm";
 import ViewForm from "./ViewModal/ViewForm";
+import ProductForm from "./CreateModal/ProductForm";
+import ProviderForm from "./CreateModal/ProviderForm";
 import { useSelector } from "react-redux";
 import "./DialogModal.scss";
 
@@ -14,6 +16,8 @@ const ModalContainer = ({ isOpen, onRequestClose }) => {
   const entityForm = {
     client: <ClientForm onRequestClose={onRequestClose} />,
     employee: <EmployeeForm onRequestClose={onRequestClose} />,
+    product: <ProductForm onRequestClose={onRequestClose} />,
+    provider: <ProviderForm onRequestClose={onRequestClose} />,
   };
 
   Modal.setAppElement("#root");
@@ -29,7 +33,7 @@ const ModalContainer = ({ isOpen, onRequestClose }) => {
           <span className="material-symbols-outlined icon-form">close</span>
         </div>
         {modalAction === "delete" ? (
-          <ConfirmationModal onClickCancel={onRequestClose} />
+          <ConfirmationModal onClickCancel={onRequestClose}/>
         ) : null}
         {modalAction === "create" ? entityForm[entity] : null}
         {modalAction === "view" ? <ViewForm /> : null}

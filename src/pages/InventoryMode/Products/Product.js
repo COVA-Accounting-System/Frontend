@@ -1,52 +1,110 @@
-import React, { useMemo, useCallback, useRef } from "react";
-import { useSelector } from "react-redux";
-import { setInitialState } from "../../../reducers/product.reducer";
-import { getProducts } from "../../../services/product.service";
-import useLoadInitialData from "../../../hooks/useLoadInitialData";
+import React, {
+  useMemo,
+  useCallback,
+  useRef,
+  useEffect,
+  useState,
+} from "react";
 import Table from "../../../components/Table/Table";
+import { getAllProducts, setActualProduct } from "../../../reducers/products";
+import { changeAction, changeEntity } from "../../../reducers/crud";
 import { Button } from "../../../components/Button/Button";
 import DataTableIcons from "../../../components/DataTableActions/DataTableIcons";
+import { useDispatch, useSelector } from "react-redux";
 import "../styles/Template.styles.scss";
+import ModalContainer from "../../../components/DialogModal/ModalContainer";
 
 const Product = () => {
-
+  const dispatch = useDispatch();
   const gridRef = useRef();
 
-  useLoadInitialData(getProducts, setInitialState);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
   const products = useSelector((state) =>
-    state.products.filter((product) => product.isVisible === true)
+    state.products.data.filter((param) => param.isVisible === true)
   );
 
-  const columnDefs = useMemo(() => [
-    {
-      headerName: "Producto",
-      field: "name",
-      resizable: true,
-      sortable: true,
-    },
-    {
-      headerName: "Descripcion",
-      field: "description",
-      resizable: true,
-      sortable: true,
-    },
-    // { headerName: "Fotografia", field: "photography", resizable: true },
-    { headerName: "Precio por unidad", field: "unitPrice", resizable: true, sortable: true },
-    {
-      headerName: "Precio por docena",
-      field: "dozenPrice",
-      resizable: false,
-      sortable: false,
-      // width: 120,
-    },
-    {
-      headerName: " ",
-      resizable: false,
-      cellRenderer: DataTableIcons,
-      pinned: "right",
-      width: 224,
-    },
-  ],[]);
+  useEffect(() => {
+    dispatch(getAllProducts());
+    dispatch(changeEntity({ entity: "product", entityName: "productos" }));
+  }, [dispatch]);
+
+  const columnDefs = useMemo(
+    () => [
+      {
+        headerName: "Producto",
+        field: "name",
+        resizable: true,
+        sortable: true,
+        minWidth: 130,
+        width: 180,
+        maxWidth: 250,
+      },
+      {
+        headerName: "Descripcion",
+        field: "description",
+        resizable: true,
+        sortable: false,
+        minWidth: 130,
+        width: 240,
+        maxWidth: 350
+      },
+      // { headerName: "Fotografia", field: "photography", resizable: true },
+      {
+        headerName: "Precio por unidad",
+        field: "unitPrice",
+        resizable: false,
+        sortable: true,
+        minWidth: 200,
+        // width: 180,
+        maxWidth: 250,
+      },
+      {
+        headerName: "Precio por docena",
+        field: "dozenPrice",
+        resizable: false,
+        sortable: true,
+        // maxWidth: 220,
+        minWidth: 200,
+        flex: 1,
+      },
+      {
+        headerName: " ",
+        resizable: false,
+        pinned: "right",
+        minWidth: 224,
+        cellRenderer: DataTableIcons,
+        colId: "Actions",
+        cellRendererParams: {
+          openModal: () => {
+            setModalIsOpen(true);
+          },
+          setData: (data) => {
+            dispatch(setActualProduct(data));
+          },
+          dispatchAction: (action) => {
+            dispatch(changeAction(action));
+          },
+        },
+      },
+    ],
+    []
+  );
+
+  const gridOptions = useMemo(
+    () => ({
+      pagination: false,
+      onGridReady: (params) => {
+        // params.api.sizeColumnsToFit();
+      },
+      onGridSizeChanged: (params) => {
+        // params.api.sizeColumnsToFit();
+      },
+      columnDefs: columnDefs,
+      cacheQuickFilter: true,
+      animateRows: true,
+    }),
+    [columnDefs]
+  );
 
   const onFilterTextBoxChanged = useCallback(() => {
     gridRef.current.api.setQuickFilter(
@@ -54,21 +112,6 @@ const Product = () => {
     );
   }, []);
 
-
-  const gridOptions = useMemo(() => ({
-    pagination: false,
-    onGridReady: (params) => {
-      params.api.sizeColumnsToFit();
-      // params.columnApi.autoSizeAllColumns();
-    },
-    onGridSizeChanged: (params) => {
-      // params.columnApi.autoSizeAllColumns();
-      params.api.sizeColumnsToFit();
-    },
-    columnDefs: columnDefs,
-    cacheQuickFilter: true,
-    animateRows: true
-  }), [columnDefs])
 
   return (
     <div>
@@ -92,18 +135,26 @@ const Product = () => {
                 label={"Crear producto"}
                 type={"create"}
                 system={"inventory"}
+                onClick={() => {
+                  setModalIsOpen(true);
+                  dispatch(changeAction("create"));
+                }}
               />
             </div>
           </div>
           <div>
             <Table
-              rowData={products}
-              gridOptions={gridOptions}
               gridRef={gridRef}
+              gridOptions={gridOptions}
+              rowData={products}
             />
           </div>
         </div>
       </div>
+      <ModalContainer
+        isOpen={modalIsOpen}
+        onRequestClose={() => setModalIsOpen(false)}
+      />
     </div>
   );
 };

@@ -21,25 +21,25 @@ const employeeSlice = createSlice({
     addEmployee: (state, action) => {
       state.data.push(action.payload);
     },
-    removeEmployee: (state, action) => {
+    editEmployee: (state, action) => {
       state.data = state.data.map((employee) => {
         if (employee._id === action.payload._id) {
-          employee.isVisible = false;
+          employee = action.payload;
         }
         return employee;
       });
-    },
+    }
   },
 });
 
-export const { setInitialState, addEmployee, setActualEmployee, removeEmployee } =
+export const { setInitialState, addEmployee, setActualEmployee, editEmployee } =
   employeeSlice.actions;
 export default employeeSlice.reducer;
 
 export const getAllEmployees = () => async (dispatch) => {
   try {
-    const data = await axios.get(API_URL);
-    dispatch(setInitialState(data.data));
+    const employees = await axios.get(API_URL);
+    dispatch(setInitialState(employees.data));
   } catch (err) {
     console.error(err);
   }
@@ -47,8 +47,9 @@ export const getAllEmployees = () => async (dispatch) => {
 
 export const createEmployee = (data) => async (dispatch) => {
   try {
-    await axios.post(API_URL, data);
-    dispatch(getAllEmployees());
+    const newEmployee = await axios.post(API_URL, data);
+    dispatch(addEmployee(newEmployee.data));
+    return newEmployee.status
   } catch (err) {
     console.error(err);
   }
@@ -56,8 +57,9 @@ export const createEmployee = (data) => async (dispatch) => {
 
 export const deleteEmployee = (data) => async (dispatch) => {
   try {
-    await axios.put(`${API_URL}/delete`, data);
-    dispatch(removeEmployee(data));
+    const deletedEmployee = await axios.put(`${API_URL}/delete`, data);
+    dispatch(editEmployee(deletedEmployee.data));
+    return deletedEmployee.status
   } catch (err) {
     console.error(err);
   }
@@ -65,8 +67,9 @@ export const deleteEmployee = (data) => async (dispatch) => {
 
 export const updateEmployee = (data) => async (dispatch) => {
   try {
-    await axios.put(`${API_URL}/update`, data);
-    dispatch(getAllEmployees());
+    const updatedEmployee = await axios.put(`${API_URL}/update`, data);
+    dispatch(editEmployee(updatedEmployee.data));
+    return updatedEmployee.status
   } catch (err) {
     console.error(err);
   }

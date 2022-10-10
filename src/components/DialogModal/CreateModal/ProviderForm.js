@@ -2,25 +2,27 @@ import React from "react";
 import "../DialogModal.scss";
 import { Button } from "../../Button/Button";
 import { useDispatch, useSelector } from "react-redux";
-import { createClient, updateClient } from "../../../reducers/clients";
+import { createProvider, updateProvider } from "../../../reducers/providers";
 import * as toast from "../../../services/toastService";
 import { useState } from "react";
 
-const ClientForm = ({ onRequestClose }) => {
+const ProviderForm = ({ onRequestClose }) => {
   const entity = useSelector((state) => state.crud.entityName);
   const action = useSelector((state) => state.crud.action);
-  const client = useSelector((state) => state.clients.actualClient);
+  const provider = useSelector((state) => state.providers.actualProvider);
   const dispatch = useDispatch();
 
   const [inputs, setInputs] = useState(
     action === "create"
       ? {
-          name: "",
-          lastName: "",
+          storeName: "",
+          nit: "",
           phone: "",
-          inDebt: "",
+          city: "",
+          country: "",
+          address: "",
         }
-      : client
+      : provider
   );
 
   const handleInputChange = (event) => {
@@ -31,24 +33,24 @@ const ClientForm = ({ onRequestClose }) => {
   };
 
   const onClickSave = () => {
-    const clientStatus = dispatch(createClient(inputs));
-    clientStatus.then((response) => {
+    const providerStatus = dispatch(createProvider(inputs));
+    providerStatus.then((response) => {
       if (response) {
-        toast.invetorySuccess("Cliente creado con éxito");
+        toast.invetorySuccess("Proveedor creado con éxito");
       } else {
-        toast.inventoryError("Error al crear cliente");
+        toast.inventoryError("Error al crear proveedor");
       }
     });
     onRequestClose();
   };
 
   const onEditSave = () => {
-    const clientStatus = dispatch(updateClient(inputs));
-    clientStatus.then((response) => {
+    const providerStatus = dispatch(updateProvider(inputs));
+    providerStatus.then((response) => {
       if (response) {
-        toast.invetorySuccess("Cliente actualizado con éxito");
+        toast.invetorySuccess("Proveedor actualizado con éxito");
       } else {
-        toast.inventoryError("Error al editar cliente");
+        toast.inventoryError("Error al editar proveedor");
       }
     });
     onRequestClose();
@@ -62,23 +64,23 @@ const ClientForm = ({ onRequestClose }) => {
         </h1>
         <div className="input-form-container">
           <input
-            name="name"
+            name="storeName"
             className="input-form"
             type="text"
-            placeholder="Nombre"
+            placeholder="Nombre de la tienda"
             spellCheck="false"
-            value={inputs.name}
+            value={inputs.storeName}
             onChange={handleInputChange}
           />
         </div>
         <div className="input-form-container">
           <input
-            name="lastName"
+            name="nit"
             className="input-form"
             type="text"
-            placeholder="Apellidos"
+            placeholder="NIT"
             spellCheck="false"
-            value={inputs.lastName}
+            value={inputs.nit}
             onChange={handleInputChange}
           />
         </div>
@@ -95,23 +97,38 @@ const ClientForm = ({ onRequestClose }) => {
         </div>
         <div className="input-form-container">
           <input
-            name="inDebt"
+            name="city"
             className="input-form"
             type="text"
-            placeholder="Deuda"
+            placeholder="Ciudad"
             spellCheck="false"
-            value={inputs.inDebt}
+            value={inputs.city}
             onChange={handleInputChange}
           />
         </div>
-        <div className="in-debt-warning">
-          <span className="material-symbols-outlined warning-icon">error</span>
-          <span>
-            Esta es la cantidad que adeuda el cliente al momento de registrarlo
-            en el sistema
-          </span>
+        <div className="input-form-container">
+          <input
+            name="country"
+            className="input-form"
+            type="text"
+            placeholder="País"
+            spellCheck="false"
+            value={inputs.country}
+            onChange={handleInputChange}
+          />
         </div>
-        <div className="button-container">
+        <div className="input-form-container">
+          <input
+            name="address"
+            className="input-form"
+            type="text"
+            placeholder="Dirección"
+            spellCheck="false"
+            value={inputs.address}
+            onChange={handleInputChange}
+          />
+        </div>
+        <div className="button-container-employee">
           <Button
             label={"Guardar"}
             type={"confirm"}
@@ -124,4 +141,4 @@ const ClientForm = ({ onRequestClose }) => {
   );
 };
 
-export default ClientForm;
+export default ProviderForm
