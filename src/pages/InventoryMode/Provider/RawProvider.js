@@ -30,7 +30,7 @@ const RawProvider = () => {
   useEffect(() => {
     dispatch(getAllProviders());
     dispatch(changeEntity({ entity: "provider", entityName: "proveedor" }));
-  }, [dispatch, providers]);
+  }, [dispatch]);
 
   const columnDefs = useMemo(
     () => [

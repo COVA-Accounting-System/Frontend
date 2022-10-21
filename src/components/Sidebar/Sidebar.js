@@ -12,11 +12,7 @@ const Sidebar = () => {
   return (
     <div className="sidebar-container">
       <div className="button-mode-container">
-        <Button
-          label={"MODO INVENTARIO"}
-          system={"inventory"}
-          type={"changeMode"}
-        />
+        ACSYS
       </div>
 
       <div className="elements-group">

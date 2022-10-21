@@ -1,6 +1,6 @@
 $primary-inventory-color: #32B284;
 $font-color: #FFFFFF;
-$primary-accounting-color: #5184DA;
+$primary-accounting-color: #109AC6;
 $secondary-global-color: #758399;
 $delete-color: #EE6270;
 
@@ -20,6 +20,19 @@ $delete-color: #EE6270;
 
 .button-accounting-mode{
     background-color: $primary-accounting-color;
+}
+
+.button-login{
+    font-weight: 600;
+    width: 130px;
+    font-size: 15px; 
+    border-radius: 5px;
+    padding: 14px 0;
+    box-shadow: 0px 0.5vh 1.5vh #C2C2C2;;
+    background-color: $primary-accounting-color;
+    &:hover{
+        background-color: #0d85ad;
+    }
 }
 
 .button-confirm{

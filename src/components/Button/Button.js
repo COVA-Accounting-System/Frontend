@@ -13,7 +13,7 @@ export const Button = ({label, type, system, onClick }) => {
 
 Button.propTypes = {
 
-    type: PropTypes.oneOf(['create', 'confirm', 'cancel', 'changeMode', 'confirm-delete', 'cancel-delete']).isRequired,
+    type: PropTypes.oneOf(['create', 'confirm', 'cancel', 'changeMode', 'confirm-delete', 'cancel-delete', 'login']).isRequired,
     system: PropTypes.oneOf(['inventory', 'accounting']),
     label: PropTypes.string.isRequired,
     onClick: PropTypes.func,

@@ -1,0 +1,70 @@
+$border-color: #949eaf;
+$title-color: #5d6a7e;
+$primary-color: #109ac6;
+
+.input-element-container{
+    position: relative;
+    width: 300px;
+    .input-element-standard{
+        width: 100%;
+        box-sizing: border-box;
+        border-radius: 4px;
+        border: 1px solid $border-color;
+        padding: 10px 10px;
+        font-size: 15px;
+        color: $title-color;
+        &:hover{
+            border: 1px solid $title-color;
+            &~.label-element{
+                color: $title-color;
+            }
+        }
+        &:valid{
+            outline: none;
+            border: 1px solid $border-color;
+            color: $title-color;
+            font-size: 15px;
+            &~.label-element{
+                color: $title-color;
+                background-color: #ffff;
+                top: -9px;
+                font-size: 12px;
+                padding-left: 4px;
+                padding-right: 4px;
+                left: 5px;
+            }
+        }
+         &:focus{
+            outline: none;
+            border: 1px solid $primary-color;
+            color: $title-color;
+            font-size: 15px;
+            &~.label-element{
+                color: $primary-color;
+                background-color: #ffff;
+                top: -9px;
+                font-size: 12px;
+                padding-left: 4px;
+                padding-right: 4px;
+                left: 5px;
+            }
+        }
+ 
+    
+    }
+    .input-element-error{
+
+    }
+    .input-element-outfield{
+
+    }
+    .label-element{
+        position: absolute;
+        left: 9px;
+        color: $border-color;
+        font-size: 15px;
+        top: 10px;
+        transition: 0.3s;
+        pointer-events: none;
+    }
+}

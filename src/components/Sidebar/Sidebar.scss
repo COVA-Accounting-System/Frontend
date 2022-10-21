@@ -25,15 +25,17 @@ ul {
   text-decoration: none;
   color: $font-color;
   font-weight: 500;
-  font-size: 15px;
+  border-radius: 7px;
+  font-size: 14px;
   display: flex;
-  padding-left: 3vw;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  margin-left: 1.3vw;
+  margin-right: 1.3vw;
+  padding-left: 2vw;
+  padding-top: 12px;
+  padding-bottom: 12px;
   //   align-items: flex-start;
 //   vertical-align: middle;
   &:hover {
-    
     color: $background-color;
     background-color: $font-color;
     // background-color: $primary-color;
@@ -43,9 +45,10 @@ ul {
 .active{
     color: $background-color;
     background-color: $primary-color;
+    // padding: 0 1.3vw 0 1.3vw;
     &:hover {
         color: $background-color;
-    background-color: $primary-color;
+        background-color: $primary-color;
       }
       &:active {
         color: $background-color;
@@ -73,7 +76,7 @@ ul {
     display: flex;
     color: $font-color;
     font-weight: 600;
-    font-size: 12px;
+    font-size: 10px;
     padding-left: 1.3vw;
     padding-top: 10px;
     padding-bottom: 10px;
