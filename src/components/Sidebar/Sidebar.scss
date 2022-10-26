@@ -1,83 +1,84 @@
 $background-color: #f1f3f6;
-// $font-color: #949eaf;
+$title-color: #5D6A7E;
 $font-color: #758399;
-$primary-color: #32B284;
-
+$icon-color: #384a66;
+$toggle-background-color: #e6e9f0;
 
 .sidebar-container {
-  //   display: grid;
-  //   grid-template-rows: 100px 160px auto auto;
-  width: 17vw;
   width: 245px;
-  height: 100vh;
+  height: 100%;
   background-color: $background-color;
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
+  
 
-  .button-mode-container {
-    padding: 2vh 1.3vw 3vh 1.3vw;
+  .sidebar-title {
+    padding-left: 40px;
+    color: $title-color;
   }
 }
 
 ul {
   list-style-type: none;
+  margin: 0;
+  padding: 0;
 }
 
 .element {
   text-decoration: none;
   color: $font-color;
-  font-weight: 500;
-  border-radius: 7px;
+  font-weight: 600;
   font-size: 14px;
-  display: flex;
-  margin-left: 1.3vw;
-  margin-right: 1.3vw;
-  padding-left: 2vw;
-  padding-top: 12px;
-  padding-bottom: 12px;
-  //   align-items: flex-start;
-//   vertical-align: middle;
+  padding: 14px 0px 14px 35px;
+  display: block;
+  border-right-width: 0px;
+  border-right-style: solid;
+  position: relative;
+  transition: all 0.2s ease-in-out;
   &:hover {
-    color: $background-color;
-    background-color: $font-color;
-    // background-color: $primary-color;
+    color: $icon-color;
+    transition: color 0s ease-in-out;
+    cursor: pointer;
   }
 }
 
-.active{
-    color: $background-color;
-    background-color: $primary-color;
-    // padding: 0 1.3vw 0 1.3vw;
-    &:hover {
-        color: $background-color;
-        background-color: $primary-color;
-      }
-      &:active {
-        color: $background-color;
-        background-color: $primary-color;
-      }
+.ul-element-inside {
+  overflow: hidden;
+  height: 0px;
+  border-bottom: 0px solid $toggle-background-color;
+  border-top: 0px solid $toggle-background-color;
+  transition: all 0.3s ease-out;
 }
 
-
-.side-bar-icon {
-  font-size: 23px;
+.element-inside {
+  text-decoration: none;
+  color: $font-color;
+  font-weight: 600;
+  font-size: 14px;
+  display: block;
+  border-right-width: 0px;
+  border-right-style: solid;
+  padding: 14px 0px 14px 80px;
+  display: block;
+  transition: all 0.2s ease-in-out;
+  &:hover {
+    color: $icon-color;
+    cursor: pointer;
+  }
 }
 
-.element-name {
-  margin-left: 10px;
-//   padding-top: 2px;
-    padding-top: 0.5vh;
+.global-icon-class {
+  margin-right: 14px;
+  font-size: 1.1rem;
+  text-align: right;
+  transform: translateY(3px);
 }
 
-.elements-group {
-  margin-bottom: 15px;
-  margin-top: 15px;
-}
-
-.flex-ul-display{
-    display: flex;
-    color: $font-color;
-    font-weight: 600;
-    font-size: 10px;
-    padding-left: 1.3vw;
-    padding-top: 10px;
-    padding-bottom: 10px;
+.arrow-icon-class {
+  position: absolute;
+  right: 20px;
+  font-size: 1.3rem;
+  top: 16px;
+  transition: transform 0.5s ease;
 }

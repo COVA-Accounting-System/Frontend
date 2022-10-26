@@ -1,24 +1,23 @@
-body{
-    background-color: #ffff;
-}
-
 
 .view-container{
     display: grid;
-    grid-template-columns: 17vw 83vw;
+    height: 100vh;
+    grid-template-columns: 245px auto;
 
-    .sidebar-container{
-        
+    .sidebar-component-container{
+        // margin: 0;
+        height: 100%;
+
     }
-
     .content-container{
         display: grid;
-        grid-template-rows: 11vh 89vh;
+        grid-template-rows: 80px auto;
         .navbar-container{
         
         }
         .data-container{
-
+            // height: calc(100vh - 80px);
+            // overflow: auto;
         }
     }
 }

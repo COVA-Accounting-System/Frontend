@@ -40,6 +40,7 @@ const Login = () => {
   const onLogin = async (event) => {
     event.preventDefault();
     const { loginSuccess, token } = await authentication(email, password);
+    console.log(loginSuccess)
     if (loginSuccess) {
       dispatch(setLogged(loginSuccess));
     } else {
@@ -53,7 +54,7 @@ const Login = () => {
   return (
     <>
       {isLogged ? (
-        <Navigate to={"/inventory-mode/"} replace={true} />
+        <Navigate to={"/accounting-mode/"} replace={true} />
       ) : (
         <div className="box-container">
           <div className="border">

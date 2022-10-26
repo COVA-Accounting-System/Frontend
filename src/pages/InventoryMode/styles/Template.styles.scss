@@ -1,11 +1,16 @@
 $title-color: #5D6A7E;
 $subtitle-color: #a3aab7;
 $secondary-color: #C3CAD6;
+$queque-color: #D35F7B;
+$order-background-color: #F1F3F6;
+$production-color: #A475B4;
+$finished-color: #33ABA4;
+$white-color: #FFFFFF;
 
 
 .page-container{
-        // margin: 5vh 5vw;
-        margin: 0% 6%;
+    margin: 15px 50px;
+    // width: 100vw;
 }
 
 .elements-container{
@@ -19,7 +24,7 @@ $secondary-color: #C3CAD6;
 }
 
 .page-title{
-    font-size: 7.5vh;
+    font-size: 27px;
     font-weight: 700;
     margin-top: 0;
     margin-bottom: 0;
@@ -57,7 +62,80 @@ $secondary-color: #C3CAD6;
 }
 
 .button-container{
-//     display: flex;
-//     align-items: center;
     padding-top: 3vh;
+}
+
+
+.section-task-bar{
+    position: relative;
+
+}
+///order 
+
+.order-task-bar{
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+    display: grid;
+    grid-template-columns: auto auto;
+    margin-bottom: 20px;
+    .order-task-bar-status{
+        margin-top: 40px;
+        display: flex;
+        .button-change{
+            display: flex;
+            cursor: pointer;
+            justify-content: center;
+            align-items: center;
+            color: $white-color;
+            font-size: 15px;
+            font-weight: 600;
+            margin-right: 20px;
+            width: 150px;
+            height: 40px;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            &-queque{
+                background-color: $queque-color;
+            }
+            &-production{
+                background-color: $production-color;
+            }
+            &-finished{
+                background-color: $finished-color;
+            }
+            &:hover{
+                height: 45px;
+                margin-top: -5px;
+                // font-weight: 700;
+                // transition: height 0.2s, margin-top 0.2s;
+            }
+            transition: all 0.2s;
+        }
+    }
+    .order-task-bar-create{
+        // position: absolute;
+        text-align: right;
+        vertical-align: text-bottom;
+        transform: translateY( 35px );
+        // margin: 0;
+        margin-right: 20px;
+        // right: 10px;
+    }
+}
+
+.order-list-container{
+    height: calc(100vh - 260px);
+    overflow: auto;
+    user-select: none;
+    -webkit-user-select: none;
+    .order-element{
+        // width: 100%;
+        margin-right: 12px;
+        background-color: $order-background-color;
+        border-radius: 5px;
+        height: 70px;
+        margin-bottom: 10px;
+        cursor: pointer;
+    }
 }
