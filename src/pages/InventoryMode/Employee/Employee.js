@@ -12,6 +12,7 @@ import {
 } from "../../../reducers/employees";
 import { changeAction, changeEntity } from "../../../reducers/crud";
 import { Button } from "../../../components/Button/Button";
+import Input from "../../../components/Input/Input";
 import DataTableIcons from "../../../components/DataTableActions/DataTableIcons";
 import { useDispatch, useSelector } from "react-redux";
 import "../styles/Template.styles.scss";
@@ -36,68 +37,66 @@ const Employee = () => {
       {
         headerName: "Nombre",
         field: "name",
-        resizable: true,
+        resizable: false,
         sortable: true,
-        width: 180,
-        minWidth: 120,
-        maxWidth: 250
+        width: 160,
+        // minWidth: 120,
+        // maxWidth: 250,
       },
       {
         headerName: "Apellidos",
         field: "lastName",
-        resizable: true,
+        resizable: false,
         sortable: true,
-        minWidth: 130,
+        // minWidth: 130,
         width: 210,
-        maxWidth: 250
+        // maxWidth: 250,
       },
       {
         headerName: "CI",
         field: "ci",
-        resizable: true,
+        resizable: false,
         sortable: false,
         width: 130,
-        minWidth: 60,
-        maxWidth: 160
+        // minWidth: 60,
+        // maxWidth: 160,
       },
       {
         headerName: "Teléfono",
         field: "phone",
-        resizable: true,
+        resizable: false,
         width: 140,
-        minWidth: 110,
-        maxWidth: 160
+        // minWidth: 110,
+        // maxWidth: 160,
       },
       {
         headerName: "Fecha de inicio",
         field: "startDate",
         resizable: false,
         sortable: true,
-        width: 180,
-        minWidth: 180,
-        maxWidth: 180
-      },
-      {
-        headerName: "Fecha de nacimiento",
-        field: "dateOfBirth",
-        resizable: false,
-        sortable: true,
-        width: 220,
-        minWidth: 220,
+        width: 150,
       },
       {
         headerName: "Nacionalidad",
         field: "nationality",
         resizable: false,
         sortable: true,
-        width: 180,
-        minWidth: 180,
+        width: 150,
+        // minWidth: 140,
+      },
+      {
+        headerName: "Fecha de nacimiento",
+        field: "dateOfBirth",
+        resizable: false,
+        sortable: true,
+        width: 190,
+        // minWidth: 190,
       },
       {
         headerName: " ",
         resizable: false,
         pinned: "right",
-        minWidth: 224,
+        maxWidth: 160,
         cellRenderer: DataTableIcons,
         colId: "Actions",
         cellRendererParams: {
@@ -119,12 +118,6 @@ const Employee = () => {
   const gridOptions = useMemo(
     () => ({
       pagination: false,
-      // onGridReady: (params) => {
-      //   params.columnApi.autoSizeAllColumns();
-      // },
-      // onGridSizeChanged: (params) => {
-      //   params.columnApi.autoSizeAllColumns();
-      // },
       columnDefs: columnDefs,
       cacheQuickFilter: true,
       animateRows: true,
@@ -141,38 +134,37 @@ const Employee = () => {
   return (
     <div>
       <div className="page-container">
+        <h1 className="page-title">Empleados</h1>
         <div className="elements-container">
-          <h1 className="page-title">Empleados</h1>
-          <div className="filter-container">
+          <section className="task-bar-datatable">
             <div className="input-container">
-              <input
-                className="search-input"
-                type="text"
-                placeholder="Buscar..."
-                id="filter-text-box"
-                spellCheck="false"
-                onInput={onFilterTextBoxChanged}
+              <Input
+                id={"filter-text-box"}
+                label={"Buscar"}
+                type={"text"}
+                style={"botton-border"}
+                onChange={onFilterTextBoxChanged}
               />
             </div>
             <div className="button-container">
               <Button
                 label={"Crear empleado"}
-                type={"create"}
-                system={"inventory"}
+                type={"login"}
+                system={"accounting"}
                 onClick={() => {
                   setModalIsOpen(true);
                   dispatch(changeAction("create"));
                 }}
               />
             </div>
-          </div>
-          <div>
+          </section>
+          <section className="table-section">
             <Table
               gridRef={gridRef}
               gridOptions={gridOptions}
               rowData={employees}
             />
-          </div>
+          </section>
         </div>
       </div>
       <ModalContainer

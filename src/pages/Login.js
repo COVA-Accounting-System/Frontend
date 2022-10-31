@@ -17,7 +17,7 @@ const Login = () => {
   const [passwordType, setPasswordType] = useState("password");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const isLogged = useSelector((state) => (state.authentication.isLogged));
+  const isLogged = useSelector((state) => state.authentication.isLogged);
 
   const handleEmailInput = (event) => {
     event.preventDefault();
@@ -40,15 +40,15 @@ const Login = () => {
   const onLogin = async (event) => {
     event.preventDefault();
     const { loginSuccess, token } = await authentication(email, password);
-    console.log(loginSuccess)
+    console.log(loginSuccess);
     if (loginSuccess) {
       dispatch(setLogged(loginSuccess));
     } else {
       inventoryError("Usuario o contraseña incorrectos");
       dispatch(setLogged(loginSuccess));
     }
-    setEmail("")
-    setPassword("")
+    setEmail("");
+    setPassword("");
   };
 
   return (
@@ -73,8 +73,8 @@ const Login = () => {
                       <Input
                         label={"Correo electrónico"}
                         type={"text"}
-                        style={"standard"}
                         value={email}
+                        style={"standard"}
                         onChange={handleEmailInput}
                       />
                     </div>
@@ -82,8 +82,8 @@ const Login = () => {
                       <Input
                         label={"Contraseña"}
                         type={passwordType}
-                        style={"standard"}
                         value={password}
+                        style={"standard"}
                         onChange={handlePasswordInput}
                       />
                     </div>

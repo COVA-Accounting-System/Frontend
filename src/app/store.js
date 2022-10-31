@@ -5,6 +5,7 @@ import productReducer from "../reducers/products";
 import clientReducer from "../reducers/clients"
 import crud from "../reducers/crud";
 import authentication from "../reducers/authentication";
+import orderReducer from "../reducers/orders";
 
 export const store = configureStore({
   reducer: {
@@ -13,7 +14,8 @@ export const store = configureStore({
     providers: providerReducer,
     products: productReducer,
     crud: crud,
-    authentication: authentication
+    authentication: authentication,
+    orders: orderReducer
   }
 });
 

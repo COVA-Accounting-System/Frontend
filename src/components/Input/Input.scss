@@ -1,6 +1,12 @@
-$border-color: #949eaf;
+$border-color: #bbc4d5;
+$background-color: #f1f3f6;
 $title-color: #5d6a7e;
 $primary-color: #109ac6;
+$toggle-background-color: #f1f2f7;
+$title-alternative-color: #61728b;
+$subtitle-color: #758399;
+$font-color: #8f9db2;
+$icon-color: #384a66;
 
 .input-element-container{
     position: relative;
@@ -12,20 +18,14 @@ $primary-color: #109ac6;
         border: 1px solid $border-color;
         padding: 10px 10px;
         font-size: 15px;
+        font-weight: 500;
         color: $title-color;
-        &:hover{
-            border: 1px solid $title-color;
-            &~.label-element{
-                color: $title-color;
-            }
-        }
         &:valid{
             outline: none;
             border: 1px solid $border-color;
             color: $title-color;
-            font-size: 15px;
-            &~.label-element{
-                color: $title-color;
+            &~.label-element-standard{
+                color: $font-color;
                 background-color: #ffff;
                 top: -9px;
                 font-size: 12px;
@@ -34,12 +34,16 @@ $primary-color: #109ac6;
                 left: 5px;
             }
         }
+        &:hover{
+            border: 1px solid $font-color;
+            &~.label-element-standard{
+                color: $title-alternative-color;
+            }
+        }
          &:focus{
             outline: none;
             border: 1px solid $primary-color;
-            color: $title-color;
-            font-size: 15px;
-            &~.label-element{
+            &~.label-element-standard{
                 color: $primary-color;
                 background-color: #ffff;
                 top: -9px;
@@ -52,19 +56,262 @@ $primary-color: #109ac6;
  
     
     }
-    .input-element-error{
-
+    .input-element-botton-border{
+        @extend .input-element-standard;
+        border: 0px;
+        border-bottom: 1px solid $border-color;
+        border-radius: 0px;
+        padding: 10px 4px;
+        &:valid{
+            border: 0px;
+            border-bottom: 1px solid $border-color;
+            &~.label-element-botton-border{
+                left: 0px;
+            }
+        }
+        &:hover{
+            border: 0px;
+            border-bottom: 1px solid $font-color;
+        }
+         &:focus{
+            border: 0px;
+            border-bottom: 1px solid $primary-color;
+            &~.label-element-botton-border{
+                left: 0px;
+            }
+        }
     }
-    .input-element-outfield{
-
-    }
-    .label-element{
+    .label-element-standard{
         position: absolute;
         left: 9px;
-        color: $border-color;
+        color: $font-color;
         font-size: 15px;
         top: 10px;
-        transition: 0.3s;
+        font-weight: 500;
+        transition: 0.2s ease;
         pointer-events: none;
     }
+    .label-element-botton-border{
+        @extend .label-element-standard;
+        left: 2px;
+    }
+}
+
+.input-select-container{
+    width: 300px;
+    position: relative;
+    // height: 50px;
+    .input-select-label{
+        margin-left: 2px;
+        font-size: 14px;
+        font-weight: 600;
+        color: $subtitle-color;
+    }
+    .input-select-element{
+        // font-weight: 500;
+        position: relative;
+        border-radius: 4px;
+        margin-top: 5px;
+        // border: 0px;
+        border: 0px;
+        outline: 1px solid $border-color;
+        width: 100%;
+        padding: 5px 10px;
+        font-size: 15px;
+        color: $title-color;
+        box-sizing: border-box;
+        transition: 0.1s linear;
+        &:focus{
+            outline-color: $primary-color;
+            outline-width: 2px;
+            // border: 1px solid $primary-color;
+        }
+        &::placeholder{
+            color: $font-color;
+        }
+    }
+    .input-icon-expand{
+        position: absolute;
+        right: 10px;
+        bottom: 7px;
+        color: $font-color;
+        font-size: 15px;
+        text-align: right;
+    }
+    .input-select-search-element{
+        position: absolute;
+        margin-top: 5px;
+        border: 1px solid $border-color;
+        background-color: rgb(255, 255, 255);
+        box-shadow: 0px 5px 10px 0px rgba(95, 95, 95, 0.2);
+        width: 300px;
+        border-radius: 10px;
+        z-index: 1;
+        // border-top-left-radius: 0px;
+        // border-top-right-radius: 0px;
+        // &-input{
+        //     // font-weight: 500;
+        //     margin: 8px;
+
+        //     // background-color: $toggle-background-color;
+        //     width: 282px;
+        //     box-sizing: border-box;
+        //     padding: 5px 10px;
+        //     font-size: 14px;
+        //     color: $title-color;
+        //     border: 0px;
+        //     border-radius: 10px;
+        //     outline: 1px solid $border-color;
+        //     transition: outline 0.1s linear;
+        //     // outline-color: $font-color;
+        //     &:focus{
+        //         color: $title-color;
+        //         // outline-color: #109ac6;
+        //         // outline-width: 2px;
+        //     }
+        //     &::placeholder{
+        //         color: $font-color;
+        //     }
+        // }
+        .input-search-list-element{
+            // font-weight: 500;
+            overflow: auto;
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+            padding: 2px 12px;
+            // font-weight: 400;
+            height: 30px;
+            color: $title-color;
+            border-radius: 6px;
+            margin-left: 7px;
+            margin-right: 7px;
+            
+            &:hover{
+                cursor: pointer;
+                color: $title-color;
+                background-color: $background-color;
+            }
+        }
+    }
+}
+
+.input-standard{
+    margin-top: 5px;
+    font-size: 15px;
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 4px;
+    // border: 1px solid $font-color;
+    border: 0px;
+    color: $title-color;
+    padding: 5px 10px ;
+    outline: 1px solid $border-color;
+    transition: outline 0.1s linear;
+    &::placeholder{
+        color: $title-color;
+    }
+    &:focus{
+        outline-color: #109ac6;
+        outline-width: 2px; 
+    }
+}
+
+.label-standard{
+    margin-top: 2px;
+    margin-left: 2px;
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: $subtitle-color;
+    // margin-bottom: 6px;
+}
+
+.input-date-container{
+    width: 200px;
+    .input-date-label{
+       @extend .label-standard;
+    }
+    .input-name-input{
+        @extend .input-standard;
+    }
+}
+
+.number-input-container{
+    width: 170px;
+    .number-input-label{
+        @extend .label-standard;
+    }
+    .number-input-input{
+        @extend .input-standard;
+        margin-top: 7px;
+    }
+}
+
+.input-selected-amount-container{
+    // width: 200px;
+    
+    .input-selected-amount-label{
+        @extend .label-standard
+    }
+    .input-selected-container-element{
+        display: flex;
+        gap: 1.5px;
+        position: relative;
+        .input-selected-amount-input{
+            @extend .input-standard;
+            width: 85px;
+            border-top-right-radius: 0px;
+            border-bottom-right-radius: 0px;
+        }
+        .select-amount-element{
+            @extend .input-standard;
+            position: relative;
+            width: 115px;
+            border-top-left-radius: 0px;
+            border-bottom-left-radius: 0px;
+            background-color: $background-color;
+            .input-icon-expand{
+                position: absolute;
+                font-size: 15px;
+                color: $font-color;
+                top: 10px;
+                right: 9px;
+            }
+            &:focus{
+                outline-color: $border-color;
+                outline-width: 2px;
+            }
+        }
+        .select-amount-options-container{
+            position: absolute;
+            padding: 7px;
+            width: 95px;
+            // height: 110px;
+            max-height: 113px;
+            // background-color: aqua;
+            border-radius: 10px;
+            border: 1px solid $border-color;
+            box-shadow: 0px 5px 10px 0px rgba(95, 95, 95, 0.2);
+            right: 0px;
+            top: 40px;
+            background-color: #ffff;
+            overflow: auto;
+            border-top-left-radius: 0px;
+            border-top-right-radius: 0px;
+            z-index: 1;
+            // transition: max-height 0.2s ease;
+          
+            .select-amount-options-elements{
+                font-size: 14px;
+                color: $title-color;
+                border-radius: 6px;
+                padding: 9px 7px;
+                &:hover{
+                    background-color: $background-color;
+                }
+            }
+        }
+    }
+
 }

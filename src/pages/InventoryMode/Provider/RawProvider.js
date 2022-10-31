@@ -12,11 +12,11 @@ import {
 } from "../../../reducers/providers";
 import { changeAction, changeEntity } from "../../../reducers/crud";
 import { Button } from "../../../components/Button/Button";
+import Input from "../../../components/Input/Input";
 import DataTableIcons from "../../../components/DataTableActions/DataTableIcons";
 import { useDispatch, useSelector } from "react-redux";
 import "../styles/Template.styles.scss";
 import ModalContainer from "../../../components/DialogModal/ModalContainer";
-import toast, { Toaster } from "react-hot-toast";
 
 const RawProvider = () => {
   const dispatch = useDispatch();
@@ -37,61 +37,61 @@ const RawProvider = () => {
       {
         headerName: "Tienda",
         field: "storeName",
-        resizable: true,
+        resizable: false,
         sortable: true,
-        minWidth: 110,
-        width: 250,
-        maxWidth: 300,
+        // minWidth: 110,
+        width: 220,
+        // maxWidth: 300,
       },
       {
         headerName: "NIT",
         field: "nit",
-        resizable: true,
+        resizable: false,
         sortable: true,
-        minWidth: 100,
+        // minWidth: 100,
         width: 130,
-        maxWidth: 160,
+        // maxWidth: 160,
       },
       {
         headerName: "Teléfono",
         field: "phone",
-        resizable: true,
-        minWidth: 120,
+        resizable: false,
+        // minWidth: 120,
         width: 147,
-        maxWidth: 177,
+        // maxWidth: 177,
       },
       {
         headerName: "Ciudad",
         field: "city",
-        resizable: true,
+        resizable: false,
         sortable: true,
-        minWidth: 120,
+        // minWidth: 120,
         width: 150,
-        maxWidth: 180,
+        // maxWidth: 180,
       },
       {
         headerName: "Pais",
         field: "country",
-        resizable: true,
+        resizable: false,
         sortable: true,
         width: 150,
-        minWidth: 100,
-        maxWidth: 180,
+        // minWidth: 100,
+        // maxWidth: 180,
       },
       {
         headerName: "Direccion",
         field: "address",
         resizable: false,
         sortable: true,
-        minWidth: 130,
-        width: 270,
-        maxWidth: 320,
+        // minWidth: 130,
+        width: 240,
+        // maxWidth: 320,
       },
       {
         headerName: " ",
         resizable: false,
         pinned: "right",
-        minWidth: 224,
+        maxWidth: 160,
         cellRenderer: DataTableIcons,
         colId: "Actions",
         cellRendererParams: {
@@ -135,38 +135,37 @@ const RawProvider = () => {
   return (
     <div>
       <div className="page-container">
+        <h1 className="page-title">Proveedores</h1>
         <div className="elements-container">
-          <h1 className="page-title">Proveedores</h1>
-          <div className="filter-container">
+          <section className="task-bar-datatable">
             <div className="input-container">
-              <input
-                className="search-input"
-                type="text"
-                placeholder="Buscar..."
-                id="filter-text-box"
-                spellCheck="false"
-                onInput={onFilterTextBoxChanged}
+              <Input
+                id={"filter-text-box"}
+                label={"Buscar"}
+                type={"text"}
+                style={"botton-border"}
+                onChange={onFilterTextBoxChanged}
               />
             </div>
             <div className="button-container">
               <Button
                 label={"Crear proveedor"}
-                type={"create"}
-                system={"inventory"}
+                type={"login"}
+                system={"accounting"}
                 onClick={() => {
                   setModalIsOpen(true);
                   dispatch(changeAction("create"));
                 }}
               />
             </div>
-          </div>
-          <div>
+          </section>
+          <section className="table-section">
             <Table
               gridRef={gridRef}
               gridOptions={gridOptions}
               rowData={providers}
             />
-          </div>
+          </section>
         </div>
       </div>
       <ModalContainer

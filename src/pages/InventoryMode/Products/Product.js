@@ -9,6 +9,7 @@ import Table from "../../../components/Table/Table";
 import { getAllProducts, setActualProduct } from "../../../reducers/products";
 import { changeAction, changeEntity } from "../../../reducers/crud";
 import { Button } from "../../../components/Button/Button";
+import Input from "../../../components/Input/Input";
 import DataTableIcons from "../../../components/DataTableActions/DataTableIcons";
 import { useDispatch, useSelector } from "react-redux";
 import "../styles/Template.styles.scss";
@@ -33,20 +34,20 @@ const Product = () => {
       {
         headerName: "Producto",
         field: "name",
-        resizable: true,
+        resizable: false,
         sortable: true,
-        minWidth: 130,
-        width: 180,
-        maxWidth: 250,
+        // minWidth: 130,
+        width: 200,
+        // maxWidth: 250,
       },
       {
         headerName: "Descripcion",
         field: "description",
-        resizable: true,
+        resizable: false,
         sortable: false,
-        minWidth: 130,
-        width: 240,
-        maxWidth: 350
+        // minWidth: 130,
+        width: 300,
+        // maxWidth: 350,
       },
       // { headerName: "Fotografia", field: "photography", resizable: true },
       {
@@ -54,24 +55,25 @@ const Product = () => {
         field: "unitPrice",
         resizable: false,
         sortable: true,
-        minWidth: 200,
+        minWidth: 220,
         // width: 180,
-        maxWidth: 250,
+        // maxWidth: 250,
       },
       {
         headerName: "Precio por docena",
         field: "dozenPrice",
         resizable: false,
         sortable: true,
+        width: 220,
         // maxWidth: 220,
-        minWidth: 200,
+        // minWidth: 200,
         flex: 1,
       },
       {
         headerName: " ",
         resizable: false,
         pinned: "right",
-        minWidth: 224,
+        maxWidth: 160,
         cellRenderer: DataTableIcons,
         colId: "Actions",
         cellRendererParams: {
@@ -112,43 +114,40 @@ const Product = () => {
     );
   }, []);
 
-
   return (
     <div>
       <div className="page-container">
+        <h1 className="page-title">Productos</h1>
         <div className="elements-container">
-          <h1 className="page-title">Productos</h1>
-          <div className="filter-container">
+          <section className="task-bar-datatable">
             <div className="input-container">
-              <input
-                className="search-input"
-                type="text"
-                placeholder="Buscar..."
-                id="filter-text-box"
-                spellCheck="false"
-                onInput={onFilterTextBoxChanged}
+              <Input
+                id={"filter-text-box"}
+                label={"Buscar"}
+                type={"text"}
+                style={"botton-border"}
+                onChange={onFilterTextBoxChanged}
               />
             </div>
-
             <div className="button-container">
               <Button
                 label={"Crear producto"}
-                type={"create"}
-                system={"inventory"}
+                type={"login"}
+                system={"accounting"}
                 onClick={() => {
                   setModalIsOpen(true);
                   dispatch(changeAction("create"));
                 }}
               />
             </div>
-          </div>
-          <div>
+          </section>
+          <section className="table-section">
             <Table
               gridRef={gridRef}
               gridOptions={gridOptions}
               rowData={products}
             />
-          </div>
+          </section>
         </div>
       </div>
       <ModalContainer

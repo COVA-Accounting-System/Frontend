@@ -1,7 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const API_URL = "http://localhost:4001/api/inventory/employee";
+export const employeeInstance = axios.create({
+  baseURL: `${process.env.REACT_APP_DATA_API}/contact/employee`,
+  // timeout: 10000,
+  headers: {'x-access-token': localStorage.getItem('token')}
+})
+
 
 const initialState = {
   data: [],
@@ -38,7 +43,7 @@ export default employeeSlice.reducer;
 
 export const getAllEmployees = () => async (dispatch) => {
   try {
-    const employees = await axios.get(API_URL);
+    const employees = await employeeInstance.get("/");
     dispatch(setInitialState(employees.data));
   } catch (err) {
     console.error(err);
@@ -47,7 +52,7 @@ export const getAllEmployees = () => async (dispatch) => {
 
 export const createEmployee = (data) => async (dispatch) => {
   try {
-    const newEmployee = await axios.post(API_URL, data);
+    const newEmployee = await employeeInstance.post("/", data);
     dispatch(addEmployee(newEmployee.data));
     return newEmployee.status
   } catch (err) {
@@ -57,7 +62,7 @@ export const createEmployee = (data) => async (dispatch) => {
 
 export const deleteEmployee = (data) => async (dispatch) => {
   try {
-    const deletedEmployee = await axios.put(`${API_URL}/delete`, data);
+    const deletedEmployee = await employeeInstance.put(`/delete`, data);
     dispatch(editEmployee(deletedEmployee.data));
     return deletedEmployee.status
   } catch (err) {
@@ -67,7 +72,7 @@ export const deleteEmployee = (data) => async (dispatch) => {
 
 export const updateEmployee = (data) => async (dispatch) => {
   try {
-    const updatedEmployee = await axios.put(`${API_URL}/update`, data);
+    const updatedEmployee = await employeeInstance.put(`/update`, data);
     dispatch(editEmployee(updatedEmployee.data));
     return updatedEmployee.status
   } catch (err) {

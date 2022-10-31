@@ -1,7 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const API_URL = "http://localhost:4001/api/inventory/product";
+export const productInstance = axios.create({
+  baseURL: `${process.env.REACT_APP_DATA_API}/product`,
+  // timeout: 10000,
+  headers: {'x-access-token': localStorage.getItem('token')}
+})
 
 const initialState = {
   data: [],
@@ -38,7 +42,7 @@ export default productSlice.reducer;
 
 export const getAllProducts = () => async (dispatch) => {
   try {
-    const products = await axios.get(API_URL);
+    const products = await productInstance.get("/");
     dispatch(setInitialState(products.data));
   } catch (err) {
     console.error(err);
@@ -47,7 +51,7 @@ export const getAllProducts = () => async (dispatch) => {
 
 export const createProduct = (data) => async (dispatch) => {
   try {
-    const newProduct = await axios.post(API_URL, data);
+    const newProduct = await productInstance.post("/", data);
     dispatch(addProduct(newProduct.data));
     return newProduct.status;
   } catch (err) {
@@ -57,7 +61,7 @@ export const createProduct = (data) => async (dispatch) => {
 
 export const deleteProduct = (data) => async (dispatch) => {
   try {
-    const deletedProduct = await axios.put(`${API_URL}/delete`, data);
+    const deletedProduct = await productInstance.put(`/delete`, data);
     dispatch(editProduct(deletedProduct.data));
     return deletedProduct.status;
   } catch (err) {
@@ -67,7 +71,7 @@ export const deleteProduct = (data) => async (dispatch) => {
 
 export const updateProduct = (data) => async (dispatch) => {
   try {
-    const updatedProduct = await axios.put(`${API_URL}/update`, data);
+    const updatedProduct = await productInstance.put(`/update`, data);
     dispatch(editProduct(updatedProduct.data));
     return updatedProduct.status;
   } catch (err) {

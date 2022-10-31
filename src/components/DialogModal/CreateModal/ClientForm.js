@@ -18,7 +18,7 @@ const ClientForm = ({ onRequestClose }) => {
           name: "",
           lastName: "",
           phone: "",
-          inDebt: "",
+          address: ""
         }
       : client
   );
@@ -95,22 +95,24 @@ const ClientForm = ({ onRequestClose }) => {
         </div>
         <div className="input-form-container">
           <input
-            name="inDebt"
+            name="address"
             className="input-form"
             type="text"
-            placeholder="Deuda"
+            placeholder="Direccion"
             spellCheck="false"
-            value={inputs.inDebt}
+            value={inputs.address}
             onChange={handleInputChange}
           />
         </div>
-        <div className="in-debt-warning">
+        <div className="input-form-container">
+        </div>
+        {/* <div className="in-debt-warning">
           <span className="material-symbols-outlined warning-icon">error</span>
           <span>
             Esta es la cantidad que adeuda el cliente al momento de registrarlo
             en el sistema
           </span>
-        </div>
+        </div> */}
         <div className="button-container">
           <Button
             label={"Guardar"}

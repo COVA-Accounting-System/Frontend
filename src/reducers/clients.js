@@ -1,7 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const API_URL = "http://localhost:4001/api/inventory/client";
+export const clientInstance = axios.create({
+  baseURL: `${process.env.REACT_APP_DATA_API}/contact/client`,
+  // timeout: 10000,
+  headers: {'x-access-token': localStorage.getItem('token')}
+})
 
 const initialState = {
   data: [],
@@ -39,7 +43,7 @@ export default clientSlice.reducer;
 
 export const getAllClients = () => async (dispatch) => {
   try {
-    const clients = await axios.get(API_URL);
+    const clients = await clientInstance.get("/");
     dispatch(setInitialState(clients.data));
   } catch (err) {
     console.error(err);
@@ -48,7 +52,7 @@ export const getAllClients = () => async (dispatch) => {
 
 export const createClient = (data) => async (dispatch) => {
   try {
-    const newClient = await axios.post(API_URL, data);
+    const newClient = await clientInstance.post("/", data);
     dispatch(addClient(newClient.data));
     return newClient.status;
   } catch (err) {
@@ -58,7 +62,7 @@ export const createClient = (data) => async (dispatch) => {
 
 export const deleteClient = (data) => async (dispatch) => {
   try {
-    const deletedClient = await axios.put(`${API_URL}/delete`, data);
+    const deletedClient = await clientInstance.put(`/delete`, data);
     dispatch(editClient(deletedClient.data));
     return deletedClient.status
   } catch (err) {
@@ -68,7 +72,7 @@ export const deleteClient = (data) => async (dispatch) => {
 
 export const updateClient = (data) => async (dispatch) => {
   try {
-    const updatedClient = await axios.put(`${API_URL}/update`, data);
+    const updatedClient = await clientInstance.put(`/update`, data);
     dispatch(editClient(updatedClient.data));
     return updatedClient.status;
   } catch (err) {

@@ -16,24 +16,9 @@ const DataTableIcons = (props) => {
     openModal();
   };
 
-  const onClickView = () => {
-    dispatchAction("view");
-    setData(data);
-    openModal();
-  };
-
   return (
     <div>
       <div className="icons-container">
-        <div className="icon-container">
-          <span
-            className="material-symbols-outlined icon icon-visibility"
-            title="Ver"
-            onClick={onClickView}
-          >
-            visibility
-          </span>
-        </div>
         <div className="icon-container">
           <span
             className="material-symbols-outlined icon icon-edit"

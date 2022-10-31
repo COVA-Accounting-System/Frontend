@@ -2,6 +2,7 @@ $primary-inventory-color: #32B284;
 $font-color: #FFFFFF;
 $primary-accounting-color: #109AC6;
 $secondary-global-color: #758399;
+$subtitle-color: #a3aab7;
 $delete-color: #EE6270;
 
 .button{
@@ -27,29 +28,71 @@ $delete-color: #EE6270;
 
 .button-login{
     font-weight: 700;
-    width: 130px;
+    width: 160px;
+    height: 50px;
     font-size: 15px; 
     border-radius: 5px;
     padding: 14px 0;
-    
     background-color: $primary-accounting-color;
     transition: all 0.2s;
     &:hover{
         // background-color: #0d85ad;
-        box-shadow: 0px 0.5vh 1.5vh #C2C2C2;;
+        box-shadow: 0px 3px 10px $subtitle-color;
     }
 }
 
 .button-confirm{
-    font-weight: 600;
+    font-weight: 700;
     width: 100px;
-    font-size: 2.1vh; 
+    font-size: 15px; 
     border-radius: 5px;
-    padding: 2vh 0 2vh 0;
-    box-shadow: 0px 0.5vh 1.5vh #C2C2C2;
-    background-color: $primary-inventory-color;
+    padding: 14px;
+    // box-shadow: 0px 0.5vh 1.5vh #C2C2C2;
+    background-color: $primary-accounting-color;
+    transition: all 0.2s;
     &:hover{
-        background-color: #2da579;
+        // background-color: #0d85ad;
+        box-shadow: 0px 3px 10px $subtitle-color;
+    }
+}
+.button-confirm-disabled{
+    @extend  .button-confirm;
+    background-color: $secondary-global-color;
+    // background-color: $primary-accounting-color;
+    transition: all 0.2s;
+    &:hover{
+        // background-color: #0d85ad;
+        box-shadow: 0px 0px 0px $subtitle-color;
+    }
+}
+
+.button-add{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 700;
+    width: 33px;
+    font-size: 30px; 
+    border-radius: 5px;
+    // padding: 10px;
+    height: 33px;
+    // box-shadow: 0px 0.5vh 1.5vh #C2C2C2;
+    background-color: $primary-accounting-color;
+    transition: all 0.2s;
+    &:hover{
+        // background-color: #0d85ad;
+        box-shadow: 0px 3px 10px $subtitle-color;
+    }
+}
+
+.button-add-disabled{
+    @extend .button-add;
+    background-color: $secondary-global-color;
+    // background-color: $primary-accounting-color;
+    transition: all 0.2s;
+    &:hover{
+        // background-color: #0d85ad;
+        box-shadow: 0px 0px 0px $subtitle-color;
     }
 }
 
@@ -88,15 +131,5 @@ $delete-color: #EE6270;
     background-color: $secondary-global-color;
     &:hover{
         background-color: #6b778a;
-    }
-}
-
-.button-changeMode{
-    font-weight: 800;
-    font-size: 2.3vh;
-    padding: 2vh 3vw;
-    border-radius: 1.2vh;
-    &:hover{
-        background-color: $primary-accounting-color;
     }
 }

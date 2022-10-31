@@ -5,13 +5,14 @@ import reportWebVitals from "./reportWebVitals";
 import "./index.css";
 
 //React router imports
-import { BrowserRouter} from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 
 //Redux imports
 import { Provider } from "react-redux";
 import { store } from "./app/store";
-
+import { ChakraProvider } from "@chakra-ui/react";
 import App from "./App";
+import { theme }from "./styles/chakraTheme";
 
 //Library imports
 import { Toaster } from "react-hot-toast";
@@ -21,7 +22,9 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <Provider store={store}>
-        <App/>
+        {/* <ChakraProvider theme={theme}> */}
+          <App />
+        {/* </ChakraProvider> */}
       </Provider>
     </BrowserRouter>
     <Toaster />

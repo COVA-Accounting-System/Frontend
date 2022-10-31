@@ -9,6 +9,7 @@ import Table from "../../../components/Table/Table";
 import { getAllClients, setActualClient } from "../../../reducers/clients";
 import { changeAction, changeEntity } from "../../../reducers/crud";
 import { Button } from "../../../components/Button/Button";
+import Input from "../../../components/Input/Input";
 import DataTableIcons from "../../../components/DataTableActions/DataTableIcons";
 import { useDispatch, useSelector } from "react-redux";
 import ModalContainer from "../../../components/DialogModal/ModalContainer";
@@ -33,43 +34,42 @@ const Client = () => {
       {
         headerName: "Nombre",
         field: "name",
-        resizable: true,
+        resizable: false,
         sortable: true,
         width: 180,
-        minWidth: 120,
-        maxWidth: 230,
+        minWidth: 100,
+        // maxWidth: 230,
       },
       {
         headerName: "Apellido",
         field: "lastName",
-        resizable: true,
+        resizable: false,
         sortable: true,
-        minWidth: 130,
+        minWidth: 100,
         width: 230,
-        maxWidth: 270,
+        // maxWidth: 270,
       },
       {
         headerName: "Teléfono",
         field: "phone",
-        resizable: true,
-        minWidth: 130,
+        resizable: false,
+        minWidth: 100,
         width: 190,
-        maxWidth: 200,
-        // flex: 1
+        // maxWidth: 200,
       },
       {
-        headerName: "Deuda",
-        field: "inDebt",
+        headerName: "Dirección",
+        field: "address",
         resizable: false,
         sortable: true,
-        minWidth: 130,
+        minWidth: 110,
         flex: 1,
       },
       {
         headerName: " ",
         resizable: false,
         pinned: "right",
-        width: 224,
+        maxWidth: 160,
         cellRenderer: DataTableIcons,
         colId: "Actions",
         cellRendererParams: {
@@ -106,47 +106,46 @@ const Client = () => {
   );
 
   const onFilterTextBoxChanged = useCallback(() => {
+    // console.log(document.getElementsByName("filter-text-box").value)
     gridRef.current.api.setQuickFilter(
       document.getElementById("filter-text-box").value
     );
   }, []);
 
-
   return (
     <div>
       <div className="page-container">
+        <h1 className="page-title">Clientes</h1>
         <div className="elements-container">
-          <h1 className="page-title">Clientes</h1>
-          <div className="filter-container">
+          <section className="task-bar-datatable">
             <div className="input-container">
-              <input
-                className="search-input"
-                type="text"
-                placeholder="Buscar..."
-                id="filter-text-box"
-                spellCheck="false"
-                onInput={onFilterTextBoxChanged}
+              <Input
+                id={"filter-text-box"}
+                label={"Buscar"}
+                type={"text"}
+                style={"botton-border"}
+                onChange={onFilterTextBoxChanged}
               />
             </div>
             <div className="button-container">
               <Button
                 label={"Crear cliente"}
-                type={"create"}
-                system={"inventory"}
+                type={"login"}
+                system={"accounting"}
                 onClick={() => {
                   setModalIsOpen(true);
                   dispatch(changeAction("create"));
                 }}
               />
             </div>
-          </div>
-          <div>
+          </section>
+          <section className="table-section">
             <Table
               gridRef={gridRef}
               gridOptions={gridOptions}
               rowData={clients}
             />
-          </div>
+          </section>
         </div>
       </div>
       <ModalContainer

@@ -1,7 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const API_URL = "http://localhost:4001/api/inventory/provider";
+export const providerInstance = axios.create({
+  baseURL: `${process.env.REACT_APP_DATA_API}/contact/provider`,
+  // timeout: 10000,
+  headers: {'x-access-token': localStorage.getItem('token')}
+})
 
 const initialState = {
   data: [],
@@ -38,7 +42,7 @@ export default providerSlice.reducer;
 
 export const getAllProviders = () => async (dispatch) => {
   try {
-    const providers = await axios.get(API_URL);
+    const providers = await providerInstance.get("/");
     dispatch(setInitialState(providers.data));
   } catch (err) {
     console.error(err);
@@ -47,7 +51,7 @@ export const getAllProviders = () => async (dispatch) => {
 
 export const createProvider = (data) => async (dispatch) => {
   try {
-    const newProvider = await axios.post(API_URL, data);
+    const newProvider = await providerInstance.post("/", data);
     dispatch(addProvider(newProvider.data));
     return newProvider.status;
   } catch (err) {
@@ -57,7 +61,7 @@ export const createProvider = (data) => async (dispatch) => {
 
 export const deleteProvider = (data) => async (dispatch) => {
   try {
-    const deletedProvider = await axios.put(`${API_URL}/delete`, data);
+    const deletedProvider = await providerInstance.put(`/delete`, data);
     dispatch(editProvider(deletedProvider.data));
     return deletedProvider.status;
   } catch (err) {
@@ -67,7 +71,7 @@ export const deleteProvider = (data) => async (dispatch) => {
 
 export const updateProvider = (data) => async (dispatch) => {
   try {
-    const updatedProvider = await axios.put(`${API_URL}/update`, data);
+    const updatedProvider = await providerInstance.put(`/update`, data);
     dispatch(editProvider(updatedProvider.data));
     return updatedProvider.status;
   } catch (err) {

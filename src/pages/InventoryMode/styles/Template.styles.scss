@@ -1,4 +1,5 @@
 $title-color: #5D6A7E;
+$font-color: #758399;
 $subtitle-color: #a3aab7;
 $secondary-color: #C3CAD6;
 $queque-color: #D35F7B;
@@ -9,42 +10,39 @@ $white-color: #FFFFFF;
 
 
 .page-container{
-    margin: 15px 50px;
+    margin: 15px 40px;
+    min-width: 900px
+    // width: 300px;
     // width: 100vw;
 }
 
 .elements-container{
     display: grid;
-    grid-template-rows: 10vh 14vh 65vh;
+    grid-template-rows: auto auto;
 }
 
-.filter-container{
+.task-bar-datatable{
     display: grid;
-    grid-template-columns: 78.5% 21.5%;
+    grid-template-columns: auto auto;
 }
 
 .page-title{
     font-size: 27px;
     font-weight: 700;
-    margin-top: 0;
-    margin-bottom: 0;
-    color: $title-color;
+    margin: 0;
+    color: $title-color;;
 }
 
 .input-container{
-    // display: flex;
-    // align-items: center;
-    padding-top: 6vh;
-    padding-right: 29vw;
-    padding-left: 0vw;
+    padding-top: 20px;
 }
 
 .search-input{
     border-top: none;
     border-left: none;
     border-right: none;
-    border-bottom: 0.2vh solid $secondary-color;
-    width: 100%;
+    border-bottom: 0.2vh solid $subtitle-color;
+    width: 250px;
     color: $title-color;
     font-size: 17px;
     padding-bottom: 1vh;
@@ -55,22 +53,30 @@ $white-color: #FFFFFF;
         // color: $title-color;
     }
     &::placeholder{
-        color: $secondary-color;
-        font-weight: 500;
-        font-size: 20px;
+        color: $subtitle-color;
+        font-weight: 600;
+        font-size: 15px;
     }
 }
 
 .button-container{
-    padding-top: 3vh;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    // vertical-align: base;
+}
+
+.table-section{
+    height: calc(100vh - 250px);
+    min-height: 300px;
+    margin-top: 20px;
 }
 
 
+///order 
 .section-task-bar{
     position: relative;
-
 }
-///order 
 
 .order-task-bar{
     -webkit-user-select: none; /* Safari */
@@ -93,8 +99,8 @@ $white-color: #FFFFFF;
             margin-right: 20px;
             width: 150px;
             height: 40px;
-            border-top-left-radius: 5px;
-            border-top-right-radius: 5px;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
             &-queque{
                 background-color: $queque-color;
             }
@@ -117,7 +123,7 @@ $white-color: #FFFFFF;
         // position: absolute;
         text-align: right;
         vertical-align: text-bottom;
-        transform: translateY( 35px );
+        transform: translateY( 32px );
         // margin: 0;
         margin-right: 20px;
         // right: 10px;
@@ -131,11 +137,47 @@ $white-color: #FFFFFF;
     -webkit-user-select: none;
     .order-element{
         // width: 100%;
-        margin-right: 12px;
+        display: grid;
+        grid-template-columns: 16% 22% 15% 22% 15%  10%;
+        margin-right: 11px;
+        padding-left: 20px;
         background-color: $order-background-color;
         border-radius: 5px;
         height: 70px;
         margin-bottom: 10px;
         cursor: pointer;
+        transition: height 0.2s ease;
+
+        .order-element-container{
+            // padding: 3px;
+            position: relative;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            margin-right: 15px;
+            margin-top: 15px;
+            // margin: 10px 0px 10px 0px;
+
+            .order-element-title{
+                text-align: left;
+                font-size: 12px;
+                font-weight: 600;
+                color: $font-color;
+                margin: 0px;
+                margin-bottom: 5px;
+            }
+            .order-element-text{
+                // position: absolute;
+                // bottom: 12px;
+                display: block;
+                text-align: left;
+                font-size: 15px;
+                font-weight: 500;
+                color: $title-color;
+                margin: 0;
+
+            }
+        }
+
     }
 }

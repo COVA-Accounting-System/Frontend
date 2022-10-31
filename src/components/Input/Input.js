@@ -1,18 +1,20 @@
 import React from "react";
 import "./Input.scss";
 
-const Input = ({ label, type, style, value, onChange }) => {
+const Input = ({ id, label, name, type, style, value, onChange }) => {
   return (
     <div className="input-element-container">
       <input
+        id={id}
+        name={name}
         className={`input-element-${style}`}
         type={type}
         spellCheck="false"
-        value={value}
+        // value={value}
         onChange={onChange}
         required
       />
-      <span className="label-element">{label}</span>
+      <span className={`label-element-${style}`}>{label}</span>
     </div>
   );
 };

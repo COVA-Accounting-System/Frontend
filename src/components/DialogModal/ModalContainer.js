@@ -3,11 +3,12 @@ import Modal from "react-modal";
 import ConfirmationModal from "./DeleteModal/ConfirmationModal";
 import ClientForm from "./CreateModal/ClientForm";
 import EmployeeForm from "./CreateModal/EmployeeForm";
-import ViewForm from "./ViewModal/ViewForm";
 import ProductForm from "./CreateModal/ProductForm";
 import ProviderForm from "./CreateModal/ProviderForm";
+import OrderForm from "./CreateModal/OrderForm";
 import { useSelector } from "react-redux";
 import "./DialogModal.scss";
+
 
 const ModalContainer = ({ isOpen, onRequestClose }) => {
   const modalAction = useSelector((state) => state.crud.action);
@@ -18,6 +19,7 @@ const ModalContainer = ({ isOpen, onRequestClose }) => {
     employee: <EmployeeForm onRequestClose={onRequestClose} />,
     product: <ProductForm onRequestClose={onRequestClose} />,
     provider: <ProviderForm onRequestClose={onRequestClose} />,
+    order: <OrderForm onRequestClose={onRequestClose} />,
   };
 
   Modal.setAppElement("#root");
@@ -36,7 +38,6 @@ const ModalContainer = ({ isOpen, onRequestClose }) => {
           <ConfirmationModal onClickCancel={onRequestClose}/>
         ) : null}
         {modalAction === "create" ? entityForm[entity] : null}
-        {modalAction === "view" ? <ViewForm /> : null}
         {modalAction === "edit" ? entityForm[entity] : null}
       </Modal>
     </>
