@@ -10,8 +10,9 @@ $white-color: #FFFFFF;
 
 
 .page-container{
-    margin: 15px 40px;
-    min-width: 900px
+    margin: 25px 40px;
+    min-width: 900px;
+    
     // width: 300px;
     // width: 100vw;
 }
@@ -34,7 +35,8 @@ $white-color: #FFFFFF;
 }
 
 .input-container{
-    padding-top: 20px;
+    padding-top: 18px;
+    user-select: none;
 }
 
 .search-input{
@@ -67,9 +69,11 @@ $white-color: #FFFFFF;
 }
 
 .table-section{
-    height: calc(100vh - 250px);
+    height: calc(100vh - 170px);
     min-height: 300px;
-    margin-top: 20px;
+    // min-height: 100%;
+
+    margin-top: 10px;
 }
 
 

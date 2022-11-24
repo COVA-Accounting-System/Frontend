@@ -2,7 +2,6 @@ import React from "react";
 import "./InventoryMode.scss";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import { Outlet, Navigate } from "react-router-dom";
-import Navbar from "../../components/NavBar/Navbar";
 
 const InventoryMode = () => {
   return (
@@ -10,9 +9,9 @@ const InventoryMode = () => {
       <div className="view-container">
           <Sidebar />
         <div className="content-container">
-          <div className="navbar-container">
+          {/* <div className="navbar-container">
             <Navbar />
-          </div>
+          </div> */}
           <div className="data-container">
             <Outlet />
           </div>

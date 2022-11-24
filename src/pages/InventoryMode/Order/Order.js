@@ -7,6 +7,7 @@ import { changeAction, changeEntity } from "../../../reducers/crud";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getAllOrders } from "../../../reducers/orders";
+import dayjs from "dayjs"
 
 const Order = () => {
   const [quequeIsActive, setQuequeIsActive] = useState(false);
@@ -19,7 +20,7 @@ const Order = () => {
 
   useEffect(() => {
     dispatch(getAllOrders());
-    console.log(orders)
+    console.log(orders);
     dispatch(changeEntity({ entity: "order", entityName: "Pedido" }));
   }, [dispatch]);
 
@@ -88,43 +89,47 @@ const Order = () => {
         </div>
       </section>
       <section className="order-list-container">
-        <div className="order-element">
-          <div className="order-element-container">
-          <h3 className="order-element-title">EN FILA</h3>
-            <p
-              className="order-element-text"
-              // style={{ marginTop: "12px", marginLeft: "20px" }}
-            >
-              Pedido 1
-            </p>
-          </div>
-          <div className="order-element-container">
-            <h3 className="order-element-title">CLIENTE</h3>
-            <p className="order-element-text">Jacobo Covarrubias</p>
-          </div>
-          <div className="order-element-container">
-            <h3 className="order-element-title">FECHA</h3>
-            <p className="order-element-text">15/10/22</p>
-          </div>
-          <div className="order-element-container">
-            <h3 className="order-element-title">MODELO:</h3>
-            <p className="order-element-text">Sandalia Cruzada</p>
-          </div>
+        {orders.map((order) => {
+          return (
+            <div className="order-element">
+              <div className="order-element-container">
+                <h3 className="order-element-title">EN FILA</h3>
+                <p
+                  className="order-element-text"
+                  // style={{ marginTop: "12px", marginLeft: "20px" }}
+                >
+                  Pedido {order.orderNumber}
+                </p>
+              </div>
+              <div className="order-element-container">
+                <h3 className="order-element-title">CLIENTE</h3>
+                <p className="order-element-text">{order.client}</p>
+              </div>
+              <div className="order-element-container">
+                <h3 className="order-element-title">FECHA</h3>
+                <p className="order-element-text">{dayjs(order.creationDate).format('DD/MM/YY')  }</p>
+              </div>
+              <div className="order-element-container">
+                <h3 className="order-element-title">PRODUCTO:</h3>
+                <p className="order-element-text">{}</p>
+              </div>
 
-          <div className="order-element-container">
-            <h3 className="order-element-title">CANTIDAD</h3>
-            <p className="order-element-text">1 Docena</p>
-          </div>
-          <div className="order-element-container">
-            <h3 className="order-element-title">PRECIO</h3>
-            <p className="order-element-text">200 Bs</p>
-          </div>
-        </div>
-        <div className="order-element" onClick={handleOpenOrder}></div>
-        <div className="order-element" onClick={handleOpenOrder}></div>
-        <div className="order-element" onClick={handleOpenOrder}></div>
-        <div className="order-element" onClick={handleOpenOrder}></div>
+              <div className="order-element-container">
+                <h3 className="order-element-title">CANTIDAD</h3>
+                <p className="order-element-text">1 Docena</p>
+              </div>
+              <div className="order-element-container">
+                <h3 className="order-element-title">PRECIO</h3>
+                <p className="order-element-text">200 Bs</p>
+              </div>
+            </div>
+          );
+        })}
 
+        {/* <div className="order-element" onClick={handleOpenOrder}></div>
+        <div className="order-element" onClick={handleOpenOrder}></div>
+        <div className="order-element" onClick={handleOpenOrder}></div>
+        <div className="order-element" onClick={handleOpenOrder}></div> */}
       </section>
       <ModalContainer
         isOpen={modalIsOpen}

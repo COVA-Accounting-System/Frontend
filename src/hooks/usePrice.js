@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useState } from "react";
 
-export const usePrice = () => {
+export const usePrice = (product, amount) => {
   const [value, setValue] = useState("");
   const [coinName, setCoinName] = useState("Bolivianos");
   const [coinAbreviation, setCoinAbreviation] = useState("Bs");
@@ -17,10 +17,21 @@ export const usePrice = () => {
     const list = listOfCoins.map((coin) => coin.coinAbreviation);
     setCoinAbreviationList(list);
   }, []);
-  
-  const calculatePrice = (element, amount) => {
-      
-  }
+
+  useEffect(() => {
+    if (product._id != undefined && amount.value != "") {
+      console.log("entra")
+      if (amount.unit === "unit") {
+        setValue(product.unitPrice * amount.value);
+      }
+      if (amount.unit === "pair") {
+        setValue((product.dozenPrice / 6) * amount.value);
+      }
+      if (amount.unit === "dozen") {
+        setValue(product.dozenPrice * amount.value);
+      }
+    }
+  },[product, amount.value, amount.unit])
 
   return {
     value,

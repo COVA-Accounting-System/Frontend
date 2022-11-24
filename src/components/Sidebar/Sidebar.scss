@@ -16,6 +16,10 @@ $toggle-background-color: #f1f3f6;
   .sidebar-title {
     padding-left: 40px;
     color: $title-color;
+    font-size: 30px;
+    font-weight: 700;
+    margin-top: 20px;
+    margin-bottom: 20px;
   }
 }
 
@@ -31,10 +35,11 @@ ul {
   font-weight: 600;
   font-size: 14px;
   padding: 14px 0px 14px 35px;
-  display: block;
+  display: flex;
   border-right-width: 0px;
   border-right-style: solid;
   position: relative;
+
   transition: all 0.2s ease-in-out;
   &:hover {
     color: $icon-color;
@@ -72,7 +77,7 @@ ul {
   margin-right: 14px;
   font-size: 1.1rem;
   text-align: right;
-  transform: translateY(3px);
+  transform: translateY(1px);
 }
 
 .arrow-icon-class {

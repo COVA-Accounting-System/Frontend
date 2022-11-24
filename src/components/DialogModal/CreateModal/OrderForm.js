@@ -5,11 +5,6 @@ import InputSelect from "../../Input/InputSelect";
 import InputDate from "../../Input/InputDate";
 import InputNumber from "../../Input/InputNumber";
 import InputSelectOption from "../../Input/InputSelectOption";
-import { useDispatch, useSelector } from "react-redux";
-import { createOrder, updateOrder } from "../../../reducers/orders";
-import * as toast from "../../../services/toastService";
-import { getAllClients } from "../../../reducers/clients";
-import { getAllProducts } from "../../../reducers/products";
 import { useState, useEffect } from "react";
 import { usePrice } from "../../../hooks/usePrice";
 import { useAmount } from "../../../hooks/useAmount";
@@ -19,18 +14,12 @@ import { useDataTable } from "../../../hooks/useDataTable";
 import { useOrder } from "../../../hooks/useOrder";
 
 const OrderForm = ({ onRequestClose }) => {
-  // const entity = useSelector((state) => state.crud.entityName);
-  // const action = useSelector((state) => state.crud.action);
-  // const order = useSelector((state) => state.orders.actualOrder);
-  // const clients = useSelector((state) => state.clients.data);
-  // const products = useSelector((state) => state.products.data);
 
-  // const dispatch = useDispatch();
   const amount = useAmount();
   const client = useSelectedElement();
   const product = useSelectedElement();
   const dataTable = useDataTable();
-  const price = usePrice();
+  const price = usePrice(product.element, amount);
 
   const [date, setDate] = useState("");
   const [orderNumber, setOrderNumber] = useState("");
@@ -38,36 +27,17 @@ const OrderForm = ({ onRequestClose }) => {
   const orderDataField = useDataFields(client, date, orderNumber);
   const orderTableDataField = useDataFields(product, amount.value, price.value);
 
-  const order = useOrder(onRequestClose);
+  const order = useOrder(
+    onRequestClose,
+    orderNumber,
+    client.element._id,
+    date,
+    dataTable.data
+  );
 
-  // useEffect(() => {
-  //   dispatch(getAllClients());
-  //   dispatch(getAllProducts());
-  // }, [dispatch]);
-
-  useEffect(() => {
-    if (product.element._id != undefined && amount.value != "") {
-      if (amount.unit === "unit") {
-        price.setValue(product.element.unitPrice * amount.value);
-      }
-      if (amount.unit === "pair") {
-        price.setValue((product.element.dozenPrice / 6) * amount.value);
-      }
-      if (amount.unit === "dozen") {
-        price.setValue(product.element.dozenPrice * amount.value);
-      }
-    }
-  }, [product, amount]);
 
   const onClickSave = () => {
-    order.setData({
-      client: client.element,
-      date,
-      orderNumber,
-      dataTable: dataTable.data,
-    });
     if (order.action === "create") {
-      console.log("CREATE!");
       order.onClickSave();
     }
     if (order.action === "edit") {
@@ -99,7 +69,7 @@ const OrderForm = ({ onRequestClose }) => {
         <InputNumber
           value={orderNumber}
           onInput={(value) => {
-            setOrderNumber(value);
+            setOrderNumber(parseInt(value));
           }}
         />
       </div>
@@ -123,7 +93,7 @@ const OrderForm = ({ onRequestClose }) => {
           value={amount.value}
           onInput={(value) => {
             // setAmount({ ...amount, value: value });
-            amount.setValue(value);
+            amount.setValue(parseInt(value));
           }}
         />
         <InputSelectOption

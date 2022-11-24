@@ -1,5 +1,5 @@
 import React from "react";
-import Modal from "react-modal";
+// import Modal from "react-modal";
 import ConfirmationModal from "./DeleteModal/ConfirmationModal";
 import ClientForm from "./CreateModal/ClientForm";
 import EmployeeForm from "./CreateModal/EmployeeForm";
@@ -22,10 +22,10 @@ const ModalContainer = ({ isOpen, onRequestClose }) => {
     order: <OrderForm onRequestClose={onRequestClose} />,
   };
 
-  Modal.setAppElement("#root");
+  // Modal.setAppElement("#root");
   return (
     <>
-      <Modal
+      {/* <Modal
         isOpen={isOpen}
         onRequestClose={onRequestClose}
         className="modal-container"
@@ -39,7 +39,7 @@ const ModalContainer = ({ isOpen, onRequestClose }) => {
         ) : null}
         {modalAction === "create" ? entityForm[entity] : null}
         {modalAction === "edit" ? entityForm[entity] : null}
-      </Modal>
+      </Modal> */}
     </>
   );
 };

@@ -5,14 +5,24 @@ import React, {
   useEffect,
   useState,
 } from "react";
+import {
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  Input,
+} from "@chakra-ui/react";
 import Table from "../../../components/Table/Table";
+import { Button } from "../../../components/Button/Button";
+import DataTableIcons from "../../../components/DataTableActions/DataTableIcons";
+import TextFormControl from "../../../components/Input/TextFormControl";
+import PhoneFormControl from "../../../components/Input/PhoneFormControl";
 import { getAllClients, setActualClient } from "../../../reducers/clients";
 import { changeAction, changeEntity } from "../../../reducers/crud";
-import { Button } from "../../../components/Button/Button";
-import Input from "../../../components/Input/Input";
-import DataTableIcons from "../../../components/DataTableActions/DataTableIcons";
 import { useDispatch, useSelector } from "react-redux";
-import ModalContainer from "../../../components/DialogModal/ModalContainer";
 import "../styles/Template.styles.scss";
 
 const Client = () => {
@@ -20,6 +30,7 @@ const Client = () => {
   const gridRef = useRef();
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
+
   const clients = useSelector((state) =>
     state.clients.data.filter((param) => param.isVisible === true)
   );
@@ -120,11 +131,18 @@ const Client = () => {
           <section className="task-bar-datatable">
             <div className="input-container">
               <Input
-                id={"filter-text-box"}
-                label={"Buscar"}
-                type={"text"}
-                style={"botton-border"}
+                focusBorderColor="acsys.primaryColor"
+                placeholder="Buscar..."
+                size="sm"
+                width={350}
                 onChange={onFilterTextBoxChanged}
+                color="acsys.iconColor"
+                id={"filter-text-box"}
+                spellCheck="false"
+                borderRadius={"5px"}
+                height={"35px"}
+                fontSize={"15px"}
+                autoComplete="off"
               />
             </div>
             <div className="button-container">
@@ -148,10 +166,39 @@ const Client = () => {
           </section>
         </div>
       </div>
-      <ModalContainer
+      <Modal
+        // initialFocusRef={initialRef}
+        // finalFocusRef={finalRef}
+        size={"sm"}
+        onClose={() => setModalIsOpen(false)}
         isOpen={modalIsOpen}
-        onRequestClose={() => setModalIsOpen(false)}
-      />
+      >
+        <ModalOverlay />
+        <ModalContent userSelect={"none"}>
+          <ModalHeader
+            color={"acsys.titleColor"}
+            fontWeight="700"
+            fontSize="25px"
+          >
+            Crear cliente
+          </ModalHeader>
+          <ModalCloseButton />
+          <ModalBody pb={3}>
+            <TextFormControl labelName={"Nombres"} paddingSpace={0}/>
+            <TextFormControl labelName={"Apellidos"} paddingSpace={4}/>
+            <PhoneFormControl/>
+            <TextFormControl labelName={"Dirección"} paddingSpace={4}/>
+          </ModalBody>
+
+          <ModalFooter>
+            <Button
+              label={"Guardar"}
+              type={"confirm"}
+              // onClick={action === "create" ? onClickSave : onEditSave}
+            />
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </div>
   );
 };

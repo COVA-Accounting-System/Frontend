@@ -22,9 +22,9 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <Provider store={store}>
-        {/* <ChakraProvider theme={theme}> */}
+        <ChakraProvider theme={theme}>
           <App />
-        {/* </ChakraProvider> */}
+        </ChakraProvider>
       </Provider>
     </BrowserRouter>
     <Toaster />
