@@ -7,7 +7,7 @@ import { changeAction, changeEntity } from "../../../reducers/crud";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getAllOrders } from "../../../reducers/orders";
-import dayjs from "dayjs"
+// import dayjs from "dayjs"
 
 const Order = () => {
   const [quequeIsActive, setQuequeIsActive] = useState(false);
@@ -107,7 +107,7 @@ const Order = () => {
               </div>
               <div className="order-element-container">
                 <h3 className="order-element-title">FECHA</h3>
-                <p className="order-element-text">{dayjs(order.creationDate).format('DD/MM/YY')  }</p>
+                {/* <p className="order-element-text">{dayjs(order.creationDate).format('DD/MM/YY')  }</p> */}
               </div>
               <div className="order-element-container">
                 <h3 className="order-element-title">PRODUCTO:</h3>

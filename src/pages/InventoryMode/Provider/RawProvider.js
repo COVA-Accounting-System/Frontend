@@ -13,7 +13,7 @@ import {
 import { changeAction, changeEntity } from "../../../reducers/crud";
 import { Button } from "../../../components/Button/Button";
 import Input from "../../../components/Input/Input";
-import DataTableIcons from "../../../components/DataTableActions/DataTableIcons";
+import DataTableActions from "../../../components/DataTableActions/DataTableActions";
 import { useDispatch, useSelector } from "react-redux";
 import "../styles/Template.styles.scss";
 import ModalContainer from "../../../components/DialogModal/ModalContainer";
@@ -92,7 +92,7 @@ const RawProvider = () => {
         resizable: false,
         pinned: "right",
         maxWidth: 160,
-        cellRenderer: DataTableIcons,
+        cellRenderer: {},
         colId: "Actions",
         cellRendererParams: {
           openModal: () => {

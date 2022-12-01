@@ -111,27 +111,36 @@ $delete-color: #EE6270;
 }
 
 .button-confirm-delete{
-    font-weight: 600;
+    font-weight: 700;
     width: 100px;
-    font-size: 2.1vh; 
+    height: 100px;
+    font-size: 15px; 
     border-radius: 5px;
-    padding: 2vh 0 2vh 0;
-    box-shadow: 0px 0.5vh 1.5vh #C2C2C2;
+    // padding: 14px;
+    height: 40px;
+    // box-shadow: 0px 0.5vh 1.5vh #C2C2C2;
     background-color: $delete-color;
+    transition: all 0.2s;
     &:hover{
-        background-color: #dd5260;
+        // background-color: #0d85ad;
+        box-shadow: 0px 3px 10px $subtitle-color;
     }
 }
 
 .button-cancel{
-    font-weight: 600;
+    margin-left: 10px;
+    font-weight: 700;
     width: 100px;
-    font-size: 2.1vh; 
+    height: 100px;
+    font-size: 15px; 
     border-radius: 5px;
-    padding: 2vh 0 2vh 0;
-    box-shadow: 0px 0.5vh 1.5vh #C2C2C2;
+    // padding: 14px;
+    height: 40px;
+    // box-shadow: 0px 0.5vh 1.5vh #C2C2C2;
     background-color: $secondary-global-color;
+    transition: all 0.2s;
     &:hover{
-        background-color: #6b778a;
+        // background-color: #0d85ad;
+        box-shadow: 0px 3px 10px $subtitle-color;
     }
 }

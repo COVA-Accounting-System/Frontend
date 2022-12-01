@@ -76,6 +76,13 @@ $white-color: #FFFFFF;
     margin-top: 10px;
 }
 
+//employee
+.employeeFormGrid{
+    display: grid;
+    grid-template-columns: 330px 330px;
+    column-gap: 20px;
+}
+
 
 ///order 
 .section-task-bar{

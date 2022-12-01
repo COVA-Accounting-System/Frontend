@@ -7,7 +7,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 //Components imports
 import Login from "./pages/Login";
 import InventoryMode from "./pages/InventoryMode/InventoryMode";
-import Client from "./pages/InventoryMode/Client/Client";
+import Client from "./pages/InventoryMode/Client/Client.jsx";
 import Employee from "./pages/InventoryMode/Employee/Employee";
 import RawProvider from "./pages/InventoryMode/Provider/RawProvider";
 import Product from "./pages/InventoryMode/Products/Product";

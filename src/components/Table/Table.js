@@ -11,6 +11,7 @@ const Table = ({ rowData, gridOptions, gridRef}) => {
         <AgGridReact
           ref={gridRef}
           rowData={rowData}
+          suppressRowTransform
           gridOptions={gridOptions}
         />
       </div>

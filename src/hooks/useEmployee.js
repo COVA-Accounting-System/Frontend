@@ -1,39 +1,44 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  getAllClients,
-  setActualClient,
-  createClient,
-  deleteClient,
-  updateClient,
-} from "../reducers/clients";
-
+  getAllEmployees,
+  setActualEmployee,
+  createEmployee,
+  deleteEmployee,
+  updateEmployee,
+} from "../reducers/employees";
 import * as toast from "../services/toastService";
 import { changeAction, changeEntity } from "../reducers/crud";
 
-export const useClient = () => {
+export const useEmployee = () => {
   const dispatch = useDispatch();
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false);
+
   const [name, setName] = useState("");
   const [lastName, setLastName] = useState("");
+  const [ci, setCi] = useState("");
+  const [nationality, setNationality] = useState("");
+  const [birthday, setBirthday] = useState("");
   const [phoneCountryCode, setPhoneCountryCode] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
-  const [address, setAddress] = useState("");
+  const [startDate, setStartDate] = useState("");
+
+  // const [address, setAddress] = useState("");
   const [isSubmited, setIsSubmited] = useState(false);
 
   const action = useSelector((state) => state.crud.action);
 
-  const actualClient = useSelector((state) => state.clients.actualClient);
+  const actualEmployee = useSelector((state) => state.employees.actualEmployee);
 
-  const clientsList = useSelector((state) =>
-    state.clients.data.filter((param) => param.isVisible === true)
+  const employeesList = useSelector((state) =>
+    state.employees.data.filter((param) => param.isVisible === true)
   );
 
   useEffect(() => {
-    dispatch(getAllClients());
-    dispatch(changeEntity({ entity: "client", entityName: "cliente" }));
+    dispatch(getAllEmployees());
+    dispatch(changeEntity({ entity: "employee", entityName: "employee" }));
   }, [dispatch]);
 
   const changeActionRedux = (action) => {
@@ -49,7 +54,12 @@ export const useClient = () => {
     setLastName("");
     setPhoneCountryCode("");
     setPhoneNumber("");
-    setAddress("");
+
+    setCi("");
+    setNationality("");
+    setBirthday("");
+
+    setStartDate("");
   };
 
   const closeModal = () => {
@@ -64,31 +74,41 @@ export const useClient = () => {
     setIsSubmited(false);
   };
 
-  const deleteActualClient = () => {
-    dispatch(deleteClient(actualClient)).then((status) => {
+  const deleteActualEmployee = () => {
+    dispatch(deleteEmployee(actualEmployee)).then((status) => {
       if (status) {
-        toast.invetorySuccess("Cliente eliminado con éxito");
+        toast.invetorySuccess("Empleado eliminado con éxito");
       } else {
-        toast.inventoryError("Error al eliminar cliente");
+        toast.inventoryError("Error al eliminar empleado");
       }
     });
   };
 
-  const setActualClientRedux = (data) => {
-    dispatch(setActualClient(data));
+  const setActualEmployeeRedux = (data) => {
+    dispatch(setActualEmployee(data));
   };
 
   const onClickSave = (e) => {
     e.preventDefault();
     setIsSubmited(true);
-    if (name !== "" && lastName !== "") {
+    if (name !== "" && lastName !== "" && ci !== "") {
       dispatch(
-        createClient({ name, lastName, phoneCountryCode, phoneNumber, address })
+        createEmployee({
+          name,
+          lastName,
+          ci,
+          nationality,
+          birthday,
+          //   phone,
+          phoneCountryCode,
+          phoneNumber,
+          startDate,
+        })
       ).then((status) => {
         if (status) {
-          toast.invetorySuccess("Cliente creado con éxito");
+          toast.invetorySuccess("Empleado creado con éxito");
         } else {
-          toast.inventoryError("Error al crear cliente");
+          toast.inventoryError("Error al crear empleado");
         }
       });
       closeModal();
@@ -98,21 +118,24 @@ export const useClient = () => {
   const onEditSave = (e) => {
     e.preventDefault();
     setIsSubmited(true);
-    if (name !== "" && lastName !== "") {
+    if (name !== "" && lastName !== "" && ci !== "") {
       dispatch(
-        updateClient({
-          ...actualClient,
+        updateEmployee({
+          ...actualEmployee,
           name,
           lastName,
+          ci,
+          nationality,
+          birthday,
           phoneCountryCode,
           phoneNumber,
-          address,
+          startDate,
         })
       ).then((status) => {
         if (status) {
-          toast.invetorySuccess("Cliente editado con éxito");
+          toast.invetorySuccess("Empleado editado con éxito");
         } else {
-          toast.inventoryError("Error al editar cliente");
+          toast.inventoryError("Error al editar empleado");
         }
       });
       closeModal();
@@ -127,7 +150,7 @@ export const useClient = () => {
     closeDeleteModal,
     deleteModalIsOpen,
     setDeleteModalIsOpen,
-    setActualClientRedux,
+    setActualEmployeeRedux,
     name,
     setName,
     lastName,
@@ -136,12 +159,18 @@ export const useClient = () => {
     setPhoneCountryCode,
     phoneNumber,
     setPhoneNumber,
-    address,
-    setAddress,
+    ci,
+    setCi,
+    nationality,
+    setNationality,
+    birthday,
+    setBirthday,
+    startDate,
+    setStartDate,
     isSubmited,
-    clientsList,
+    employeesList,
     changeActionRedux,
-    deleteActualClient,
+    deleteActualEmployee,
     onClickSave,
     onEditSave,
   };

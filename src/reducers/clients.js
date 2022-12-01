@@ -4,8 +4,8 @@ import axios from "axios";
 export const clientInstance = axios.create({
   baseURL: `${process.env.REACT_APP_DATA_API}/contact/client`,
   // timeout: 10000,
-  headers: {'x-access-token': localStorage.getItem('token')}
-})
+  headers: { "x-access-token": localStorage.getItem("token") },
+});
 
 const initialState = {
   data: [],
@@ -32,14 +32,13 @@ const clientSlice = createSlice({
         }
         return client;
       });
-    }
+    },
   },
 });
 
 export const { setInitialState, addClient, setActualClient, editClient } =
   clientSlice.actions;
 export default clientSlice.reducer;
-
 
 export const getAllClients = () => async (dispatch) => {
   try {
@@ -64,7 +63,7 @@ export const deleteClient = (data) => async (dispatch) => {
   try {
     const deletedClient = await clientInstance.put(`/delete`, data);
     dispatch(editClient(deletedClient.data));
-    return deletedClient.status
+    return deletedClient.status;
   } catch (err) {
     console.error(err);
   }

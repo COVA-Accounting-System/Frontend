@@ -7,8 +7,7 @@ import {
   FormHelperText
 } from "@chakra-ui/react";
 
-const TextFormControl = ({ labelName, paddingSpace, value, onInput, isSubmited, isRequired, isRequiredMessage}) => {
-  const inputName = labelName.toLowerCase();
+const DateFormControl = ({ labelName, paddingSpace, value, onInput, isSubmited, isRequired, isRequiredMessage}) => {
   const isError = isSubmited && value === "";
 
   return (
@@ -24,6 +23,7 @@ const TextFormControl = ({ labelName, paddingSpace, value, onInput, isSubmited, 
         </FormLabel>
         <Input
           focusBorderColor="acsys.primaryColor"
+          type={"date"}
           size={"sm"}
             // width={337}
           width="330px"
@@ -45,4 +45,4 @@ const TextFormControl = ({ labelName, paddingSpace, value, onInput, isSubmited, 
   );
 };
 
-export default TextFormControl;
+export default DateFormControl;

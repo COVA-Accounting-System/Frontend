@@ -1,14 +1,18 @@
-import React, { useState }from "react";
-import { FormControl, FormLabel, Input, InputGroup, InputLeftAddon } from "@chakra-ui/react";
+import {
+  FormControl,
+  FormLabel,
+  Input,
+  InputGroup,
+  InputLeftAddon,
+} from "@chakra-ui/react";
 import CountryPhoneList from "../CountryPhoneList/CountryPhoneList";
 
-const PhoneFormControl = () => {
-    const [codeNumber, setCodeNumber] = useState("")
-    const [phoneNumber, setPhoneNumber] = useState("")
-
-    const handleCodeNumber = (value) => {
-        setCodeNumber(value)
-    }
+const PhoneFormControl = ({
+  phoneNumberValue,
+  phoneCountryCodeValue,
+  phoneNumberOnInput,
+  phoneCountryCodeOnInput,
+}) => {
 
   return (
     <>
@@ -21,12 +25,12 @@ const PhoneFormControl = () => {
         >
           Telefono
         </FormLabel>
-        <CountryPhoneList onSelect={handleCodeNumber}/>
+        <CountryPhoneList value={phoneCountryCodeValue} onSelect={(value) => {phoneCountryCodeOnInput(value)}} />
 
-        <InputGroup>
+        <InputGroup maxW="330px">
           <InputLeftAddon
             // width="80px"
-            children={`+${codeNumber}`}
+            children={`+${phoneCountryCodeValue}`}
             // children="+591"
             height="35px"
             fontSize="15px"
@@ -36,7 +40,9 @@ const PhoneFormControl = () => {
             focusBorderColor="acsys.primaryColor"
             size={"sm"}
             // width={330}
-            
+            // width="290px"
+            value={phoneNumberValue}
+            onInput={(event) => {phoneNumberOnInput(event.target.value)}}
             placeholder=""
             spellCheck="false"
             borderRadius={"5px"}
