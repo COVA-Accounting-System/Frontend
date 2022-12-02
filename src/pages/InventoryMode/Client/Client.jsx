@@ -53,7 +53,10 @@ const Client = () => {
       },
       {
         headerName: 'Teléfono',
-        field: 'phoneNumber',
+        // field: 'phoneNumber',
+        cellRenderer: (data) => {
+          return `${data.data.phoneCountryCode} ${data.data.phoneNumber}`
+        },
         resizable: false,
         minWidth: 100,
         width: 190

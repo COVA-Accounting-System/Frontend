@@ -1,20 +1,13 @@
+import React from 'react'
 import {
   FormControl,
   FormLabel,
-  Input,
-  InputGroup,
-  InputLeftAddon,
   Select
 } from '@chakra-ui/react'
-// import CountryPhoneList from '../CountryPhoneList/CountryPhoneList'
+
 import countriesInfo from '../../assets/countriesInfo'
 
-const PhoneFormControl = ({
-  phoneNumberValue,
-  phoneCountryCodeValue,
-  phoneNumberOnInput,
-  phoneCountryCodeOnInput
-}) => {
+const CountryFormControl = ({ labelName, value, onSelectCountry }) => {
   return (
     <>
       <FormControl mt={4}>
@@ -24,17 +17,17 @@ const PhoneFormControl = ({
           fontWeight='600'
           fontSize='13px'
         >
-          Telefono
+          {labelName}
         </FormLabel>
         <Select
           height='35px'
           fontSize='15px'
           color='acsys.iconColor'
           mb='3'
-          value={phoneCountryCodeValue}
+          value={value}
           maxWidth='330px'
           onChange={(e) => {
-            phoneCountryCodeOnInput(e.target.value)
+            onSelectCountry(e.target.value)
           }}
         >
           <option value='' disabled hidden>
@@ -56,40 +49,16 @@ const PhoneFormControl = ({
               return (
                 <option
                   key={country.code}
-                  data-country-code={country.code}
-                  value={country.phoneCode}
+                  value={country.name}
                 >
-                  {country.flag} {country.name} ({country.phoneCode})
+                  {country.flag} {country.name}
                 </option>
               )
             })}
         </Select>
-        <InputGroup maxW='330px'>
-          <InputLeftAddon
-            children={`${phoneCountryCodeValue}`}
-            height='35px'
-            fontSize='15px'
-            backgroundColor='acsys.backgroundColor'
-          />
-          <Input
-            focusBorderColor='acsys.primaryColor'
-            size='sm'
-            value={phoneNumberValue}
-            onInput={(event) => {
-              phoneNumberOnInput(event.target.value)
-            }}
-            placeholder=''
-            spellCheck='false'
-            borderRadius='5px'
-            fontSize='15px'
-            height='35px'
-            color='acsys.iconColor'
-            type='number'
-          />
-        </InputGroup>
       </FormControl>
     </>
   )
 }
 
-export default PhoneFormControl
+export default CountryFormControl

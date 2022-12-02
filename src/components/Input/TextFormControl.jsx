@@ -3,8 +3,7 @@ import {
   FormControl,
   FormLabel,
   Input,
-  FormErrorMessage,
-  FormHelperText
+  FormErrorMessage
 } from '@chakra-ui/react'
 
 const TextFormControl = ({ labelName, paddingSpace, value, onInput, isSubmited, isRequired, isRequiredMessage }) => {

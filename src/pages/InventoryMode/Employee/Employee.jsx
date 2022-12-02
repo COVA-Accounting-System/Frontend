@@ -18,13 +18,13 @@ import DataTableActions from '../../../components/DataTableActions/DataTableActi
 import TextFormControl from '../../../components/Input/TextFormControl'
 import PhoneFormControl from '../../../components/Input/PhoneFormControl'
 import DateFormControl from '../../../components/Input/DateFormControl'
+import CountryFormControl from '../../../components/Input/CountryFormControl'
 import DeleteModal from '../../../components/DeleteModal/DeleteModal'
 import Table from '../../../components/Table/Table'
 import { Button } from '../../../components/Button/Button'
 
 // HOOKS IMPORTS
 import { useEmployee } from '../../../hooks/useEmployee'
-// import { format } from 'date-fns'
 
 // STYLES IMPORTS
 import '../styles/Template.styles.scss'
@@ -64,7 +64,10 @@ const Employee = () => {
       },
       {
         headerName: 'Teléfono',
-        field: 'phoneNumber',
+        // field: 'phoneNumber',
+        cellRenderer: (data) => {
+          return `${data.data.phoneCountryCode} ${data.data.phoneNumber}`
+        },
         resizable: false,
         width: 140
         // minWidth: 110,
@@ -72,7 +75,7 @@ const Employee = () => {
       },
       {
         headerName: 'Fecha de inicio',
-        field: 'startDate',
+        // field: 'startDate',
         cellRenderer: (data) => {
           return new Date(data.data.startDate).toLocaleDateString()
         },
@@ -82,7 +85,10 @@ const Employee = () => {
       },
       {
         headerName: 'Nacionalidad',
-        field: 'nationality',
+        // field: 'nationality',
+        cellRenderer: (data) => {
+          return `${data.data.nationality}`
+        },
         resizable: false,
         sortable: true,
         width: 150
@@ -90,7 +96,7 @@ const Employee = () => {
       },
       {
         headerName: 'Fecha de nacimiento',
-        field: 'birthday',
+        // field: 'birthday',
         cellRenderer: (data) => {
           return new Date(data.data.birthday).toLocaleDateString()
         },
@@ -107,15 +113,6 @@ const Employee = () => {
         cellRenderer: DataTableActions,
         colId: 'Actions',
         cellRendererParams: {
-          // openModal: () => {
-          //   setModalIsOpen(true);
-          // },
-          // setData: (data) => {
-          //   dispatch(setActualEmployee(data));
-          // },
-          // dispatchAction: (action) => {
-          //   dispatch(changeAction(action));
-          // },
           onView: () => {},
           onEdit: (data) => {
             employee.setName(data.name)
@@ -126,7 +123,6 @@ const Employee = () => {
             employee.setNationality(data.nationality)
             employee.setStartDate(data.startDate)
             employee.setCi(data.ci)
-            // employee.setAddress(data.address);
             employee.changeActionRedux('edit')
             employee.setActualEmployeeRedux(data)
             employee.openModal()
@@ -188,7 +184,6 @@ const Employee = () => {
                 onClick={() => {
                   employee.openModal()
                   employee.changeActionRedux('create')
-                  // dispatch(changeAction("create"));
                 }}
               />
             </div>
@@ -244,18 +239,14 @@ const Employee = () => {
                   paddingSpace={4}
                   value={employee.birthday}
                   onInput={(data) => employee.setBirthday(data)}
-                  // isSubmited={employee.isSubmited}
                   isRequired={false}
-                  // isRequiredMessage={"Este campo es obligatorio"}
                 />
                 <DateFormControl
                   labelName='Fecha de inicio'
                   paddingSpace={4}
                   value={employee.startDate}
                   onInput={(data) => employee.setStartDate(data)}
-                  // isSubmited={employee.isSubmited}
                   isRequired={false}
-                  // isRequiredMessage={"Este campo es obligatorio"}
                 />
               </div>
 
@@ -269,16 +260,11 @@ const Employee = () => {
                   isRequired
                   isRequiredMessage='Este campo es obligatorio'
                 />
-                <TextFormControl
+                <CountryFormControl
                   labelName='Nacionalidad'
-                  paddingSpace={4}
                   value={employee.nationality}
-                  onInput={(data) => employee.setNationality(data)}
-                  // isSubmited={employee.isSubmited}
-                  isRequired={false}
-                  // isRequiredMessage={"Este campo es obligatorio"}
+                  onSelectCountry={(data) => employee.setNationality(data)}
                 />
-
                 <PhoneFormControl
                   phoneNumberValue={employee.phoneNumber}
                   phoneCountryCodeValue={employee.phoneCountryCode}
