@@ -1,19 +1,19 @@
-import { useState } from "react";
+import { useState } from 'react'
 
 export const useSelectedElement = () => {
-  const [element, setElement] = useState({});
+  const [element, setElement] = useState({})
 
   const onSelectElementAtInputFile = (element) => {
     if (element != undefined) {
-      setElement(element.data);
+      setElement(element.data)
     } else {
-      setElement({});
+      setElement({})
     }
-  };
+  }
 
   return {
     element,
     setElement,
     onSelectElementAtInputFile
   }
-};
+}

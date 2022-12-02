@@ -1,23 +1,23 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
   isLogged: false,
-  email: "",
-};
+  email: ''
+}
 
-if(window.localStorage.getItem("token")){
-  initialState.isLogged = true;
+if (window.localStorage.getItem('token')) {
+  initialState.isLogged = true
 }
 
 const authenticationSlice = createSlice({
-  name: "authentication",
+  name: 'authentication',
   initialState,
   reducers: {
     setLogged: (state, action) => {
-      state.isLogged = action.payload;
-    },
-  },
-});
+      state.isLogged = action.payload
+    }
+  }
+})
 
-export const { setLogged } = authenticationSlice.actions;
-export default authenticationSlice.reducer;
+export const { setLogged } = authenticationSlice.actions
+export default authenticationSlice.reducer

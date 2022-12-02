@@ -1,5 +1,5 @@
 export const localeEs = {
-    page: 'Página',
-    to: '-',
-    of: 'de'
+  page: 'Página',
+  to: '-',
+  of: 'de'
 }

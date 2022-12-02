@@ -1,104 +1,104 @@
-import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import {
   getAllClients,
   setActualClient,
   createClient,
   deleteClient,
-  updateClient,
-} from "../reducers/clients";
+  updateClient
+} from '../reducers/clients'
 
-import * as toast from "../services/toastService";
-import { changeAction, changeEntity } from "../reducers/crud";
+import * as toast from '../services/toastService'
+import { changeAction, changeEntity } from '../reducers/crud'
 
 export const useClient = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
-  const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false);
-  const [name, setName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [phoneCountryCode, setPhoneCountryCode] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [address, setAddress] = useState("");
-  const [isSubmited, setIsSubmited] = useState(false);
+  const [modalIsOpen, setModalIsOpen] = useState(false)
+  const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false)
+  const [name, setName] = useState('')
+  const [lastName, setLastName] = useState('')
+  const [phoneCountryCode, setPhoneCountryCode] = useState('')
+  const [phoneNumber, setPhoneNumber] = useState('')
+  const [address, setAddress] = useState('')
+  const [isSubmited, setIsSubmited] = useState(false)
 
-  const action = useSelector((state) => state.crud.action);
+  const action = useSelector((state) => state.crud.action)
 
-  const actualClient = useSelector((state) => state.clients.actualClient);
+  const actualClient = useSelector((state) => state.clients.actualClient)
 
   const clientsList = useSelector((state) =>
     state.clients.data.filter((param) => param.isVisible === true)
-  );
+  )
 
   useEffect(() => {
-    dispatch(getAllClients());
-    dispatch(changeEntity({ entity: "client", entityName: "cliente" }));
-  }, [dispatch]);
+    dispatch(getAllClients())
+    dispatch(changeEntity({ entity: 'client', entityName: 'cliente' }))
+  }, [dispatch])
 
   const changeActionRedux = (action) => {
-    dispatch(changeAction(action));
-  };
+    dispatch(changeAction(action))
+  }
 
   const openModal = () => {
-    setModalIsOpen(true);
-  };
+    setModalIsOpen(true)
+  }
 
   const emptyFields = () => {
-    setName("");
-    setLastName("");
-    setPhoneCountryCode("");
-    setPhoneNumber("");
-    setAddress("");
-  };
+    setName('')
+    setLastName('')
+    setPhoneCountryCode('')
+    setPhoneNumber('')
+    setAddress('')
+  }
 
   const closeModal = () => {
-    setModalIsOpen(false);
-    emptyFields();
-    setIsSubmited(false);
-  };
+    setModalIsOpen(false)
+    emptyFields()
+    setIsSubmited(false)
+  }
 
   const closeDeleteModal = () => {
-    setDeleteModalIsOpen(false);
-    emptyFields();
-    setIsSubmited(false);
-  };
+    setDeleteModalIsOpen(false)
+    emptyFields()
+    setIsSubmited(false)
+  }
 
   const deleteActualClient = () => {
     dispatch(deleteClient(actualClient)).then((status) => {
       if (status) {
-        toast.invetorySuccess("Cliente eliminado con éxito");
+        toast.invetorySuccess('Cliente eliminado con éxito')
       } else {
-        toast.inventoryError("Error al eliminar cliente");
+        toast.inventoryError('Error al eliminar cliente')
       }
-    });
-  };
+    })
+  }
 
   const setActualClientRedux = (data) => {
-    dispatch(setActualClient(data));
-  };
+    dispatch(setActualClient(data))
+  }
 
   const onClickSave = (e) => {
-    e.preventDefault();
-    setIsSubmited(true);
-    if (name !== "" && lastName !== "") {
+    e.preventDefault()
+    setIsSubmited(true)
+    if (name !== '' && lastName !== '') {
       dispatch(
         createClient({ name, lastName, phoneCountryCode, phoneNumber, address })
       ).then((status) => {
         if (status) {
-          toast.invetorySuccess("Cliente creado con éxito");
+          toast.invetorySuccess('Cliente creado con éxito')
         } else {
-          toast.inventoryError("Error al crear cliente");
+          toast.inventoryError('Error al crear cliente')
         }
-      });
-      closeModal();
+      })
+      closeModal()
     }
-  };
+  }
 
   const onEditSave = (e) => {
-    e.preventDefault();
-    setIsSubmited(true);
-    if (name !== "" && lastName !== "") {
+    e.preventDefault()
+    setIsSubmited(true)
+    if (name !== '' && lastName !== '') {
       dispatch(
         updateClient({
           ...actualClient,
@@ -106,18 +106,18 @@ export const useClient = () => {
           lastName,
           phoneCountryCode,
           phoneNumber,
-          address,
+          address
         })
       ).then((status) => {
         if (status) {
-          toast.invetorySuccess("Cliente editado con éxito");
+          toast.invetorySuccess('Cliente editado con éxito')
         } else {
-          toast.inventoryError("Error al editar cliente");
+          toast.inventoryError('Error al editar cliente')
         }
-      });
-      closeModal();
+      })
+      closeModal()
     }
-  };
+  }
 
   return {
     action,
@@ -143,6 +143,6 @@ export const useClient = () => {
     changeActionRedux,
     deleteActualClient,
     onClickSave,
-    onEditSave,
-  };
-};
+    onEditSave
+  }
+}

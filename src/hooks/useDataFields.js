@@ -1,23 +1,21 @@
-import { useState, useEffect} from "react";
+import { useState, useEffect } from 'react'
 
 export const useDataFields = (elementField, secondFieldValue, thirdFieldValue) => {
-  const [isValid, setIsValid] = useState(false);
+  const [isValid, setIsValid] = useState(false)
 
   useEffect(() => {
     if (
       elementField.element._id != undefined &&
-      secondFieldValue != "" &&
-      thirdFieldValue != ""
+      secondFieldValue != '' &&
+      thirdFieldValue != ''
     ) {
-      setIsValid(true);
+      setIsValid(true)
     } else {
-      setIsValid(false);
+      setIsValid(false)
     }
-  }, [elementField, secondFieldValue, thirdFieldValue]);
-
-  
+  }, [elementField, secondFieldValue, thirdFieldValue])
 
   return {
     isValid
   }
-};
+}

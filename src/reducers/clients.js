@@ -1,80 +1,80 @@
-import { createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
+import { createSlice } from '@reduxjs/toolkit'
+import axios from 'axios'
 
 export const clientInstance = axios.create({
   baseURL: `${process.env.REACT_APP_DATA_API}/contact/client`,
   // timeout: 10000,
-  headers: { "x-access-token": localStorage.getItem("token") },
-});
+  headers: { 'x-access-token': localStorage.getItem('token') }
+})
 
 const initialState = {
   data: [],
-  actualClient: {},
-};
+  actualClient: {}
+}
 
 const clientSlice = createSlice({
-  name: "client",
+  name: 'client',
   initialState,
   reducers: {
     setInitialState: (state, action) => {
-      state.data = action.payload;
+      state.data = action.payload
     },
     setActualClient: (state, action) => {
-      state.actualClient = action.payload;
+      state.actualClient = action.payload
     },
     addClient: (state, action) => {
-      state.data.push(action.payload);
+      state.data.push(action.payload)
     },
     editClient: (state, action) => {
       state.data = state.data.map((client) => {
         if (client._id === action.payload._id) {
-          client = action.payload;
+          client = action.payload
         }
-        return client;
-      });
-    },
-  },
-});
+        return client
+      })
+    }
+  }
+})
 
 export const { setInitialState, addClient, setActualClient, editClient } =
-  clientSlice.actions;
-export default clientSlice.reducer;
+  clientSlice.actions
+export default clientSlice.reducer
 
 export const getAllClients = () => async (dispatch) => {
   try {
-    const clients = await clientInstance.get("/");
-    dispatch(setInitialState(clients.data));
+    const clients = await clientInstance.get('/')
+    dispatch(setInitialState(clients.data))
   } catch (err) {
-    console.error(err);
+    console.error(err)
   }
-};
+}
 
 export const createClient = (data) => async (dispatch) => {
   try {
-    const newClient = await clientInstance.post("/", data);
-    dispatch(addClient(newClient.data));
-    return newClient.status;
+    const newClient = await clientInstance.post('/', data)
+    dispatch(addClient(newClient.data))
+    return newClient.status
   } catch (err) {
-    console.error(err);
+    console.error(err)
   }
-};
+}
 
 export const deleteClient = (data) => async (dispatch) => {
   try {
-    const deletedClient = await clientInstance.put(`/delete`, data);
-    dispatch(editClient(deletedClient.data));
-    return deletedClient.status;
+    const deletedClient = await clientInstance.put('/delete', data)
+    dispatch(editClient(deletedClient.data))
+    return deletedClient.status
   } catch (err) {
-    console.error(err);
+    console.error(err)
   }
-};
+}
 
 export const updateClient = (data) => async (dispatch) => {
   try {
-    const updatedClient = await clientInstance.put(`/update`, data);
-    dispatch(editClient(updatedClient.data));
-    return updatedClient.status;
+    const updatedClient = await clientInstance.put('/update', data)
+    dispatch(editClient(updatedClient.data))
+    return updatedClient.status
   } catch (err) {
-    console.error(err);
+    console.error(err)
   }
-};
+}

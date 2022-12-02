@@ -1,26 +1,26 @@
 
-import { Button } from '../components/Button/Button';
+import { Button } from '../components/Button/Button'
 
 export default {
   title: 'Stories/Button',
-  component: Button,
-};
+  component: Button
+}
 
-const Template = (args) => <Button {...args} />;
+const Template = (args) => <Button {...args} />
 
-export const Buttons_Invetory = Template.bind({});
+export const Buttons_Invetory = Template.bind({})
 Buttons_Invetory.args = {
   type: 'create',
   system: 'inventory',
-  label: 'Crear Cliente',
-};
+  label: 'Crear Cliente'
+}
 
-export const Buttons_Accounting = Template.bind({});
+export const Buttons_Accounting = Template.bind({})
 Buttons_Accounting.args = {
   type: 'create',
   system: 'accounting',
-  label: 'Crear Cuenta',
-};
+  label: 'Crear Cuenta'
+}
 
 // export const Large = Template.bind({});
 // Large.args = {

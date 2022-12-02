@@ -1,7 +1,7 @@
-//REACT IMPORTS
-import React, { useMemo, useCallback, useRef } from "react";
+// REACT IMPORTS
+import React, { useMemo, useCallback, useRef } from 'react'
 
-//CHAKRA UI IMPORTS
+// CHAKRA UI IMPORTS
 import {
   Modal,
   ModalOverlay,
@@ -10,95 +10,102 @@ import {
   ModalFooter,
   ModalBody,
   ModalCloseButton,
-  Input,
-} from "@chakra-ui/react";
+  Input
+} from '@chakra-ui/react'
 
-//COMPONENTS IMPORTS
-import DataTableActions from "../../../components/DataTableActions/DataTableActions";
-import TextFormControl from "../../../components/Input/TextFormControl";
-import PhoneFormControl from "../../../components/Input/PhoneFormControl";
-import DateFormControl from "../../../components/Input/DateFormControl";
-import DeleteModal from "../../../components/DeleteModal/DeleteModal";
-import Table from "../../../components/Table/Table";
-import { Button } from "../../../components/Button/Button";
+// COMPONENTS IMPORTS
+import DataTableActions from '../../../components/DataTableActions/DataTableActions'
+import TextFormControl from '../../../components/Input/TextFormControl'
+import PhoneFormControl from '../../../components/Input/PhoneFormControl'
+import DateFormControl from '../../../components/Input/DateFormControl'
+import DeleteModal from '../../../components/DeleteModal/DeleteModal'
+import Table from '../../../components/Table/Table'
+import { Button } from '../../../components/Button/Button'
 
-//HOOKS IMPORTS
-import { useEmployee } from "../../../hooks/useEmployee";
+// HOOKS IMPORTS
+import { useEmployee } from '../../../hooks/useEmployee'
+// import { format } from 'date-fns'
 
-//STYLES IMPORTS
-import "../styles/Template.styles.scss";
+// STYLES IMPORTS
+import '../styles/Template.styles.scss'
 
 const Employee = () => {
-  const gridRef = useRef();
-  const employee = useEmployee();
+  const gridRef = useRef()
+  const employee = useEmployee()
 
   const columnDefs = useMemo(
     () => [
       {
-        headerName: "Nombre",
-        field: "name",
+        headerName: 'Nombre',
+        field: 'name',
         resizable: false,
         sortable: true,
-        width: 160,
+        width: 160
         // minWidth: 120,
         // maxWidth: 250,
       },
       {
-        headerName: "Apellidos",
-        field: "lastName",
+        headerName: 'Apellidos',
+        field: 'lastName',
         resizable: false,
         sortable: true,
         // minWidth: 130,
-        width: 210,
+        width: 210
         // maxWidth: 250,
       },
       {
-        headerName: "CI",
-        field: "ci",
+        headerName: 'CI',
+        field: 'ci',
         resizable: false,
         sortable: false,
-        width: 130,
+        width: 130
         // minWidth: 60,
         // maxWidth: 160,
       },
       {
-        headerName: "Teléfono",
-        field: "phoneNumber",
+        headerName: 'Teléfono',
+        field: 'phoneNumber',
         resizable: false,
-        width: 140,
+        width: 140
         // minWidth: 110,
         // maxWidth: 160,
       },
       {
-        headerName: "Fecha de inicio",
-        field: "startDate",
+        headerName: 'Fecha de inicio',
+        field: 'startDate',
+        cellRenderer: (data) => {
+          return new Date(data.data.startDate).toLocaleDateString()
+        },
         resizable: false,
         sortable: true,
-        width: 150,
+        width: 150
       },
       {
-        headerName: "Nacionalidad",
-        field: "nationality",
+        headerName: 'Nacionalidad',
+        field: 'nationality',
         resizable: false,
         sortable: true,
-        width: 150,
+        width: 150
         // minWidth: 140,
       },
       {
-        headerName: "Fecha de nacimiento",
-        field: "dateOfBirth",
+        headerName: 'Fecha de nacimiento',
+        field: 'birthday',
+        cellRenderer: (data) => {
+          return new Date(data.data.birthday).toLocaleDateString()
+        },
         resizable: false,
         sortable: true,
-        width: 190,
+        width: 190
         // minWidth: 190,
       },
       {
-        headerName: " ",
+        headerName: ' ',
         resizable: false,
-        pinned: "right",
+        pinned: 'right',
         maxWidth: 160,
         cellRenderer: DataTableActions,
-        colId: "Actions",
+        colId: 'Actions',
         cellRendererParams: {
           // openModal: () => {
           //   setModalIsOpen(true);
@@ -111,82 +118,82 @@ const Employee = () => {
           // },
           onView: () => {},
           onEdit: (data) => {
-            console.log(data)
-            employee.setName(data.name);
-            employee.setLastName(data.lastName);
-            employee.setPhoneCountryCode(data.phoneCountryCode);
-            employee.setPhoneNumber(data.phoneNumber);
-            employee.setBirthday(data.birthday);
-            employee.setNationality(data.nationality);
-            employee.setStartDate(data.startDate);
-            employee.setCi(data.ci);
+            employee.setName(data.name)
+            employee.setLastName(data.lastName)
+            employee.setPhoneCountryCode(data.phoneCountryCode)
+            employee.setPhoneNumber(data.phoneNumber)
+            employee.setBirthday(data.birthday)
+            employee.setNationality(data.nationality)
+            employee.setStartDate(data.startDate)
+            employee.setCi(data.ci)
             // employee.setAddress(data.address);
-            employee.changeActionRedux("edit");
-            employee.setActualEmployeeRedux(data);
-            employee.openModal();
+            employee.changeActionRedux('edit')
+            employee.setActualEmployeeRedux(data)
+            employee.openModal()
+            console.log(employee.startDate)
           },
           onDelete: (data) => {
-            employee.setDeleteModalIsOpen(true);
-            employee.setActualEmployeeRedux(data);
-          },
-        },
-      },
+            employee.setDeleteModalIsOpen(true)
+            employee.setActualEmployeeRedux(data)
+          }
+        }
+      }
     ],
     []
-  );
+  )
 
   const gridOptions = useMemo(
     () => ({
       pagination: false,
-      columnDefs: columnDefs,
+      columnDefs,
       cacheQuickFilter: true,
-      animateRows: true,
+      animateRows: true
     }),
     [columnDefs]
-  );
+  )
 
   const onFilterTextBoxChanged = useCallback(() => {
     gridRef.current.api.setQuickFilter(
-      document.getElementById("filter-text-box").value
-    );
-  }, []);
+      document.getElementById('filter-text-box').value
+    )
+  }, [])
 
   return (
     <div>
-      <div className="page-container">
-        <h1 className="page-title">Empleados</h1>
-        <div className="elements-container">
-          <section className="task-bar-datatable">
-            <div className="input-container">
+      <div className='page-container'>
+        <h1 className='page-title'>Empleados</h1>
+        <div className='elements-container'>
+          <section className='task-bar-datatable'>
+            <div className='input-container'>
               <Input
-                focusBorderColor="acsys.primaryColor"
-                placeholder="Buscar..."
-                size="sm"
+                focusBorderColor='acsys.primaryColor'
+                placeholder='Buscar...'
+                size='sm'
                 width={350}
                 onChange={onFilterTextBoxChanged}
-                color="acsys.iconColor"
-                id={"filter-text-box"}
-                spellCheck="false"
-                borderRadius={"5px"}
-                height={"35px"}
-                fontSize={"15px"}
-                autoComplete="off"
+                color='acsys.iconColor'
+                id='filter-text-box'
+                spellCheck='false'
+                borderRadius='5px'
+                height='35px'
+                fontSize='15px'
+                autoComplete='off'
               />
             </div>
-            <div className="button-container">
+            <div className='button-container'>
               <Button
-                label={"Crear empleado"}
-                type={"login"}
-                system={"accounting"}
+                label='Crear empleado'
+                type='login'
+                system='accounting'
                 onClick={() => {
-                  employee.openModal();
-                  employee.changeActionRedux("create");
+                  employee.openModal()
+                  employee.changeActionRedux('create')
                   // dispatch(changeAction("create"));
                 }}
               />
             </div>
           </section>
-          <section className="table-section">
+          <section className='table-section'>
             <Table
               gridRef={gridRef}
               gridOptions={gridOptions}
@@ -196,44 +203,44 @@ const Employee = () => {
         </div>
       </div>
       <Modal
-        size={"sm"}
+        size='sm'
         onClose={() => employee.closeModal()}
         isOpen={employee.modalIsOpen}
       >
         <ModalOverlay />
-        <ModalContent userSelect={"none"} maxW="730px">
+        <ModalContent userSelect='none' maxW='730px'>
           <ModalHeader
-            color={"acsys.titleColor"}
-            fontWeight="700"
-            fontSize="25px"
+            color='acsys.titleColor'
+            fontWeight='700'
+            fontSize='25px'
           >
             Crear empleado
           </ModalHeader>
           <ModalCloseButton />
 
           <ModalBody pb={3}>
-            <form className="employeeFormGrid">
+            <form className='employeeFormGrid'>
               <div>
                 <TextFormControl
-                  labelName={"Nombres"}
+                  labelName='Nombres'
                   paddingSpace={0}
                   value={employee.name}
                   onInput={(data) => employee.setName(data)}
                   isSubmited={employee.isSubmited}
-                  isRequired={true}
-                  isRequiredMessage={"Este campo es obligatorio"}
+                  isRequired
+                  isRequiredMessage='Este campo es obligatorio'
                 />
                 <TextFormControl
-                  labelName={"CI"}
+                  labelName='CI'
                   paddingSpace={4}
                   value={employee.ci}
                   onInput={(data) => employee.setCi(data)}
                   isSubmited={employee.isSubmited}
-                  isRequired={true}
-                  isRequiredMessage={"Este campo es obligatorio"}
+                  isRequired
+                  isRequiredMessage='Este campo es obligatorio'
                 />
                 <DateFormControl
-                  labelName={"Fecha de nacimiento"}
+                  labelName='Fecha de nacimiento'
                   paddingSpace={4}
                   value={employee.birthday}
                   onInput={(data) => employee.setBirthday(data)}
@@ -242,7 +249,7 @@ const Employee = () => {
                   // isRequiredMessage={"Este campo es obligatorio"}
                 />
                 <DateFormControl
-                  labelName={"Fecha de inicio"}
+                  labelName='Fecha de inicio'
                   paddingSpace={4}
                   value={employee.startDate}
                   onInput={(data) => employee.setStartDate(data)}
@@ -254,16 +261,16 @@ const Employee = () => {
 
               <div>
                 <TextFormControl
-                  labelName={"Apellidos"}
+                  labelName='Apellidos'
                   paddingSpace={0}
                   value={employee.lastName}
                   onInput={(data) => employee.setLastName(data)}
                   isSubmited={employee.isSubmited}
-                  isRequired={true}
-                  isRequiredMessage={"Este campo es obligatorio"}
+                  isRequired
+                  isRequiredMessage='Este campo es obligatorio'
                 />
                 <TextFormControl
-                  labelName={"Nacionalidad"}
+                  labelName='Nacionalidad'
                   paddingSpace={4}
                   value={employee.nationality}
                   onInput={(data) => employee.setNationality(data)}
@@ -276,10 +283,10 @@ const Employee = () => {
                   phoneNumberValue={employee.phoneNumber}
                   phoneCountryCodeValue={employee.phoneCountryCode}
                   phoneNumberOnInput={(number) => {
-                    employee.setPhoneNumber(number);
+                    employee.setPhoneNumber(number)
                   }}
                   phoneCountryCodeOnInput={(number) => {
-                    employee.setPhoneCountryCode(number);
+                    employee.setPhoneCountryCode(number)
                   }}
                 />
               </div>
@@ -288,10 +295,10 @@ const Employee = () => {
 
           <ModalFooter>
             <Button
-              label={"Guardar"}
-              type={"confirm"}
+              label='Guardar'
+              type='confirm'
               onClick={
-                employee.action === "create"
+                employee.action === 'create'
                   ? employee.onClickSave
                   : employee.onEditSave
               }
@@ -302,15 +309,15 @@ const Employee = () => {
 
       <DeleteModal
         modalIsOpen={employee.deleteModalIsOpen}
-        entityName={"Empleado"}
+        entityName='Empleado'
         onClose={() => employee.closeDeleteModal()}
         onDelete={() => {
-          employee.deleteActualEmployee();
-          employee.closeDeleteModal();
+          employee.deleteActualEmployee()
+          employee.closeDeleteModal()
         }}
       />
     </div>
-  );
-};
+  )
+}
 
-export default Employee;
+export default Employee
