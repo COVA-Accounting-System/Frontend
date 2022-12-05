@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
-import { Button } from '../components/Button/Button'
-import { authentication } from '../auth/authentication'
-import Input from '../components/Input/Input'
+import { Button } from '../../components/Button/Button'
+import { authentication } from '../../auth/authentication'
+import Input from '../../components/Input/Input'
 import { useDispatch, useSelector } from 'react-redux'
-import { setLogged } from '../reducers/authentication'
+import { setLogged } from '../../reducers/authentication'
 import { Navigate } from 'react-router-dom'
-import { inventoryError } from '../services/toastService'
+import { inventoryError } from '../../services/toastService'
 
 import './Login.scss'
 

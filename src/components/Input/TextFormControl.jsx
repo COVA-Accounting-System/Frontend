@@ -7,7 +7,7 @@ import {
 } from '@chakra-ui/react'
 
 const TextFormControl = ({ labelName, paddingSpace, value, onInput, isSubmited, isRequired, isRequiredMessage }) => {
-  const inputName = labelName.toLowerCase()
+  // const inputName = labelName.toLowerCase()
   const isError = isSubmited && value === ''
 
   return (

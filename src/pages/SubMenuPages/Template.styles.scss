@@ -83,6 +83,12 @@ $white-color: #FFFFFF;
     column-gap: 20px;
 }
 
+.providerFormGrid {
+    display: grid;
+    grid-template-rows: auto auto auto;
+    row-gap: 0px;
+}
+
 
 ///order 
 .section-task-bar{

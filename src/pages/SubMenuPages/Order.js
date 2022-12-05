@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import { Button } from '../../../components/Button/Button'
+import { Button } from '../../components/Button/Button'
 // import ModalContainer from "../../../components/DialogModal/ModalContainer";
 // import {  } from 'react-redux'
-import { changeAction, changeEntity } from '../../../reducers/crud'
+import { changeAction, changeEntity } from '../../reducers/crud'
 import { useDispatch, useSelector } from 'react-redux'
-import { getAllOrders } from '../../../reducers/orders'
+import { getAllOrders } from '../../reducers/orders'
 // import dayjs from "dayjs"
 
 const Order = () => {

@@ -5,87 +5,69 @@ import React, {
   useEffect,
   useState
 } from 'react'
-import Table from '../../../components/Table/Table'
-import {
-  getAllProviders,
-  setActualProvider
-} from '../../../reducers/providers'
-import { changeAction, changeEntity } from '../../../reducers/crud'
-import { Button } from '../../../components/Button/Button'
-import Input from '../../../components/Input/Input'
-import DataTableActions from '../../../components/DataTableActions/DataTableActions'
+import Table from '../../components/Table/Table'
+import { getAllProducts, setActualProduct } from '../../reducers/products'
+import { changeAction, changeEntity } from '../../reducers/crud'
+import { Button } from '../../components/Button/Button'
+import Input from '../../components/Input/Input'
+import DataTableActions from '../../components/DataTableActions/DataTableActions'
 import { useDispatch, useSelector } from 'react-redux'
-import '../styles/Template.styles.scss'
+import './Template.styles.scss'
 // import ModalContainer from "../../../components/DialogModal/ModalContainer";
 
-const RawProvider = () => {
+const Product = () => {
   const dispatch = useDispatch()
   const gridRef = useRef()
 
   const [modalIsOpen, setModalIsOpen] = useState(false)
-  const providers = useSelector((state) =>
-    state.providers.data.filter((param) => param.isVisible === true)
+  const products = useSelector((state) =>
+    state.products.data.filter((param) => param.isVisible === true)
   )
 
   useEffect(() => {
-    dispatch(getAllProviders())
-    dispatch(changeEntity({ entity: 'provider', entityName: 'proveedor' }))
+    dispatch(getAllProducts())
+    dispatch(changeEntity({ entity: 'product', entityName: 'productos' }))
   }, [dispatch])
 
   const columnDefs = useMemo(
     () => [
       {
-        headerName: 'Tienda',
-        field: 'storeName',
-        resizable: false,
-        sortable: true,
-        // minWidth: 110,
-        width: 220
-        // maxWidth: 300,
-      },
-      {
-        headerName: 'NIT',
-        field: 'nit',
-        resizable: false,
-        sortable: true,
-        // minWidth: 100,
-        width: 130
-        // maxWidth: 160,
-      },
-      {
-        headerName: 'Teléfono',
-        field: 'phone',
-        resizable: false,
-        // minWidth: 120,
-        width: 147
-        // maxWidth: 177,
-      },
-      {
-        headerName: 'Ciudad',
-        field: 'city',
-        resizable: false,
-        sortable: true,
-        // minWidth: 120,
-        width: 150
-        // maxWidth: 180,
-      },
-      {
-        headerName: 'Pais',
-        field: 'country',
-        resizable: false,
-        sortable: true,
-        width: 150
-        // minWidth: 100,
-        // maxWidth: 180,
-      },
-      {
-        headerName: 'Direccion',
-        field: 'address',
+        headerName: 'Producto',
+        field: 'name',
         resizable: false,
         sortable: true,
         // minWidth: 130,
-        width: 240
-        // maxWidth: 320,
+        width: 200
+        // maxWidth: 250,
+      },
+      {
+        headerName: 'Descripcion',
+        field: 'description',
+        resizable: false,
+        sortable: false,
+        // minWidth: 130,
+        width: 300
+        // maxWidth: 350,
+      },
+      // { headerName: "Fotografia", field: "photography", resizable: true },
+      {
+        headerName: 'Precio por unidad',
+        field: 'unitPrice',
+        resizable: false,
+        sortable: true,
+        minWidth: 220
+        // width: 180,
+        // maxWidth: 250,
+      },
+      {
+        headerName: 'Precio por docena',
+        field: 'dozenPrice',
+        resizable: false,
+        sortable: true,
+        width: 220,
+        // maxWidth: 220,
+        // minWidth: 200,
+        flex: 1
       },
       {
         headerName: ' ',
@@ -99,7 +81,7 @@ const RawProvider = () => {
             setModalIsOpen(true)
           },
           setData: (data) => {
-            dispatch(setActualProvider(data))
+            dispatch(setActualProduct(data))
           },
           dispatchAction: (action) => {
             dispatch(changeAction(action))
@@ -114,10 +96,10 @@ const RawProvider = () => {
     () => ({
       pagination: false,
       onGridReady: (params) => {
-        // params.columnApi.autoSizeAllColumns();
+        // params.api.sizeColumnsToFit();
       },
       onGridSizeChanged: (params) => {
-        // params.columnApi.autoSizeAllColumns();
+        // params.api.sizeColumnsToFit();
       },
       columnDefs,
       cacheQuickFilter: true,
@@ -135,7 +117,7 @@ const RawProvider = () => {
   return (
     <div>
       <div className='page-container'>
-        <h1 className='page-title'>Proveedores</h1>
+        <h1 className='page-title'>Productos</h1>
         <div className='elements-container'>
           <section className='task-bar-datatable'>
             <div className='input-container'>
@@ -149,7 +131,7 @@ const RawProvider = () => {
             </div>
             <div className='button-container'>
               <Button
-                label='Crear proveedor'
+                label='Crear producto'
                 type='login'
                 system='accounting'
                 onClick={() => {
@@ -163,7 +145,7 @@ const RawProvider = () => {
             <Table
               gridRef={gridRef}
               gridOptions={gridOptions}
-              rowData={providers}
+              rowData={products}
             />
           </section>
         </div>
@@ -173,4 +155,4 @@ const RawProvider = () => {
   )
 }
 
-export default RawProvider
+export default Product

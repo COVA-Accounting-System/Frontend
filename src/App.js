@@ -5,14 +5,15 @@ import { useSelector } from 'react-redux'
 import { Routes, Route, Navigate } from 'react-router-dom'
 
 // Components imports
-import Login from './pages/Login'
-import InventoryMode from './pages/InventoryMode/InventoryMode'
-import Client from './pages/InventoryMode/Client/Client.jsx'
-import Employee from './pages/InventoryMode/Employee/Employee'
-import RawProvider from './pages/InventoryMode/Provider/RawProvider'
-import Product from './pages/InventoryMode/Products/Product'
-import PageNotFound from './pages/PageNotFound'
-import Order from './pages/InventoryMode/Order/Order'
+import Login from './pages/LoginPages/Login'
+import PageNotFound from './pages/LoginPages/PageNotFound'
+
+import MainPage from './pages/MainPage/MainPage'
+import Client from './pages/SubMenuPages/Client'
+import Employee from './pages/SubMenuPages/Employee'
+import Provider from './pages/SubMenuPages/Provider'
+import Product from './pages/SubMenuPages/Product'
+import Order from './pages/SubMenuPages/Order'
 
 const App = () => {
   const isLogged = useSelector((state) => state.authentication.isLogged)
@@ -22,7 +23,7 @@ const App = () => {
       <Route path='/login' element={<Login />} />
       {isLogged
         ? (
-          <Route path='/accounting-mode/' element={<InventoryMode />}>
+          <Route path='/accounting-mode/' element={<MainPage />}>
             <Route path='order' element={<Order />} />
 
             <Route path='inventory/raw-material' />
@@ -36,7 +37,7 @@ const App = () => {
 
             <Route path='contact/client' element={<Client />} />
             <Route path='contact/employee' element={<Employee />} />
-            <Route path='contact/provider' element={<RawProvider />} />
+            <Route path='contact/provider' element={<Provider />} />
 
             <Route path='report' />
             <Route

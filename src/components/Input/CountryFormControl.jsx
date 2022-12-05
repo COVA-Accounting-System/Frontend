@@ -23,7 +23,6 @@ const CountryFormControl = ({ labelName, value, onSelectCountry }) => {
           height='35px'
           fontSize='15px'
           color='acsys.iconColor'
-          mb='3'
           value={value}
           maxWidth='330px'
           onChange={(e) => {

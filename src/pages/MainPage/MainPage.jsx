@@ -1,9 +1,9 @@
 import React from 'react'
-import './InventoryMode.scss'
+import './MainPage.scss'
 import Sidebar from '../../components/Sidebar/Sidebar'
-import { Outlet, Navigate } from 'react-router-dom'
+import { Outlet } from 'react-router-dom'
 
-const InventoryMode = () => {
+const MainPage = () => {
   return (
     <div>
       <div className='view-container'>
@@ -21,4 +21,4 @@ const InventoryMode = () => {
   )
 }
 
-export default InventoryMode
+export default MainPage

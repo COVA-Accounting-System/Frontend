@@ -8,7 +8,6 @@ import {
   updateEmployee
 } from '../reducers/employees'
 import * as toast from '../services/toastService'
-import { format } from 'date-fns'
 import { changeAction, changeEntity } from '../reducers/crud'
 
 export const useEmployee = () => {
@@ -38,7 +37,7 @@ export const useEmployee = () => {
 
   useEffect(() => {
     dispatch(getAllEmployees())
-    dispatch(changeEntity({ entity: 'employee', entityName: 'employee' }))
+    dispatch(changeEntity({ entity: 'employee', entityName: 'empleado' }))
   }, [dispatch])
 
   const changeActionRedux = (action) => {
