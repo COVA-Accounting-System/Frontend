@@ -126,7 +126,6 @@ const Employee = () => {
             employee.changeActionRedux('edit')
             employee.setActualEmployeeRedux(data)
             employee.openModal()
-            console.log(employee.startDate)
           },
           onDelete: (data) => {
             employee.setDeleteModalIsOpen(true)

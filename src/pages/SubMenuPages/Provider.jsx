@@ -54,8 +54,11 @@ const Provider = () => {
       },
       {
         headerName: 'Teléfono',
-        field: 'phone',
+        field: 'phoneNumber',
         resizable: false,
+        cellRenderer: (data) => {
+          return `${data.data.phoneCountryCode} ${data.data.phoneNumber}`
+        },
         // minWidth: 120,
         width: 147
         // maxWidth: 177,
@@ -92,18 +95,26 @@ const Provider = () => {
         resizable: false,
         pinned: 'right',
         maxWidth: 160,
-        cellRenderer: {},
+        cellRenderer: DataTableActions,
         colId: 'Actions',
         cellRendererParams: {
-          // openModal: () => {
-          //   setModalIsOpen(true)
-          // },
-          // setData: (data) => {
-          //   dispatch(setActualProvider(data))
-          // },
-          // dispatchAction: (action) => {
-          //   dispatch(changeAction(action))
-          // }
+          onView: () => {},
+          onEdit: (data) => {
+            provider.setStoreName(data.storeName)
+            provider.setNit(data.nit)
+            provider.setCountry(data.country)
+            provider.setCity(data.city)
+            provider.setPhoneCountryCode(data.phoneCountryCode)
+            provider.setPhoneNumber(data.phoneNumber)
+            provider.setAddress(data.address)
+            provider.changeActionRedux('edit')
+            provider.setActualProviderRedux(data)
+            provider.openModal()
+          },
+          onDelete: (data) => {
+            provider.setDeleteModalIsOpen(true)
+            provider.setActualProviderRedux(data)
+          }
         }
       }
     ],
@@ -197,10 +208,10 @@ const Provider = () => {
                 <TextFormControl
                   labelName='Nombre de la tienda'
                   paddingSpace={0}
-                  value={provider.name}
+                  value={provider.storeName}
                   onInput={(data) => provider.setStoreName(data)}
                   isSubmited={provider.isSubmited}
-                  isRequired={true}
+                  isRequired
                   isRequiredMessage='Este campo es obligatorio'
                 />
                 <TextFormControl
@@ -208,9 +219,9 @@ const Provider = () => {
                   paddingSpace={0}
                   value={provider.nit}
                   onInput={(data) => provider.setNit(data)}
-                  isSubmited={provider.isSubmited}
+                  // isSubmited={provider.isSubmited}
                   isRequired={false}
-                  isRequiredMessage="Este campo es obligatorio"
+                  // isRequiredMessage="Este campo es obligatorio"
                 />
               </div>
               <div className='employeeFormGrid'>
@@ -224,9 +235,9 @@ const Provider = () => {
                   paddingSpace={4}
                   value={provider.city}
                   onInput={(data) => provider.setCity(data)}
-                  isSubmited={provider.isSubmited}
+                  // isSubmited={provider.isSubmited}
                   isRequired={false}
-                  isRequiredMessage='Este campo es obligatorio'
+                  // isRequiredMessage='Este campo es obligatorio'
                 />
               </div>
               <div className='employeeFormGrid'>
@@ -235,9 +246,9 @@ const Provider = () => {
                   paddingSpace={4}
                   value={provider.address}
                   onInput={(data) => provider.setAddress(data)}
-                  isSubmited={provider.isSubmited}
+                  // isSubmited={provider.isSubmited}
                   isRequired={false}
-                  isRequiredMessage='Este campo es obligatorio'
+                  // isRequiredMessage='Este campo es obligatorio'
                 />
                 <PhoneFormControl
                   phoneNumberValue={provider.phoneNumber}
