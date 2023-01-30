@@ -89,6 +89,12 @@ $white-color: #FFFFFF;
     row-gap: 0px;
 }
 
+.twoFieldsInOneRow{
+    display: grid;
+    grid-template-rows: auto auto;
+    column-gap: 20px;
+}
+
 
 ///order 
 .section-task-bar{

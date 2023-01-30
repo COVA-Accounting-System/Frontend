@@ -72,9 +72,9 @@ export const useProvider = () => {
   const deleteActualProvider = () => {
     dispatch(deleteProvider(actualProvider)).then((status) => {
       if (status) {
-        toast.invetorySuccess('Empleado eliminado con éxito')
+        toast.invetorySuccess('Proveedor eliminado con éxito')
       } else {
-        toast.inventoryError('Error al eliminar empleado')
+        toast.inventoryError('Error al eliminar proveedor')
       }
     })
   }

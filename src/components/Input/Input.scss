@@ -315,3 +315,16 @@ $icon-color: #384a66;
     }
 
 }
+
+.features-list-container{
+    display: block;
+    border: 1px solid #E2E8F0;
+    border-radius: 6px;
+    margin-top: 15px;
+    // width: 50px;
+    height: 209px;
+    padding: 10px;
+    font-size: 15px;
+    color: $icon-color;
+    overflow-y: auto;
+}

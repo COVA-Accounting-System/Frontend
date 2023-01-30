@@ -24,7 +24,7 @@ const PhoneFormControl = ({
           fontWeight='600'
           fontSize='13px'
         >
-          Telefono
+          Teléfono
         </FormLabel>
         <Select
           height='35px'

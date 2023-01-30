@@ -9,7 +9,8 @@ export const theme = extendTheme({
       iconColor: '#384a66',
       toggleBackgroundColor: '#f1f3f6',
       primaryColor: '#109AC6',
-      subtitleColor: '#757F8F'
+      subtitleColor: '#757F8F',
+      redColor: '#ef476f'
     }
   }
 })
