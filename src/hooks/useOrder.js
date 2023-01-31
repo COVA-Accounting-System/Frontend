@@ -1,74 +1,191 @@
-import { useEffect, useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import {
+  getAllOrders,
+  setActualOrder,
+  createOrder,
+  deleteOrder,
+  updateOrder
+} from '../reducers/orders'
 import { getAllClients } from '../reducers/clients'
-import { createOrder } from '../reducers/orders'
-import { getAllProducts } from '../reducers/products'
 import * as toast from '../services/toastService'
+import { changeAction, changeEntity } from '../reducers/crud'
 
-export const useOrder = (onRequestClose, orderNumber, client, date, dataTable) => {
-  const entity = useSelector((state) => state.crud.entityName)
-  const action = useSelector((state) => state.crud.action)
-  //   const order = useSelector((state) => state.orders.actualOrder);
-  const clients = useSelector((state) => state.clients.data)
-  const products = useSelector((state) => state.products.data)
-
+export const useOrder = () => {
   const dispatch = useDispatch()
 
-  const [order, setOrder] = useState({})
+  const [modalIsOpen, setModalIsOpen] = useState(false)
+  const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false)
+
+  const [orderNumber, setOrderNumber] = useState('')
+  const [orderDeliveryDate, setOrderDeliveryDate] = useState('')
+  const [orderClient, setOrderClient] = useState({
+    _id: '75456325522',
+    name: 'Jacobo',
+    lastName: 'Covarrubias Zapata'
+  })
+  const [orderState, setOrderState] = useState('pending')
+  const [orderTotalPrice, setOrderTotalPrice] = useState('')
+  const [orderList, setOrderList] = useState([
+    {
+      _id: '69995447453',
+      name: 'iPhone 12 Pro',
+      type: 'pair',
+      price: 1200,
+      dozenPrice: 12000,
+    },
+    {
+      _id: '69995447453',
+      name: 'iPhone 12 Pro',
+      type: 'pair',
+      price: 1200,
+      dozenPrice: 12000,
+    },
+    {
+      _id: '69995447453',
+      name: 'iPhone 12 Pro',
+      type: 'pair',
+      price: 1200,
+      dozenPrice: 12000,
+    }
+  ])
+
+  const [isSubmited, setIsSubmited] = useState(false)
+  const action = useSelector((state) => state.crud.action)
+
+  const clientsList = useSelector((state) => {
+    return state.clients.data.filter((param) => param.isVisible === true)
+  })
+  const actualOrder = useSelector((state) => state.orders.actualOrder)
+  const ordersList = useSelector((state) => {
+    return state.orders.data.filter((param) => param.isVisible === true)
+  })
 
   useEffect(() => {
+    dispatch(getAllOrders())
     dispatch(getAllClients())
-    dispatch(getAllProducts())
-    // console.log(action)
+    dispatch(changeEntity({ entity: 'order', entityName: 'pedido' }))
   }, [dispatch])
 
-  useEffect(() => {
-    const newDataTable = dataTable.map((item) => {
-      return {
-        product: item.element._id,
-        amount: item.amount.value,
-        price: item.price.value
-      }
-    })
-    // setOrder({...order, orderNumber})
-    setOrder({ ...order, orderNumber, client, creationDate: date, dataTable: newDataTable })
-  }, [orderNumber, client, date, dataTable])
-
-  const onClickSave = () => {
-    const orderStatus = dispatch(createOrder(order))
-    orderStatus.then((response) => {
-      if (response) {
-        toast.invetorySuccess('Pedido creado con éxito')
-      } else {
-        toast.inventoryError('Error al crear pedido')
-      }
-    })
-    onRequestClose()
-    // console.log(order)
+  const changeActionRedux = (action) => {
+    dispatch(changeAction(action))
   }
 
-  const onEditSave = () => {
-    // const orderStatus = dispatch(updateOrder(inputs));
-    // orderStatus.then((response) => {
-    //   if (response) {
-    //     toast.invetorySuccess("Pedido actualizado con éxito");
-    //   } else {
-    //     toast.inventoryError("Error al editar pedido");
-    //   }
-    // });
-    // onRequestClose();
+  const openModal = () => {
+    setModalIsOpen(true)
+  }
+
+  const emptyFields = () => {
+    setOrderNumber('')
+    setOrderDeliveryDate('')
+    setOrderClient({})
+    setOrderState('')
+    setOrderTotalPrice('')
+    setOrderList([])
+  }
+
+  const closeModal = () => {
+    setModalIsOpen(false)
+    emptyFields()
+    setIsSubmited(false)
+  }
+
+  const closeDeleteModal = () => {
+    setDeleteModalIsOpen(false)
+    emptyFields()
+    setIsSubmited(false)
+  }
+
+  const deleteActualOrder = () => {
+    dispatch(deleteOrder(actualOrder)).then((status) => {
+      if (status) {
+        toast.invetorySuccess('Pedido eliminado con éxito')
+      } else {
+        toast.inventoryError('Error al eliminar pedido')
+      }
+    })
+  }
+
+  const setActualOrderRedux = (data) => {
+    dispatch(setActualOrder(data))
+  }
+
+  const onClickSave = (e) => {
+    e.preventDefault()
+    setIsSubmited(true)
+    if (orderClient !== {} && orderTotalPrice !== '' && orderNumber !== '') {
+      dispatch(
+        createOrder({
+          orderClient,
+          orderNumber,
+          orderDeliveryDate,
+          orderState,
+          orderTotalPrice,
+          orderList: [...orderList]
+        })
+      ).then((status) => {
+        if (status) {
+          toast.invetorySuccess('Pedido creado con éxito')
+        } else {
+          toast.inventoryError('Error al crear pedido')
+        }
+      })
+      closeModal()
+    }
+  }
+
+  const onEditSave = (e) => {
+    e.preventDefault()
+    setIsSubmited(true)
+    if (orderClient !== {} && orderTotalPrice !== '' && orderNumber !== '') {
+      dispatch(
+        updateOrder({
+          ...actualOrder,
+          orderClient,
+          orderNumber,
+          orderDeliveryDate,
+          orderState,
+          orderTotalPrice,
+          orderList: [...orderList]
+        })
+      ).then((status) => {
+        if (status) {
+          toast.invetorySuccess('Pedido editado con éxito')
+        } else {
+          toast.inventoryError('Error al editar pedido')
+        }
+      })
+      closeModal()
+    }
   }
 
   return {
-    order,
-    setOrder,
-    entity,
     action,
-    clients,
-    products,
-    order,
+    modalIsOpen,
+    openModal,
+    closeModal,
+    closeDeleteModal,
+    deleteModalIsOpen,
+    setDeleteModalIsOpen,
+    setActualOrderRedux,
+    orderClient,
+    setOrderClient,
+    orderDeliveryDate,
+    setOrderDeliveryDate,
+    orderNumber,
+    setOrderNumber,
+    orderState,
+    setOrderState,
+    orderTotalPrice,
+    setOrderTotalPrice,
+    orderList,
+    setOrderList,
+    isSubmited,
+    ordersList,
+    clientsList,
+    changeActionRedux,
+    deleteActualOrder,
     onClickSave,
     onEditSave
-
   }
 }

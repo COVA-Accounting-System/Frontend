@@ -12,6 +12,7 @@ import { changeAction, changeEntity } from '../reducers/crud'
 
 export const useProduct = () => {
   const dispatch = useDispatch()
+  const productTypeOptions = ['Unidad', 'Par']
 
   const [modalIsOpen, setModalIsOpen] = useState(false)
   const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false)
@@ -135,6 +136,7 @@ export const useProduct = () => {
     deleteModalIsOpen,
     setDeleteModalIsOpen,
     setActualProductRedux,
+    productTypeOptions,
     productName,
     setProductName,
     productFeatures,

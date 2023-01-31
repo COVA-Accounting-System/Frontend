@@ -16,28 +16,27 @@ import {
 // COMPONENTS IMPORTS
 import DataTableActions from '../../components/DataTableActions/DataTableActions'
 import TextFormControl from '../../components/Input/TextFormControl'
-import PhoneFormControl from '../../components/Input/PhoneFormControl'
 import DateFormControl from '../../components/Input/DateFormControl'
-import CountryFormControl from '../../components/Input/CountryFormControl'
+import SelectEntityFormControl from '../../components/Input/SelectEntityFormControl'
 import DeleteModal from '../../components/DeleteModal/DeleteModal'
 import Table from '../../components/Table/Table'
 import { Button } from '../../components/Button/Button'
 
 // HOOKS IMPORTS
-import { useEmployee } from '../../hooks/useEmployee'
+import { useOrder } from '../../hooks/useOrder'
 
 // STYLES IMPORTS
 import './Template.styles.scss'
 
-const Employee = () => {
+const Order = () => {
   const gridRef = useRef()
-  const employee = useEmployee()
+  const order = useOrder()
 
   const columnDefs = useMemo(
     () => [
       {
-        headerName: 'Nombre',
-        field: 'name',
+        headerName: 'Estado',
+        field: 'orderState',
         resizable: false,
         sortable: true,
         width: 160
@@ -45,8 +44,17 @@ const Employee = () => {
         // maxWidth: 250,
       },
       {
-        headerName: 'Apellidos',
-        field: 'lastName',
+        headerName: 'Nº de pedido',
+        field: 'orderNumber',
+        resizable: false,
+        sortable: true,
+        width: 160
+        // minWidth: 120,
+        // maxWidth: 250,
+      },
+      {
+        headerName: 'Cliente',
+        field: 'orderClient',
         resizable: false,
         sortable: true,
         // minWidth: 130,
@@ -54,8 +62,8 @@ const Employee = () => {
         // maxWidth: 250,
       },
       {
-        headerName: 'CI',
-        field: 'ci',
+        headerName: 'Fecha de entrega',
+        field: 'orderDeliveryDate',
         resizable: false,
         sortable: false,
         width: 130
@@ -63,47 +71,22 @@ const Employee = () => {
         // maxWidth: 160,
       },
       {
-        headerName: 'Teléfono',
+        headerName: 'Estado de pago',
         // field: 'phoneNumber',
-        cellRenderer: data => {
-          return `${data.data.phoneCountryCode} ${data.data.phoneNumber}`
-        },
+        // cellRenderer: (data) => {
+        //   return `${data.data.phoneCountryCode} ${data.data.phoneNumber}`
+        // },
         resizable: false,
         width: 140
         // minWidth: 110,
         // maxWidth: 160,
       },
       {
-        headerName: 'Fecha de inicio',
-        // field: 'startDate',
-        cellRenderer: data => {
-          return new Date(data.data.startDate).toLocaleDateString()
-        },
+        headerName: 'Precio total',
+        field: 'orderTotalPrice',
         resizable: false,
         sortable: true,
         width: 150
-      },
-      {
-        headerName: 'Nacionalidad',
-        // field: 'nationality',
-        cellRenderer: data => {
-          return `${data.data.nationality}`
-        },
-        resizable: false,
-        sortable: true,
-        width: 150
-        // minWidth: 140,
-      },
-      {
-        headerName: 'Fecha de nacimiento',
-        // field: 'birthday',
-        cellRenderer: data => {
-          return new Date(data.data.birthday).toLocaleDateString()
-        },
-        resizable: false,
-        sortable: true,
-        width: 190
-        // minWidth: 190,
       },
       {
         headerName: ' ',
@@ -115,21 +98,20 @@ const Employee = () => {
         cellRendererParams: {
           onView: () => {},
           onEdit: data => {
-            employee.setName(data.name)
-            employee.setLastName(data.lastName)
-            employee.setPhoneCountryCode(data.phoneCountryCode)
-            employee.setPhoneNumber(data.phoneNumber)
-            employee.setBirthday(data.birthday)
-            employee.setNationality(data.nationality)
-            employee.setStartDate(data.startDate)
-            employee.setCi(data.ci)
-            employee.changeActionRedux('edit')
-            employee.setActualEmployeeRedux(data)
-            employee.openModal()
+            order.setOrderState(data.orderState)
+            order.setOrderNumber(data.orderNumber)
+            order.setOrderClient(data.orderClient)
+            order.setOrderDeliveryDate(data.orderDeliveryDate)
+            // order.setOrderPaymentState(data.orderPaymentState)
+            order.setOrderTotalPrice(data.orderTotalPrice)
+            order.setOrderList(data.orderList)
+            order.changeActionRedux('edit')
+            order.setActualOrderRedux(data)
+            order.openModal()
           },
           onDelete: data => {
-            employee.setDeleteModalIsOpen(true)
-            employee.setActualEmployeeRedux(data)
+            order.setDeleteModalIsOpen(true)
+            order.setActualOrderRedux(data)
           }
         }
       }
@@ -156,7 +138,7 @@ const Employee = () => {
   return (
     <div>
       <div className='page-container'>
-        <h1 className='page-title'>Empleados</h1>
+        <h1 className='page-title'>Pedidos</h1>
         <div className='elements-container'>
           <section className='task-bar-datatable'>
             <div className='input-container'>
@@ -177,12 +159,12 @@ const Employee = () => {
             </div>
             <div className='button-container'>
               <Button
-                label='Crear empleado'
+                label='Crear pedido'
                 type='login'
                 system='accounting'
                 onClick={() => {
-                  employee.openModal()
-                  employee.changeActionRedux('create')
+                  order.openModal()
+                  order.changeActionRedux('create')
                 }}
               />
             </div>
@@ -191,15 +173,15 @@ const Employee = () => {
             <Table
               gridRef={gridRef}
               gridOptions={gridOptions}
-              rowData={employee.employeesList}
+              rowData={order.ordersList}
             />
           </section>
         </div>
       </div>
       <Modal
         size='sm'
-        onClose={() => employee.closeModal()}
-        isOpen={employee.modalIsOpen}
+        onClose={() => order.closeModal()}
+        isOpen={order.modalIsOpen}
       >
         <ModalOverlay />
         <ModalContent userSelect='none' maxW='730px'>
@@ -208,55 +190,45 @@ const Employee = () => {
             fontWeight='700'
             fontSize='25px'
           >
-            Crear empleado
+            Crear pedido
           </ModalHeader>
           <ModalCloseButton />
 
           <ModalBody pb={3}>
-            <form className='employeeFormGrid'>
-              <div>
-                <TextFormControl
-                  labelName='Nombres'
-                  width='330px'
-                  paddingSpace={0}
-                  value={employee.name}
-                  onInput={data => employee.setName(data)}
-                  isSubmited={employee.isSubmited}
-                  isRequired
-                  isRequiredMessage='Este campo es obligatorio'
-                />
-                <TextFormControl
-                  labelName='CI'
-                  width='330px'
+            <form className='providerFormGrid'>
+              <div className='employeeFormGrid'>
+                <SelectEntityFormControl
+                  labelName='Cliente'
                   paddingSpace={4}
-                  value={employee.ci}
-                  onInput={data => employee.setCi(data)}
-                  isSubmited={employee.isSubmited}
+                  value={order.orderClient}
+                  onSelect={(data) => order.setOrderClient(data)}
+                  isSubmited={order.isSubmited}
+                  entityList={order.clientsList}
                   isRequired
                   isRequiredMessage='Este campo es obligatorio'
                 />
                 <DateFormControl
-                  labelName='Fecha de nacimiento'
-                  widht='330px'
+                  labelName='Fecha de entrega'
+                  widht='170px'
                   paddingSpace={4}
-                  value={employee.birthday}
-                  onInput={data => employee.setBirthday(data)}
+                  value={order.orderDeliveryDate}
+                  onInput={data => order.setOrderDeliveryDate(data)}
                   isRequired={false}
                 />
-                <DateFormControl
-                  labelName='Fecha de inicio'
-                  widht='330px'
+                <TextFormControl
+                  labelName='Nº de pedido'
+                  width='330px'
                   paddingSpace={4}
-                  value={employee.startDate}
-                  onInput={data => employee.setStartDate(data)}
-                  isRequired={false}
+                  value={order.orderNumber}
+                  onInput={data => order.setOrderNumber(data)}
+                  isSubmited={order.isSubmited}
+                  isRequired
+                  isRequiredMessage='Este campo es obligatorio'
                 />
               </div>
-
               <div>
-                <TextFormControl
+                {/* <TextFormControl
                   labelName='Apellidos'
-                  width='330px'
                   paddingSpace={0}
                   value={employee.lastName}
                   onInput={data => employee.setLastName(data)}
@@ -278,19 +250,16 @@ const Employee = () => {
                   phoneCountryCodeOnInput={number => {
                     employee.setPhoneCountryCode(number)
                   }}
-                />
+                /> */}
               </div>
             </form>
           </ModalBody>
-
           <ModalFooter>
             <Button
               label='Guardar'
               type='confirm'
               onClick={
-                employee.action === 'create'
-                  ? employee.onClickSave
-                  : employee.onEditSave
+                order.action === 'create' ? order.onClickSave : order.onEditSave
               }
             />
           </ModalFooter>
@@ -298,16 +267,16 @@ const Employee = () => {
       </Modal>
 
       <DeleteModal
-        modalIsOpen={employee.deleteModalIsOpen}
+        modalIsOpen={order.deleteModalIsOpen}
         entityName='Empleado'
-        onClose={() => employee.closeDeleteModal()}
+        onClose={() => order.closeDeleteModal()}
         onDelete={() => {
-          employee.deleteActualEmployee()
-          employee.closeDeleteModal()
+          order.deleteActualOrder()
+          order.closeDeleteModal()
         }}
       />
     </div>
   )
 }
 
-export default Employee
+export default Order

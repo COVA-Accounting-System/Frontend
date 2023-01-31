@@ -6,17 +6,18 @@ import {
   FormErrorMessage
 } from '@chakra-ui/react'
 
-const SelectFormControl = ({
+const SelectEntityFormControl = ({
   labelName,
   onSelect,
   value,
   paddingSpace,
-  optionList,
+  entityList,
   isSubmited,
   isRequired,
   isRequiredMessage
 }) => {
   const isError = isSubmited && value === ''
+  console.log(entityList)
   return (
     <FormControl mt={paddingSpace} isInvalid={isError} isRequired={isRequired}>
       <FormLabel
@@ -37,12 +38,12 @@ const SelectFormControl = ({
           onSelect(e.target.value)
         }}
       >
-        <option value='' disabled hidden>
-          Seleccione un tipo
+        <option value='' hidden>
+          Seleccione un cliente
         </option>
-        {optionList.map((optionElement) => {
+        {entityList.map((element) => {
           return (
-            <option>{optionElement}</option>
+            <option>{element.uiName}</option>
           )
         })}
       </Select>
@@ -51,4 +52,5 @@ const SelectFormControl = ({
   )
 }
 
-export default SelectFormControl
+export default SelectEntityFormControl
+

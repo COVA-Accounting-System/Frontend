@@ -195,6 +195,7 @@ const Product = () => {
               <div>
                 <TextFormControl
                   labelName='Nombre del Producto'
+                  width='330px'
                   paddingSpace={0}
                   value={product.productName}
                   onInput={(data) => product.setProductName(data)}
@@ -208,6 +209,7 @@ const Product = () => {
                   value={product.productType}
                   onSelect={(data) => product.setProductType(data)}
                   isSubmited={product.isSubmited}
+                  optionList={product.productTypeOptions}
                   isRequired
                   isRequiredMessage='Este campo es obligatorio'
                 />

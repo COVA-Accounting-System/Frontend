@@ -188,6 +188,7 @@ const Client = () => {
             <ModalBody pb={3}>
               <TextFormControl
                 labelName='Nombres'
+                width='330px'
                 paddingSpace={0}
                 value={client.name}
                 onInput={(data) => client.setName(data)}
@@ -197,6 +198,7 @@ const Client = () => {
               />
               <TextFormControl
                 labelName='Apellidos'
+                width='330px'
                 paddingSpace={4}
                 value={client.lastName}
                 onInput={(data) => client.setLastName(data)}
@@ -218,6 +220,7 @@ const Client = () => {
 
               <TextFormControl
                 labelName='Dirección'
+                width='330px'
                 paddingSpace={4}
                 value={client.address}
                 onInput={(data) => client.setAddress(data)}

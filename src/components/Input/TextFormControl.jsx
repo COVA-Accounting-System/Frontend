@@ -6,13 +6,26 @@ import {
   FormErrorMessage
 } from '@chakra-ui/react'
 
-const TextFormControl = ({ labelName, paddingSpace, value, onInput, isSubmited, isRequired, isRequiredMessage }) => {
+const TextFormControl = ({
+  labelName,
+  width,
+  paddingSpace,
+  value,
+  onInput,
+  isSubmited,
+  isRequired,
+  isRequiredMessage
+}) => {
   // const inputName = labelName.toLowerCase()
   const isError = isSubmited && value === ''
 
   return (
     <>
-      <FormControl mt={paddingSpace} isInvalid={isError} isRequired={isRequired}>
+      <FormControl
+        mt={paddingSpace}
+        isInvalid={isError}
+        isRequired={isRequired}
+      >
         <FormLabel
           color='acsys.subtitleColor'
           mb='1'
@@ -24,8 +37,8 @@ const TextFormControl = ({ labelName, paddingSpace, value, onInput, isSubmited, 
         <Input
           focusBorderColor='acsys.primaryColor'
           size='sm'
-            // width={337}
-          width='330px'
+          // width={337}
+          width={width}
           //    borderColor="gray.300"
           value={value}
           spellCheck='false'
@@ -33,11 +46,11 @@ const TextFormControl = ({ labelName, paddingSpace, value, onInput, isSubmited, 
           fontSize='15px'
           height='35px'
           color='acsys.iconColor'
-          onInput={(event) => onInput(event.target.value)}
+          onInput={event => onInput(event.target.value)}
           placeholder=''
           isRequired
         />
-        {isError && (<FormErrorMessage>{isRequiredMessage}</FormErrorMessage>)}
+        {isError && <FormErrorMessage>{isRequiredMessage}</FormErrorMessage>}
         {/* <FormErrorMessage>Este campo es obligatorio</FormErrorMessage> */}
       </FormControl>
     </>
