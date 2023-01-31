@@ -12,7 +12,6 @@ $white-color: #FFFFFF;
 .page-container{
     margin: 25px 40px;
     min-width: 900px;
-    
     // width: 300px;
     // width: 100vw;
 }
@@ -80,6 +79,13 @@ $white-color: #FFFFFF;
 .employeeFormGrid{
     display: grid;
     grid-template-columns: 330px 330px;
+    column-gap: 20px;
+}
+
+//order and inventory form
+.formGrid{
+    display: grid;
+    grid-template-columns: 270px 170px 170px;
     column-gap: 20px;
 }
 
@@ -154,7 +160,7 @@ $white-color: #FFFFFF;
 }
 
 .order-list-container{
-    height: calc(100vh - 260px);
+    height: 250px;
     overflow: auto;
     user-select: none;
     -webkit-user-select: none;

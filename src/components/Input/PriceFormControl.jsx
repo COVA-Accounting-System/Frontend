@@ -3,12 +3,15 @@ import {
   FormLabel,
   Input,
   InputGroup,
+  NumberInput,
+  NumberInputField,
   FormErrorMessage,
   InputRightAddon
 } from '@chakra-ui/react'
 
 const PriceFormControl = ({
   labelName,
+  width,
   value,
   onInput,
   isSubmited,
@@ -28,8 +31,9 @@ const PriceFormControl = ({
         >
           {labelName}
         </FormLabel>
-        <InputGroup maxW='330px'>
-          <Input
+        <InputGroup maxW={width}>
+        <NumberInput precision={2} step={0.2} min={0} >
+          <NumberInputField
             focusBorderColor='acsys.primaryColor'
             size='sm'
             value={value}
@@ -43,8 +47,12 @@ const PriceFormControl = ({
             height='35px'
             color='acsys.iconColor'
             type='number'
+            min={0}
+            borderRightRadius={0}
           />
-          <InputRightAddon
+      
+        </NumberInput>
+        <InputRightAddon
             children='Bs.'
             height='35px'
             fontSize='15px'

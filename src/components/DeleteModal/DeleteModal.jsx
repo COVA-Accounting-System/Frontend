@@ -32,13 +32,13 @@ const DeleteModal = (props) => {
             </p>
           </ModalBody>
           <ModalFooter>
+            <Button label='Cancelar' type='cancel' onClick={onClose} />
             <Button
               className='button-cancel'
               label='Eliminar'
               type='confirm-delete'
               onClick={onDelete}
             />
-            <Button label='Cancelar' type='cancel' onClick={onClose} />
           </ModalFooter>
         </ModalContent>
       </Modal>

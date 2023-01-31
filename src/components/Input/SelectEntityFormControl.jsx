@@ -33,7 +33,7 @@ const SelectEntityFormControl = ({
         fontSize='15px'
         color='acsys.iconColor'
         value={value}
-        maxWidth='330px'
+        maxWidth='270px'
         onChange={(e) => {
           onSelect(e.target.value)
         }}

@@ -8,6 +8,7 @@ import {
   updateOrder
 } from '../reducers/orders'
 import { getAllClients } from '../reducers/clients'
+import { getAllProducts } from '../reducers/products'
 import * as toast from '../services/toastService'
 import { changeAction, changeEntity } from '../reducers/crud'
 
@@ -56,6 +57,10 @@ export const useOrder = () => {
   const clientsList = useSelector((state) => {
     return state.clients.data.filter((param) => param.isVisible === true)
   })
+  const productsList = useSelector((state) => {
+    return state.products.data.filter((param) => param.isVisible === true)
+  })
+
   const actualOrder = useSelector((state) => state.orders.actualOrder)
   const ordersList = useSelector((state) => {
     return state.orders.data.filter((param) => param.isVisible === true)
@@ -64,6 +69,7 @@ export const useOrder = () => {
   useEffect(() => {
     dispatch(getAllOrders())
     dispatch(getAllClients())
+    dispatch(getAllProducts())
     dispatch(changeEntity({ entity: 'order', entityName: 'pedido' }))
   }, [dispatch])
 
@@ -183,6 +189,7 @@ export const useOrder = () => {
     isSubmited,
     ordersList,
     clientsList,
+    productsList,
     changeActionRedux,
     deleteActualOrder,
     onClickSave,

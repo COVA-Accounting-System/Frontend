@@ -10,6 +10,7 @@ import {
   ModalFooter,
   ModalBody,
   ModalCloseButton,
+  Divider,
   Input
 } from '@chakra-ui/react'
 
@@ -18,6 +19,8 @@ import DataTableActions from '../../components/DataTableActions/DataTableActions
 import TextFormControl from '../../components/Input/TextFormControl'
 import DateFormControl from '../../components/Input/DateFormControl'
 import SelectEntityFormControl from '../../components/Input/SelectEntityFormControl'
+import PriceFormControl from '../../components/Input/PriceFormControl'
+import InputWithSelectFormControl from '../../components/Input/InputWithSelectFormControl'
 import DeleteModal from '../../components/DeleteModal/DeleteModal'
 import Table from '../../components/Table/Table'
 import { Button } from '../../components/Button/Button'
@@ -184,7 +187,7 @@ const Order = () => {
         isOpen={order.modalIsOpen}
       >
         <ModalOverlay />
-        <ModalContent userSelect='none' maxW='730px'>
+        <ModalContent userSelect='none' maxW='760px'>
           <ModalHeader
             color='acsys.titleColor'
             fontWeight='700'
@@ -196,63 +199,67 @@ const Order = () => {
 
           <ModalBody pb={3}>
             <form className='providerFormGrid'>
-              <div className='employeeFormGrid'>
+              <div className='formGrid'>
                 <SelectEntityFormControl
                   labelName='Cliente'
-                  paddingSpace={4}
+                  paddingSpace={0}
                   value={order.orderClient}
-                  onSelect={(data) => order.setOrderClient(data)}
+                  onSelect={data => order.setOrderClient(data)}
                   isSubmited={order.isSubmited}
                   entityList={order.clientsList}
                   isRequired
                   isRequiredMessage='Este campo es obligatorio'
                 />
-                <DateFormControl
-                  labelName='Fecha de entrega'
-                  widht='170px'
-                  paddingSpace={4}
-                  value={order.orderDeliveryDate}
-                  onInput={data => order.setOrderDeliveryDate(data)}
-                  isRequired={false}
-                />
                 <TextFormControl
                   labelName='Nº de pedido'
-                  width='330px'
-                  paddingSpace={4}
+                  width='170px'
+                  paddingSpace={0}
                   value={order.orderNumber}
                   onInput={data => order.setOrderNumber(data)}
                   isSubmited={order.isSubmited}
                   isRequired
                   isRequiredMessage='Este campo es obligatorio'
                 />
-              </div>
-              <div>
-                {/* <TextFormControl
-                  labelName='Apellidos'
+                <DateFormControl
+                  labelName='Fecha de entrega'
+                  widht='170px'
                   paddingSpace={0}
-                  value={employee.lastName}
-                  onInput={data => employee.setLastName(data)}
-                  isSubmited={employee.isSubmited}
-                  isRequired
-                  isRequiredMessage='Este campo es obligatorio'
+                  value={order.orderDeliveryDate}
+                  onInput={data => order.setOrderDeliveryDate(data)}
+                  isRequired={false}
                 />
-                <CountryFormControl
-                  labelName='Nacionalidad'
-                  value={employee.nationality}
-                  onSelectCountry={data => employee.setNationality(data)}
+              </div>
+              <Divider mt={5} mb={-1} />
+              <div className='formGrid'>
+                <SelectEntityFormControl
+                  labelName='Modelo'
+                  paddingSpace={4}
+                  // value={order.orderList}
+                  // onSelect={data => order.setOrderClient(data)}
+                  // isSubmited={order.isSubmited}
+                  entityList={order.productsList}
+                  isRequired={false}
+                  // isRequiredMessage='Este campo es obligatorio'
                 />
-                <PhoneFormControl
-                  phoneNumberValue={employee.phoneNumber}
-                  phoneCountryCodeValue={employee.phoneCountryCode}
-                  phoneNumberOnInput={number => {
-                    employee.setPhoneNumber(number)
-                  }}
-                  phoneCountryCodeOnInput={number => {
-                    employee.setPhoneCountryCode(number)
-                  }}
-                /> */}
+                <InputWithSelectFormControl
+                  labelName='Cantidad'
+                  width='170px'
+                  paddingSpace={4}
+                  // value={}
+                  // onInput={}
+                />
+                <PriceFormControl
+                  labelName='Precio'
+                  width='170px'
+                  // value={}
+                  // onInput={}
+                  isRequired={false}
+                />
               </div>
             </form>
+            <div className='order-list-container'>
+
+            </div>
           </ModalBody>
           <ModalFooter>
             <Button
