@@ -10,6 +10,7 @@ import './Sidebar.scss'
 
 const Sidebar = () => {
   const [subMenus, setSubMenus] = useState([
+    { name: 'submenu-production', isOpen: false, subElements: 2 },
     { name: 'submenu-inventory', isOpen: false, subElements: 3 },
     { name: 'submenu-accounting', isOpen: false, subElements: 2 },
     { name: 'submenu-contact', isOpen: false, subElements: 3 }
@@ -56,25 +57,14 @@ const Sidebar = () => {
       <h1 className='sidebar-title'>ACSYS</h1>
       <ul>
         <li>
-          <NavLink
-            className='element'
-            to='/accounting-mode/order'
-            id='orderButton'
-            style={({ isActive }) => (isActive ? activeStyle : {})}
-          >
-            <FaBoxOpen className='global-icon-class' />
-            Pedidos
-          </NavLink>
-        </li>
-        <li>
           <div
             className='element'
-            id='inventorySubmenu'
-            onClick={() => changeIsActiveAndOpenSubmenu('submenu-inventory')}
+            id='accountingSubmenu'
+            onClick={() => changeIsActiveAndOpenSubmenu('submenu-production')}
             style={(subMenus[0].isOpen) ? activeSubMenuItemStyle : {}}
           >
-            <RiArchiveDrawerFill className='global-icon-class' />
-            Inventario
+            <FaBoxOpen className='global-icon-class' />
+            Producción
             <MdOutlineArrowRight
               className='arrow-icon-class'
               style={
@@ -85,9 +75,8 @@ const Sidebar = () => {
             />
           </div>
           <ul
-            id='submenu-inventory'
+            id='submenu-production'
             className='ul-element-inside'
-            tabIndex='0'
             style={
               subMenus[0].isOpen
                 ? {
@@ -100,28 +89,19 @@ const Sidebar = () => {
             <li>
               <NavLink
                 className='element-inside'
-                to='/accounting-mode/inventory/raw-material'
+                to='/production/order'
                 style={({ isActive }) => (isActive ? activeStyle : {})}
               >
-                Materiales
+                Pedidos
               </NavLink>
             </li>
             <li>
               <NavLink
                 className='element-inside'
-                to='/accounting-mode/inventory/input'
+                to='/production/product'
                 style={({ isActive }) => (isActive ? activeStyle : {})}
               >
-                Entradas
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                className='element-inside'
-                to='/accounting-mode/inventory/output'
-                style={({ isActive }) => (isActive ? activeStyle : {})}
-              >
-                Salidas
+                Productos
               </NavLink>
             </li>
           </ul>
@@ -129,12 +109,12 @@ const Sidebar = () => {
         <li>
           <div
             className='element'
-            id='accountingSubmenu'
-            onClick={() => changeIsActiveAndOpenSubmenu('submenu-accounting')}
+            id='inventorySubmenu'
+            onClick={() => changeIsActiveAndOpenSubmenu('submenu-inventory')}
             style={(subMenus[1].isOpen) ? activeSubMenuItemStyle : {}}
           >
-            <FaMoneyBillAlt className='global-icon-class' />
-            Contabilidad
+            <RiArchiveDrawerFill className='global-icon-class' />
+            Inventario
             <MdOutlineArrowRight
               className='arrow-icon-class'
               style={
@@ -145,8 +125,9 @@ const Sidebar = () => {
             />
           </div>
           <ul
-            id='submenu-accounting'
+            id='submenu-inventory'
             className='ul-element-inside'
+            tabIndex='0'
             style={
               subMenus[1].isOpen
                 ? {
@@ -159,43 +140,41 @@ const Sidebar = () => {
             <li>
               <NavLink
                 className='element-inside'
-                to='/accounting-mode/accounting/income'
+                to='/inventory/raw-material'
                 style={({ isActive }) => (isActive ? activeStyle : {})}
               >
-                Ingresos
+                Materiales
               </NavLink>
             </li>
             <li>
               <NavLink
                 className='element-inside'
-                to='/accounting-mode/accounting/expense'
+                to='/inventory/input'
                 style={({ isActive }) => (isActive ? activeStyle : {})}
               >
-                Gastos
+                Entradas
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                className='element-inside'
+                to='/inventory/output'
+                style={({ isActive }) => (isActive ? activeStyle : {})}
+              >
+                Salidas
               </NavLink>
             </li>
           </ul>
         </li>
         <li>
-          <NavLink
-            className='element'
-            to='/accounting-mode/product'
-            id='productButton'
-            style={({ isActive }) => (isActive ? activeStyle : {})}
-          >
-            <MdSell className='global-icon-class' />
-            Productos
-          </NavLink>
-        </li>
-        <li>
           <div
             className='element'
-            id='contactSubmenu'
-            onClick={() => changeIsActiveAndOpenSubmenu('submenu-contact')}
+            id='accountingSubmenu'
+            onClick={() => changeIsActiveAndOpenSubmenu('submenu-accounting')}
             style={(subMenus[2].isOpen) ? activeSubMenuItemStyle : {}}
           >
-            <BsPersonFill className='global-icon-class' />
-            Contactos
+            <FaMoneyBillAlt className='global-icon-class' />
+            Contabilidad
             <MdOutlineArrowRight
               className='arrow-icon-class'
               style={
@@ -206,7 +185,7 @@ const Sidebar = () => {
             />
           </div>
           <ul
-            id='submenu-contact'
+            id='submenu-accounting'
             className='ul-element-inside'
             style={
               subMenus[2].isOpen
@@ -220,7 +199,57 @@ const Sidebar = () => {
             <li>
               <NavLink
                 className='element-inside'
-                to='/accounting-mode/contact/client'
+                to='/accounting/income'
+                style={({ isActive }) => (isActive ? activeStyle : {})}
+              >
+                Ingresos
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                className='element-inside'
+                to='/accounting/expense'
+                style={({ isActive }) => (isActive ? activeStyle : {})}
+              >
+                Gastos
+              </NavLink>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <div
+            className='element'
+            id='contactSubmenu'
+            onClick={() => changeIsActiveAndOpenSubmenu('submenu-contact')}
+            style={(subMenus[3].isOpen) ? activeSubMenuItemStyle : {}}
+          >
+            <BsPersonFill className='global-icon-class' />
+            Contactos
+            <MdOutlineArrowRight
+              className='arrow-icon-class'
+              style={
+                subMenus[3].isOpen
+                  ? rotateArrowStyle
+                  : {}
+              }
+            />
+          </div>
+          <ul
+            id='submenu-contact'
+            className='ul-element-inside'
+            style={
+              subMenus[3].isOpen
+                ? {
+                    height: subMenus[3].subElements * 49,
+                    borderBottom: '1px solid #e6e9f0'
+                  }
+                : {}
+            }
+          >
+            <li>
+              <NavLink
+                className='element-inside'
+                to='/contact/client'
                 style={({ isActive }) => (isActive ? activeStyle : {})}
               >
                 Clientes
@@ -229,7 +258,7 @@ const Sidebar = () => {
             <li>
               <NavLink
                 className='element-inside'
-                to='/accounting-mode/contact/employee'
+                to='/contact/employee'
                 style={({ isActive }) => (isActive ? activeStyle : {})}
               >
                 Empleados
@@ -238,7 +267,7 @@ const Sidebar = () => {
             <li>
               <NavLink
                 className='element-inside'
-                to='/accounting-mode/contact/provider'
+                to='/contact/provider'
                 style={({ isActive }) => (isActive ? activeStyle : {})}
               >
                 Proveedores
@@ -249,7 +278,7 @@ const Sidebar = () => {
         <li>
           <NavLink
             className='element'
-            to='/accounting-mode/report'
+            to='/report'
             id='reportButton'
             style={({ isActive }) => (isActive ? activeStyle : {})}
           >

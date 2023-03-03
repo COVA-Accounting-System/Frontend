@@ -23,14 +23,13 @@ const App = () => {
       <Route path='/login' element={<Login />} />
       {isLogged
         ? (
-          <Route path='/accounting-mode/' element={<MainPage />}>
-            <Route path='order' element={<Order />} />
+          <Route path='/' element={<MainPage />}>
+            <Route path='/production/order' element={<Order />} />
+            <Route path='/production/product' element={<Product />} />
 
             <Route path='inventory/raw-material' />
             <Route path='inventory/input' />
             <Route path='inventory/output' />
-
-            <Route path='product' element={<Product />} />
 
             <Route path='accounting/income' />
             <Route path='accounting/expense' />
