@@ -1,5 +1,5 @@
 import React from 'react'
-import './DataTableIcons.scss'
+import './DataTableActions.scss'
 import {
   Button,
   // ChevronDownIcon,

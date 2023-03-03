@@ -13,7 +13,11 @@ export const theme = extendTheme({
       toggleBackgroundColor: '#f1f3f6',
       primaryColor: '#109AC6',
       subtitleColor: '#757F8F',
-      redColor: '#ef476f'
+      redColor: '#ef476f',
+      redColorState: '#D35F7B',
+      violetColorState: '#A475B4',
+      greenColorState: '#5F9E7B',
+      blueColorState: '#5F9E7B'
     }
   }
 })

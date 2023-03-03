@@ -15,7 +15,7 @@ import {
 } from '@chakra-ui/react'
 
 // COMPONENTS IMPORTS
-import DataTableActions from '../../components/DataTableActions/DataTableActions'
+import DataTableActionsOrder from '../../components/DataTableActions/DataTableActionsOrder'
 import TextFormControl from '../../components/Input/TextFormControl'
 import DateFormControl from '../../components/Input/DateFormControl'
 import SelectEntityFormControl from '../../components/Input/SelectEntityFormControl'
@@ -112,7 +112,7 @@ const Order = () => {
         resizable: false,
         pinned: 'right',
         maxWidth: 160,
-        cellRenderer: DataTableActions,
+        cellRenderer: DataTableActionsOrder,
         colId: 'Actions',
         cellRendererParams: {
           onView: () => {},
@@ -126,7 +126,6 @@ const Order = () => {
             order.setOrderPrice(data.orderPrice)
             order.setOrderProductAmountType(data.orderProductAmountType)
             order.setOrderProductAmount(data.orderProductAmount)
-            // order.setOrderPaymentState(data.orderPaymentState)
 
             order.changeActionRedux('edit')
             order.setActualOrderRedux(data)
