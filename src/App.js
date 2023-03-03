@@ -23,9 +23,9 @@ const App = () => {
       <Route path='/login' element={<Login />} />
       {isLogged
         ? (
-          <Route path='/' element={<MainPage />}>
-            <Route path='/production/order' element={<Order />} />
-            <Route path='/production/product' element={<Product />} />
+          <Route path='/ca' element={<MainPage />}>
+            <Route path='production/order' element={<Order />} />
+            <Route path='production/product' element={<Product />} />
 
             <Route path='inventory/raw-material' />
             <Route path='inventory/input' />
@@ -39,6 +39,7 @@ const App = () => {
             <Route path='contact/provider' element={<Provider />} />
 
             <Route path='report' />
+
             <Route
               path='*'
               element={<Navigate to='/page-not-found' replace />}

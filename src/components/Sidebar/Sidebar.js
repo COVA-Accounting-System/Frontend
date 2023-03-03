@@ -89,7 +89,7 @@ const Sidebar = () => {
             <li>
               <NavLink
                 className='element-inside'
-                to='/production/order'
+                to='/ca/production/order'
                 style={({ isActive }) => (isActive ? activeStyle : {})}
               >
                 Pedidos
@@ -98,7 +98,7 @@ const Sidebar = () => {
             <li>
               <NavLink
                 className='element-inside'
-                to='/production/product'
+                to='/ca/production/product'
                 style={({ isActive }) => (isActive ? activeStyle : {})}
               >
                 Productos
@@ -140,7 +140,7 @@ const Sidebar = () => {
             <li>
               <NavLink
                 className='element-inside'
-                to='/inventory/raw-material'
+                to='/ca/inventory/raw-material'
                 style={({ isActive }) => (isActive ? activeStyle : {})}
               >
                 Materiales
@@ -149,7 +149,7 @@ const Sidebar = () => {
             <li>
               <NavLink
                 className='element-inside'
-                to='/inventory/input'
+                to='/ca/inventory/input'
                 style={({ isActive }) => (isActive ? activeStyle : {})}
               >
                 Entradas
@@ -158,7 +158,7 @@ const Sidebar = () => {
             <li>
               <NavLink
                 className='element-inside'
-                to='/inventory/output'
+                to='/ca/inventory/output'
                 style={({ isActive }) => (isActive ? activeStyle : {})}
               >
                 Salidas
@@ -199,7 +199,7 @@ const Sidebar = () => {
             <li>
               <NavLink
                 className='element-inside'
-                to='/accounting/income'
+                to='/ca/accounting/income'
                 style={({ isActive }) => (isActive ? activeStyle : {})}
               >
                 Ingresos
@@ -208,7 +208,7 @@ const Sidebar = () => {
             <li>
               <NavLink
                 className='element-inside'
-                to='/accounting/expense'
+                to='/ca/accounting/expense'
                 style={({ isActive }) => (isActive ? activeStyle : {})}
               >
                 Gastos
@@ -249,7 +249,7 @@ const Sidebar = () => {
             <li>
               <NavLink
                 className='element-inside'
-                to='/contact/client'
+                to='/ca/contact/client'
                 style={({ isActive }) => (isActive ? activeStyle : {})}
               >
                 Clientes
@@ -258,7 +258,7 @@ const Sidebar = () => {
             <li>
               <NavLink
                 className='element-inside'
-                to='/contact/employee'
+                to='/ca/contact/employee'
                 style={({ isActive }) => (isActive ? activeStyle : {})}
               >
                 Empleados
@@ -267,7 +267,7 @@ const Sidebar = () => {
             <li>
               <NavLink
                 className='element-inside'
-                to='/contact/provider'
+                to='/ca/contact/provider'
                 style={({ isActive }) => (isActive ? activeStyle : {})}
               >
                 Proveedores
@@ -278,7 +278,7 @@ const Sidebar = () => {
         <li>
           <NavLink
             className='element'
-            to='/report'
+            to='/ca/report'
             id='reportButton'
             style={({ isActive }) => (isActive ? activeStyle : {})}
           >

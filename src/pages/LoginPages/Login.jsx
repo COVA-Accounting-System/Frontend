@@ -53,7 +53,7 @@ const Login = () => {
     <>
       {isLogged
         ? (
-          <Navigate to='/accounting-mode/' replace />
+          <Navigate to='/ca' replace />
           )
         : (
           <div className='box-container'>
