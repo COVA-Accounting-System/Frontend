@@ -173,6 +173,7 @@ const Employee = () => {
                 height='35px'
                 fontSize='15px'
                 autoComplete='off'
+                borderColor={'gray.200'}
               />
             </div>
             <div className='button-container'>
