@@ -117,13 +117,17 @@ const Order = () => {
         cellRendererParams: {
           onView: () => {},
           onEdit: data => {
+            order.setOrderFeatures(data.orderFeatures)
             order.setOrderState(data.orderState)
             order.setOrderNumber(data.orderNumber)
             order.setOrderClient(data.orderClient)
+            order.setOrderProduct(data.orderProduct)
             order.setOrderDeliveryDate(data.orderDeliveryDate)
+            order.setOrderPrice(data.orderPrice)
+            order.setOrderProductAmountType(data.orderProductAmountType)
+            order.setOrderProductAmount(data.orderProductAmount)
             // order.setOrderPaymentState(data.orderPaymentState)
-            order.setOrderTotalPrice(data.orderTotalPrice)
-            order.setOrderList(data.orderList)
+
             order.changeActionRedux('edit')
             order.setActualOrderRedux(data)
             order.openModal()
@@ -250,6 +254,7 @@ const Order = () => {
                     value={order.orderProduct}
                     onSelect={data => {
                       order.setOrderProduct(data)
+                      order.setOrderProductAmountType(data.productType)
                     }}
                     isSubmited={order.isSubmited}
                     entityList={order.productsList}
@@ -258,13 +263,14 @@ const Order = () => {
                   />
                   <InputWithSelectFormControl
                     labelName='Cantidad'
-                    type={order.orderProduct.productType}
                     width='330px'
                     paddingSpace={4}
                     onChangeType={data => {
                       order.setOrderProductAmountType(data)
                     }}
-                    value={order.orderProductAmount}
+                    type={order.orderProduct.productType}
+                    valueType={order.orderProductAmountType}
+                    valueAmount={order.orderProductAmount}
                     onInput={data => {
                       order.setOrderProductAmount(data)
                     }}

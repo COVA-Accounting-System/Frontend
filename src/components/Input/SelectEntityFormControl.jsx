@@ -32,18 +32,18 @@ const SelectEntityFormControl = ({
         height='35px'
         fontSize='15px'
         color='acsys.iconColor'
-        // value="asdasd"
         maxWidth={width}
+        value={value.uiName}
         onChange={e => {
           onSelect(entityList[e.target.options.selectedIndex - 1])
         }}
       >
-        <option uiname='' hidden>
+        <option value='' hidden>
           Seleccione un {labelName.toLowerCase()}
         </option>
         {entityList.map(element => {
           return (
-            <option>
+            <option value={element.uiName}>
               {element.uiName}
             </option>
           )

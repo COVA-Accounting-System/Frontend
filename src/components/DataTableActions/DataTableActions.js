@@ -15,41 +15,8 @@ import { ChevronDownIcon } from '@chakra-ui/icons'
 const DataTableActions = (props) => {
   const { data, onView, onEdit, onDelete } = props
 
-  // const onClickDelete = () => {
-  //   dispatchAction("delete");
-  //   setData(data);
-  //   openModal();
-  // };
-
-  // const onClickEdit = () => {
-  //   dispatchAction("edit");
-  //   setData(data);
-  //   openModal();
-  // };
-
   return (
     <div className='submenu'>
-      {/* <div className="icons-container">
-        <div className="icon-container">
-          <span
-            className="material-symbols-outlined icon icon-edit"
-            title="Editar"
-            onClick={onClickEdit}
-          >
-            edit
-          </span>
-        </div>
-        <div className="icon-container">
-          <span
-            id="delete"
-            className="material-symbols-outlined icon icon-delete"
-            title="Eliminar"
-            onClick={onClickDelete}
-          >
-            delete
-          </span>
-        </div>
-      </div> */}
 
       <Menu>
         <MenuButton

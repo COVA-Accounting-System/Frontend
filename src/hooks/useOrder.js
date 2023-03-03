@@ -22,7 +22,7 @@ export const useOrder = () => {
   const [orderNumber, setOrderNumber] = useState('')
   const [orderProduct, setOrderProduct] = useState({})
   const [orderProductAmount, setOrderProductAmount] = useState('')
-  const [orderProductAmountType, setOrderProductAmountType] = useState('Unidad')
+  const [orderProductAmountType, setOrderProductAmountType] = useState('')
   const [orderPrice, setOrderPrice] = useState('')
 
   const [orderDeliveryDate, setOrderDeliveryDate] = useState('')
@@ -52,25 +52,33 @@ export const useOrder = () => {
     dispatch(changeEntity({ entity: 'order', entityName: 'pedido' }))
   }, [dispatch])
 
-  useEffect(() => {
-    if (orderProductAmountType === 'Unidad') {
-      if (orderProductAmount !== '' && orderProduct.productPrice !== '') {
-        setOrderPrice(() => orderProductAmount * orderProduct.productPrice)
-      }
-    }
+  // useEffect(() => {
 
-    if (orderProductAmountType === 'Par') {
-      if (orderProductAmount !== '' && orderProduct.productPrice !== '') {
-        setOrderPrice(() => orderProductAmount * orderProduct.productPrice)
-      }
-    }
+  //     if (orderProductAmountType === 'Unidad') {
+  //       if (orderProductAmount !== '' && orderProduct.productPrice !== '') {
+  //         setOrderPrice(() => orderProductAmount * orderProduct.productPrice)
+  //       }
+  //     }
 
-    if (orderProductAmountType === 'Docena') {
-      if (orderProductAmount !== '' && orderProduct.productDozenPrice !== '') {
-        setOrderPrice(() => orderProductAmount * orderProduct.productDozenPrice)
-      }
-    }
-  }, [orderProductAmount, orderProduct, orderProductAmountType])
+  //     if (orderProductAmountType === 'Par') {
+  //       if (orderProductAmount !== '' && orderProduct.productPrice !== '') {
+  //         setOrderPrice(() => orderProductAmount * orderProduct.productPrice)
+  //       }
+  //     }
+
+  //     if (orderProductAmountType === 'Docena') {
+  //       if (
+  //         orderProductAmount !== '' &&
+  //         orderProduct.productDozenPrice !== ''
+  //       ) {
+  //         setOrderPrice(
+  //           () => orderProductAmount * orderProduct.productDozenPrice
+  //         )
+  //       }
+  //     }
+    
+
+  // }, [orderProductAmount, orderProduct, orderProductAmountType])
 
   const changeActionRedux = action => {
     dispatch(changeAction(action))
@@ -87,7 +95,7 @@ export const useOrder = () => {
     setOrderProductAmount('')
     setOrderPrice('')
     setOrderDeliveryDate('')
-    setOrderProductAmountType('Unidad')
+    setOrderProductAmountType('')
 
     setOrderState('')
     setOrderFeatures([])
@@ -131,12 +139,15 @@ export const useOrder = () => {
       dispatch(
         createOrder({
           orderClient: {
-            uiName: orderClient.uiName,
-            _id: orderClient._id
+            _id: orderClient._id,
+            uiName: orderClient.uiName
           },
           orderProduct: {
+            _id: orderProduct._id,
             uiName: orderProduct.uiName,
-            _id: orderProduct._id
+            productType: orderProduct.productType,
+            // productPrice: orderProduct.productPrice,
+            // productDozenPrice: orderProduct.productDozenPrice
           },
           orderNumber,
           orderProductAmount,
@@ -175,16 +186,17 @@ export const useOrder = () => {
             _id: orderClient._id
           },
           orderProduct: {
+            _id: orderProduct._id,
             uiName: orderProduct.uiName,
-            _id: orderProduct._id
+            productType: orderProduct.productType,
+            // productPrice: orderProduct.productPrice,
+            // productDozenPrice: orderProduct.productDozenPrice
           },
           orderNumber,
           orderProductAmount,
           orderProductAmountType,
           orderPrice,
-          orderCreationDate: new Date(),
           orderDeliveryDate,
-          orderState,
           orderFeatures: [...orderFeatures]
         })
       ).then(status => {

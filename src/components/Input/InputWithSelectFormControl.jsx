@@ -10,16 +10,17 @@ import {
 
 const InputWithSelectFormControl = ({
   labelName,
-  type,
   width,
-  value,
+  valueAmount,
+  type,
+  valueType,
   onInput,
   onChangeType,
   isSubmited,
   isRequired,
   isRequiredMessage
 }) => {
-  const isError = isSubmited && value === ''
+  const isError = isSubmited && valueAmount === ''
 
   return (
     <>
@@ -36,7 +37,7 @@ const InputWithSelectFormControl = ({
           <Input
             focusBorderColor='acsys.primaryColor'
             size='sm'
-            value={value}
+            value={valueAmount}
             onInput={event => {
               onInput(event.target.value)
             }}
@@ -60,6 +61,7 @@ const InputWithSelectFormControl = ({
               p={0}
               m={0}
               h='33px'
+              value={valueType}
               border={0}
               borderLeftRadius={0}
               fontSize='15px'
@@ -68,7 +70,9 @@ const InputWithSelectFormControl = ({
                 onChangeType(event.target.value)
               }}
             >
-              <option value={`${type}`}>{type === 'Unidad' || type === 'Par' ? type : 'Unidad'}</option>
+              <option value={type}>
+                {type !== undefined ? type : 'Unidad'}
+              </option>
               <option value='Docena'>Docena</option>
             </Select>
           </InputRightAddon>
