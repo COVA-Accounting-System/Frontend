@@ -13,6 +13,7 @@ import { store } from './app/store'
 import { ChakraProvider } from '@chakra-ui/react'
 import App from './App'
 import { theme } from './styles/chakraTheme'
+import { LightMode } from '@chakra-ui/react'
 
 // Library imports
 import { Toaster } from 'react-hot-toast'
@@ -23,7 +24,9 @@ root.render(
     <BrowserRouter>
       <Provider store={store}>
         <ChakraProvider theme={theme}>
+        <LightMode>
           <App />
+          </LightMode>
         </ChakraProvider>
       </Provider>
     </BrowserRouter>

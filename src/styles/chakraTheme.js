@@ -1,6 +1,9 @@
 import { extendTheme } from '@chakra-ui/react'
 
 export const theme = extendTheme({
+  initialColorMode: 'light',
+  //  If true, your app will change color mode based on the user's system preferences.
+  // useSystemColorMode: false,
   colors: {
     acsys: {
       backgroundColor: '#f1f3f6',

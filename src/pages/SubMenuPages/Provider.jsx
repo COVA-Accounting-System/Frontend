@@ -200,11 +200,11 @@ const Provider = () => {
           >
             Crear proveedor
           </ModalHeader>
-          <ModalCloseButton />
+          <ModalCloseButton color={'acsys.titleColor'}/>
 
           <ModalBody pb={3}>
-            <form className='providerFormGrid'>
-              <div className='employeeFormGrid'>
+            <form className='three-rows-grid'>
+              <div className='two-column-grid'>
                 <TextFormControl
                   labelName='Nombre de la tienda'
                   paddingSpace={0}
@@ -224,7 +224,7 @@ const Provider = () => {
                   // isRequiredMessage="Este campo es obligatorio"
                 />
               </div>
-              <div className='employeeFormGrid'>
+              <div className='two-column-grid'>
                 <CountryFormControl
                   labelName='País'
                   value={provider.country}
@@ -240,7 +240,7 @@ const Provider = () => {
                   // isRequiredMessage='Este campo es obligatorio'
                 />
               </div>
-              <div className='employeeFormGrid'>
+              <div className='two-column-grid'>
                 <TextFormControl
                   labelName='Dirección'
                   paddingSpace={4}

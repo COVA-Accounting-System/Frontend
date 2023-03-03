@@ -210,10 +210,10 @@ const Employee = () => {
           >
             Crear empleado
           </ModalHeader>
-          <ModalCloseButton />
+          <ModalCloseButton color={'acsys.titleColor'}/>
 
           <ModalBody pb={3}>
-            <form className='employeeFormGrid'>
+            <form className='two-column-grid'>
               <div>
                 <TextFormControl
                   labelName='Nombres'

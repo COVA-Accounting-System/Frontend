@@ -20,6 +20,7 @@ import TextFormControl from '../../components/Input/TextFormControl'
 import DateFormControl from '../../components/Input/DateFormControl'
 import SelectEntityFormControl from '../../components/Input/SelectEntityFormControl'
 import PriceFormControl from '../../components/Input/PriceFormControl'
+import FeaturesFormControl from '../../components/Input/FeaturesFormControl'
 import InputWithSelectFormControl from '../../components/Input/InputWithSelectFormControl'
 import DeleteModal from '../../components/DeleteModal/DeleteModal'
 import Table from '../../components/Table/Table'
@@ -40,7 +41,7 @@ const Order = () => {
       {
         headerName: 'Estado',
         field: 'orderState',
-        resizable: false,
+        resizable: true,
         sortable: true,
         width: 160
         // minWidth: 120,
@@ -61,8 +62,23 @@ const Order = () => {
         resizable: false,
         sortable: true,
         // minWidth: 130,
-        width: 210
+        width: 210,
         // maxWidth: 250,
+        cellRenderer: data => {
+          return `${data.data.orderClient.uiName}`
+        }
+      },
+      {
+        headerName: 'Producto',
+        field: 'orderProduct',
+        resizable: false,
+        sortable: true,
+        // minWidth: 130,
+        width: 210,
+        // maxWidth: 250,
+        cellRenderer: data => {
+          return `${data.data.orderProduct.uiName}`
+        }
       },
       {
         headerName: 'Fecha de entrega',
@@ -86,7 +102,7 @@ const Order = () => {
       },
       {
         headerName: 'Precio total',
-        field: 'orderTotalPrice',
+        field: 'orderPrice',
         resizable: false,
         sortable: true,
         width: 150
@@ -187,7 +203,7 @@ const Order = () => {
         isOpen={order.modalIsOpen}
       >
         <ModalOverlay />
-        <ModalContent userSelect='none' maxW='760px'>
+        <ModalContent userSelect='none' maxW='750px'>
           <ModalHeader
             color='acsys.titleColor'
             fontWeight='700'
@@ -195,16 +211,19 @@ const Order = () => {
           >
             Crear pedido
           </ModalHeader>
-          <ModalCloseButton />
+          <ModalCloseButton color={'acsys.titleColor'} />
 
-          <ModalBody pb={3}>
-            <form className='providerFormGrid'>
-              <div className='formGrid'>
+          <ModalBody pb={0}>
+            <form className='three-rows-grid'>
+              <div className='two-column-grid'>
                 <SelectEntityFormControl
                   labelName='Cliente'
                   paddingSpace={0}
                   value={order.orderClient}
-                  onSelect={data => order.setOrderClient(data)}
+                  width='330px'
+                  onSelect={data => {
+                    order.setOrderClient(data)
+                  }}
                   isSubmited={order.isSubmited}
                   entityList={order.clientsList}
                   isRequired
@@ -212,7 +231,7 @@ const Order = () => {
                 />
                 <TextFormControl
                   labelName='Nº de pedido'
-                  width='170px'
+                  width='330px'
                   paddingSpace={0}
                   value={order.orderNumber}
                   onInput={data => order.setOrderNumber(data)}
@@ -220,46 +239,75 @@ const Order = () => {
                   isRequired
                   isRequiredMessage='Este campo es obligatorio'
                 />
-                <DateFormControl
-                  labelName='Fecha de entrega'
-                  widht='170px'
-                  paddingSpace={0}
-                  value={order.orderDeliveryDate}
-                  onInput={data => order.setOrderDeliveryDate(data)}
-                  isRequired={false}
-                />
               </div>
-              <Divider mt={5} mb={-1} />
-              <div className='formGrid'>
-                <SelectEntityFormControl
-                  labelName='Modelo'
-                  paddingSpace={4}
-                  // value={order.orderList}
-                  // onSelect={data => order.setOrderClient(data)}
-                  // isSubmited={order.isSubmited}
-                  entityList={order.productsList}
-                  isRequired={false}
-                  // isRequiredMessage='Este campo es obligatorio'
-                />
-                <InputWithSelectFormControl
-                  labelName='Cantidad'
-                  width='170px'
-                  paddingSpace={4}
-                  // value={}
-                  // onInput={}
-                />
-                <PriceFormControl
-                  labelName='Precio'
-                  width='170px'
-                  // value={}
-                  // onInput={}
-                  isRequired={false}
-                />
+              {/* <Divider mt={5} mb={-1} /> */}
+              <div className='two-column-grid'>
+                <div>
+                  <SelectEntityFormControl
+                    labelName='Modelo'
+                    paddingSpace={4}
+                    value={order.orderProduct}
+                    onSelect={data => {
+                      order.setOrderProduct(data)
+                    }}
+                    isSubmited={order.isSubmited}
+                    entityList={order.productsList}
+                    isRequired={true}
+                    isRequiredMessage='Este campo es obligatorio'
+                  />
+                  <InputWithSelectFormControl
+                    labelName='Cantidad'
+                    type={order.orderProduct.productType}
+                    width='330px'
+                    paddingSpace={4}
+                    onChangeType={data => {
+                      order.setOrderProductAmountType(data)
+                    }}
+                    value={order.orderProductAmount}
+                    onInput={data => {
+                      order.setOrderProductAmount(data)
+                    }}
+                  />
+                  <PriceFormControl
+                    labelName={`Precio total`}
+                    width='330px'
+                    value={order.orderPrice}
+                    onInput={data => {
+                      order.setOrderPrice(data)
+                    }}
+                    isRequired={true}
+                    isRequiredMessage='Este campo es obligatorio'
+                    isSubmited={order.isSubmited}
+                  />
+                  <DateFormControl
+                    labelName='Fecha de entrega'
+                    widht='330px'
+                    paddingSpace={4}
+                    value={order.orderDeliveryDate}
+                    onInput={data => order.setOrderDeliveryDate(data)}
+                    isRequired={false}
+                  />
+                </div>
+                <div>
+                  <FeaturesFormControl
+                    listOfFeatures={order.orderFeatures}
+                    onAddFeature={data => {
+                      order.setOrderFeatures(data)
+                    }}
+                    onRemoveFeature={data => {
+                      order.setOrderFeatures(data)
+                    }}
+                    marginTop={4}
+                  />
+                </div>
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'flex-end'
+                  }}
+                ></div>
               </div>
             </form>
-            <div className='order-list-container'>
-
-            </div>
           </ModalBody>
           <ModalFooter>
             <Button

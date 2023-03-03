@@ -13,10 +13,11 @@ const FeaturesFormControl = ({
   listOfFeatures,
   onAddFeature,
   onRemoveFeature,
+  marginTop,
 }) => {
   const [featureInputValue, setFeatureInputValue] = useState("");
   return (
-    <FormControl>
+    <FormControl mt={marginTop}>
       <FormLabel
         color="acsys.subtitleColor"
         mb="1"
@@ -51,15 +52,6 @@ const FeaturesFormControl = ({
           type="string"
           marginRight="10px"
         />
-        {/* <IconButton
-            // colorScheme='teal'
-            backgroundColor={'acsys.primaryColor'}
-            color={'acsys.backgroundColor'}
-            _hover={{ backgroundColor: 'acsys.primaryColor' }}
-            aria-label='Agregar caracteristica'
-            size='lg'
-            icon={<AddIcon />}
-            /> */}
         {featureInputValue !== "" ? (
           <Button
             label="+"

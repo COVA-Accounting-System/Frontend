@@ -7,7 +7,7 @@ $order-background-color: #F1F3F6;
 $production-color: #A475B4;
 $finished-color: #33ABA4;
 $white-color: #FFFFFF;
-
+$chakra-border-input: #E2E8F0;
 
 .page-container{
     margin: 25px 40px;
@@ -76,7 +76,7 @@ $white-color: #FFFFFF;
 }
 
 //employee
-.employeeFormGrid{
+.two-column-grid{
     display: grid;
     grid-template-columns: 330px 330px;
     column-gap: 20px;
@@ -85,11 +85,11 @@ $white-color: #FFFFFF;
 //order and inventory form
 .formGrid{
     display: grid;
-    grid-template-columns: 270px 170px 170px;
+    grid-template-columns: 270px 170px 170px auto;
     column-gap: 20px;
 }
 
-.providerFormGrid {
+.three-rows-grid{
     display: grid;
     grid-template-rows: auto auto auto;
     row-gap: 0px;
@@ -101,112 +101,90 @@ $white-color: #FFFFFF;
     column-gap: 20px;
 }
 
+//on invetory section , list of materials
 
-///order 
-.section-task-bar{
-    position: relative;
-}
-
-.order-task-bar{
-    -webkit-user-select: none; /* Safari */
-    -ms-user-select: none; /* IE 10 and IE 11 */
-    user-select: none; /* Standard syntax */
-    display: grid;
-    grid-template-columns: auto auto;
-    margin-bottom: 20px;
-    .order-task-bar-status{
-        margin-top: 40px;
-        display: flex;
-        .button-change{
-            display: flex;
-            cursor: pointer;
-            justify-content: center;
-            align-items: center;
-            color: $white-color;
-            font-size: 15px;
-            font-weight: 600;
-            margin-right: 20px;
-            width: 150px;
-            height: 40px;
-            border-top-left-radius: 10px;
-            border-top-right-radius: 10px;
-            &-queque{
-                background-color: $queque-color;
-            }
-            &-production{
-                background-color: $production-color;
-            }
-            &-finished{
-                background-color: $finished-color;
-            }
-            &:hover{
-                height: 45px;
-                margin-top: -5px;
-                // font-weight: 700;
-                // transition: height 0.2s, margin-top 0.2s;
-            }
-            transition: all 0.2s;
-        }
-    }
-    .order-task-bar-create{
-        // position: absolute;
-        text-align: right;
-        vertical-align: text-bottom;
-        transform: translateY( 32px );
-        // margin: 0;
-        margin-right: 20px;
-        // right: 10px;
-    }
-}
-
-.order-list-container{
+.material-list-container{
+    margin-top: 20px;
+    margin-bottom: 0;
     height: 250px;
     overflow: auto;
     user-select: none;
     -webkit-user-select: none;
-    .order-element{
-        // width: 100%;
+    border: 1px solid $chakra-border-input;
+    border-radius: 0.5rem;
+    display: grid;
+    grid-template-rows: 30px auto;
+    .material-column-grid{
         display: grid;
-        grid-template-columns: 16% 22% 15% 22% 15%  10%;
-        margin-right: 11px;
-        padding-left: 20px;
+        grid-template-columns: 13% 30% 25% 20% 12%;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    .material-list-header{
         background-color: $order-background-color;
-        border-radius: 5px;
-        height: 70px;
-        margin-bottom: 10px;
-        cursor: pointer;
-        transition: height 0.2s ease;
-
-        .order-element-container{
-            // padding: 3px;
-            position: relative;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            margin-right: 15px;
-            margin-top: 15px;
-            // margin: 10px 0px 10px 0px;
-
-            .order-element-title{
-                text-align: left;
-                font-size: 12px;
-                font-weight: 600;
-                color: $font-color;
-                margin: 0px;
-                margin-bottom: 5px;
-            }
-            .order-element-text{
-                // position: absolute;
-                // bottom: 12px;
-                display: block;
-                text-align: left;
-                font-size: 15px;
-                font-weight: 500;
-                color: $title-color;
-                margin: 0;
-
+        @extend .material-column-grid;
+        &-title{
+            font-size: 13px;
+            font-weight: 600;
+            color: $font-color;
+            margin: 0px;
+            display: flex;
+            align-items: center;
+        }
+    }
+    .material-list-body{
+        &-row{
+            @extend .material-column-grid;
+            &-element{
+                
             }
         }
-
     }
 }
+
+
+// .order-list-header{
+//     // width: 100%;
+//     display: grid;
+//     grid-template-columns: 16% 22% 15% 22% 15%  10%;
+//     margin-right: 11px;
+//     padding-left: 20px;
+//     background-color: $order-background-color;
+//     border-radius: 5px;
+//     height: 70px;
+//     margin-bottom: 10px;
+//     cursor: pointer;
+//     transition: height 0.2s ease;
+
+//     .order-column{
+//         // padding: 3px;
+//         position: relative;
+//         overflow: hidden;
+//         text-overflow: ellipsis;
+//         white-space: nowrap;
+//         margin-right: 15px;
+//         margin-top: 15px;
+//         // margin: 10px 0px 10px 0px;
+
+//         .order-column-title{
+//             text-align: left;
+//             font-size: 12px;
+//             font-weight: 600;
+//             color: $font-color;
+//             margin: 0px;
+//             margin-bottom: 5px;
+//         }
+//         .order-column-text{
+//             // position: absolute;
+//             // bottom: 12px;
+//             display: block;
+//             text-align: left;
+//             font-size: 15px;
+//             font-weight: 500;
+//             color: $title-color;
+//             margin: 0;
+
+//         }
+//     }
+
+// }

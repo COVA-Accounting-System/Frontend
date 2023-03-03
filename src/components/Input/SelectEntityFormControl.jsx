@@ -10,14 +10,14 @@ const SelectEntityFormControl = ({
   labelName,
   onSelect,
   value,
+  width,
   paddingSpace,
   entityList,
   isSubmited,
   isRequired,
   isRequiredMessage
 }) => {
-  const isError = isSubmited && value === ''
-  console.log(entityList)
+  const isError = isSubmited && value._id === undefined
   return (
     <FormControl mt={paddingSpace} isInvalid={isError} isRequired={isRequired}>
       <FormLabel
@@ -32,18 +32,20 @@ const SelectEntityFormControl = ({
         height='35px'
         fontSize='15px'
         color='acsys.iconColor'
-        value={value}
-        maxWidth='270px'
-        onChange={(e) => {
-          onSelect(e.target.value)
+        // value="asdasd"
+        maxWidth={width}
+        onChange={e => {
+          onSelect(entityList[e.target.options.selectedIndex - 1])
         }}
       >
-        <option value='' hidden>
-          Seleccione un cliente
+        <option uiname='' hidden>
+          Seleccione un {labelName.toLowerCase()}
         </option>
-        {entityList.map((element) => {
+        {entityList.map(element => {
           return (
-            <option>{element.uiName}</option>
+            <option>
+              {element.uiName}
+            </option>
           )
         })}
       </Select>
@@ -53,4 +55,3 @@ const SelectEntityFormControl = ({
 }
 
 export default SelectEntityFormControl
-

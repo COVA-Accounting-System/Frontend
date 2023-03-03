@@ -188,10 +188,10 @@ const Product = () => {
           >
             Crear producto
           </ModalHeader>
-          <ModalCloseButton />
+          <ModalCloseButton color={'acsys.titleColor'}/>
 
           <ModalBody pb={3}>
-            <form className='employeeFormGrid'>
+            <form className='two-column-grid'>
               <div>
                 <TextFormControl
                   labelName='Nombre del Producto'
@@ -214,7 +214,7 @@ const Product = () => {
                   isRequiredMessage='Este campo es obligatorio'
                 />
                 <PriceFormControl
-                  labelName={product.productType != '' ? `Precio por ${product.productType.toLowerCase()}` : 'Precio por unidad'}
+                  labelName={product.productType !== '' ? `Precio por ${product.productType.toLowerCase()}` : 'Precio por unidad'}
                   value={product.productPrice}
                   onInput={(data) => product.setProductPrice(data)}
                   isSubmited={product.isSubmited}
@@ -237,6 +237,7 @@ const Product = () => {
                   listOfFeatures={product.productFeatures}
                   onAddFeature={(data) => { product.setProductFeatures(data) }}
                   onRemoveFeature={(data) => { product.setProductFeatures(data) }}
+                  marginTop={0}
                 />
               </div>
             </form>

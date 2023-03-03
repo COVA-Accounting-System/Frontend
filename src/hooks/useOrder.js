@@ -18,52 +18,31 @@ export const useOrder = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false)
   const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false)
 
+  const [orderClient, setOrderClient] = useState({})
   const [orderNumber, setOrderNumber] = useState('')
+  const [orderProduct, setOrderProduct] = useState({})
+  const [orderProductAmount, setOrderProductAmount] = useState('')
+  const [orderProductAmountType, setOrderProductAmountType] = useState('Unidad')
+  const [orderPrice, setOrderPrice] = useState('')
+
   const [orderDeliveryDate, setOrderDeliveryDate] = useState('')
-  const [orderClient, setOrderClient] = useState({
-    _id: '75456325522',
-    name: 'Jacobo',
-    lastName: 'Covarrubias Zapata'
-  })
+
   const [orderState, setOrderState] = useState('pending')
-  const [orderTotalPrice, setOrderTotalPrice] = useState('')
-  const [orderList, setOrderList] = useState([
-    {
-      _id: '69995447453',
-      name: 'iPhone 12 Pro',
-      type: 'pair',
-      price: 1200,
-      dozenPrice: 12000,
-    },
-    {
-      _id: '69995447453',
-      name: 'iPhone 12 Pro',
-      type: 'pair',
-      price: 1200,
-      dozenPrice: 12000,
-    },
-    {
-      _id: '69995447453',
-      name: 'iPhone 12 Pro',
-      type: 'pair',
-      price: 1200,
-      dozenPrice: 12000,
-    }
-  ])
+  const [orderFeatures, setOrderFeatures] = useState([])
 
   const [isSubmited, setIsSubmited] = useState(false)
-  const action = useSelector((state) => state.crud.action)
+  const action = useSelector(state => state.crud.action)
 
-  const clientsList = useSelector((state) => {
-    return state.clients.data.filter((param) => param.isVisible === true)
+  const clientsList = useSelector(state => {
+    return state.clients.data.filter(param => param.isVisible === true)
   })
-  const productsList = useSelector((state) => {
-    return state.products.data.filter((param) => param.isVisible === true)
+  const productsList = useSelector(state => {
+    return state.products.data.filter(param => param.isVisible === true)
   })
 
-  const actualOrder = useSelector((state) => state.orders.actualOrder)
-  const ordersList = useSelector((state) => {
-    return state.orders.data.filter((param) => param.isVisible === true)
+  const actualOrder = useSelector(state => state.orders.actualOrder)
+  const ordersList = useSelector(state => {
+    return state.orders.data.filter(param => param.isVisible === true)
   })
 
   useEffect(() => {
@@ -73,7 +52,27 @@ export const useOrder = () => {
     dispatch(changeEntity({ entity: 'order', entityName: 'pedido' }))
   }, [dispatch])
 
-  const changeActionRedux = (action) => {
+  useEffect(() => {
+    if (orderProductAmountType === 'Unidad') {
+      if (orderProductAmount !== '' && orderProduct.productPrice !== '') {
+        setOrderPrice(() => orderProductAmount * orderProduct.productPrice)
+      }
+    }
+
+    if (orderProductAmountType === 'Par') {
+      if (orderProductAmount !== '' && orderProduct.productPrice !== '') {
+        setOrderPrice(() => orderProductAmount * orderProduct.productPrice)
+      }
+    }
+
+    if (orderProductAmountType === 'Docena') {
+      if (orderProductAmount !== '' && orderProduct.productDozenPrice !== '') {
+        setOrderPrice(() => orderProductAmount * orderProduct.productDozenPrice)
+      }
+    }
+  }, [orderProductAmount, orderProduct, orderProductAmountType])
+
+  const changeActionRedux = action => {
     dispatch(changeAction(action))
   }
 
@@ -82,12 +81,16 @@ export const useOrder = () => {
   }
 
   const emptyFields = () => {
-    setOrderNumber('')
-    setOrderDeliveryDate('')
     setOrderClient({})
+    setOrderNumber('')
+    setOrderProduct({})
+    setOrderProductAmount('')
+    setOrderPrice('')
+    setOrderDeliveryDate('')
+    setOrderProductAmountType('Unidad')
+
     setOrderState('')
-    setOrderTotalPrice('')
-    setOrderList([])
+    setOrderFeatures([])
   }
 
   const closeModal = () => {
@@ -103,7 +106,7 @@ export const useOrder = () => {
   }
 
   const deleteActualOrder = () => {
-    dispatch(deleteOrder(actualOrder)).then((status) => {
+    dispatch(deleteOrder(actualOrder)).then(status => {
       if (status) {
         toast.invetorySuccess('Pedido eliminado con éxito')
       } else {
@@ -112,24 +115,39 @@ export const useOrder = () => {
     })
   }
 
-  const setActualOrderRedux = (data) => {
+  const setActualOrderRedux = data => {
     dispatch(setActualOrder(data))
   }
 
-  const onClickSave = (e) => {
+  const onClickSave = e => {
     e.preventDefault()
     setIsSubmited(true)
-    if (orderClient !== {} && orderTotalPrice !== '' && orderNumber !== '') {
+    if (
+      orderClient !== {} &&
+      orderNumber !== '' &&
+      orderProduct !== {} &&
+      orderPrice !== ''
+    ) {
       dispatch(
         createOrder({
-          orderClient,
+          orderClient: {
+            uiName: orderClient.uiName,
+            _id: orderClient._id
+          },
+          orderProduct: {
+            uiName: orderProduct.uiName,
+            _id: orderProduct._id
+          },
           orderNumber,
+          orderProductAmount,
+          orderProductAmountType,
+          orderPrice,
+          orderCreationDate: new Date(),
           orderDeliveryDate,
           orderState,
-          orderTotalPrice,
-          orderList: [...orderList]
+          orderFeatures: [...orderFeatures]
         })
-      ).then((status) => {
+      ).then(status => {
         if (status) {
           toast.invetorySuccess('Pedido creado con éxito')
         } else {
@@ -140,21 +158,36 @@ export const useOrder = () => {
     }
   }
 
-  const onEditSave = (e) => {
+  const onEditSave = e => {
     e.preventDefault()
     setIsSubmited(true)
-    if (orderClient !== {} && orderTotalPrice !== '' && orderNumber !== '') {
+    if (
+      orderClient !== {} &&
+      orderNumber !== '' &&
+      orderProduct !== {} &&
+      orderPrice !== ''
+    ) {
       dispatch(
         updateOrder({
           ...actualOrder,
-          orderClient,
+          orderClient: {
+            uiName: orderClient.uiName,
+            _id: orderClient._id
+          },
+          orderProduct: {
+            uiName: orderProduct.uiName,
+            _id: orderProduct._id
+          },
           orderNumber,
+          orderProductAmount,
+          orderProductAmountType,
+          orderPrice,
+          orderCreationDate: new Date(),
           orderDeliveryDate,
           orderState,
-          orderTotalPrice,
-          orderList: [...orderList]
+          orderFeatures: [...orderFeatures]
         })
-      ).then((status) => {
+      ).then(status => {
         if (status) {
           toast.invetorySuccess('Pedido editado con éxito')
         } else {
@@ -174,18 +207,26 @@ export const useOrder = () => {
     deleteModalIsOpen,
     setDeleteModalIsOpen,
     setActualOrderRedux,
+
     orderClient,
     setOrderClient,
-    orderDeliveryDate,
-    setOrderDeliveryDate,
     orderNumber,
     setOrderNumber,
+    orderProduct,
+    setOrderProduct,
+    orderProductAmount,
+    setOrderProductAmount,
+    orderProductAmountType,
+    setOrderProductAmountType,
+    orderPrice,
+    setOrderPrice,
+    orderDeliveryDate,
+    setOrderDeliveryDate,
     orderState,
     setOrderState,
-    orderTotalPrice,
-    setOrderTotalPrice,
-    orderList,
-    setOrderList,
+    orderFeatures,
+    setOrderFeatures,
+
     isSubmited,
     ordersList,
     clientsList,

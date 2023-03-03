@@ -184,7 +184,7 @@ const Client = () => {
             >
               Crear cliente
             </ModalHeader>
-            <ModalCloseButton />
+            <ModalCloseButton color={'acsys.titleColor'}/>
             <ModalBody pb={3}>
               <TextFormControl
                 labelName='Nombres'

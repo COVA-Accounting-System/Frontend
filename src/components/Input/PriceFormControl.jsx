@@ -1,7 +1,6 @@
 import {
   FormControl,
   FormLabel,
-  Input,
   InputGroup,
   NumberInput,
   NumberInputField,
@@ -19,7 +18,6 @@ const PriceFormControl = ({
   isRequiredMessage
 }) => {
   const isError = isSubmited && value === ''
-
   return (
     <>
       <FormControl mt={4} isInvalid={isError} isRequired={isRequired}>
@@ -32,11 +30,10 @@ const PriceFormControl = ({
           {labelName}
         </FormLabel>
         <InputGroup maxW={width}>
-        <NumberInput precision={2} step={0.2} min={0} >
+        <NumberInput precision={2} step={0.2} min={0}  value={value}>
           <NumberInputField
             focusBorderColor='acsys.primaryColor'
             size='sm'
-            value={value}
             onInput={(event) => {
               onInput(event.target.value)
             }}
@@ -48,14 +45,17 @@ const PriceFormControl = ({
             color='acsys.iconColor'
             type='number'
             min={0}
+            // width='500'
             borderRightRadius={0}
           />
       
         </NumberInput>
         <InputRightAddon
             children='Bs.'
+            width='102px'
             height='35px'
             fontSize='15px'
+            color={'acsys.iconColor'}
             backgroundColor='acsys.backgroundColor'
           />
         </InputGroup>

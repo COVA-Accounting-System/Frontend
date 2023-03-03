@@ -69,6 +69,7 @@ const PhoneFormControl = ({
             children={`${phoneCountryCodeValue}`}
             height='35px'
             fontSize='15px'
+            color= 'acsys.iconColor'
             backgroundColor='acsys.backgroundColor'
           />
           <Input
