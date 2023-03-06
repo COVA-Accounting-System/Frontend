@@ -81,7 +81,7 @@ const DataTableActionsOrder = props => {
               borderBottomLeftRadius={'5px'}
               borderBottomRightRadius={'5px'}
             >
-              {`Mover a`}
+              {`Mover a: `}
               <Text as='span' color={orderState[data.orderStateNumber].color}>
                 &nbsp;{orderState[data.orderStateNumber].stateSpanish}
               </Text>
@@ -95,7 +95,7 @@ const DataTableActionsOrder = props => {
               borderBottomLeftRadius={'5px'}
               borderBottomRightRadius={'5px'}
             >
-              {`Mover a`}
+              {`Mover a:`}
               <Text
                 as='span'
                 color={orderState[data.orderStateNumber + 1].color}

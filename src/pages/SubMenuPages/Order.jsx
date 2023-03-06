@@ -134,6 +134,12 @@ const Order = () => {
           onDelete: data => {
             order.setDeleteModalIsOpen(true)
             order.setActualOrderRedux(data)
+          },
+          onChangeStateForward: data => {
+
+          },
+          onChangeStateBackward: data => {
+            
           }
         }
       }

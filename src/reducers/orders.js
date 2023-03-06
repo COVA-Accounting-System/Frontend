@@ -78,3 +78,13 @@ export const updateOrder = (data) => async (dispatch) => {
     console.error(err)
   }
 }
+
+export const changeStateForward = (data) => async (dispatch) => {
+  try{
+      const updatedOrder = await orderInstance.put('/update', data)
+      dispatch(editOrder(updatedOrder.data))
+  }
+  catch(err) {
+    console.error(err)
+  }
+}
