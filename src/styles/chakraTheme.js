@@ -17,7 +17,7 @@ export const theme = extendTheme({
       redColorState: '#D35F7B',
       violetColorState: '#A475B4',
       greenColorState: '#5F9E7B',
-      blueColorState: '#5F9E7B'
+      blueColorState: '#5A83AF',
     }
   }
 })

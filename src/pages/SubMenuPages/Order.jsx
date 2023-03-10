@@ -136,10 +136,10 @@ const Order = () => {
             order.setActualOrderRedux(data)
           },
           onChangeStateForward: data => {
-
+            order.onMoveForwardState(data)
           },
           onChangeStateBackward: data => {
-            
+            order.onMoveBackwardState(data)
           }
         }
       }

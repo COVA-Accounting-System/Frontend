@@ -20,8 +20,8 @@ import {
 import { ChevronDownIcon } from '@chakra-ui/icons'
 
 const DataTableActionsOrder = props => {
-  const { data, onView, onEdit, onDelete } = props
-  console.log(data)
+  const { data, onView, onEdit, onDelete, onChangeStateForward, onChangeStateBackward } = props
+
   return (
     <div className='submenu'>
       <Menu>
@@ -77,13 +77,20 @@ const DataTableActionsOrder = props => {
             <MenuItem
               height='30px'
               fontWeight={500}
-              onClick={() => {}}
-              borderBottomLeftRadius={'5px'}
-              borderBottomRightRadius={'5px'}
+              onClick={() => onChangeStateBackward(data)}
+              borderBottomLeftRadius={
+                data.orderStateNumber === maxOrderState ? '5px' : '0px'
+              }
+              borderBottomRightRadius={
+                data.orderStateNumber === maxOrderState ? '5px' : '0px'
+              }
             >
               {`Mover a: `}
-              <Text as='span' color={orderState[data.orderStateNumber].color}>
-                &nbsp;{orderState[data.orderStateNumber].stateSpanish}
+              <Text
+                as='span'
+                color={orderState[data.orderStateNumber - 1].color}
+              >
+                &nbsp;{orderState[data.orderStateNumber - 1].stateSpanish}
               </Text>
             </MenuItem>
           ) : null}
@@ -91,7 +98,7 @@ const DataTableActionsOrder = props => {
             <MenuItem
               height='30px'
               fontWeight={500}
-              onClick={() => {}}
+              onClick={() => onChangeStateForward(data)}
               borderBottomLeftRadius={'5px'}
               borderBottomRightRadius={'5px'}
             >

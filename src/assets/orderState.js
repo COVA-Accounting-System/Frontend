@@ -2,7 +2,7 @@
 
 export const orderState = [
   {
-    state: 'Pending',
+    state: 'On hold',
     stateSpanish: 'En fila',
     color: 'acsys.redColorState'
   },
@@ -17,11 +17,11 @@ export const orderState = [
     color: 'acsys.greenColorState'
   },
   {
-    state: 'Sold',
-    stateSpanish: 'Vendido',
+    state: 'Delivered',
+    stateSpanish: 'Entregado',
     color: 'acsys.blueColorState'
   }
 ]
 
 export const minOrderState = 0;
-export const maxOrderState = orderState.length;
+export const maxOrderState = orderState.length - 1;

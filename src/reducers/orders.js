@@ -26,7 +26,7 @@ const orderSlice = createSlice({
       state.data.push(action.payload)
     },
     editOrder: (state, action) => {
-      state.data = state.data.map((order) => {
+      state.data = state.data.map(order => {
         if (order._id === action.payload._id) {
           order = action.payload
         }
@@ -40,7 +40,7 @@ export const { setInitialState, addOrder, setActualOrder, editOrder } =
   orderSlice.actions
 export default orderSlice.reducer
 
-export const getAllOrders = () => async (dispatch) => {
+export const getAllOrders = () => async dispatch => {
   try {
     const orders = await orderInstance.get('/')
     dispatch(setInitialState(orders.data))
@@ -49,7 +49,7 @@ export const getAllOrders = () => async (dispatch) => {
   }
 }
 
-export const createOrder = (data) => async (dispatch) => {
+export const createOrder = data => async dispatch => {
   try {
     const newOrder = await orderInstance.post('/', data)
     dispatch(addOrder(newOrder.data))
@@ -59,7 +59,7 @@ export const createOrder = (data) => async (dispatch) => {
   }
 }
 
-export const deleteOrder = (data) => async (dispatch) => {
+export const deleteOrder = data => async dispatch => {
   try {
     const deletedOrder = await orderInstance.put('/delete', data)
     dispatch(editOrder(deletedOrder.data))
@@ -69,7 +69,7 @@ export const deleteOrder = (data) => async (dispatch) => {
   }
 }
 
-export const updateOrder = (data) => async (dispatch) => {
+export const updateOrder = data => async dispatch => {
   try {
     const updatedOrder = await orderInstance.put('/update', data)
     dispatch(editOrder(updatedOrder.data))
@@ -79,12 +79,28 @@ export const updateOrder = (data) => async (dispatch) => {
   }
 }
 
-export const changeStateForward = (data) => async (dispatch) => {
-  try{
-      const updatedOrder = await orderInstance.put('/update', data)
-      dispatch(editOrder(updatedOrder.data))
+export const changeStateForward = data => async dispatch => {
+  try {
+    const updatedOrder = await orderInstance.put('/changeStateFordward', data)
+    dispatch(editOrder(updatedOrder.data))
+    return {
+      status: updatedOrder.status,
+      orderStateNumber: updatedOrder.data.orderStateNumber
+    }
+  } catch (err) {
+    console.error(err)
   }
-  catch(err) {
+}
+
+export const changeStateBackward = data => async dispatch => {
+  try {
+    const updatedOrder = await orderInstance.put('/changeStateBackward', data)
+    dispatch(editOrder(updatedOrder.data))
+    return {
+      status: updatedOrder.status,
+      orderStateNumber: updatedOrder.data.orderStateNumber
+    }
+  } catch (err) {
     console.error(err)
   }
 }

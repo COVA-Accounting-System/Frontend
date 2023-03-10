@@ -5,12 +5,16 @@ import {
   setActualOrder,
   createOrder,
   deleteOrder,
-  updateOrder
+  updateOrder,
+  changeStateForward,
+  changeStateBackward
 } from '../reducers/orders'
 import { getAllClients } from '../reducers/clients'
 import { getAllProducts } from '../reducers/products'
 import * as toast from '../services/toastService'
 import { changeAction, changeEntity } from '../reducers/crud'
+
+import { orderState as orderAsset } from '../assets/orderState'
 
 export const useOrder = () => {
   const dispatch = useDispatch()
@@ -76,7 +80,6 @@ export const useOrder = () => {
   //         )
   //       }
   //     }
-    
 
   // }, [orderProductAmount, orderProduct, orderProductAmountType])
 
@@ -127,6 +130,36 @@ export const useOrder = () => {
     dispatch(setActualOrder(data))
   }
 
+  const onMoveForwardState = data => {
+    dispatch(changeStateForward(data)).then(resp => {
+      const { status, orderStateNumber } = resp
+      if (status) {
+        toast.invetorySuccess(
+          `Pedido movido a "${orderAsset[orderStateNumber].stateSpanish}"`
+        )
+      } else {
+        toast.inventoryError(
+          `Error al mover a "${orderAsset[orderStateNumber].stateSpanish}"`
+        )
+      }
+    })
+  }
+
+  const onMoveBackwardState = data => {
+    dispatch(changeStateBackward(data)).then(resp => {
+      const { status, orderStateNumber } = resp
+      if (status) {
+        toast.invetorySuccess(
+          `Pedido movido a "${orderAsset[orderStateNumber].stateSpanish}"`
+        )
+      } else {
+        toast.inventoryError(
+          `Error al mover a "${orderAsset[orderStateNumber].stateSpanish}"`
+        )
+      }
+    })
+  }
+
   const onClickSave = e => {
     e.preventDefault()
     setIsSubmited(true)
@@ -145,7 +178,7 @@ export const useOrder = () => {
           orderProduct: {
             _id: orderProduct._id,
             uiName: orderProduct.uiName,
-            productType: orderProduct.productType,
+            productType: orderProduct.productType
             // productPrice: orderProduct.productPrice,
             // productDozenPrice: orderProduct.productDozenPrice
           },
@@ -188,7 +221,7 @@ export const useOrder = () => {
           orderProduct: {
             _id: orderProduct._id,
             uiName: orderProduct.uiName,
-            productType: orderProduct.productType,
+            productType: orderProduct.productType
             // productPrice: orderProduct.productPrice,
             // productDozenPrice: orderProduct.productDozenPrice
           },
@@ -239,6 +272,8 @@ export const useOrder = () => {
     orderFeatures,
     setOrderFeatures,
 
+    onMoveBackwardState,
+    onMoveForwardState,
     isSubmited,
     ordersList,
     clientsList,
