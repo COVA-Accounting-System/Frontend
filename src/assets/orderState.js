@@ -14,12 +14,12 @@ export const orderState = [
   {
     state: 'Finished',
     stateSpanish: 'Terminado',
-    color: 'acsys.greenColorState'
+    color: 'acsys.blueColorState'
   },
   {
     state: 'Delivered',
     stateSpanish: 'Entregado',
-    color: 'acsys.blueColorState'
+    color: 'acsys.greenColorState'
   }
 ]
 

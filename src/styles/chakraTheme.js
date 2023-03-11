@@ -11,9 +11,13 @@ export const theme = extendTheme({
       fontColor: '#758399',
       iconColor: '#384a66',
       toggleBackgroundColor: '#f1f3f6',
-      primaryColor: '#109AC6',
       subtitleColor: '#757F8F',
+
+      whiteTextColor: '#ffffff',
+
+      primaryColor: '#109AC6',
       redColor: '#ef476f',
+
       redColorState: '#D35F7B',
       violetColorState: '#A475B4',
       greenColorState: '#5F9E7B',

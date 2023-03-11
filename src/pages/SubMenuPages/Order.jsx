@@ -25,6 +25,7 @@ import InputWithSelectFormControl from '../../components/Input/InputWithSelectFo
 import DeleteModal from '../../components/DeleteModal/DeleteModal'
 import Table from '../../components/Table/Table'
 import { Button } from '../../components/Button/Button'
+import StateTag from '../../components/StateTags/StateTag'
 
 // HOOKS IMPORTS
 import { useOrder } from '../../hooks/useOrder'
@@ -40,10 +41,13 @@ const Order = () => {
     () => [
       {
         headerName: 'Estado',
-        field: 'orderState',
         resizable: true,
         sortable: true,
-        width: 160
+        width: 160,
+        cellRenderer: StateTag,
+        // cellRendererParams: {
+
+        // }
         // minWidth: 120,
         // maxWidth: 250,
       },
