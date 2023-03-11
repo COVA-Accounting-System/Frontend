@@ -90,7 +90,7 @@ const DataTableActionsOrder = props => {
                 as='span'
                 color={orderState[data.orderStateNumber - 1].color}
               >
-                &nbsp;{orderState[data.orderStateNumber - 1].stateSpanish}
+                &nbsp;{orderState[data.orderStateNumber - 1].stateSpanish.toUpperCase()}
               </Text>
             </MenuItem>
           ) : null}
@@ -107,7 +107,7 @@ const DataTableActionsOrder = props => {
                 as='span'
                 color={orderState[data.orderStateNumber + 1].color}
               >
-                &nbsp;{orderState[data.orderStateNumber + 1].stateSpanish}
+                &nbsp;{orderState[data.orderStateNumber + 1].stateSpanish.toLocaleUpperCase()}
               </Text>
             </MenuItem>
           ) : null}

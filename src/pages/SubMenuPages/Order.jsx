@@ -26,6 +26,7 @@ import DeleteModal from '../../components/DeleteModal/DeleteModal'
 import Table from '../../components/Table/Table'
 import { Button } from '../../components/Button/Button'
 import StateTag from '../../components/StateTags/StateTag'
+import SearchByState from '../../components/SearchInputs/SearchByState'
 
 // HOOKS IMPORTS
 import { useOrder } from '../../hooks/useOrder'
@@ -189,6 +190,9 @@ const Order = () => {
                 autoComplete='off'
                 borderColor={'gray.200'}
               />
+            </div>
+            <div>
+              <SearchByState />
             </div>
             <div className='button-container'>
               <Button
