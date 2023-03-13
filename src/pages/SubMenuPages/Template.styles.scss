@@ -26,6 +26,24 @@ $chakra-border-input: #E2E8F0;
     grid-template-columns: auto auto;
 }
 
+.task-bar-datatable-production{
+    display: flex;
+    // grid-template-columns: auto 300px 160px;
+    flex-direction: row;
+    justify-content: space-between;
+
+    .search-by-state-container{
+        display: flex;
+        align-items: flex-end;
+    }
+}
+
+.input-container-production{
+    display: flex;
+    align-items: flex-end;
+    column-gap: 10px;
+}
+
 .page-title{
     font-size: 27px;
     font-weight: 700;

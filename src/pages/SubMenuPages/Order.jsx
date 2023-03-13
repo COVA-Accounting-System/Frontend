@@ -10,7 +10,6 @@ import {
   ModalFooter,
   ModalBody,
   ModalCloseButton,
-  Divider,
   Input
 } from '@chakra-ui/react'
 
@@ -45,7 +44,7 @@ const Order = () => {
         resizable: true,
         sortable: true,
         width: 160,
-        cellRenderer: StateTag,
+        cellRenderer: StateTag
         // cellRendererParams: {
 
         // }
@@ -173,8 +172,8 @@ const Order = () => {
       <div className='page-container'>
         <h1 className='page-title'>Pedidos</h1>
         <div className='elements-container'>
-          <section className='task-bar-datatable'>
-            <div className='input-container'>
+          <section className='task-bar-datatable-production'>
+            <div className='input-container-production'>
               <Input
                 focusBorderColor='acsys.primaryColor'
                 placeholder='Buscar...'
@@ -190,10 +189,11 @@ const Order = () => {
                 autoComplete='off'
                 borderColor={'gray.200'}
               />
+              <div className='search-by-state-container'>
+                <SearchByState />
+              </div>
             </div>
-            <div>
-              <SearchByState />
-            </div>
+
             <div className='button-container'>
               <Button
                 label='Crear pedido'

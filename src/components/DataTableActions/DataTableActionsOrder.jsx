@@ -5,7 +5,9 @@ import {
   minOrderState,
   maxOrderState
 } from '../../assets/orderState'
-import './DataTableActions.scss'
+
+import StateTag from '../StateTags/StateTag'
+
 import {
   Button,
   // ChevronDownIcon,
@@ -16,11 +18,29 @@ import {
   MenuDivider,
   Text
 } from '@chakra-ui/react'
-
 import { ChevronDownIcon } from '@chakra-ui/icons'
 
+import './DataTableActions.scss'
+
 const DataTableActionsOrder = props => {
-  const { data, onView, onEdit, onDelete, onChangeStateForward, onChangeStateBackward } = props
+  const {
+    data,
+    onView,
+    onEdit,
+    onDelete,
+    onChangeStateForward,
+    onChangeStateBackward
+  } = props
+
+  const previousTagData =
+    data.orderStateNumber >= minOrderState
+      ? { orderStateNumber: data.orderStateNumber - 1 }
+      : { orderStateNumber: minOrderState }
+
+  const nextTagData =
+    data.orderStateNumber <= maxOrderState
+      ? { orderStateNumber: data.orderStateNumber + 1 }
+      : { orderStateNumber: maxOrderState }
 
   return (
     <div className='submenu'>
@@ -41,8 +61,8 @@ const DataTableActionsOrder = props => {
           fontSize='14px'
           minWidth='150px'
           color='acsys.titleColor'
-          paddingTop={0}
-          pb={0}
+          // paddingTop={0}
+          // pb={0}
         >
           <MenuItem
             height='30px'
@@ -85,13 +105,8 @@ const DataTableActionsOrder = props => {
                 data.orderStateNumber === maxOrderState ? '5px' : '0px'
               }
             >
-              {`Mover a: `}
-              <Text
-                as='span'
-                color={orderState[data.orderStateNumber - 1].color}
-              >
-                &nbsp;{orderState[data.orderStateNumber - 1].stateSpanish.toUpperCase()}
-              </Text>
+              {`Mover a:`}&nbsp;
+              <StateTag data={previousTagData} />
             </MenuItem>
           ) : null}
           {data.orderStateNumber !== maxOrderState ? (
@@ -102,13 +117,8 @@ const DataTableActionsOrder = props => {
               borderBottomLeftRadius={'5px'}
               borderBottomRightRadius={'5px'}
             >
-              {`Mover a:`}
-              <Text
-                as='span'
-                color={orderState[data.orderStateNumber + 1].color}
-              >
-                &nbsp;{orderState[data.orderStateNumber + 1].stateSpanish.toLocaleUpperCase()}
-              </Text>
+              {`Mover a:`}&nbsp;
+              <StateTag data={nextTagData} />
             </MenuItem>
           ) : null}
         </MenuList>
