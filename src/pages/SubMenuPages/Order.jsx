@@ -29,6 +29,7 @@ import SearchByState from '../../components/SearchInputs/SearchByState'
 
 // HOOKS IMPORTS
 import { useOrder } from '../../hooks/useOrder'
+import { useOrderState } from '../../hooks/useOrderState'
 
 // STYLES IMPORTS
 import './Template.styles.scss'
@@ -36,6 +37,8 @@ import './Template.styles.scss'
 const Order = () => {
   const gridRef = useRef()
   const order = useOrder()
+  const orderState = useOrderState(order.ordersList)
+
 
   const columnDefs = useMemo(
     () => [
@@ -131,19 +134,21 @@ const Order = () => {
             order.setOrderProductAmountType(data.orderProductAmountType)
             order.setOrderProductAmount(data.orderProductAmount)
 
-            order.changeActionRedux('edit')
-            order.setActualOrderRedux(data)
+            // order.changeActionRedux('edit')
+            order.setAction('edit')
+            order.setActualOrder(data)
             order.openModal()
           },
           onDelete: data => {
             order.setDeleteModalIsOpen(true)
-            order.setActualOrderRedux(data)
-          },
-          onChangeStateForward: data => {
-            order.onMoveForwardState(data)
+            order.setActualOrder(data)
+            // order.deleteActualOrder(data)
           },
           onChangeStateBackward: data => {
             order.onMoveBackwardState(data)
+          },
+          onChangeStateForward: data => {
+            order.onMoveForwardState(data)
           }
         }
       }
@@ -201,7 +206,8 @@ const Order = () => {
                 system='accounting'
                 onClick={() => {
                   order.openModal()
-                  order.changeActionRedux('create')
+                  order.setAction('create')
+                  // order.changeActionRedux('create')
                 }}
               />
             </div>

@@ -1,18 +1,18 @@
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+
 import {
   getAllOrders,
-  setActualOrder,
   createOrder,
-  deleteOrder,
   updateOrder,
-  changeStateForward,
-  changeStateBackward
-} from '../reducers/orders'
+  deleteOrder,
+  changeStateBackward,
+  changeStateForward
+} from '../services/orderService'
 import { getAllClients } from '../reducers/clients'
 import { getAllProducts } from '../reducers/products'
 import * as toast from '../services/toastService'
-import { changeAction, changeEntity } from '../reducers/crud'
+import { changeEntity } from '../reducers/crud'
 
 import { orderState as orderAsset } from '../assets/orderState'
 
@@ -21,6 +21,9 @@ export const useOrder = () => {
 
   const [modalIsOpen, setModalIsOpen] = useState(false)
   const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false)
+  const [ordersList, setOrdersList] = useState([])
+  const [actualOrder, setActualOrder] = useState({})
+  const [action, setAction] = useState('')
 
   const [orderClient, setOrderClient] = useState({})
   const [orderNumber, setOrderNumber] = useState('')
@@ -35,7 +38,6 @@ export const useOrder = () => {
   const [orderFeatures, setOrderFeatures] = useState([])
 
   const [isSubmited, setIsSubmited] = useState(false)
-  const action = useSelector(state => state.crud.action)
 
   const clientsList = useSelector(state => {
     return state.clients.data.filter(param => param.isVisible === true)
@@ -44,17 +46,32 @@ export const useOrder = () => {
     return state.products.data.filter(param => param.isVisible === true)
   })
 
-  const actualOrder = useSelector(state => state.orders.actualOrder)
-  const ordersList = useSelector(state => {
-    return state.orders.data.filter(param => param.isVisible === true)
-  })
+  // const actualOrder = useSelector(state => state.orders.actualOrder)
+
+  // const ordersList = useSelector(state => {
+  //   return state.orders.data.filter(param => param.isVisible === true)
+  // })
+
+  // useEffect(() => {
+  //   dispatch(getAllOrders())
+  //   dispatch(getAllClients())
+  //   dispatch(getAllProducts())
+  //   dispatch(changeEntity({ entity: 'order', entityName: 'pedido' }))
+  // }, [dispatch])
 
   useEffect(() => {
-    dispatch(getAllOrders())
-    dispatch(getAllClients())
-    dispatch(getAllProducts())
+    if (clientsList.length === 0) {
+      dispatch(getAllClients())
+    }
+    if (productsList.length === 0) {
+      dispatch(getAllProducts())
+    }
     dispatch(changeEntity({ entity: 'order', entityName: 'pedido' }))
-  }, [dispatch])
+
+    getAllOrders().then(element => {
+      setOrdersList(element)
+    })
+  }, [])
 
   // useEffect(() => {
 
@@ -82,10 +99,6 @@ export const useOrder = () => {
   //     }
 
   // }, [orderProductAmount, orderProduct, orderProductAmountType])
-
-  const changeActionRedux = action => {
-    dispatch(changeAction(action))
-  }
 
   const openModal = () => {
     setModalIsOpen(true)
@@ -117,47 +130,70 @@ export const useOrder = () => {
   }
 
   const deleteActualOrder = () => {
-    dispatch(deleteOrder(actualOrder)).then(status => {
-      if (status) {
+    deleteOrder(actualOrder).then(deletedOrder => {
+      if (deletedOrder.status === 200) {
         toast.invetorySuccess('Pedido eliminado con éxito')
+        const newList = ordersList.map(order => {
+          if (order._id === deletedOrder.data._id) {
+            return { ...deletedOrder.data }
+          }
+          return order
+        })
+        setOrdersList(newList)
       } else {
         toast.inventoryError('Error al eliminar pedido')
       }
     })
   }
 
-  const setActualOrderRedux = data => {
-    dispatch(setActualOrder(data))
+  const onMoveBackwardState = async data => {
+    const updatedOrder = await changeStateBackward(data)
+    if (updatedOrder.status === 200) {
+      toast.invetorySuccess(
+        `Pedido movido a "${
+          orderAsset[updatedOrder.data.orderStateNumber].stateSpanish
+        }"`
+      )
+      setOrdersList(prevList => {
+        return prevList.map(order => {
+          if (order._id === updatedOrder.data._id) {
+            return { ...updatedOrder.data }
+          }
+          return order
+        })
+      })
+    } else {
+      toast.inventoryError(
+        `Error al mover a "${
+          orderAsset[updatedOrder.data.orderStateNumber].stateSpanish
+        }"`
+      )
+    }
   }
 
-  const onMoveForwardState = data => {
-    dispatch(changeStateForward(data)).then(resp => {
-      const { status, orderStateNumber } = resp
-      if (status) {
-        toast.invetorySuccess(
-          `Pedido movido a "${orderAsset[orderStateNumber].stateSpanish}"`
-        )
-      } else {
-        toast.inventoryError(
-          `Error al mover a "${orderAsset[orderStateNumber].stateSpanish}"`
-        )
-      }
-    })
-  }
-
-  const onMoveBackwardState = data => {
-    dispatch(changeStateBackward(data)).then(resp => {
-      const { status, orderStateNumber } = resp
-      if (status) {
-        toast.invetorySuccess(
-          `Pedido movido a "${orderAsset[orderStateNumber].stateSpanish}"`
-        )
-      } else {
-        toast.inventoryError(
-          `Error al mover a "${orderAsset[orderStateNumber].stateSpanish}"`
-        )
-      }
-    })
+  const onMoveForwardState = async data => {
+    const updatedOrder = await changeStateForward(data)
+    if (updatedOrder.status === 200) {
+      toast.invetorySuccess(
+        `Pedido movido a "${
+          orderAsset[updatedOrder.data.orderStateNumber].stateSpanish
+        }"`
+      )
+      setOrdersList(prevList => {
+        return prevList.map(order => {
+          if (order._id === updatedOrder.data._id) {
+            return { ...updatedOrder.data }
+          }
+          return order
+        })
+      })
+    } else {
+      toast.inventoryError(
+        `Error al mover a "${
+          orderAsset[updatedOrder.data.orderStateNumber].stateSpanish
+        }"`
+      )
+    }
   }
 
   const onClickSave = e => {
@@ -169,31 +205,30 @@ export const useOrder = () => {
       orderProduct !== {} &&
       orderPrice !== ''
     ) {
-      dispatch(
-        createOrder({
-          orderClient: {
-            _id: orderClient._id,
-            uiName: orderClient.uiName
-          },
-          orderProduct: {
-            _id: orderProduct._id,
-            uiName: orderProduct.uiName,
-            productType: orderProduct.productType
-            // productPrice: orderProduct.productPrice,
-            // productDozenPrice: orderProduct.productDozenPrice
-          },
-          orderNumber,
-          orderProductAmount,
-          orderProductAmountType,
-          orderPrice,
-          orderCreationDate: new Date(),
-          orderDeliveryDate,
-          orderState,
-          orderFeatures: [...orderFeatures]
-        })
-      ).then(status => {
-        if (status) {
+      createOrder({
+        orderClient: {
+          _id: orderClient._id,
+          uiName: orderClient.uiName
+        },
+        orderProduct: {
+          _id: orderProduct._id,
+          uiName: orderProduct.uiName,
+          productType: orderProduct.productType
+          // productPrice: orderProduct.productPrice,
+          // productDozenPrice: orderProduct.productDozenPrice
+        },
+        orderNumber,
+        orderProductAmount,
+        orderProductAmountType,
+        orderPrice,
+        orderCreationDate: new Date(),
+        orderDeliveryDate,
+        orderState,
+        orderFeatures: [...orderFeatures]
+      }).then(newOrder => {
+        if (newOrder.status === 200) {
           toast.invetorySuccess('Pedido creado con éxito')
+          setOrdersList([...ordersList, newOrder.data])
         } else {
           toast.inventoryError('Error al crear pedido')
         }
@@ -211,30 +246,35 @@ export const useOrder = () => {
       orderProduct !== {} &&
       orderPrice !== ''
     ) {
-      dispatch(
-        updateOrder({
-          ...actualOrder,
-          orderClient: {
-            uiName: orderClient.uiName,
-            _id: orderClient._id
-          },
-          orderProduct: {
-            _id: orderProduct._id,
-            uiName: orderProduct.uiName,
-            productType: orderProduct.productType
-            // productPrice: orderProduct.productPrice,
-            // productDozenPrice: orderProduct.productDozenPrice
-          },
-          orderNumber,
-          orderProductAmount,
-          orderProductAmountType,
-          orderPrice,
-          orderDeliveryDate,
-          orderFeatures: [...orderFeatures]
-        })
-      ).then(status => {
-        if (status) {
+      updateOrder({
+        ...actualOrder,
+        orderClient: {
+          uiName: orderClient.uiName,
+          _id: orderClient._id
+        },
+        orderProduct: {
+          _id: orderProduct._id,
+          uiName: orderProduct.uiName,
+          productType: orderProduct.productType
+          // productPrice: orderProduct.productPrice,
+          // productDozenPrice: orderProduct.productDozenPrice
+        },
+        orderNumber,
+        orderProductAmount,
+        orderProductAmountType,
+        orderPrice,
+        orderDeliveryDate,
+        orderFeatures: [...orderFeatures]
+      }).then(updatedOrder => {
+        if (updatedOrder.status === 200) {
           toast.invetorySuccess('Pedido editado con éxito')
+          const newList = ordersList.map(order => {
+            if (order._id === updatedOrder.data._id) {
+              return { ...updatedOrder.data }
+            }
+            return order
+          })
+          setOrdersList(newList)
         } else {
           toast.inventoryError('Error al editar pedido')
         }
@@ -245,13 +285,15 @@ export const useOrder = () => {
 
   return {
     action,
+    setAction,
+    ordersList,
+    setActualOrder,
     modalIsOpen,
     openModal,
     closeModal,
     closeDeleteModal,
     deleteModalIsOpen,
     setDeleteModalIsOpen,
-    setActualOrderRedux,
 
     orderClient,
     setOrderClient,
@@ -275,10 +317,10 @@ export const useOrder = () => {
     onMoveBackwardState,
     onMoveForwardState,
     isSubmited,
-    ordersList,
+    // ordersList,
+
     clientsList,
     productsList,
-    changeActionRedux,
     deleteActualOrder,
     onClickSave,
     onEditSave
