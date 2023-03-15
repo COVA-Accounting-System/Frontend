@@ -21,6 +21,7 @@ import SelectFormControl from '../../components/Input/SelectFormControl'
 import FeaturesFormControl from '../../components/Input/FeaturesFormControl'
 import DeleteModal from '../../components/DeleteModal/DeleteModal'
 import Table from '../../components/Table/Table'
+import ViewProduct from '../../components/ViewModals/ViewProduct'
 import { Button } from '../../components/Button/Button'
 
 // HOOKS IMPORTS
@@ -88,8 +89,11 @@ const Product = () => {
         cellRenderer: DataTableActions,
         colId: 'Actions',
         cellRendererParams: {
-          onView: () => {},
-          onEdit: (data) => {
+          onView: (data) => {
+            product.setActualProductRedux(data)
+            product.setViewModalIsOpen(true)
+          },
+          onEdit: data => {
             product.setProductName(data.productName)
             product.setProductFeatures(data.productFeatures)
             product.setProductType(data.productType)
@@ -99,7 +103,7 @@ const Product = () => {
             product.setActualProductRedux(data)
             product.openModal()
           },
-          onDelete: (data) => {
+          onDelete: data => {
             product.setDeleteModalIsOpen(true)
             product.setActualProductRedux(data)
           }
@@ -112,10 +116,10 @@ const Product = () => {
   const gridOptions = useMemo(
     () => ({
       pagination: false,
-      onGridReady: (params) => {
+      onGridReady: params => {
         // params.api.sizeColumnsToFit();
       },
-      onGridSizeChanged: (params) => {
+      onGridSizeChanged: params => {
         // params.api.sizeColumnsToFit();
       },
       columnDefs,
@@ -189,7 +193,7 @@ const Product = () => {
           >
             Crear producto
           </ModalHeader>
-          <ModalCloseButton color={'acsys.titleColor'}/>
+          <ModalCloseButton color={'acsys.titleColor'} />
 
           <ModalBody pb={3}>
             <form className='two-column-grid'>
@@ -199,7 +203,7 @@ const Product = () => {
                   width='330px'
                   paddingSpace={0}
                   value={product.productName}
-                  onInput={(data) => product.setProductName(data)}
+                  onInput={data => product.setProductName(data)}
                   isSubmited={product.isSubmited}
                   isRequired
                   isRequiredMessage='Este campo es obligatorio'
@@ -208,16 +212,20 @@ const Product = () => {
                   labelName='Tipo de unidad'
                   paddingSpace={4}
                   value={product.productType}
-                  onSelect={(data) => product.setProductType(data)}
+                  onSelect={data => product.setProductType(data)}
                   isSubmited={product.isSubmited}
                   optionList={product.productTypeOptions}
                   isRequired
                   isRequiredMessage='Este campo es obligatorio'
                 />
                 <PriceFormControl
-                  labelName={product.productType !== '' ? `Precio por ${product.productType.toLowerCase()}` : 'Precio por unidad'}
+                  labelName={
+                    product.productType !== ''
+                      ? `Precio por ${product.productType.toLowerCase()}`
+                      : 'Precio por unidad'
+                  }
                   value={product.productPrice}
-                  onInput={(data) => product.setProductPrice(data)}
+                  onInput={data => product.setProductPrice(data)}
                   isSubmited={product.isSubmited}
                   isRequired
                   isRequiredMessage='Este campo es obligatorio'
@@ -225,7 +233,7 @@ const Product = () => {
                 <PriceFormControl
                   labelName='Precio por docena'
                   value={product.productDozenPrice}
-                  onInput={(data) => product.setProductDozenPrice(data)}
+                  onInput={data => product.setProductDozenPrice(data)}
                   isSubmited={product.isSubmited}
                   isRequired
                   isRequiredMessage='Este campo es obligatorio'
@@ -236,8 +244,12 @@ const Product = () => {
                 </div> */}
                 <FeaturesFormControl
                   listOfFeatures={product.productFeatures}
-                  onAddFeature={(data) => { product.setProductFeatures(data) }}
-                  onRemoveFeature={(data) => { product.setProductFeatures(data) }}
+                  onAddFeature={data => {
+                    product.setProductFeatures(data)
+                  }}
+                  onRemoveFeature={data => {
+                    product.setProductFeatures(data)
+                  }}
                   marginTop={0}
                 />
               </div>
@@ -266,6 +278,10 @@ const Product = () => {
           product.deleteActualProduct()
           product.closeDeleteModal()
         }}
+      />
+      <ViewProduct
+        onClose={() => product.setViewModalIsOpen(false)}
+        isOpen={product.viewModalIsOpen}
       />
     </div>
   )

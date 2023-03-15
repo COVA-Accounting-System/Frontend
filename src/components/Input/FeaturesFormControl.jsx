@@ -80,7 +80,7 @@ const FeaturesFormControl = ({
                     position: "relative",
                   }}
                 >
-                  <p>{feature.description}</p>
+                  <p style={{paddingRight: '20px'}}>{feature.description}</p>
                   <div
                     style={{
                       display: "block",
