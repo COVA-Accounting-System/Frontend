@@ -39,7 +39,7 @@ const DataTableActions = (props) => {
 
           // height={1}
         >
-          <MenuItem height='30px' fontWeight={500} onClick={onView}>Ver</MenuItem>
+          <MenuItem height='30px' fontWeight={500} onClick={() => onView(data)}>Ver</MenuItem>
           <MenuItem height='30px' fontWeight={500} onClick={() => onEdit(data)}>Editar</MenuItem>
           <MenuItem height='30px' color='red.500' fontWeight={500} onClick={() => onDelete(data)}>Eliminar</MenuItem>
         </MenuList>

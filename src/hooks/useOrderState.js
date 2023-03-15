@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-export const useOrderState = (props) => {
+export const useOrderState = (gridApi) => {
   // console.log(props)
   const [onHoldingCheck, setOnHoldingCheck] = useState(true)
   const [onProductionCheck, setOnProductionCheck] = useState(true)
@@ -33,15 +33,18 @@ export const useOrderState = (props) => {
   // })
 
   useEffect(() => {
-    // console.log('aqui entra')
+    console.log('aqui entra')
     // console.log('1' + onHoldingCheck)
     // console.log('2' + onProductionCheck)
     // console.log('3' + finishedCheck)
     // console.log('4' + deliveredCheck)
-    setFilteredOrderList(() => props)
-    console.log(props)
-    console.log(filteredOrderList)
-  }, [])
+  
+    if(gridApi) {
+      gridApi.setRowData(filterList(gridApi.rowData))
+    }
+    console.log(gridApi)
+
+  }, [onHoldingCheck, onProductionCheck, finishedCheck, deliveredCheck])
 
   return {
     // ordersList,

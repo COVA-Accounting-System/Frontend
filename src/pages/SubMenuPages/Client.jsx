@@ -14,6 +14,7 @@ import {
 } from '@chakra-ui/react'
 
 // COMPONENTS IMPORTS
+import ViewClient from '../../components/ViewModals/ViewClient'
 import DataTableActions from '../../components/DataTableActions/DataTableActions'
 import TextFormControl from '../../components/Input/TextFormControl'
 import PhoneFormControl from '../../components/Input/PhoneFormControl'
@@ -54,7 +55,7 @@ const Client = () => {
       {
         headerName: 'Teléfono',
         // field: 'phoneNumber',
-        cellRenderer: (data) => {
+        cellRenderer: data => {
           return `${data.data.phoneCountryCode} ${data.data.phoneNumber}`
         },
         resizable: false,
@@ -78,8 +79,11 @@ const Client = () => {
         cellRenderer: DataTableActions,
         colId: 'Actions',
         cellRendererParams: {
-          onView: () => {},
-          onEdit: (data) => {
+          onView: data => {
+            client.setActualClientRedux(data)
+            client.setViewModalIsOpen(true)
+          },
+          onEdit: data => {
             client.setName(data.name)
             client.setLastName(data.lastName)
             client.setPhoneCountryCode(data.phoneCountryCode)
@@ -89,7 +93,7 @@ const Client = () => {
             client.setActualClientRedux(data)
             client.openModal()
           },
-          onDelete: (data) => {
+          onDelete: data => {
             client.setDeleteModalIsOpen(true)
             client.setActualClientRedux(data)
           }
@@ -102,10 +106,10 @@ const Client = () => {
   const gridOptions = useMemo(
     () => ({
       pagination: false,
-      onGridReady: (params) => {
+      onGridReady: params => {
         // params.api.sizeColumnsToFit();
       },
-      onGridSizeChanged: (params) => {
+      onGridSizeChanged: params => {
         // params.api.sizeColumnsToFit();
       },
       columnDefs,
@@ -117,7 +121,6 @@ const Client = () => {
   )
 
   const onFilterTextBoxChanged = useCallback(() => {
-    // console.log(document.getElementsByName("filter-text-box").value)
     gridRef.current.api.setQuickFilter(
       document.getElementById('filter-text-box').value
     )
@@ -185,14 +188,14 @@ const Client = () => {
             >
               Crear cliente
             </ModalHeader>
-            <ModalCloseButton color={'acsys.titleColor'}/>
+            <ModalCloseButton color={'acsys.titleColor'} />
             <ModalBody pb={3}>
               <TextFormControl
                 labelName='Nombres'
                 width='330px'
                 paddingSpace={0}
                 value={client.name}
-                onInput={(data) => client.setName(data)}
+                onInput={data => client.setName(data)}
                 isSubmited={client.isSubmited}
                 isRequired
                 isRequiredMessage='Este campo es obligatorio'
@@ -202,7 +205,7 @@ const Client = () => {
                 width='330px'
                 paddingSpace={4}
                 value={client.lastName}
-                onInput={(data) => client.setLastName(data)}
+                onInput={data => client.setLastName(data)}
                 isSubmited={client.isSubmited}
                 isRequired
                 isRequiredMessage='Este campo es obligatorio'
@@ -211,10 +214,10 @@ const Client = () => {
               <PhoneFormControl
                 phoneNumberValue={client.phoneNumber}
                 phoneCountryCodeValue={client.phoneCountryCode}
-                phoneNumberOnInput={(number) => {
+                phoneNumberOnInput={number => {
                   client.setPhoneNumber(number)
                 }}
-                phoneCountryCodeOnInput={(number) => {
+                phoneCountryCodeOnInput={number => {
                   client.setPhoneCountryCode(number)
                 }}
               />
@@ -224,7 +227,7 @@ const Client = () => {
                 width='330px'
                 paddingSpace={4}
                 value={client.address}
-                onInput={(data) => client.setAddress(data)}
+                onInput={data => client.setAddress(data)}
                 isRequired={false}
               />
             </ModalBody>
@@ -243,7 +246,12 @@ const Client = () => {
           </form>
         </ModalContent>
       </Modal>
-
+      <ViewClient
+        isOpen={client.viewModalIsOpen}
+        onClose={() => {
+          client.setViewModalIsOpen(false)
+        }}
+      />
       <DeleteModal
         modalIsOpen={client.deleteModalIsOpen}
         entityName='Cliente'
