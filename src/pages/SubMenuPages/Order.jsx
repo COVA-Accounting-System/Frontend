@@ -168,7 +168,6 @@ const Order = () => {
   )
 
   const onFilterTextBoxChanged = useCallback(() => {
-    console.log(document.getElementById('filter-text-box').value)
     gridRef.current.api.setQuickFilter(
       document.getElementById('filter-text-box').value
     )

@@ -14,6 +14,7 @@ import Employee from './pages/SubMenuPages/Employee'
 import Provider from './pages/SubMenuPages/Provider'
 import Product from './pages/SubMenuPages/Product'
 import Order from './pages/SubMenuPages/Order'
+import RawMaterial from './pages/SubMenuPages/Inventory/RawMaterial'
 
 const App = () => {
   const isLogged = useSelector((state) => state.authentication.isLogged)
@@ -27,7 +28,7 @@ const App = () => {
             <Route path='production/order' element={<Order />} />
             <Route path='production/product' element={<Product />} />
 
-            <Route path='inventory/raw-material' />
+            <Route path='inventory/raw-material' element={<RawMaterial/>}/>
             <Route path='inventory/input' />
             <Route path='inventory/output' />
 

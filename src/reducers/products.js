@@ -26,7 +26,7 @@ const productSlice = createSlice({
       state.data.push(action.payload)
     },
     editProduct: (state, action) => {
-      state.data = state.data.map((product) => {
+      state.data = state.data.map(product => {
         if (product._id === action.payload._id) {
           product = action.payload
         }
@@ -40,7 +40,7 @@ export const { setInitialState, addProduct, setActualProduct, editProduct } =
   productSlice.actions
 export default productSlice.reducer
 
-export const getAllProducts = () => async (dispatch) => {
+export const getAllProducts = () => async dispatch => {
   try {
     const products = await productInstance.get('/')
     dispatch(setInitialState(products.data))
@@ -49,7 +49,7 @@ export const getAllProducts = () => async (dispatch) => {
   }
 }
 
-export const createProduct = (data) => async (dispatch) => {
+export const createProduct = data => async dispatch => {
   try {
     const newProduct = await productInstance.post('/', data)
     dispatch(addProduct(newProduct.data))
@@ -59,7 +59,7 @@ export const createProduct = (data) => async (dispatch) => {
   }
 }
 
-export const deleteProduct = (data) => async (dispatch) => {
+export const deleteProduct = data => async dispatch => {
   try {
     const deletedProduct = await productInstance.put('/delete', data)
     dispatch(editProduct(deletedProduct.data))
@@ -69,7 +69,7 @@ export const deleteProduct = (data) => async (dispatch) => {
   }
 }
 
-export const updateProduct = (data) => async (dispatch) => {
+export const updateProduct = data => async dispatch => {
   try {
     const updatedProduct = await productInstance.put('/update', data)
     dispatch(editProduct(updatedProduct.data))

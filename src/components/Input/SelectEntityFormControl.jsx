@@ -39,7 +39,7 @@ const SelectEntityFormControl = ({
         }}
       >
         <option value='' hidden>
-          Seleccione un {labelName.toLowerCase()}
+          Seleccione {labelName === 'Unidad de medida' ? 'una' : 'un'} {labelName.toLowerCase()}
         </option>
         {entityList.map(element => {
           return (

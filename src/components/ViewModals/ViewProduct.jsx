@@ -21,7 +21,6 @@ import {
 
 const ViewProduct = ({ isOpen, onClose }) => {
   const actualProduct = useSelector(state => state.products.actualProduct)
-  console.log(actualProduct.productFeatures)
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} size='md'>
@@ -97,48 +96,6 @@ const ViewProduct = ({ isOpen, onClose }) => {
               </Stack>
             </Stack>
           </Stack>
-
-          {/* <Stack direction='row' spacing={'80px'}>
-            <Stack direction='column' spacing='30px'>
-              <Flex direction='column' rowGap='7px'>
-                <Heading color={'acsys.fontColor'} as='h5' size='xs'>
-                  Nombres:{' '}
-                </Heading>
-                <Text color={'acsys.iconColor'}>{actualProduct.name}</Text>
-              </Flex>
-              <Flex direction='column' rowGap='7px'>
-                <Heading color={'acsys.fontColor'} as='h5' size='xs'>
-                  Teléfono:{' '}
-                </Heading>
-                <Text color={'acsys.iconColor'}>
-                  {actualProduct.phoneCountryCode} {actualProduct.phoneNumber}
-                </Text>
-              </Flex>
-            </Stack>
-            <Stack direction='column' spacing='30px'>
-              <Flex direction='column' rowGap='7px'>
-                <Heading color={'acsys.fontColor'} as='h5' size='xs'>
-                  Apellidos:{' '}
-                </Heading>
-                <Text color={'acsys.iconColor'}>{actualProduct.lastName}</Text>
-              </Flex>
-
-              <Flex direction='column' rowGap='7px'>
-                <Heading color={'acsys.fontColor'} as='h5' size='xs'>
-                  Adeuda:{' '}
-                </Heading>
-                <Text color={'acsys.iconColor'}>500 Bs.</Text>
-              </Flex>
-            </Stack>
-          </Stack>
-          <Stack marginTop={'30px'}>
-            <Flex direction={'column'} rowGap='7px'>
-              <Heading color={'acsys.fontColor'} as='h4' size='xs'>
-                Dirección:{' '}
-              </Heading>
-              <Text color={'acsys.iconColor'}>{actualProduct.address}</Text>
-            </Flex>
-          </Stack> */}
         </ModalBody>
 
         <ModalFooter

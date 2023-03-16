@@ -38,7 +38,6 @@ const Login = () => {
   const onLogin = async (event) => {
     event.preventDefault()
     const { loginSuccess, token } = await authentication(email, password)
-    console.log(loginSuccess)
     if (loginSuccess) {
       dispatch(setLogged(loginSuccess))
     } else {

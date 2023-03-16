@@ -1,4 +1,3 @@
-// REACT IMPORTS
 import React, { useMemo, useCallback, useRef } from 'react'
 
 // CHAKRA UI IMPORTS
@@ -13,32 +12,33 @@ import {
   Input
 } from '@chakra-ui/react'
 
+import unitMeasures from '../../../assets/unitMeasures'
+
 // COMPONENTS IMPORTS
-import DataTableActions from '../../components/DataTableActions/DataTableActions'
-import TextFormControl from '../../components/Input/TextFormControl'
-import PriceFormControl from '../../components/Input/PriceFormControl'
-import SelectFormControl from '../../components/Input/SelectFormControl'
-import FeaturesFormControl from '../../components/Input/FeaturesFormControl'
-import DeleteModal from '../../components/DeleteModal/DeleteModal'
-import Table from '../../components/Table/Table'
-import ViewProduct from '../../components/ViewModals/ViewProduct'
-import { Button } from '../../components/Button/Button'
+import DataTableActions from '../../../components/DataTableActions/DataTableActions'
+import TextFormControl from '../../../components/Input/TextFormControl'
+import SelectEntityFormControl from '../../../components/Input/SelectEntityFormControl'
+import FeaturesFormControl from '../../../components/Input/FeaturesFormControl'
+import DeleteModal from '../../../components/DeleteModal/DeleteModal'
+import Table from '../../../components/Table/Table'
+import { Button } from '../../../components/Button/Button'
 
 // HOOKS IMPORTS
-import { useProduct } from '../../hooks/useProduct'
+import { useRawMaterial } from '../../../hooks/useRawMaterial'
 
 // STYLES IMPORTS
-import './Template.styles.scss'
+import '../Template.styles.scss'
 
-const Product = () => {
-  const product = useProduct()
+const RawMaterial = () => {
+  //   const product = useProduct()
   const gridRef = useRef()
+  const rawMaterial = useRawMaterial()
 
   const columnDefs = useMemo(
     () => [
       {
-        headerName: 'Producto',
-        field: 'productName',
+        headerName: 'Material',
+        field: 'name',
         resizable: false,
         sortable: true,
         // minWidth: 110,
@@ -55,8 +55,8 @@ const Product = () => {
         // maxWidth: 160,
       },
       {
-        headerName: 'Tipo de unidad',
-        field: 'productType',
+        headerName: 'Medida',
+        field: 'unitMeasure.spanishName',
         resizable: false,
         sortable: true,
         // minWidth: 120,
@@ -64,21 +64,12 @@ const Product = () => {
         // maxWidth: 177,
       },
       {
-        headerName: 'Precio',
-        field: 'productPrice',
+        headerName: 'Medida Abreviada',
+        field: 'unitMeasure.abbreviation',
         resizable: false,
         sortable: true,
         // minWidth: 120,
         width: 150
-        // maxWidth: 180,
-      },
-      {
-        headerName: 'Precio por docena',
-        field: 'productDozenPrice',
-        resizable: false,
-        sortable: true,
-        width: 150
-        // minWidth: 100,
         // maxWidth: 180,
       },
       {
@@ -89,23 +80,22 @@ const Product = () => {
         cellRenderer: DataTableActions,
         colId: 'Actions',
         cellRendererParams: {
-          onView: (data) => {
-            product.setActualProductRedux(data)
-            product.setViewModalIsOpen(true)
+          onView: data => {
+            // product.setActualProductRedux(data)
+            // product.setViewModalIsOpen(true)
           },
           onEdit: data => {
-            product.setProductName(data.productName)
-            product.setProductFeatures(data.productFeatures)
-            product.setProductType(data.productType)
-            product.setProductPrice(data.productPrice)
-            product.setProductDozenPrice(data.productDozenPrice)
-            product.changeActionRedux('edit')
-            product.setActualProductRedux(data)
-            product.openModal()
+            rawMaterial.setName(data.name)
+            rawMaterial.setUnitMeasure(data.unitMeasure)
+            rawMaterial.setFeatures(data.features)
+
+            rawMaterial.changeActionRedux('edit')
+            rawMaterial.setActualRawMaterialRedux(data)
+            rawMaterial.openModal()
           },
           onDelete: data => {
-            product.setDeleteModalIsOpen(true)
-            product.setActualProductRedux(data)
+            rawMaterial.setDeleteModalIsOpen(true)
+            rawMaterial.setActualRawMaterialRedux(data)
           }
         }
       }
@@ -138,7 +128,7 @@ const Product = () => {
   return (
     <div>
       <div className='page-container'>
-        <h1 className='page-title'>Productos</h1>
+        <h1 className='page-title'>Materiales</h1>
         <div className='elements-container'>
           <section className='task-bar-datatable'>
             <div className='input-container'>
@@ -160,12 +150,12 @@ const Product = () => {
             </div>
             <div className='button-container'>
               <Button
-                label='Crear producto'
+                label='Crear material'
                 type='login'
                 system='accounting'
                 onClick={() => {
-                  product.openModal()
-                  product.changeActionRedux('create')
+                  rawMaterial.openModal()
+                  rawMaterial.changeActionRedux('create')
                 }}
               />
             </div>
@@ -174,15 +164,15 @@ const Product = () => {
             <Table
               gridRef={gridRef}
               gridOptions={gridOptions}
-              rowData={product.productsList}
+              rowData={rawMaterial.rawMaterialsList}
             />
           </section>
         </div>
       </div>
       <Modal
         size='sm'
-        onClose={() => product.closeModal()}
-        isOpen={product.modalIsOpen}
+        onClose={() => rawMaterial.closeModal()}
+        isOpen={rawMaterial.modalIsOpen}
       >
         <ModalOverlay />
         <ModalContent userSelect='none' maxW='730px'>
@@ -199,56 +189,36 @@ const Product = () => {
             <form className='two-column-grid'>
               <div>
                 <TextFormControl
-                  labelName='Nombre del producto'
+                  labelName='Nombre del material'
                   width='330px'
                   paddingSpace={0}
-                  value={product.productName}
-                  onInput={data => product.setProductName(data)}
-                  isSubmited={product.isSubmited}
+                  value={rawMaterial.name}
+                  onInput={data => rawMaterial.setName(data)}
+                  isSubmited={rawMaterial.isSubmited}
                   isRequired
                   isRequiredMessage='Este campo es obligatorio'
                 />
-                <SelectFormControl
-                  labelName='Tipo de unidad'
+                <SelectEntityFormControl
+                  labelName='Unidad de medida'
                   paddingSpace={4}
-                  value={product.productType}
-                  onSelect={data => product.setProductType(data)}
-                  isSubmited={product.isSubmited}
-                  optionList={product.productTypeOptions}
-                  isRequired
-                  isRequiredMessage='Este campo es obligatorio'
-                />
-                <PriceFormControl
-                  labelName={
-                    product.productType !== ''
-                      ? `Precio por ${product.productType.toLowerCase()}`
-                      : 'Precio por unidad'
-                  }
-                  value={product.productPrice}
-                  onInput={data => product.setProductPrice(data)}
-                  isSubmited={product.isSubmited}
-                  isRequired
-                  isRequiredMessage='Este campo es obligatorio'
-                />
-                <PriceFormControl
-                  labelName='Precio por docena'
-                  value={product.productDozenPrice}
-                  onInput={data => product.setProductDozenPrice(data)}
-                  isSubmited={product.isSubmited}
-                  isRequired
+                  value={rawMaterial.unitMeasure}
+                  onSelect={data => {
+                    rawMaterial.setUnitMeasure(data)
+                  }}
+                  isSubmited={rawMaterial.isSubmited}
+                  entityList={unitMeasures}
+                  isRequired={true}
                   isRequiredMessage='Este campo es obligatorio'
                 />
               </div>
               <div>
-                {/* <div className='twoFieldsInOneRow'>
-                </div> */}
                 <FeaturesFormControl
-                  listOfFeatures={product.productFeatures}
+                  listOfFeatures={rawMaterial.features}
                   onAddFeature={data => {
-                    product.setProductFeatures(data)
+                    rawMaterial.setFeatures(data)
                   }}
                   onRemoveFeature={data => {
-                    product.setProductFeatures(data)
+                    rawMaterial.setFeatures(data)
                   }}
                   marginTop={0}
                 />
@@ -261,9 +231,9 @@ const Product = () => {
               label='Guardar'
               type='confirm'
               onClick={
-                product.action === 'create'
-                  ? product.onClickSave
-                  : product.onEditSave
+                rawMaterial.action === 'create'
+                  ? rawMaterial.onClickSave
+                  : rawMaterial.onEditSave
               }
             />
           </ModalFooter>
@@ -271,20 +241,20 @@ const Product = () => {
       </Modal>
 
       <DeleteModal
-        modalIsOpen={product.deleteModalIsOpen}
-        entityName='Producto'
-        onClose={() => product.closeDeleteModal()}
+        modalIsOpen={rawMaterial.deleteModalIsOpen}
+        entityName='Material'
+        onClose={() => rawMaterial.closeDeleteModal()}
         onDelete={() => {
-          product.deleteActualProduct()
-          product.closeDeleteModal()
+          rawMaterial.deleteActualRawMaterial()
+          rawMaterial.closeDeleteModal()
         }}
       />
-      <ViewProduct
+      {/* <ViewProduct
         onClose={() => product.setViewModalIsOpen(false)}
         isOpen={product.viewModalIsOpen}
-      />
+      /> */}
     </div>
   )
 }
 
-export default Product
+export default RawMaterial

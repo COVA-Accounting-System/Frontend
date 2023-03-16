@@ -18,7 +18,6 @@ export const usePrice = (product, amount) => {
 
   useEffect(() => {
     if (product._id != undefined && amount.value != '') {
-      console.log('entra')
       if (amount.unit === 'unit') {
         setValue(product.unitPrice * amount.value)
       }
