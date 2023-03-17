@@ -19,9 +19,12 @@ export const useIncome = () => {
   const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false)
   const [viewModalIsOpen, setViewModalIsOpen] = useState(false)
 
+  const [client, setClient] = useState({})
+  const [clientId, setClientId] = useState('')
+  const [order, setOrder] = useState({})
+  const [orderId, setOrderId] = useState('')
+
   const [accountingSeat, setAccountingSeat] = useState('')
-  const [client, setClient] = useState('')
-  const [order, setOrder] = useState('')
   const [date, setDate] = useState('')
   const [concept, setConcept] = useState('')
   const [amount, setAmount] = useState('')
@@ -42,7 +45,6 @@ export const useIncome = () => {
     return state.clients.data.filter(param => param.isVisible === true)
   })
 
-
   useEffect(() => {
     dispatch(getAllIncomes())
     if (clientsList.length === 0) {
@@ -56,6 +58,12 @@ export const useIncome = () => {
     dispatch(changeEntity({ entity: 'income', entityName: 'ingreso' }))
   }, [dispatch])
 
+
+  useEffect(() => {
+    setOrder({})
+    setOrderId('')
+  },[clientId])
+
   const changeActionRedux = action => {
     dispatch(changeAction(action))
   }
@@ -66,8 +74,10 @@ export const useIncome = () => {
 
   const emptyFields = () => {
     setAccountingSeat('')
-    setClient('')
-    setOrder('')
+    setClient({})
+    setClientId('')
+    setOrder({})
+    setOrderId('')
     setDate('')
     setConcept('')
     setAmount('')
@@ -83,6 +93,12 @@ export const useIncome = () => {
     setDeleteModalIsOpen(false)
     emptyFields()
     setIsSubmited(false)
+  }
+
+  const filterAtSelectClient = order => {
+    if (clientId !== '') {
+      return order.orderClient._id === clientId
+    }
   }
 
   const deleteActualIncome = () => {
@@ -104,8 +120,8 @@ export const useIncome = () => {
     setIsSubmited(true)
     if (
       accountingSeat !== '' &&
-      client !== '' &&
-      order !== '' &&
+      clientId !== '' &&
+      orderId !== '' &&
       date !== '' &&
       amount !== '' &&
       concept !== ''
@@ -113,8 +129,8 @@ export const useIncome = () => {
       dispatch(
         createIncome({
           accountingSeat,
-          client,
-          order,
+          client: clientId,
+          order: orderId,
           date,
           amount,
           concept
@@ -134,19 +150,19 @@ export const useIncome = () => {
     e.preventDefault()
     setIsSubmited(true)
     if (
-        accountingSeat !== '' &&
-        client !== '' &&
-        order !== '' &&
-        date !== '' &&
-        amount !== '' &&
-        concept !== ''
+      accountingSeat !== '' &&
+      clientId !== '' &&
+      orderId !== '' &&
+      date !== '' &&
+      amount !== '' &&
+      concept !== ''
     ) {
       dispatch(
         updateIncome({
           ...actualIncome,
           accountingSeat,
-          client,
-          order,
+          client: clientId,
+          order: orderId,
           date,
           amount,
           concept
@@ -171,13 +187,18 @@ export const useIncome = () => {
     deleteModalIsOpen,
     setDeleteModalIsOpen,
     setActualIncomeRedux,
-  
-    accountingSeat,
-    setAccountingSeat,
+
     client,
     setClient,
+    clientId,
+    setClientId,
     order,
     setOrder,
+    orderId,
+    setOrderId,
+
+    accountingSeat,
+    setAccountingSeat,
     date,
     setDate,
     concept,
@@ -196,6 +217,8 @@ export const useIncome = () => {
     setViewModalIsOpen,
 
     ordersList,
-    clientsList
+    clientsList,
+
+    filterAtSelectClient
   }
 }

@@ -29,7 +29,6 @@ import SearchByState from '../../../components/SearchInputs/SearchByState'
 
 // HOOKS IMPORTS
 import { useOrder } from '../../../hooks/useOrder'
-import { useOrderState } from '../../../hooks/useOrderState'
 
 // STYLES IMPORTS
 import '../Template.styles.scss'

@@ -1,7 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 import axios from 'axios'
-import { addOrder } from './orders'
 
 export const incomeInstance = axios.create({
   baseURL: `${process.env.REACT_APP_DATA_API}/accounting/income`,
@@ -54,7 +53,7 @@ export const getAllIncomes = () => async dispatch => {
 export const createIncome = data => async dispatch => {
   try {
     const newIncome = await incomeInstance.post('/', data)
-    dispatch(addOrder(newIncome.data))
+    dispatch(addIncome(newIncome.data))
     return newIncome.status
   } catch (err) {
     console.error(err)

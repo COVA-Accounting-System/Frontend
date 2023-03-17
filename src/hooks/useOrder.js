@@ -226,7 +226,7 @@ export const useOrder = () => {
         orderCreationDate: new Date(),
         orderDeliveryDate,
         orderState,
-        uiName: `Pedido #${orderNumber} - ${orderProduct.uiName}`,
+        uiName: `Pedido #${orderNumber}`,
         orderFeatures: [...orderFeatures]
       }).then(newOrder => {
         if (newOrder.status === 200) {

@@ -47,7 +47,7 @@ const Income = () => {
       },
       {
         headerName: 'Cliente',
-        field: 'client',
+        field: 'client.uiName',
         resizable: false,
         sortable: true,
         // minWidth: 130,
@@ -56,7 +56,7 @@ const Income = () => {
       },
       {
         headerName: 'Pedido',
-        field: 'order',
+        field: 'order.uiName',
         resizable: false,
         sortable: false,
         width: 130
@@ -104,7 +104,9 @@ const Income = () => {
           onEdit: data => {
             income.setAccountingSeat(data.accountingSeat)
             income.setClient(data.client)
+            income.setClientId(data.client._id)
             income.setOrder(data.order)
+            income.setOrderId(data.order._id)
             income.setDate(data.date)
             income.setAmount(data.amount)
             income.setConcept(data.concept)
@@ -230,7 +232,8 @@ const Income = () => {
                   paddingSpace={4}
                   value={income.client}
                   onSelect={data => {
-                    income.setClient(data._id)
+                    income.setClient(data)
+                    income.setClientId(data._id)
                   }}
                   isSubmited={income.isSubmited}
                   entityList={income.clientsList}
@@ -242,18 +245,14 @@ const Income = () => {
                   paddingSpace={4}
                   value={income.order}
                   onSelect={data => {
-                    income.setOrder(data._id)
+                    income.setOrder(data)
+                    income.setOrderId(data._id)
                   }}
                   isSubmited={income.isSubmited}
-                  entityList={income.ordersList.filter(order => {
-                    if (income.client !== '') {
-                      return order.orderClient._id === income.client
-                    }
-                    return order
-                  })}
+                  entityList={income.ordersList.filter(income.filterAtSelectClient)}
                   isRequired={true}
                   isRequiredMessage='Este campo es obligatorio'
-                  isDisabled={income.client === '' ? true : false}
+                  isDisabled={income.clientId === '' ? true : false}
                 />
               </div>
               <div className='two-column-grid'>
