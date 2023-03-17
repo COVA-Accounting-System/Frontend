@@ -123,7 +123,9 @@ const Order = () => {
             order.setOrderState(data.orderState)
             order.setOrderNumber(data.orderNumber)
             order.setOrderClient(data.orderClient)
+            order.setOrderClientId(data.orderClient._id)
             order.setOrderProduct(data.orderProduct)
+            order.setOrderProductId(data.orderProduct._id)
             order.setOrderDeliveryDate(data.orderDeliveryDate)
             order.setOrderPrice(data.orderPrice)
             order.setOrderProductAmountType(data.orderProductAmountType)
@@ -241,7 +243,8 @@ const Order = () => {
                   value={order.orderClient}
                   width='330px'
                   onSelect={data => {
-                    order.setOrderClient(data._id)
+                    order.setOrderClient(data)
+                    order.setOrderClientId(data._id)
                   }}
                   isSubmited={order.isSubmited}
                   entityList={order.clientsList}
@@ -267,7 +270,8 @@ const Order = () => {
                     paddingSpace={4}
                     value={order.orderProduct}
                     onSelect={data => {
-                      order.setOrderProduct(data._id)
+                      order.setOrderProduct(data)
+                      order.setOrderProductId(data._id)
                       order.setOrderProductAmountType(data.productType)
                     }}
                     isSubmited={order.isSubmited}
@@ -288,6 +292,9 @@ const Order = () => {
                     onInput={data => {
                       order.setOrderProductAmount(data)
                     }}
+                    isRequired={true}
+                    isRequiredMessage='Este campo es obligatorio'
+                    isSubmited={order.isSubmited}
                   />
                   <PriceFormControl
                     labelName={`Precio total`}
@@ -306,7 +313,9 @@ const Order = () => {
                     paddingSpace={4}
                     value={order.orderDeliveryDate}
                     onInput={data => order.setOrderDeliveryDate(data)}
-                    isRequired={false}
+                    isRequired={true}
+                    isRequiredMessage='Este campo es obligatorio'
+                    isSubmited={order.isSubmited}
                   />
                 </div>
                 <div>

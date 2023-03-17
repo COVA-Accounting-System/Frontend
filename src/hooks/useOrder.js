@@ -26,9 +26,12 @@ export const useOrder = () => {
   const [actualOrder, setActualOrder] = useState({})
   const [action, setAction] = useState('')
 
-  const [orderClient, setOrderClient] = useState('')
+  const [orderClient, setOrderClient] = useState({})
+  const [orderClientId, setOrderClientId] = useState('')
+  const [orderProduct, setOrderProduct] = useState({})
+  const [orderProductId, setOrderProductId] = useState('')
+
   const [orderNumber, setOrderNumber] = useState('')
-  const [orderProduct, setOrderProduct] = useState('')
   const [orderProductAmount, setOrderProductAmount] = useState('')
   const [orderProductAmountType, setOrderProductAmountType] = useState('')
   const [orderPrice, setOrderPrice] = useState('')
@@ -108,9 +111,12 @@ export const useOrder = () => {
   }
 
   const emptyFields = () => {
-    setOrderClient('')
+    setOrderClient({})
+    setOrderClientId('')
+    setOrderProduct({})
+    setOrderProductId('')
+
     setOrderNumber('')
-    setOrderProduct('')
     setOrderProductAmount('')
     setOrderPrice('')
     setOrderDeliveryDate('')
@@ -203,14 +209,16 @@ export const useOrder = () => {
     e.preventDefault()
     setIsSubmited(true)
     if (
-      orderClient !== {} &&
+      orderClientId !== '' &&
       orderNumber !== '' &&
-      orderProduct !== {} &&
-      orderPrice !== ''
+      orderProductId !== '' &&
+      orderPrice !== '' &&
+      orderProductAmount !== '' &&
+      orderDeliveryDate !== ''
     ) {
       createOrder({
-        orderClient,
-        orderProduct,
+        orderClient: orderClientId,
+        orderProduct: orderProductId,
         orderNumber,
         orderProductAmount,
         orderProductAmountType,
@@ -236,15 +244,17 @@ export const useOrder = () => {
     e.preventDefault()
     setIsSubmited(true)
     if (
-      orderClient !== {} &&
+      orderClientId !== '' &&
       orderNumber !== '' &&
-      orderProduct !== {} &&
-      orderPrice !== ''
+      orderProductId !== '' &&
+      orderPrice !== '' &&
+      orderProductAmount !== '' &&
+      orderDeliveryDate !== ''
     ) {
       updateOrder({
         ...actualOrder,
-        orderClient,
-        orderProduct,
+        orderClient: orderClientId,
+        orderProduct: orderProductId,
         orderNumber,
         orderProductAmount,
         orderProductAmountType,
@@ -284,10 +294,15 @@ export const useOrder = () => {
 
     orderClient,
     setOrderClient,
-    orderNumber,
-    setOrderNumber,
+    orderClientId,
+    setOrderClientId,
     orderProduct,
     setOrderProduct,
+    orderProductId,
+    setOrderProductId,
+
+    orderNumber,
+    setOrderNumber,
     orderProductAmount,
     setOrderProductAmount,
     orderProductAmountType,
