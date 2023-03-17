@@ -15,7 +15,8 @@ const SelectEntityFormControl = ({
   entityList,
   isSubmited,
   isRequired,
-  isRequiredMessage
+  isRequiredMessage,
+  isDisabled
 }) => {
   const isError = isSubmited && value._id === undefined
   return (
@@ -37,6 +38,7 @@ const SelectEntityFormControl = ({
         onChange={e => {
           onSelect(entityList[e.target.options.selectedIndex - 1])
         }}
+        isDisabled={isDisabled}
       >
         <option value='' hidden>
           Seleccione {labelName === 'Unidad de medida' ? 'una' : 'un'} {labelName.toLowerCase()}

@@ -9,12 +9,20 @@ import Login from './pages/LoginPages/Login'
 import PageNotFound from './pages/LoginPages/PageNotFound'
 
 import MainPage from './pages/MainPage/MainPage'
-import Client from './pages/SubMenuPages/Client'
-import Employee from './pages/SubMenuPages/Employee'
-import Provider from './pages/SubMenuPages/Provider'
-import Product from './pages/SubMenuPages/Product'
-import Order from './pages/SubMenuPages/Order'
+//Contacts imports
+import Client from './pages/SubMenuPages/Contacts/Client'
+import Employee from './pages/SubMenuPages/Contacts/Employee'
+import Provider from './pages/SubMenuPages/Contacts/Provider'
+
+//Production imports
+import Product from './pages/SubMenuPages/Production/Product'
+import Order from './pages/SubMenuPages/Production/Order'
+
+//Inventory imports
 import RawMaterial from './pages/SubMenuPages/Inventory/RawMaterial'
+
+//Accounting imports
+import Income from './pages/SubMenuPages/Accounting/Income'
 
 const App = () => {
   const isLogged = useSelector((state) => state.authentication.isLogged)
@@ -31,8 +39,9 @@ const App = () => {
             <Route path='inventory/raw-material' element={<RawMaterial/>}/>
             <Route path='inventory/input' />
             <Route path='inventory/output' />
+            <Route path='inventory/stock' />
 
-            <Route path='accounting/income' />
+            <Route path='accounting/income' element={<Income/>} />
             <Route path='accounting/expense' />
 
             <Route path='contact/client' element={<Client />} />

@@ -14,19 +14,19 @@ import {
 } from '@chakra-ui/react'
 
 // COMPONENTS IMPORTS
-import ViewClient from '../../components/ViewModals/ViewClient'
-import DataTableActions from '../../components/DataTableActions/DataTableActions'
-import TextFormControl from '../../components/Input/TextFormControl'
-import PhoneFormControl from '../../components/Input/PhoneFormControl'
-import DeleteModal from '../../components/DeleteModal/DeleteModal'
-import Table from '../../components/Table/Table'
-import { Button } from '../../components/Button/Button'
+import ViewClient from '../../../components/ViewModals/ViewClient'
+import DataTableActions from '../../../components/DataTableActions/DataTableActions'
+import TextFormControl from '../../../components/Input/TextFormControl'
+import PhoneFormControl from '../../../components/Input/PhoneFormControl'
+import DeleteModal from '../../../components/DeleteModal/DeleteModal'
+import Table from '../../../components/Table/Table'
+import { Button } from '../../../components/Button/Button'
 
 // HOOKS IMPORTS
-import { useClient } from '../../hooks/useClient'
+import { useClient } from '../../../hooks/useClient'
 
 // STYLES IMPORTS
-import './Template.styles.scss'
+import '../Template.styles.scss'
 
 const Client = () => {
   const gridRef = useRef()

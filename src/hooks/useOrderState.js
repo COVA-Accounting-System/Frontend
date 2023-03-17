@@ -33,17 +33,9 @@ export const useOrderState = (gridApi) => {
   // })
 
   useEffect(() => {
-    console.log('aqui entra')
-    // console.log('1' + onHoldingCheck)
-    // console.log('2' + onProductionCheck)
-    // console.log('3' + finishedCheck)
-    // console.log('4' + deliveredCheck)
-  
     if(gridApi) {
       gridApi.setRowData(filterList(gridApi.rowData))
     }
-    console.log(gridApi)
-
   }, [onHoldingCheck, onProductionCheck, finishedCheck, deliveredCheck])
 
   return {

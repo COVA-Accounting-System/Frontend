@@ -7,7 +7,8 @@ import {
   updateOrder,
   deleteOrder,
   changeStateBackward,
-  changeStateForward
+  changeStateForward,
+  getOneOrder
 } from '../services/orderService'
 import { getAllClients } from '../reducers/clients'
 import { getAllProducts } from '../reducers/products'
@@ -25,9 +26,9 @@ export const useOrder = () => {
   const [actualOrder, setActualOrder] = useState({})
   const [action, setAction] = useState('')
 
-  const [orderClient, setOrderClient] = useState({})
+  const [orderClient, setOrderClient] = useState('')
   const [orderNumber, setOrderNumber] = useState('')
-  const [orderProduct, setOrderProduct] = useState({})
+  const [orderProduct, setOrderProduct] = useState('')
   const [orderProductAmount, setOrderProductAmount] = useState('')
   const [orderProductAmountType, setOrderProductAmountType] = useState('')
   const [orderPrice, setOrderPrice] = useState('')
@@ -66,10 +67,12 @@ export const useOrder = () => {
     if (productsList.length === 0) {
       dispatch(getAllProducts())
     }
+
     dispatch(changeEntity({ entity: 'order', entityName: 'pedido' }))
 
     getAllOrders().then(element => {
       setOrdersList(element)
+      console.log(element)
     })
   }, [])
 
@@ -105,9 +108,9 @@ export const useOrder = () => {
   }
 
   const emptyFields = () => {
-    setOrderClient({})
+    setOrderClient('')
     setOrderNumber('')
-    setOrderProduct({})
+    setOrderProduct('')
     setOrderProductAmount('')
     setOrderPrice('')
     setOrderDeliveryDate('')
@@ -206,17 +209,8 @@ export const useOrder = () => {
       orderPrice !== ''
     ) {
       createOrder({
-        orderClient: {
-          _id: orderClient._id,
-          uiName: orderClient.uiName
-        },
-        orderProduct: {
-          _id: orderProduct._id,
-          uiName: orderProduct.uiName,
-          productType: orderProduct.productType
-          // productPrice: orderProduct.productPrice,
-          // productDozenPrice: orderProduct.productDozenPrice
-        },
+        orderClient,
+        orderProduct,
         orderNumber,
         orderProductAmount,
         orderProductAmountType,
@@ -224,6 +218,7 @@ export const useOrder = () => {
         orderCreationDate: new Date(),
         orderDeliveryDate,
         orderState,
+        uiName: `Pedido #${orderNumber} - ${orderProduct.uiName}`,
         orderFeatures: [...orderFeatures]
       }).then(newOrder => {
         if (newOrder.status === 200) {
@@ -248,22 +243,14 @@ export const useOrder = () => {
     ) {
       updateOrder({
         ...actualOrder,
-        orderClient: {
-          uiName: orderClient.uiName,
-          _id: orderClient._id
-        },
-        orderProduct: {
-          _id: orderProduct._id,
-          uiName: orderProduct.uiName,
-          productType: orderProduct.productType
-          // productPrice: orderProduct.productPrice,
-          // productDozenPrice: orderProduct.productDozenPrice
-        },
+        orderClient,
+        orderProduct,
         orderNumber,
         orderProductAmount,
         orderProductAmountType,
         orderPrice,
         orderDeliveryDate,
+        uiName: `Pedido #${orderNumber} - ${orderProduct.uiName}`,
         orderFeatures: [...orderFeatures]
       }).then(updatedOrder => {
         if (updatedOrder.status === 200) {

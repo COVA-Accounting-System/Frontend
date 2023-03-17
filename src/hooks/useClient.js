@@ -25,12 +25,12 @@ export const useClient = () => {
   const [address, setAddress] = useState('')
   const [isSubmited, setIsSubmited] = useState(false)
 
-  const action = useSelector((state) => state.crud.action)
+  const action = useSelector(state => state.crud.action)
 
-  const actualClient = useSelector((state) => state.clients.actualClient)
+  const actualClient = useSelector(state => state.clients.actualClient)
 
-  const clientsList = useSelector((state) =>
-    state.clients.data.filter((param) => param.isVisible === true)
+  const clientsList = useSelector(state =>
+    state.clients.data.filter(param => param.isVisible === true)
   )
 
   useEffect(() => {
@@ -38,7 +38,7 @@ export const useClient = () => {
     dispatch(changeEntity({ entity: 'client', entityName: 'cliente' }))
   }, [dispatch])
 
-  const changeActionRedux = (action) => {
+  const changeActionRedux = action => {
     dispatch(changeAction(action))
   }
 
@@ -67,7 +67,7 @@ export const useClient = () => {
   }
 
   const deleteActualClient = () => {
-    dispatch(deleteClient(actualClient)).then((status) => {
+    dispatch(deleteClient(actualClient)).then(status => {
       if (status) {
         toast.invetorySuccess('Cliente eliminado con éxito')
       } else {
@@ -76,17 +76,24 @@ export const useClient = () => {
     })
   }
 
-  const setActualClientRedux = (data) => {
+  const setActualClientRedux = data => {
     dispatch(setActualClient(data))
   }
 
-  const onClickSave = (e) => {
+  const onClickSave = e => {
     e.preventDefault()
     setIsSubmited(true)
     if (name !== '' && lastName !== '') {
       dispatch(
-        createClient({ name, lastName, phoneCountryCode, phoneNumber, address })
-      ).then((status) => {
+        createClient({
+          name,
+          lastName,
+          phoneCountryCode,
+          phoneNumber,
+          address,
+          uiName: `${name} ${lastName}`
+        })
+      ).then(status => {
         if (status) {
           toast.invetorySuccess('Cliente creado con éxito')
         } else {
@@ -97,7 +104,7 @@ export const useClient = () => {
     }
   }
 
-  const onEditSave = (e) => {
+  const onEditSave = e => {
     e.preventDefault()
     setIsSubmited(true)
     if (name !== '' && lastName !== '') {
@@ -108,9 +115,10 @@ export const useClient = () => {
           lastName,
           phoneCountryCode,
           phoneNumber,
-          address
+          address,
+          uiName: `${name} ${lastName}`
         })
-      ).then((status) => {
+      ).then(status => {
         if (status) {
           toast.invetorySuccess('Cliente editado con éxito')
         } else {

@@ -91,7 +91,8 @@ export const useProduct = () => {
           productFeatures: [...productFeatures],
           productType,
           productPrice,
-          productDozenPrice
+          productDozenPrice,
+          uiName: `${productName}`
         })
       ).then((status) => {
         if (status) {
@@ -115,7 +116,8 @@ export const useProduct = () => {
           productFeatures: [...productFeatures],
           productType,
           productPrice,
-          productDozenPrice
+          productDozenPrice,
+          uiName: `${productName}`
         })
       ).then((status) => {
         if (status) {

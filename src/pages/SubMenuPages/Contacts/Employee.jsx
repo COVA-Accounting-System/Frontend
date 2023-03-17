@@ -14,20 +14,20 @@ import {
 } from '@chakra-ui/react'
 
 // COMPONENTS IMPORTS
-import DataTableActions from '../../components/DataTableActions/DataTableActions'
-import TextFormControl from '../../components/Input/TextFormControl'
-import PhoneFormControl from '../../components/Input/PhoneFormControl'
-import DateFormControl from '../../components/Input/DateFormControl'
-import CountryFormControl from '../../components/Input/CountryFormControl'
-import DeleteModal from '../../components/DeleteModal/DeleteModal'
-import Table from '../../components/Table/Table'
-import { Button } from '../../components/Button/Button'
+import DataTableActions from '../../../components/DataTableActions/DataTableActions'
+import TextFormControl from '../../../components/Input/TextFormControl'
+import PhoneFormControl from '../../../components/Input/PhoneFormControl'
+import DateFormControl from '../../../components/Input/DateFormControl'
+import CountryFormControl from '../../../components/Input/CountryFormControl'
+import DeleteModal from '../../../components/DeleteModal/DeleteModal'
+import Table from '../../../components/Table/Table'
+import { Button } from '../../../components/Button/Button'
 
 // HOOKS IMPORTS
-import { useEmployee } from '../../hooks/useEmployee'
+import { useEmployee } from '../../../hooks/useEmployee'
 
 // STYLES IMPORTS
-import './Template.styles.scss'
+import '../Template.styles.scss'
 
 const Employee = () => {
   const gridRef = useRef()

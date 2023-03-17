@@ -14,25 +14,25 @@ import {
 } from '@chakra-ui/react'
 
 // COMPONENTS IMPORTS
-import DataTableActionsOrder from '../../components/DataTableActions/DataTableActionsOrder'
-import TextFormControl from '../../components/Input/TextFormControl'
-import DateFormControl from '../../components/Input/DateFormControl'
-import SelectEntityFormControl from '../../components/Input/SelectEntityFormControl'
-import PriceFormControl from '../../components/Input/PriceFormControl'
-import FeaturesFormControl from '../../components/Input/FeaturesFormControl'
-import InputWithSelectFormControl from '../../components/Input/InputWithSelectFormControl'
-import DeleteModal from '../../components/DeleteModal/DeleteModal'
-import Table from '../../components/Table/Table'
-import { Button } from '../../components/Button/Button'
-import StateTag from '../../components/StateTags/StateTag'
-import SearchByState from '../../components/SearchInputs/SearchByState'
+import DataTableActionsOrder from '../../../components/DataTableActions/DataTableActionsOrder'
+import TextFormControl from '../../../components/Input/TextFormControl'
+import DateFormControl from '../../../components/Input/DateFormControl'
+import SelectEntityFormControl from '../../../components/Input/SelectEntityFormControl'
+import PriceFormControl from '../../../components/Input/PriceFormControl'
+import FeaturesFormControl from '../../../components/Input/FeaturesFormControl'
+import InputWithSelectFormControl from '../../../components/Input/InputWithSelectFormControl'
+import DeleteModal from '../../../components/DeleteModal/DeleteModal'
+import Table from '../../../components/Table/Table'
+import { Button } from '../../../components/Button/Button'
+import StateTag from '../../../components/StateTags/StateTag'
+import SearchByState from '../../../components/SearchInputs/SearchByState'
 
 // HOOKS IMPORTS
-import { useOrder } from '../../hooks/useOrder'
-import { useOrderState } from '../../hooks/useOrderState'
+import { useOrder } from '../../../hooks/useOrder'
+import { useOrderState } from '../../../hooks/useOrderState'
 
 // STYLES IMPORTS
-import './Template.styles.scss'
+import '../Template.styles.scss'
 
 const Order = () => {
   const gridRef = useRef()
@@ -66,27 +66,21 @@ const Order = () => {
       },
       {
         headerName: 'Cliente',
-        field: 'orderClient',
+        field: 'orderClient.uiName',
         resizable: true,
         sortable: true,
         // minWidth: 130,
         width: 210,
         // maxWidth: 250,
-        cellRenderer: data => {
-          return `${data.data.orderClient.uiName}`
-        }
       },
       {
         headerName: 'Producto',
-        field: 'orderProduct',
+        field: 'orderProduct.uiName',
         resizable: false,
         sortable: true,
         // minWidth: 130,
         width: 210,
         // maxWidth: 250,
-        cellRenderer: data => {
-          return `${data.data.orderProduct.uiName}`
-        }
       },
       {
         headerName: 'Fecha de entrega',
@@ -217,7 +211,7 @@ const Order = () => {
             <Table
               gridRef={gridRef}
               gridOptions={gridOptions}
-              rowData={order.ordersList}
+              rowData={order.ordersList.filter(param => param.isVisible === true)}
             />
           </section>
         </div>
@@ -247,7 +241,7 @@ const Order = () => {
                   value={order.orderClient}
                   width='330px'
                   onSelect={data => {
-                    order.setOrderClient(data)
+                    order.setOrderClient(data._id)
                   }}
                   isSubmited={order.isSubmited}
                   entityList={order.clientsList}
@@ -273,7 +267,7 @@ const Order = () => {
                     paddingSpace={4}
                     value={order.orderProduct}
                     onSelect={data => {
-                      order.setOrderProduct(data)
+                      order.setOrderProduct(data._id)
                       order.setOrderProductAmountType(data.productType)
                     }}
                     isSubmited={order.isSubmited}

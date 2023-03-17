@@ -14,19 +14,19 @@ import {
 } from '@chakra-ui/react'
 
 // COMPONENTS IMPORTS
-import DataTableActions from '../../components/DataTableActions/DataTableActions'
-import TextFormControl from '../../components/Input/TextFormControl'
-import PhoneFormControl from '../../components/Input/PhoneFormControl'
-import CountryFormControl from '../../components/Input/CountryFormControl'
-import DeleteModal from '../../components/DeleteModal/DeleteModal'
-import Table from '../../components/Table/Table'
-import { Button } from '../../components/Button/Button'
+import DataTableActions from '../../../components/DataTableActions/DataTableActions'
+import TextFormControl from '../../../components/Input/TextFormControl'
+import PhoneFormControl from '../../../components/Input/PhoneFormControl'
+import CountryFormControl from '../../../components/Input/CountryFormControl'
+import DeleteModal from '../../../components/DeleteModal/DeleteModal'
+import Table from '../../../components/Table/Table'
+import { Button } from '../../../components/Button/Button'
 
 // HOOKS IMPORTS
-import { useProvider } from '../../hooks/useProvider'
+import { useProvider } from '../../../hooks/useProvider'
 
 // STYLES IMPORTS
-import './Template.styles.scss'
+import '../Template.styles.scss'
 
 const Provider = () => {
   const gridRef = useRef()

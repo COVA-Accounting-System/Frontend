@@ -7,7 +7,7 @@ import crud from '../reducers/crud'
 import authentication from '../reducers/authentication'
 import orderReducer from '../reducers/orders'
 import rawMaterialReducer from '../reducers/rawMaterials'
-import rawMaterials from '../reducers/rawMaterials'
+import incomeReducer from '../reducers/incomes'
 
 export const store = configureStore({
   reducer: {
@@ -18,6 +18,7 @@ export const store = configureStore({
     crud,
     authentication,
     orders: orderReducer,
-    rawMaterials: rawMaterialReducer
+    rawMaterials: rawMaterialReducer,
+    incomes: incomeReducer
   }
 })

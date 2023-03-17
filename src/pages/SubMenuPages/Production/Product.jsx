@@ -14,21 +14,21 @@ import {
 } from '@chakra-ui/react'
 
 // COMPONENTS IMPORTS
-import DataTableActions from '../../components/DataTableActions/DataTableActions'
-import TextFormControl from '../../components/Input/TextFormControl'
-import PriceFormControl from '../../components/Input/PriceFormControl'
-import SelectFormControl from '../../components/Input/SelectFormControl'
-import FeaturesFormControl from '../../components/Input/FeaturesFormControl'
-import DeleteModal from '../../components/DeleteModal/DeleteModal'
-import Table from '../../components/Table/Table'
-import ViewProduct from '../../components/ViewModals/ViewProduct'
-import { Button } from '../../components/Button/Button'
+import DataTableActions from '../../../components/DataTableActions/DataTableActions'
+import TextFormControl from '../../../components/Input/TextFormControl'
+import PriceFormControl from '../../../components/Input/PriceFormControl'
+import SelectFormControl from '../../../components/Input/SelectFormControl'
+import FeaturesFormControl from '../../../components/Input/FeaturesFormControl'
+import DeleteModal from '../../../components/DeleteModal/DeleteModal'
+import Table from '../../../components/Table/Table'
+import ViewProduct from '../../../components/ViewModals/ViewProduct'
+import { Button } from '../../../components/Button/Button'
 
 // HOOKS IMPORTS
-import { useProduct } from '../../hooks/useProduct'
+import { useProduct } from '../../../hooks/useProduct'
 
 // STYLES IMPORTS
-import './Template.styles.scss'
+import '../Template.styles.scss'
 
 const Product = () => {
   const product = useProduct()
@@ -69,7 +69,10 @@ const Product = () => {
         resizable: false,
         sortable: true,
         // minWidth: 120,
-        width: 150
+        width: 150,
+        cellRenderer: data => {
+          return `${data.data.productPrice} Bs.`
+        }
         // maxWidth: 180,
       },
       {
@@ -77,9 +80,12 @@ const Product = () => {
         field: 'productDozenPrice',
         resizable: false,
         sortable: true,
-        width: 150
+        width: 150,
         // minWidth: 100,
         // maxWidth: 180,
+        cellRenderer: data => {
+          return `${data.data.productDozenPrice} Bs.`
+        }
       },
       {
         headerName: ' ',

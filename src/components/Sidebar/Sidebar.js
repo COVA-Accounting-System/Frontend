@@ -1,17 +1,16 @@
-import React, { useState, useEffect } from 'react'
-import { Button } from '../Button/Button'
+import React, { useState } from 'react'
 import { FaBoxOpen, FaMoneyBillAlt } from 'react-icons/fa'
 import { RiArchiveDrawerFill } from 'react-icons/ri'
 import { AiFillSignal } from 'react-icons/ai'
 import { BsPersonFill } from 'react-icons/bs'
-import { MdSell, MdOutlineArrowRight } from 'react-icons/md'
+import { MdOutlineArrowRight } from 'react-icons/md'
 import { NavLink } from 'react-router-dom'
 import './Sidebar.scss'
 
 const Sidebar = () => {
   const [subMenus, setSubMenus] = useState([
     { name: 'submenu-production', isOpen: false, subElements: 2 },
-    { name: 'submenu-inventory', isOpen: false, subElements: 3 },
+    { name: 'submenu-inventory', isOpen: false, subElements: 4 },
     { name: 'submenu-accounting', isOpen: false, subElements: 2 },
     { name: 'submenu-contact', isOpen: false, subElements: 3 }
   ])
@@ -162,6 +161,15 @@ const Sidebar = () => {
                 style={({ isActive }) => (isActive ? activeStyle : {})}
               >
                 Salidas
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                className='element-inside'
+                to='/ca/inventory/stock'
+                style={({ isActive }) => (isActive ? activeStyle : {})}
+              >
+                Stock
               </NavLink>
             </li>
           </ul>
