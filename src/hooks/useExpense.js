@@ -9,9 +9,9 @@ import {
   setActualExpense
 } from '../reducers/expenses'
 
-import { getAllProviders } from '../reducers/providers' 
+import { getAllProviders } from '../reducers/providers'
 import { getAllEmployees } from '../reducers/employees'
-
+import { getAllRawMaterials } from '../reducers/rawMaterials'
 
 import * as toast from '../services/toastService'
 import { changeAction, changeEntity } from '../reducers/crud'
@@ -22,6 +22,12 @@ export const useExpense = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false)
   const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false)
   const [viewModalIsOpen, setViewModalIsOpen] = useState(false)
+
+  const [typeOfExpense, setTypeOfExpense] = useState({
+    rawMaterial: false,
+    labour: false,
+    indirectCosts: false
+  })
 
   const [creditorEmployee, setCreditorEmployee] = useState({})
   const [creditorEmployeeId, setCreditorEmployeeId] = useState('')
@@ -52,6 +58,10 @@ export const useExpense = () => {
     return state.employees.data.filter(param => param.isVisible === true)
   })
 
+  const rawMaterialsList = useSelector(state => {
+    return state.rawMaterials.data.filter(param => param.isVisible === true)
+  })
+
   useEffect(() => {
     dispatch(getAllExpenses())
     if (providersList.length === 0) {
@@ -59,6 +69,9 @@ export const useExpense = () => {
     }
     if (employeesList.length === 0) {
       dispatch(getAllEmployees())
+    }
+    if (rawMaterialsList.length === 0) {
+      dispatch(getAllRawMaterials())
     }
     dispatch(changeEntity({ entity: 'expense', entityName: 'gasto' }))
   }, [dispatch])
@@ -77,11 +90,15 @@ export const useExpense = () => {
   }
 
   const emptyFields = () => {
-
     setCreditorProvider({})
     setCreditorProviderId('')
     setCreditorEmployee({})
     setCreditorEmployeeId('')
+    setTypeOfExpense({
+      rawMaterial: false,
+      labour: false,
+      indirectCosts: false
+    })
 
     setAccountingSeat('')
     setCategory('')
@@ -133,23 +150,23 @@ export const useExpense = () => {
     //   amount !== '' &&
     //   concept !== ''
     // ) {
-      dispatch(
-        createExpense({
-          accountingSeat,
-          // client: clientId,
-          // order: orderId,
-          date,
-          amount,
-          concept
-        })
-      ).then(status => {
-        if (status) {
-          toast.invetorySuccess('Ingreso creado con éxito')
-        } else {
-          toast.inventoryError('Error al registrar ingreso')
-        }
+    dispatch(
+      createExpense({
+        accountingSeat,
+        // client: clientId,
+        // order: orderId,
+        date,
+        amount,
+        concept
       })
-      closeModal()
+    ).then(status => {
+      if (status) {
+        toast.invetorySuccess('Ingreso creado con éxito')
+      } else {
+        toast.inventoryError('Error al registrar ingreso')
+      }
+    })
+    closeModal()
     // }
   }
 
@@ -164,24 +181,24 @@ export const useExpense = () => {
     //   amount !== '' &&
     //   concept !== ''
     // ) {
-      dispatch(
-        updateExpense({
-          ...actualExpense,
-          accountingSeat,
-          // client: clientId,
-          // order: orderId,
-          date,
-          amount,
-          concept
-        })
-      ).then(status => {
-        if (status) {
-          toast.invetorySuccess('Ingreso editado con éxito')
-        } else {
-          toast.inventoryError('Error al editar ingreso')
-        }
+    dispatch(
+      updateExpense({
+        ...actualExpense,
+        accountingSeat,
+        // client: clientId,
+        // order: orderId,
+        date,
+        amount,
+        concept
       })
-      closeModal()
+    ).then(status => {
+      if (status) {
+        toast.invetorySuccess('Ingreso editado con éxito')
+      } else {
+        toast.inventoryError('Error al editar ingreso')
+      }
+    })
+    closeModal()
     // }
   }
 
@@ -195,10 +212,17 @@ export const useExpense = () => {
     setDeleteModalIsOpen,
     setActualExpenseRedux,
 
+    rawMaterialsList,
+    providersList,
+    employeesList,
+
     creditorEmployee,
     setCreditorEmployee,
     creditorEmployeeId,
     setCreditorEmployeeId,
+
+    typeOfExpense,
+    setTypeOfExpense,
 
     creditorProvider,
     setCreditorProvider,
@@ -224,6 +248,6 @@ export const useExpense = () => {
     onEditSave,
 
     viewModalIsOpen,
-    setViewModalIsOpen,
+    setViewModalIsOpen
   }
 }

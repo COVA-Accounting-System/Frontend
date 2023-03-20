@@ -1,28 +1,18 @@
 // REACT IMPORTS
 import React, { useMemo, useCallback, useRef } from 'react'
 
-// CHAKRA UI IMPORTS
-import {
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
-  Input
-} from '@chakra-ui/react'
-
 // COMPONENTS IMPORTS
 import DataTableActions from '../../../components/DataTableActions/DataTableActions'
-import TextFormControl from '../../../components/Input/TextFormControl'
-import SelectEntityFormControl from '../../../components/Input/SelectEntityFormControl'
-import PriceFormControl from '../../../components/Input/PriceFormControl'
-import DateFormControl from '../../../components/Input/DateFormControl'
+import ExpenseModal from '../../../components/ExpenseModal/ExpenseModal'
 
 import DeleteModal from '../../../components/DeleteModal/DeleteModal'
 import Table from '../../../components/Table/Table'
 import { Button } from '../../../components/Button/Button'
+
+// CHAKRA UI IMPORTS
+import {
+  Input
+} from '@chakra-ui/react'
 
 // HOOKS IMPORTS
 import { useExpense } from '../../../hooks/useExpense'
@@ -187,112 +177,7 @@ const Expense = () => {
           </section>
         </div>
       </div>
-      <Modal
-        size='sm'
-        onClose={() => expense.closeModal()}
-        isOpen={expense.modalIsOpen}
-      >
-        <ModalOverlay />
-        <ModalContent userSelect='none' maxW='730px'>
-          <ModalHeader
-            color='acsys.titleColor'
-            fontWeight='700'
-            fontSize='25px'
-          >
-            Registrar gasto
-          </ModalHeader>
-          <ModalCloseButton color={'acsys.titleColor'} />
-
-          <ModalBody pb={3}>
-            <form className='three-rows-grid'>
-              <div className='two-column-grid'>
-                {/* <TextFormControl
-                  labelName='N.º asiento'
-                  width='330px'
-                  paddingSpace={0}
-                  value={income.accountingSeat}
-                  onInput={data => income.setAccountingSeat(data)}
-                  isSubmited={income.isSubmited}
-                  isRequired
-                  isRequiredMessage='Este campo es obligatorio'
-                />
-                <DateFormControl
-                  labelName='Fecha de ingreso'
-                  widht='330px'
-                  paddingSpace={0}
-                  value={income.date}
-                  onInput={data => income.setDate(data)}
-                  isSubmited={income.isSubmited}
-                  isRequired={true}
-                  isRequiredMessage='Este campo es obligatorio'
-                /> */}
-              </div>
-
-              <div className='two-column-grid'>
-                {/* <SelectEntityFormControl
-                  labelName='Cliente'
-                  paddingSpace={4}
-                  value={income.client}
-                  onSelect={data => {
-                    income.setClient(data)
-                    income.setClientId(data._id)
-                  }}
-                  isSubmited={income.isSubmited}
-                  entityList={income.clientsList}
-                  isRequired={true}
-                  isRequiredMessage='Este campo es obligatorio'
-                />
-                <SelectEntityFormControl
-                  labelName='Pedido'
-                  paddingSpace={4}
-                  value={income.order}
-                  onSelect={data => {
-                    income.setOrder(data)
-                    income.setOrderId(data._id)
-                  }}
-                  isSubmited={income.isSubmited}
-                  entityList={income.ordersList.filter(income.filterAtSelectClient)}
-                  isRequired={true}
-                  isRequiredMessage='Este campo es obligatorio'
-                  isDisabled={income.clientId === '' ? true : false}
-                /> */}
-              </div>
-              <div className='two-column-grid'>
-                {/* <TextFormControl
-                  labelName='Concepto'
-                  width='330px'
-                  paddingSpace={4}
-                  value={income.concept}
-                  onInput={data => income.setConcept(data)}
-                  isSubmited={income.isSubmited}
-                  isRequired
-                  isRequiredMessage='Este campo es obligatorio'
-                />
-                <PriceFormControl
-                  labelName='Monto'
-                  value={income.amount}
-                  onInput={data => income.setAmount(data)}
-                  isSubmited={income.isSubmited}
-                  isRequired
-                  isRequiredMessage='Este campo es obligatorio'
-                /> */}
-              </div>
-            </form>
-          </ModalBody>
-
-          <ModalFooter>
-            <Button
-              label='Guardar'
-              type='confirm'
-              onClick={
-                expense.action === 'create'
-                  ? expense.onClickSave
-                  : expense.onEditSave
-              }
-            />
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
+     <ExpenseModal expenseHook={expense}/>
 
       <DeleteModal
         modalIsOpen={expense.deleteModalIsOpen}

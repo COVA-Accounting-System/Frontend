@@ -91,6 +91,7 @@ export const useProvider = () => {
         createProvider({
           ...actualProvider,
           storeName,
+          uiName: storeName,
           nit,
           country,
           city,
