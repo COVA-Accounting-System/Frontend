@@ -17,8 +17,8 @@ const ExpenseModal = ({ expenseHook }) => {
       <ModalOverlay />
       <ModalContent
         userSelect='none'
-        maxW={pages[0] ? '500' : '720px'}
-        transition='all 0.3s ease-in-out'
+        maxW={pages[0] ? '500' : '830px'}
+        transition='max-width 0.3s ease-in-out, min-height 0.3s ease-in-out'
       >
         {pages[0] ? (
           <SelectTypeOfExpense expenseHook={expenseHook} setPages={setPages} />

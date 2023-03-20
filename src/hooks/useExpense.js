@@ -11,7 +11,6 @@ import {
 
 import { getAllProviders } from '../reducers/providers'
 import { getAllEmployees } from '../reducers/employees'
-import { getAllRawMaterials } from '../reducers/rawMaterials'
 
 import * as toast from '../services/toastService'
 import { changeAction, changeEntity } from '../reducers/crud'
@@ -33,6 +32,9 @@ export const useExpense = () => {
   const [creditorEmployeeId, setCreditorEmployeeId] = useState('')
   const [creditorProvider, setCreditorProvider] = useState({})
   const [creditorProviderId, setCreditorProviderId] = useState('')
+  const [inventoryInput, setInventoryInput] = useState({})
+  const [inventoryInputId, setInventoryInputId] = useState({})
+ 
 
   const [accountingSeat, setAccountingSeat] = useState('')
   const [category, setCategory] = useState('')
@@ -58,9 +60,6 @@ export const useExpense = () => {
     return state.employees.data.filter(param => param.isVisible === true)
   })
 
-  const rawMaterialsList = useSelector(state => {
-    return state.rawMaterials.data.filter(param => param.isVisible === true)
-  })
 
   useEffect(() => {
     dispatch(getAllExpenses())
@@ -69,9 +68,6 @@ export const useExpense = () => {
     }
     if (employeesList.length === 0) {
       dispatch(getAllEmployees())
-    }
-    if (rawMaterialsList.length === 0) {
-      dispatch(getAllRawMaterials())
     }
     dispatch(changeEntity({ entity: 'expense', entityName: 'gasto' }))
   }, [dispatch])
@@ -212,22 +208,23 @@ export const useExpense = () => {
     setDeleteModalIsOpen,
     setActualExpenseRedux,
 
-    rawMaterialsList,
     providersList,
     employeesList,
+    typeOfExpense,
+    setTypeOfExpense,
 
     creditorEmployee,
     setCreditorEmployee,
     creditorEmployeeId,
     setCreditorEmployeeId,
-
-    typeOfExpense,
-    setTypeOfExpense,
-
     creditorProvider,
     setCreditorProvider,
     creditorProviderId,
     setCreditorProviderId,
+    inventoryInput,
+    setInventoryInput,
+    inventoryInputId,
+    setInventoryInputId,
 
     accountingSeat,
     setAccountingSeat,

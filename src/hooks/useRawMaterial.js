@@ -90,6 +90,7 @@ export const useRawMaterial = () => {
       dispatch(
         createRawMaterial({
           name,
+          uiName: name,
           features: [...features],
           unitMeasure
         })

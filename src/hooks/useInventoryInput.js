@@ -23,8 +23,12 @@ export const useInventoryInput = () => {
 
   const [provider, setProvider] = useState({})
   const [providerId, setProviderId] = useState('')
+
   const [rawMaterial, setRawMaterial] = useState({})
-  
+  const [amount, setAmount] = useState('')
+  const [unitPrice, setUnitPrice] = useState('')
+  const [unitMeasure, setUnitMeasure] = useState('')
+
   const [listOfMaterials, setListOfMaterials] = useState([])
 
   const [numberOfInput, setNumberOfInput] = useState('')
@@ -35,18 +39,20 @@ export const useInventoryInput = () => {
 
   const action = useSelector(state => state.crud.action)
 
-  const actualInventoryInput = useSelector(state => state.inventoryInputs.actualInventoryInput)
+  const actualInventoryInput = useSelector(
+    state => state.inventoryInputs.actualInventoryInput
+  )
 
   const inventoryInputsList = useSelector(state => {
     return state.inventoryInputs.data.filter(param => param.isVisible === true)
   })
 
   const providersList = useSelector(state => {
-    return state.clients.data.filter(param => param.isVisible === true)
+    return state.providers.data.filter(param => param.isVisible === true)
   })
 
   const materialsList = useSelector(state => {
-    return state.clients.data.filter(param => param.isVisible === true)
+    return state.rawMaterials.data.filter(param => param.isVisible === true)
   })
 
   useEffect(() => {
@@ -55,9 +61,14 @@ export const useInventoryInput = () => {
       dispatch(getAllProviders())
     }
     if (materialsList.length === 0) {
-        dispatch(getAllRawMaterials())
+      dispatch(getAllRawMaterials())
     }
-    dispatch(changeEntity({ entity: 'inventoryInput', entityName: 'Entrada de inventario' }))
+    dispatch(
+      changeEntity({
+        entity: 'inventoryInput',
+        entityName: 'Entrada de inventario'
+      })
+    )
   }, [dispatch])
 
   const changeActionRedux = action => {
@@ -73,10 +84,13 @@ export const useInventoryInput = () => {
     setDate('')
     setProvider({})
     setProviderId('')
-
     setListOfMaterials([])
-    setDate('')
     setTotalPrice(0)
+
+    setRawMaterial({})
+    setAmount('')
+    setUnitPrice('')
+    setUnitMeasure('')
   }
 
   const closeModal = () => {
@@ -108,11 +122,7 @@ export const useInventoryInput = () => {
   const onClickSave = e => {
     e.preventDefault()
     setIsSubmited(true)
-    if (
-      providerId !== '' &&
-      date !== '' &&
-      totalPrice !== 0
-    ) {
+    if (providerId !== '' && date !== '' && totalPrice !== 0) {
       dispatch(
         createInventoryInput({
           numberOfInput,
@@ -135,11 +145,7 @@ export const useInventoryInput = () => {
   const onEditSave = e => {
     e.preventDefault()
     setIsSubmited(true)
-    if (
-        providerId !== '' &&
-        date !== '' &&
-        totalPrice !== 0
-    ) {
+    if (providerId !== '' && date !== '' && totalPrice !== 0) {
       dispatch(
         updateInventoryInput({
           ...actualInventoryInput,
@@ -181,10 +187,18 @@ export const useInventoryInput = () => {
     setProvider,
     providerId,
     setProviderId,
-    rawMaterial,
-    setRawMaterial,
     listOfMaterials,
     setListOfMaterials,
+
+    rawMaterial,
+    setRawMaterial,
+    unitMeasure,
+    setUnitMeasure,
+    amount,
+    setAmount,
+    unitPrice,
+    setUnitPrice,
+
 
     isSubmited,
     inventoryInputsList,
@@ -197,6 +211,6 @@ export const useInventoryInput = () => {
     setViewModalIsOpen,
 
     providersList,
-    materialsList,
+    materialsList
   }
 }

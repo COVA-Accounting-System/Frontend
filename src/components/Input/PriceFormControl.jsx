@@ -52,7 +52,7 @@ const PriceFormControl = ({
         </NumberInput>
         <InputRightAddon
             children='Bs.'
-            width='102px'
+            // width='102px'
             height='35px'
             fontSize='15px'
             color={'acsys.iconColor'}

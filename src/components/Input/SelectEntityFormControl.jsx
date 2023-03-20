@@ -33,7 +33,7 @@ const SelectEntityFormControl = ({
         height='35px'
         fontSize='15px'
         color='acsys.iconColor'
-        maxWidth={width}
+        minWidth={width}
         value={value.uiName}
         onChange={e => {
           onSelect(entityList[e.target.options.selectedIndex - 1])
