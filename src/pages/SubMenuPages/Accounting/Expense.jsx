@@ -25,14 +25,14 @@ import Table from '../../../components/Table/Table'
 import { Button } from '../../../components/Button/Button'
 
 // HOOKS IMPORTS
-import { useIncome } from '../../../hooks/useIncome'
+import { useExpense } from '../../../hooks/useExpense'
 
 // STYLES IMPORTS
 import '../Template.styles.scss'
 
-const Income = () => {
+const Expense = () => {
   const gridRef = useRef()
-  const income = useIncome()
+  const expense = useExpense()
 
   const columnDefs = useMemo(
     () => [
@@ -46,8 +46,8 @@ const Income = () => {
         // maxWidth: 250,
       },
       {
-        headerName: 'Cliente',
-        field: 'client.uiName',
+        headerName: 'Categoría',
+        field: 'category',
         resizable: false,
         sortable: true,
         // minWidth: 130,
@@ -55,8 +55,8 @@ const Income = () => {
         // maxWidth: 250,
       },
       {
-        headerName: 'Pedido',
-        field: 'order.uiName',
+        headerName: 'Acreedor',
+        field: '',
         resizable: false,
         sortable: false,
         width: 130
@@ -102,22 +102,24 @@ const Income = () => {
         cellRendererParams: {
           onView: () => {},
           onEdit: data => {
-            income.setAccountingSeat(data.accountingSeat)
-            income.setClient(data.client)
-            income.setClientId(data.client._id)
-            income.setOrder(data.order)
-            income.setOrderId(data.order._id)
-            income.setDate(data.date)
-            income.setAmount(data.amount)
-            income.setConcept(data.concept)
+            expense.setAccountingSeat(data.accountingSeat)
+            expense.setCategory(data.category)
+            expense.setDate(data.date)
+            expense.setAmount(data.amount)
+            expense.setConcept(data.concept)
 
-            income.changeActionRedux('edit')
-            income.setActualIncomeRedux(data)
-            income.openModal()
+            expense.setCreditorEmployee(data.creditorEmployee)
+            expense.setCreditorEmployeeId(data.creditorEmployee._id)
+            expense.setCreditorProvider(data.setCreditorProvider)
+            expense.setCreditorProviderId(data.setCreditorProvider._id)
+
+            expense.changeActionRedux('edit')
+            expense.setActualExpenseRedux(data)
+            expense.openModal()
           },
           onDelete: data => {
-            income.setDeleteModalIsOpen(true)
-            income.setActualIncomeRedux(data)
+            expense.setDeleteModalIsOpen(true)
+            expense.setActualExpenseRedux(data)
           }
         }
       }
@@ -144,7 +146,7 @@ const Income = () => {
   return (
     <div>
       <div className='page-container'>
-        <h1 className='page-title'>Ingresos</h1>
+        <h1 className='page-title'>Gastos</h1>
         <div className='elements-container'>
           <section className='task-bar-datatable'>
             <div className='input-container'>
@@ -166,12 +168,12 @@ const Income = () => {
             </div>
             <div className='button-container'>
               <Button
-                label='Registrar ingreso'
+                label='Registrar gasto'
                 type='login'
                 system='accounting'
                 onClick={() => {
-                  income.openModal()
-                  income.changeActionRedux('create')
+                  expense.openModal()
+                  expense.changeActionRedux('create')
                 }}
               />
             </div>
@@ -180,15 +182,15 @@ const Income = () => {
             <Table
               gridRef={gridRef}
               gridOptions={gridOptions}
-              rowData={income.incomesList}
+              rowData={expense.expensesList}
             />
           </section>
         </div>
       </div>
       <Modal
         size='sm'
-        onClose={() => income.closeModal()}
-        isOpen={income.modalIsOpen}
+        onClose={() => expense.closeModal()}
+        isOpen={expense.modalIsOpen}
       >
         <ModalOverlay />
         <ModalContent userSelect='none' maxW='730px'>
@@ -197,14 +199,14 @@ const Income = () => {
             fontWeight='700'
             fontSize='25px'
           >
-            Registrar ingreso
+            Registrar gasto
           </ModalHeader>
           <ModalCloseButton color={'acsys.titleColor'} />
 
           <ModalBody pb={3}>
             <form className='three-rows-grid'>
               <div className='two-column-grid'>
-                <TextFormControl
+                {/* <TextFormControl
                   labelName='N.º asiento'
                   width='330px'
                   paddingSpace={0}
@@ -223,11 +225,11 @@ const Income = () => {
                   isSubmited={income.isSubmited}
                   isRequired={true}
                   isRequiredMessage='Este campo es obligatorio'
-                />
+                /> */}
               </div>
 
               <div className='two-column-grid'>
-                <SelectEntityFormControl
+                {/* <SelectEntityFormControl
                   labelName='Cliente'
                   paddingSpace={4}
                   value={income.client}
@@ -253,10 +255,10 @@ const Income = () => {
                   isRequired={true}
                   isRequiredMessage='Este campo es obligatorio'
                   isDisabled={income.clientId === '' ? true : false}
-                />
+                /> */}
               </div>
               <div className='two-column-grid'>
-                <TextFormControl
+                {/* <TextFormControl
                   labelName='Concepto'
                   width='330px'
                   paddingSpace={4}
@@ -273,7 +275,7 @@ const Income = () => {
                   isSubmited={income.isSubmited}
                   isRequired
                   isRequiredMessage='Este campo es obligatorio'
-                />
+                /> */}
               </div>
             </form>
           </ModalBody>
@@ -283,9 +285,9 @@ const Income = () => {
               label='Guardar'
               type='confirm'
               onClick={
-                income.action === 'create'
-                  ? income.onClickSave
-                  : income.onEditSave
+                expense.action === 'create'
+                  ? expense.onClickSave
+                  : expense.onEditSave
               }
             />
           </ModalFooter>
@@ -293,16 +295,20 @@ const Income = () => {
       </Modal>
 
       <DeleteModal
-        modalIsOpen={income.deleteModalIsOpen}
-        entityName='Ingreso'
-        onClose={() => income.closeDeleteModal()}
+        modalIsOpen={expense.deleteModalIsOpen}
+        entityName='Gasto'
+        onClose={() => expense.closeDeleteModal()}
         onDelete={() => {
-          income.deleteActualIncome()
-          income.closeDeleteModal()
+          expense.deleteActualExpense()
+          expense.closeDeleteModal()
         }}
       />
     </div>
   )
 }
 
-export default Income
+export default Expense
+
+
+
+

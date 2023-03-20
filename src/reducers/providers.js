@@ -26,7 +26,7 @@ const providerSlice = createSlice({
       state.data.push(action.payload)
     },
     editProvider: (state, action) => {
-      state.data = state.data.map((provider) => {
+      state.data = state.data.map(provider => {
         if (provider._id === action.payload._id) {
           provider = action.payload
         }
@@ -40,7 +40,7 @@ export const { setInitialState, addProvider, setActualProvider, editProvider } =
   providerSlice.actions
 export default providerSlice.reducer
 
-export const getAllProviders = () => async (dispatch) => {
+export const getAllProviders = () => async dispatch => {
   try {
     const providers = await providerInstance.get('/')
     dispatch(setInitialState(providers.data))
@@ -49,7 +49,7 @@ export const getAllProviders = () => async (dispatch) => {
   }
 }
 
-export const createProvider = (data) => async (dispatch) => {
+export const createProvider = data => async dispatch => {
   try {
     const newProvider = await providerInstance.post('/', data)
     dispatch(addProvider(newProvider.data))
@@ -59,7 +59,7 @@ export const createProvider = (data) => async (dispatch) => {
   }
 }
 
-export const deleteProvider = (data) => async (dispatch) => {
+export const deleteProvider = data => async dispatch => {
   try {
     const deletedProvider = await providerInstance.put('/delete', data)
     dispatch(editProvider(deletedProvider.data))
@@ -69,7 +69,7 @@ export const deleteProvider = (data) => async (dispatch) => {
   }
 }
 
-export const updateProvider = (data) => async (dispatch) => {
+export const updateProvider = data => async dispatch => {
   try {
     const updatedProvider = await providerInstance.put('/update', data)
     dispatch(editProvider(updatedProvider.data))

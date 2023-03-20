@@ -8,6 +8,7 @@ import authentication from '../reducers/authentication'
 import orderReducer from '../reducers/orders'
 import rawMaterialReducer from '../reducers/rawMaterials'
 import incomeReducer from '../reducers/incomes'
+import expenseReducer from '../reducers/expenses'
 
 export const store = configureStore({
   reducer: {
@@ -19,6 +20,7 @@ export const store = configureStore({
     authentication,
     orders: orderReducer,
     rawMaterials: rawMaterialReducer,
-    incomes: incomeReducer
+    incomes: incomeReducer,
+    expenses: expenseReducer,
   }
 })

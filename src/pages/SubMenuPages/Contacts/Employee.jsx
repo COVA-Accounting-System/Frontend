@@ -178,7 +178,7 @@ const Employee = () => {
             </div>
             <div className='button-container'>
               <Button
-                label='Crear empleado'
+                label='Registrar empleado'
                 type='login'
                 system='accounting'
                 onClick={() => {
@@ -209,7 +209,7 @@ const Employee = () => {
             fontWeight='700'
             fontSize='25px'
           >
-            Crear empleado
+            Registrar empleado
           </ModalHeader>
           <ModalCloseButton color={'acsys.titleColor'}/>
 

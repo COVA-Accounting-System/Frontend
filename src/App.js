@@ -23,6 +23,7 @@ import RawMaterial from './pages/SubMenuPages/Inventory/RawMaterial'
 
 //Accounting imports
 import Income from './pages/SubMenuPages/Accounting/Income'
+import Expense from './pages/SubMenuPages/Accounting/Expense'
 
 const App = () => {
   const isLogged = useSelector((state) => state.authentication.isLogged)
@@ -42,7 +43,7 @@ const App = () => {
             <Route path='inventory/stock' />
 
             <Route path='accounting/income' element={<Income/>} />
-            <Route path='accounting/expense' />
+            <Route path='accounting/expense' element={<Expense/>} />
 
             <Route path='contact/client' element={<Client />} />
             <Route path='contact/employee' element={<Employee />} />

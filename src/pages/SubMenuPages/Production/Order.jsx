@@ -197,7 +197,7 @@ const Order = () => {
 
             <div className='button-container'>
               <Button
-                label='Crear pedido'
+                label='Registrar pedido'
                 type='login'
                 system='accounting'
                 onClick={() => {
@@ -229,7 +229,7 @@ const Order = () => {
             fontWeight='700'
             fontSize='25px'
           >
-            Crear pedido
+            Registrar pedido
           </ModalHeader>
           <ModalCloseButton color={'acsys.titleColor'} />
 

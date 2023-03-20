@@ -151,7 +151,7 @@ const Client = () => {
             </div>
             <div className='button-container'>
               <Button
-                label='Crear cliente'
+                label='Registrar cliente'
                 type='login'
                 system='accounting'
                 onClick={() => {
@@ -186,7 +186,7 @@ const Client = () => {
               fontWeight='700'
               fontSize='25px'
             >
-              Crear cliente
+              Registrar cliente
             </ModalHeader>
             <ModalCloseButton color={'acsys.titleColor'} />
             <ModalBody pb={3}>

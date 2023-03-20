@@ -150,7 +150,7 @@ const RawMaterial = () => {
             </div>
             <div className='button-container'>
               <Button
-                label='Crear material'
+                label='Registrar material'
                 type='login'
                 system='accounting'
                 onClick={() => {
@@ -181,7 +181,7 @@ const RawMaterial = () => {
             fontWeight='700'
             fontSize='25px'
           >
-            Crear producto
+            Registrar producto
           </ModalHeader>
           <ModalCloseButton color={'acsys.titleColor'} />
 

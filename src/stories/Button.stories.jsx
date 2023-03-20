@@ -12,14 +12,14 @@ export const Buttons_Invetory = Template.bind({})
 Buttons_Invetory.args = {
   type: 'create',
   system: 'inventory',
-  label: 'Crear Cliente'
+  label: 'Registrar Cliente'
 }
 
 export const Buttons_Accounting = Template.bind({})
 Buttons_Accounting.args = {
   type: 'create',
   system: 'accounting',
-  label: 'Crear Cuenta'
+  label: 'Registrar Cuenta'
 }
 
 // export const Large = Template.bind({});

@@ -233,7 +233,7 @@ export const useOrder = () => {
           toast.invetorySuccess('Pedido creado con éxito')
           setOrdersList([...ordersList, newOrder.data])
         } else {
-          toast.inventoryError('Error al crear pedido')
+          toast.inventoryError('Error al registrar pedido')
         }
       })
       closeModal()

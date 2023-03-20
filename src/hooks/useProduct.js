@@ -98,7 +98,7 @@ export const useProduct = () => {
         if (status) {
           toast.invetorySuccess('Producto creado con éxito')
         } else {
-          toast.inventoryError('Error al crear producto')
+          toast.inventoryError('Error al registrar producto')
         }
       })
       closeModal()

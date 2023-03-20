@@ -97,7 +97,7 @@ export const useRawMaterial = () => {
         if (status) {
           toast.invetorySuccess('Material creado con éxito')
         } else {
-          toast.inventoryError('Error al crear material')
+          toast.inventoryError('Error al registrar material')
         }
       })
       closeModal()

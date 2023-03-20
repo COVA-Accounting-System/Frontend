@@ -43,6 +43,6 @@ Button.propTypes = {
 Button.defaultProps = {
   type: undefined,
   system: 'inventory',
-  label: 'Crear Producto',
+  label: 'Registrar Producto',
   onClick: undefined
 }

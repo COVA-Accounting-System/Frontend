@@ -107,7 +107,7 @@ export const useEmployee = () => {
         if (status) {
           toast.invetorySuccess('Empleado creado con éxito')
         } else {
-          toast.inventoryError('Error al crear empleado')
+          toast.inventoryError('Error al registrar empleado')
         }
       })
       closeModal()
