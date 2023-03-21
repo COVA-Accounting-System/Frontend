@@ -16,7 +16,9 @@ export const Button = ({
       )}
       onClick={onClick}
       disabled={isDisabled}
-      style={{ cursor: isDisabled ? 'not-allowed' : 'pointer' }}
+      style={{
+        cursor: isDisabled ? 'not-allowed' : 'pointer'
+      }}
     >
       {label}
     </button>

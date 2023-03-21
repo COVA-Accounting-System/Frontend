@@ -11,10 +11,9 @@ import {
 
 import { Button } from '../Button/Button'
 
-const SelectTypeOfExpense = ({ expenseHook, setPages }) => {
+const SelectTypeOfExpense = ({ expenseHook, inventoryInputHook }) => {
   return (
     <>
-
       <ModalHeader color='acsys.titleColor' fontWeight='700' fontSize='25px'>
         Seleccione un tipo de gasto
       </ModalHeader>
@@ -29,13 +28,15 @@ const SelectTypeOfExpense = ({ expenseHook, setPages }) => {
             colorScheme={'blue'}
             size='md'
             color={'acsys.titleColor'}
-            onChange={e =>
+            onChange={e => {
+              expenseHook.emptyFields()
+              inventoryInputHook.emptyFields()
               expenseHook.setTypeOfExpense({
                 rawMaterial: e.target.checked,
                 labour: false,
                 indirectCosts: false
               })
-            }
+            }}
           >
             Materia prima
           </Checkbox>
@@ -46,13 +47,15 @@ const SelectTypeOfExpense = ({ expenseHook, setPages }) => {
             colorScheme={'blue'}
             size='md'
             color={'acsys.titleColor'}
-            onChange={e =>
+            onChange={e => {
+              expenseHook.emptyFields()
+              inventoryInputHook.emptyFields()
               expenseHook.setTypeOfExpense({
                 rawMaterial: false,
                 labour: e.target.checked,
                 indirectCosts: false
               })
-            }
+            }}
           >
             Mano de obra directa
           </Checkbox>
@@ -63,31 +66,40 @@ const SelectTypeOfExpense = ({ expenseHook, setPages }) => {
             colorScheme={'blue'}
             size='md'
             color={'acsys.titleColor'}
-            onChange={e =>
+            onChange={e => {
+              expenseHook.emptyFields()
+              inventoryInputHook.emptyFields()
               expenseHook.setTypeOfExpense({
                 rawMaterial: false,
                 labour: false,
                 indirectCosts: e.target.checked
               })
-            }
+            }}
           >
             Costos indirectos de fabricación
           </Checkbox>
         </Stack>
       </ModalBody>
       <ModalFooter>
-          <Button
-            label='Siguiente'
-            type='confirm'
-            onClick={
-              // expenseHook.action === 'create'
-              //   ? expenseHook.onClickSave
-              //   : expenseHook.onEditSave
-              () => setPages([false, true, false])
-            }
-          />
-        </ModalFooter>
-
+        <Button
+          label='Siguiente'
+          type={
+            expenseHook.typeOfExpense.rawMaterial ||
+            expenseHook.typeOfExpense.labour ||
+            expenseHook.typeOfExpense.indirectCosts
+              ? 'confirm'
+              : 'confirm-disabled'
+          }
+          isDisabled={
+            expenseHook.typeOfExpense.rawMaterial ||
+            expenseHook.typeOfExpense.labour ||
+            expenseHook.typeOfExpense.indirectCosts
+              ? false
+              : true
+          }
+          onClick={() => expenseHook.setPage(prev => prev + 1)}
+        />
+      </ModalFooter>
     </>
   )
 }

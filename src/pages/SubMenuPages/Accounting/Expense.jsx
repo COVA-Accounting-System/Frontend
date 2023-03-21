@@ -16,6 +16,7 @@ import {
 
 // HOOKS IMPORTS
 import { useExpense } from '../../../hooks/useExpense'
+import { useInventoryInput } from '../../../hooks/useInventoryInput'
 
 // STYLES IMPORTS
 import '../Template.styles.scss'
@@ -23,6 +24,7 @@ import '../Template.styles.scss'
 const Expense = () => {
   const gridRef = useRef()
   const expense = useExpense()
+  const inventoryInput = useInventoryInput()
 
   const columnDefs = useMemo(
     () => [
@@ -177,7 +179,7 @@ const Expense = () => {
           </section>
         </div>
       </div>
-     <ExpenseModal expenseHook={expense}/>
+     <ExpenseModal expenseHook={expense} inventoryInputHook={inventoryInput}/>
 
       <DeleteModal
         modalIsOpen={expense.deleteModalIsOpen}

@@ -1,13 +1,13 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 // CHAKRA UI IMPORTS
 import { Modal, ModalOverlay, ModalContent } from '@chakra-ui/react'
 
 import SelectTypeOfExpense from './SelectTypeOfExpense'
 import RegisterInventoryEntry from './RegisterInventoryEntry'
+import RegisterExpense from './RegisterExpense'
 
-const ExpenseModal = ({ expenseHook }) => {
-  const [pages, setPages] = useState([true, false, false])
+const ExpenseModal = ({ expenseHook, inventoryInputHook }) => {
   return (
     <Modal
       size='lg'
@@ -17,15 +17,29 @@ const ExpenseModal = ({ expenseHook }) => {
       <ModalOverlay />
       <ModalContent
         userSelect='none'
-        maxW={pages[0] ? '500' : '830px'}
-        transition='max-width 0.3s ease-in-out, min-height 0.3s ease-in-out'
+        maxW={
+          expenseHook.page === 0
+            ? '520'
+            : expenseHook.page === 1 && expenseHook.typeOfExpense.rawMaterial
+            ? '850'
+            : '650'
+        }
+        transition='max-width 0.3s ease-in-out, height 5s ease-in-out'
       >
-        {pages[0] ? (
-          <SelectTypeOfExpense expenseHook={expenseHook} setPages={setPages} />
-        ) : (
+        {expenseHook.page === 0 ? (
+          <SelectTypeOfExpense
+            expenseHook={expenseHook}
+            inventoryInputHook={inventoryInputHook}
+          />
+        ) : expenseHook.page === 1 && expenseHook.typeOfExpense.rawMaterial ? (
           <RegisterInventoryEntry
             expenseHook={expenseHook}
-            setPages={setPages}
+            inventoryInputHook={inventoryInputHook}
+          />
+        ) : (
+          <RegisterExpense
+            expenseHook={expenseHook}
+            inventoryInputHook={inventoryInputHook}
           />
         )}
       </ModalContent>

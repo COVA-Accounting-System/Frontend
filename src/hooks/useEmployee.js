@@ -95,6 +95,7 @@ export const useEmployee = () => {
         createEmployee({
           name,
           lastName,
+          uiName: `${name} ${lastName}`,
           ci,
           nationality,
           birthday,

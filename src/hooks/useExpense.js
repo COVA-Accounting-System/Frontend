@@ -32,15 +32,18 @@ export const useExpense = () => {
   const [creditorEmployeeId, setCreditorEmployeeId] = useState('')
   const [creditorProvider, setCreditorProvider] = useState({})
   const [creditorProviderId, setCreditorProviderId] = useState('')
+  const [creditorEntity, setCreditorEntity] = useState('')
+
   const [inventoryInput, setInventoryInput] = useState({})
   const [inventoryInputId, setInventoryInputId] = useState({})
- 
 
   const [accountingSeat, setAccountingSeat] = useState('')
   const [category, setCategory] = useState('')
   const [date, setDate] = useState('')
   const [concept, setConcept] = useState('')
   const [amount, setAmount] = useState('')
+
+  const [page, setPage] = useState(0)
 
   const [isSubmited, setIsSubmited] = useState(false)
 
@@ -59,7 +62,6 @@ export const useExpense = () => {
   const employeesList = useSelector(state => {
     return state.employees.data.filter(param => param.isVisible === true)
   })
-
 
   useEffect(() => {
     dispatch(getAllExpenses())
@@ -95,7 +97,7 @@ export const useExpense = () => {
       labour: false,
       indirectCosts: false
     })
-
+    setPage(0)
     setAccountingSeat('')
     setCategory('')
     setDate('')
@@ -225,6 +227,8 @@ export const useExpense = () => {
     setInventoryInput,
     inventoryInputId,
     setInventoryInputId,
+    creditorEntity,
+    setCreditorEntity,
 
     accountingSeat,
     setAccountingSeat,
@@ -245,6 +249,10 @@ export const useExpense = () => {
     onEditSave,
 
     viewModalIsOpen,
-    setViewModalIsOpen
+    setViewModalIsOpen,
+
+    page,
+    setPage,
+    emptyFields
   }
 }

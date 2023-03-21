@@ -15,7 +15,8 @@ const PriceFormControl = ({
   onInput,
   isSubmited,
   isRequired,
-  isRequiredMessage
+  isRequiredMessage,
+  isDisabled = false
 }) => {
   const isError = isSubmited && value === ''
   return (
@@ -30,36 +31,42 @@ const PriceFormControl = ({
           {labelName}
         </FormLabel>
         <InputGroup maxW={width}>
-        <NumberInput precision={2} step={0.2} min={0}  value={value}>
-          <NumberInputField
-            focusBorderColor='acsys.primaryColor'
-            size='sm'
-            onInput={(event) => {
-              onInput(event.target.value)
-            }}
-            placeholder=''
-            spellCheck='false'
-            borderRadius='5px'
-            fontSize='15px'
-            height='35px'
-            color='acsys.iconColor'
-            type='number'
+          <NumberInput
+            precision={2}
+            step={0.2}
             min={0}
-            // width='500'
-            borderRightRadius={0}
-          />
-      
-        </NumberInput>
-        <InputRightAddon
+            value={value}
+            isDisabled={isDisabled}
+          >
+            <NumberInputField
+              focusBorderColor='acsys.primaryColor'
+              size='sm'
+              onInput={event => {
+                onInput(event.target.value)
+              }}
+              placeholder=''
+              spellCheck='false'
+              borderRadius='5px'
+              fontSize='15px'
+              height='35px'
+              color={isDisabled ? 'gray.900 !important' : 'acsys.iconColor'}
+              bgColor={isDisabled ? 'gray.200' : 'transparent'}
+              type='number'
+              min={0}
+              // width='500'
+              borderRightRadius={0}
+            />
+          </NumberInput>
+          <InputRightAddon
             children='Bs.'
             // width='102px'
             height='35px'
             fontSize='15px'
-            color={'acsys.iconColor'}
-            backgroundColor='acsys.backgroundColor'
+            color={isDisabled ? 'gray.400' : 'acsys.iconColor'}
+            bgColor={isDisabled ? 'gray.100' : 'acsys.backgroundColor'}
           />
         </InputGroup>
-        {isError && (<FormErrorMessage>{isRequiredMessage}</FormErrorMessage>)}
+        {isError && <FormErrorMessage>{isRequiredMessage}</FormErrorMessage>}
       </FormControl>
     </>
   )

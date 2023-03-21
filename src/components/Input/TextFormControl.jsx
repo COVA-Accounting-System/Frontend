@@ -14,7 +14,8 @@ const TextFormControl = ({
   onInput,
   isSubmited,
   isRequired,
-  isRequiredMessage
+  isRequiredMessage,
+  isDisabled = false
 }) => {
   // const inputName = labelName.toLowerCase()
   const isError = isSubmited && value === ''
@@ -45,10 +46,13 @@ const TextFormControl = ({
           borderRadius='5px'
           fontSize='15px'
           height='35px'
-          color='acsys.iconColor'
+          color={isDisabled ? 'gray.900 !important' : 'acsys.iconColor'}
           onInput={event => onInput(event.target.value)}
           placeholder=''
           isRequired
+          isDisabled={isDisabled}
+          bgColor={isDisabled ? 'gray.200' : 'transparent'}
+          // isDisabled={true}
         />
         {isError && <FormErrorMessage>{isRequiredMessage}</FormErrorMessage>}
         {/* <FormErrorMessage>Este campo es obligatorio</FormErrorMessage> */}

@@ -91,6 +91,7 @@ export const useInventoryInput = () => {
     setAmount('')
     setUnitPrice('')
     setUnitMeasure('')
+    setIsSubmited(false)
   }
 
   const closeModal = () => {
@@ -103,6 +104,37 @@ export const useInventoryInput = () => {
     setDeleteModalIsOpen(false)
     emptyFields()
     setIsSubmited(false)
+  }
+
+  const validateRequiredFields = () => {
+    setIsSubmited(true)
+    return numberOfInput !== '' && date !== '' && providerId !== ''
+  }
+
+  const onClickAddMaterial = e => {
+    e.preventDefault()
+    if (rawMaterial._id !== '' && amount !== '' && unitPrice !== '') {
+      setListOfMaterials([
+        ...listOfMaterials,
+        {
+          rawMaterial,
+          amount,
+          unitPrice,
+          unitMeasure
+        }
+      ])
+      setTotalPrice(prevTotal => prevTotal + Number(unitPrice))
+      setRawMaterial({})
+      setAmount('')
+      setUnitPrice('')
+      setUnitMeasure('')
+    }
+  }
+
+  const onRemoveMaterial = index => {
+    const material = listOfMaterials[index]
+    setListOfMaterials(listOfMaterials.filter((_, i) => i !== index))
+    setTotalPrice(prevTotal => prevTotal - Number(material.unitPrice))
   }
 
   const deleteActualInventoryInput = () => {
@@ -122,7 +154,7 @@ export const useInventoryInput = () => {
   const onClickSave = e => {
     e.preventDefault()
     setIsSubmited(true)
-    if (providerId !== '' && date !== '' && totalPrice !== 0) {
+    if (providerId !== '' && date !== '' && numberOfInput !== '') {
       dispatch(
         createInventoryInput({
           numberOfInput,
@@ -145,7 +177,7 @@ export const useInventoryInput = () => {
   const onEditSave = e => {
     e.preventDefault()
     setIsSubmited(true)
-    if (providerId !== '' && date !== '' && totalPrice !== 0) {
+    if (providerId !== '' && date !== '' && numberOfInput !== '') {
       dispatch(
         updateInventoryInput({
           ...actualInventoryInput,
@@ -198,7 +230,8 @@ export const useInventoryInput = () => {
     setAmount,
     unitPrice,
     setUnitPrice,
-
+    onClickAddMaterial,
+    onRemoveMaterial,
 
     isSubmited,
     inventoryInputsList,
@@ -211,6 +244,8 @@ export const useInventoryInput = () => {
     setViewModalIsOpen,
 
     providersList,
-    materialsList
+    materialsList,
+    emptyFields,
+    validateRequiredFields
   }
 }

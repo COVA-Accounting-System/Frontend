@@ -16,7 +16,8 @@ const SelectEntityFormControl = ({
   isSubmited,
   isRequired,
   isRequiredMessage,
-  isDisabled
+  isDisabled,
+  isReadOnly = false
 }) => {
   const isError = isSubmited && value._id === undefined
   return (
@@ -32,12 +33,15 @@ const SelectEntityFormControl = ({
       <Select
         height='35px'
         fontSize='15px'
-        color='acsys.iconColor'
+        color={isDisabled ? 'gray.900 !important' : 'acsys.iconColor'}
+        // color='acsys.iconColor'
         minWidth={width}
         value={value.uiName}
         onChange={e => {
           onSelect(entityList[e.target.options.selectedIndex - 1])
         }}
+        isReadOnly={isReadOnly}
+        bgColor={isDisabled ? 'gray.200' : 'transparent'}
         isDisabled={isDisabled}
       >
         <option value='' hidden>

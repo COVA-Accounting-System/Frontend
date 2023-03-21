@@ -14,7 +14,8 @@ const DateFormControl = ({
   onInput,
   isSubmited,
   isRequired,
-  isRequiredMessage
+  isRequiredMessage,
+  isDisabled = false
 }) => {
   const isError = isSubmited && value === ''
 
@@ -43,10 +44,12 @@ const DateFormControl = ({
           borderRadius='5px'
           fontSize='15px'
           height='35px'
-          color='acsys.iconColor'
+          color={isDisabled ? 'gray.900 !important' : 'acsys.iconColor'}
           onInput={event => onInput(event.target.value)}
           placeholder=''
           isRequired
+          isDisabled={isDisabled}
+          bgColor={isDisabled ? 'gray.200' : 'transparent'}
         />
         {isError && <FormErrorMessage>{isRequiredMessage}</FormErrorMessage>}
         {/* <FormErrorMessage>Este campo es obligatorio</FormErrorMessage> */}

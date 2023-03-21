@@ -15,6 +15,7 @@ import {
   Table,
   Thead,
   Tbody,
+  Tfoot,
   Tr,
   Th,
   Td
@@ -29,13 +30,9 @@ import TextFormControl from '../Input/TextFormControl'
 import PriceFormControl from '../Input/PriceFormControl'
 import UnitMeasureFormControl from '../Input/UnitMeasureFormControl'
 
-// HOOKS IMPORTS
-import { useInventoryInput } from '../../hooks/useInventoryInput'
-
 import { Button } from '../Button/Button'
 
-const RegisterInventoryEntry = ({ expenseHook, setPages }) => {
-  const inventoryInputHook = useInventoryInput()
+const RegisterInventoryEntry = ({ expenseHook, inventoryInputHook }) => {
   return (
     <>
       <ModalHeader color='acsys.titleColor' fontWeight='700' fontSize='25px'>
@@ -44,7 +41,7 @@ const RegisterInventoryEntry = ({ expenseHook, setPages }) => {
       <ModalCloseButton color={'acsys.titleColor'} />
 
       <ModalBody pb={3}>
-        <Stack direction='column' spacing={3} pl={2}>
+        <Stack direction='column' spacing={3}>
           <Stack direction={'row'} spacing={4}>
             <SelectEntityFormControl
               labelName='Proveedor'
@@ -53,8 +50,8 @@ const RegisterInventoryEntry = ({ expenseHook, setPages }) => {
               onSelect={data => {
                 inventoryInputHook.setProvider(data)
                 inventoryInputHook.setProviderId(data._id)
-                expenseHook.creditorProvider(data)
-                expenseHook.creditorProvider(data._id)
+                expenseHook.setCreditorProvider(data)
+                expenseHook.setCreditorProviderId(data._id)
               }}
               isSubmited={inventoryInputHook.isSubmited}
               entityList={inventoryInputHook.providersList}
@@ -67,13 +64,16 @@ const RegisterInventoryEntry = ({ expenseHook, setPages }) => {
               //   widht='330px'
               paddingSpace={0}
               value={inventoryInputHook.date}
-              onInput={data => inventoryInputHook.setDate(data)}
+              onInput={data => {
+                inventoryInputHook.setDate(data)
+                expenseHook.setDate(data)
+              }}
               isSubmited={inventoryInputHook.isSubmited}
               isRequiredMessage='Este campo es obligatorio'
               isRequired={true}
             />
             <TextFormControl
-              labelName='Nº de pedido'
+              labelName='Nº de entrada'
               //   width='330px'
               paddingSpace={0}
               value={inventoryInputHook.numberOfInput}
@@ -88,7 +88,7 @@ const RegisterInventoryEntry = ({ expenseHook, setPages }) => {
           <Stack direction={'column'} spacing={3}>
             <Stack direction={'row'} spacing={4}>
               <SelectEntityFormControl
-                labelName='Modelo'
+                labelName='Material'
                 value={inventoryInputHook.rawMaterial}
                 onSelect={data => {
                   inventoryInputHook.setRawMaterial(data)
@@ -98,7 +98,11 @@ const RegisterInventoryEntry = ({ expenseHook, setPages }) => {
               />
               <UnitMeasureFormControl
                 labelName='Cantidad'
-                unitMeasure={'m2'}
+                unitMeasure={
+                  inventoryInputHook.rawMaterial._id !== undefined
+                    ? inventoryInputHook.rawMaterial.unitMeasure.abbreviation
+                    : ''
+                }
                 value={inventoryInputHook.amount}
                 onInput={data => inventoryInputHook.setAmount(data)}
               />
@@ -118,6 +122,7 @@ const RegisterInventoryEntry = ({ expenseHook, setPages }) => {
                   _hover={{ boxShadow: '0px 3px 10px #a3aab7' }}
                   icon={<AddIcon />}
                   colorScheme='blue'
+                  onClick={inventoryInputHook.onClickAddMaterial}
                 />
               </Flex>
             </Stack>
@@ -138,45 +143,40 @@ const RegisterInventoryEntry = ({ expenseHook, setPages }) => {
                     </Tr>
                   </Thead>
                   <Tbody color={'gray.600'} fontSize={13}>
-                    <Tr>
-                      <Td>1</Td>
-                      <Td>Cuero mojado</Td>
-                      <Td>2 m2</Td>
-                      <Td>500 Bs.</Td>
-                      <Td>
-                        <DeleteIcon
-                          fontSize={14}
-                          _hover={{ color: 'red.500', cursor: 'pointer' }}
-                        />
-                      </Td>
-                    </Tr>
-                    <Tr>
-                      <Td>2</Td>
-                      <Td>Cuero mojado</Td>
-                      <Td>2 m2</Td>
-                      <Td>500 Bs.</Td>
-                      <Td>
-                        {' '}
-                        <DeleteIcon
-                          fontSize={14}
-                          _hover={{ color: 'red.500', cursor: 'pointer' }}
-                        />
-                      </Td>
-                    </Tr>
-                    <Tr>
-                      <Td>3</Td>
-                      <Td>Cuero mojado</Td>
-                      <Td>2 m2</Td>
-                      <Td>500 Bs.</Td>
-                      <Td>
-                        {' '}
-                        <DeleteIcon
-                          fontSize={14}
-                          _hover={{ color: 'red.500', cursor: 'pointer' }}
-                        />
-                      </Td>
-                    </Tr>
+                    {inventoryInputHook.listOfMaterials.map(
+                      (material, index) => {
+                        return (
+                          <Tr key={index}>
+                            <Td>{index + 1}</Td>
+                            <Td>{material.rawMaterial.name}</Td>
+                            <Td>
+                              {material.amount} {material.unitMeasure}
+                            </Td>
+                            <Td>{material.unitPrice}</Td>
+                            <Td>
+                              <DeleteIcon
+                                fontSize={14}
+                                _hover={{ color: 'red.500', cursor: 'pointer' }}
+                                onClick={() => {
+                                  inventoryInputHook.onRemoveMaterial(index)
+                                }}
+                              />
+                            </Td>
+                          </Tr>
+                        )
+                      }
+                    )}
                   </Tbody>
+                  <Tfoot>
+                    <Tr>
+                      <Th></Th>
+                      <Th></Th>
+                      <Th>Total: </Th>
+                      <Th>{inventoryInputHook.totalPrice} Bs.</Th>
+
+                      <Th></Th>
+                    </Tr>
+                  </Tfoot>
                 </Table>
               </TableContainer>
             </Stack>
@@ -184,26 +184,30 @@ const RegisterInventoryEntry = ({ expenseHook, setPages }) => {
         </Stack>
       </ModalBody>
       <ModalFooter>
-        <Button
-          label='Anterior'
-          type='confirm'
-          onClick={
-            // expenseHook.action === 'create'
-            //   ? expenseHook.onClickSave
-            //   : expenseHook.onEditSave
-            () => setPages([true, false, false])
-          }
-        />
-        <Button
-          label='Siguiente'
-          type='confirm'
-          onClick={
-            // expenseHook.action === 'create'
-            //   ? expenseHook.onClickSave
-            //   : expenseHook.onEditSave
-            () => setPages([false, true, false])
-          }
-        />
+        <Stack
+          direction={'row'}
+          justifyContent={'space-between'}
+          width={'100%'}
+        >
+          <Button
+            label='Anterior'
+            type='confirm'
+            onClick={
+              () => {
+                expenseHook.setPage(prev => prev - 1)
+              }
+            }
+          />
+          <Button
+            label='Siguiente'
+            type='confirm'
+            onClick={() => {
+              const validate = inventoryInputHook.validateRequiredFields()
+              expenseHook.setAmount(inventoryInputHook.totalPrice)
+              if (validate) expenseHook.setPage(prev => prev + 1)
+            }}
+          />
+        </Stack>
       </ModalFooter>
     </>
   )
