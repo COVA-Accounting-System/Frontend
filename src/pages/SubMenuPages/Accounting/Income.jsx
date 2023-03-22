@@ -249,7 +249,11 @@ const Income = () => {
                     income.setOrderId(data._id)
                   }}
                   isSubmited={income.isSubmited}
-                  entityList={income.ordersList.filter(income.filterAtSelectClient)}
+                  entityList={
+                    income.ordersList
+                      ? income.ordersList.filter(income.filterAtSelectClient)
+                      : []
+                  }
                   isRequired={true}
                   isRequiredMessage='Este campo es obligatorio'
                   isDisabled={income.clientId === '' ? true : false}

@@ -35,7 +35,7 @@ export const useExpense = () => {
   const [creditorEntity, setCreditorEntity] = useState('')
 
   const [inventoryInput, setInventoryInput] = useState({})
-  const [inventoryInputId, setInventoryInputId] = useState({})
+  const [inventoryInputId, setInventoryInputId] = useState('')
 
   const [accountingSeat, setAccountingSeat] = useState('')
   const [category, setCategory] = useState('')
@@ -74,11 +74,6 @@ export const useExpense = () => {
     dispatch(changeEntity({ entity: 'expense', entityName: 'gasto' }))
   }, [dispatch])
 
-  // useEffect(() => {
-  //   setOrder({})
-  //   setOrderId('')
-  // }, [clientId])
-
   const changeActionRedux = action => {
     dispatch(changeAction(action))
   }
@@ -103,6 +98,8 @@ export const useExpense = () => {
     setDate('')
     setConcept('')
     setAmount('')
+    setCreditorEntity('')
+    setIsSubmited(false)
   }
 
   const closeModal = () => {
@@ -116,12 +113,6 @@ export const useExpense = () => {
     emptyFields()
     setIsSubmited(false)
   }
-
-  // const filterAtSelectClient = order => {
-  //   if (clientId !== '') {
-  //     return order.orderClient._id === clientId
-  //   }
-  // }
 
   const deleteActualExpense = () => {
     dispatch(deleteExpense(actualExpense)).then(status => {
@@ -137,67 +128,187 @@ export const useExpense = () => {
     dispatch(setActualExpense(data))
   }
 
-  const onClickSave = e => {
-    e.preventDefault()
+  const onClickSaveRawMaterial = async inventoryData => {
+ 
     setIsSubmited(true)
-    // if (
-    //   accountingSeat !== '' &&
-    //   clientId !== '' &&
-    //   orderId !== '' &&
-    //   date !== '' &&
-    //   amount !== '' &&
-    //   concept !== ''
-    // ) {
-    dispatch(
-      createExpense({
-        accountingSeat,
-        // client: clientId,
-        // order: orderId,
-        date,
-        amount,
-        concept
+    if (
+      accountingSeat !== '' &&
+      creditorProviderId !== '' &&
+      date !== '' &&
+      amount !== '' &&
+      concept !== ''
+    ) {
+      dispatch(
+        createExpense({
+          accountingSeat,
+          category: 'Materia prima',
+          creditorProvider: creditorProviderId,
+          inventoryInput: inventoryData._id,
+          date,
+          amount,
+          concept
+        })
+      ).then(status => {
+        if (status) {
+          toast.invetorySuccess('Gasto creado con éxito')
+        } else {
+          toast.inventoryError('Error al registrar gasto')
+        }
       })
-    ).then(status => {
-      if (status) {
-        toast.invetorySuccess('Ingreso creado con éxito')
-      } else {
-        toast.inventoryError('Error al registrar ingreso')
-      }
-    })
-    closeModal()
-    // }
+      closeModal()
+    }
   }
 
-  const onEditSave = e => {
+  const onClickSaveLabour = e => {
     e.preventDefault()
     setIsSubmited(true)
-    // if (
-    //   accountingSeat !== '' &&
-    //   clientId !== '' &&
-    //   orderId !== '' &&
-    //   date !== '' &&
-    //   amount !== '' &&
-    //   concept !== ''
-    // ) {
-    dispatch(
-      updateExpense({
-        ...actualExpense,
-        accountingSeat,
-        // client: clientId,
-        // order: orderId,
-        date,
-        amount,
-        concept
+    if (
+      accountingSeat !== '' &&
+      creditorEmployeeId !== '' &&
+      date !== '' &&
+      amount !== '' &&
+      concept !== ''
+    ) {
+      dispatch(
+        createExpense({
+          accountingSeat,
+          category: 'Mano de obra directa',
+          creditorEmployee: creditorEmployeeId,
+          date,
+          amount,
+          concept
+        })
+      ).then(status => {
+        if (status) {
+          toast.invetorySuccess('Gasto creado con éxito')
+        } else {
+          toast.inventoryError('Error al registrar gasto')
+        }
       })
-    ).then(status => {
-      if (status) {
-        toast.invetorySuccess('Ingreso editado con éxito')
-      } else {
-        toast.inventoryError('Error al editar ingreso')
-      }
-    })
-    closeModal()
-    // }
+      closeModal()
+    }
+  }
+
+  const onClickSaveIndirectCosts = e => {
+    e.preventDefault()
+    setIsSubmited(true)
+    if (
+      accountingSeat !== '' &&
+      creditorEntity !== '' &&
+      date !== '' &&
+      amount !== '' &&
+      concept !== ''
+    ) {
+      dispatch(
+        createExpense({
+          accountingSeat,
+          category: 'Costos indirectos de fabricación',
+          creditorEntity,
+          date,
+          amount,
+          concept
+        })
+      ).then(status => {
+        if (status) {
+          toast.invetorySuccess('Gasto creado con éxito')
+        } else {
+          toast.inventoryError('Error al registrar gasto')
+        }
+      })
+      closeModal()
+    }
+  }
+
+  const onClickEditRawMaterial = e => {
+    e.preventDefault()
+    setIsSubmited(true)
+    if (
+      accountingSeat !== '' &&
+      creditorProviderId !== '' &&
+      inventoryInputId !== '' &&
+      date !== '' &&
+      amount !== '' &&
+      concept !== ''
+    ) {
+      dispatch(
+        updateExpense({
+          ...actualExpense,
+          accountingSeat,
+          creditorProvider: creditorProviderId,
+          inventoryInput: inventoryInputId,
+          date,
+          amount,
+          concept
+        })
+      ).then(status => {
+        if (status) {
+          toast.invetorySuccess('Gasto editado con éxito')
+        } else {
+          toast.inventoryError('Error al editar gasto')
+        }
+      })
+      closeModal()
+    }
+  }
+
+  const onClickEditLabour = e => {
+    e.preventDefault()
+    setIsSubmited(true)
+    if (
+      accountingSeat !== '' &&
+      creditorEmployeeId !== '' &&
+      date !== '' &&
+      amount !== '' &&
+      concept !== ''
+    ) {
+      dispatch(
+        updateExpense({
+          ...actualExpense,
+          accountingSeat,
+          creditorEmployee: creditorEmployeeId,
+          date,
+          amount,
+          concept
+        })
+      ).then(status => {
+        if (status) {
+          toast.invetorySuccess('Gasto editado con éxito')
+        } else {
+          toast.inventoryError('Error al editar gasto')
+        }
+      })
+      closeModal()
+    }
+  }
+
+  const onClickEditIndirectCosts = e => {
+    e.preventDefault()
+    setIsSubmited(true)
+    if (
+      accountingSeat !== '' &&
+      creditorEntity !== '' &&
+      date !== '' &&
+      amount !== '' &&
+      concept !== ''
+    ) {
+      dispatch(
+        updateExpense({
+          ...actualExpense,
+          accountingSeat,
+          creditorEntity,
+          date,
+          amount,
+          concept
+        })
+      ).then(status => {
+        if (status) {
+          toast.invetorySuccess('Gasto editado con éxito')
+        } else {
+          toast.inventoryError('Error al editar gasto')
+        }
+      })
+      closeModal()
+    }
   }
 
   return {
@@ -245,8 +356,13 @@ export const useExpense = () => {
     expensesList,
     changeActionRedux,
     deleteActualExpense,
-    onClickSave,
-    onEditSave,
+
+    onClickSaveRawMaterial,
+    onClickSaveLabour,
+    onClickSaveIndirectCosts,
+    onClickEditRawMaterial,
+    onClickEditLabour,
+    onClickEditIndirectCosts,
 
     viewModalIsOpen,
     setViewModalIsOpen,

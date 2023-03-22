@@ -75,7 +75,6 @@ export const useOrder = () => {
 
     getAllOrders().then(element => {
       setOrdersList(element)
-      console.log(element)
     })
   }, [])
 
@@ -138,26 +137,25 @@ export const useOrder = () => {
     setIsSubmited(false)
   }
 
-  const deleteActualOrder = () => {
-    deleteOrder(actualOrder).then(deletedOrder => {
-      if (deletedOrder.status === 200) {
-        toast.invetorySuccess('Pedido eliminado con éxito')
-        const newList = ordersList.map(order => {
-          if (order._id === deletedOrder.data._id) {
-            return { ...deletedOrder.data }
-          }
-          return order
-        })
-        setOrdersList(newList)
-      } else {
-        toast.inventoryError('Error al eliminar pedido')
-      }
-    })
+  const deleteActualOrder = async () => {
+    try {
+      const deletedOrder = await deleteOrder(actualOrder)
+      toast.invetorySuccess('Pedido eliminado con éxito')
+      const newList = ordersList.map(order => {
+        if (order._id === deletedOrder.data._id) {
+          return { ...deletedOrder.data }
+        }
+        return order
+      })
+      setOrdersList(newList)
+    } catch {
+      toast.inventoryError('Error al eliminar pedido')
+    }
   }
 
   const onMoveBackwardState = async data => {
-    const updatedOrder = await changeStateBackward(data)
-    if (updatedOrder.status === 200) {
+    try {
+      const updatedOrder = await changeStateBackward(data)
       toast.invetorySuccess(
         `Pedido movido a "${
           orderAsset[updatedOrder.data.orderStateNumber].stateSpanish
@@ -171,21 +169,19 @@ export const useOrder = () => {
           return order
         })
       })
-    } else {
+    } catch {
       toast.inventoryError(
-        `Error al mover a "${
-          orderAsset[updatedOrder.data.orderStateNumber].stateSpanish
-        }"`
+        `Error al mover a "${orderAsset[data.orderStateNumber].stateSpanish}"`
       )
     }
   }
 
   const onMoveForwardState = async data => {
-    const updatedOrder = await changeStateForward(data)
-    if (updatedOrder.status === 200) {
+    try {
+      const updatedOrder = await changeStateForward(data)
       toast.invetorySuccess(
         `Pedido movido a "${
-          orderAsset[updatedOrder.data.orderStateNumber].stateSpanish
+          orderAsset[updatedOrder.data.orderStateNumber - 1].stateSpanish
         }"`
       )
       setOrdersList(prevList => {
@@ -196,16 +192,16 @@ export const useOrder = () => {
           return order
         })
       })
-    } else {
+    } catch {
       toast.inventoryError(
         `Error al mover a "${
-          orderAsset[updatedOrder.data.orderStateNumber].stateSpanish
+          orderAsset[data.orderStateNumber + 1].stateSpanish
         }"`
       )
     }
   }
 
-  const onClickSave = e => {
+  const onClickSave = async e => {
     e.preventDefault()
     setIsSubmited(true)
     if (
@@ -216,31 +212,31 @@ export const useOrder = () => {
       orderProductAmount !== '' &&
       orderDeliveryDate !== ''
     ) {
-      createOrder({
-        orderClient: orderClientId,
-        orderProduct: orderProductId,
-        orderNumber,
-        orderProductAmount,
-        orderProductAmountType,
-        orderPrice,
-        orderCreationDate: new Date(),
-        orderDeliveryDate,
-        orderState,
-        uiName: `Pedido #${orderNumber}`,
-        orderFeatures: [...orderFeatures]
-      }).then(newOrder => {
-        if (newOrder.status === 200) {
-          toast.invetorySuccess('Pedido creado con éxito')
-          setOrdersList([...ordersList, newOrder.data])
-        } else {
-          toast.inventoryError('Error al registrar pedido')
-        }
-      })
+      try {
+        const newOrder = await createOrder({
+          orderClient: orderClientId,
+          orderProduct: orderProductId,
+          orderNumber,
+          orderProductAmount,
+          orderProductAmountType,
+          orderPrice,
+          orderCreationDate: new Date(),
+          orderDeliveryDate,
+          orderState,
+          uiName: `Pedido #${orderNumber}`,
+          orderFeatures: [...orderFeatures]
+        })
+        toast.invetorySuccess('Pedido registrado con éxito')
+
+        setOrdersList([...ordersList, newOrder.data])
+      } catch {
+        toast.inventoryError('Error al registrar pedido')
+      }
       closeModal()
     }
   }
 
-  const onEditSave = e => {
+  const onEditSave = async e => {
     e.preventDefault()
     setIsSubmited(true)
     if (
@@ -251,31 +247,30 @@ export const useOrder = () => {
       orderProductAmount !== '' &&
       orderDeliveryDate !== ''
     ) {
-      updateOrder({
-        ...actualOrder,
-        orderClient: orderClientId,
-        orderProduct: orderProductId,
-        orderNumber,
-        orderProductAmount,
-        orderProductAmountType,
-        orderPrice,
-        orderDeliveryDate,
-        uiName: `Pedido #${orderNumber} - ${orderProduct.uiName}`,
-        orderFeatures: [...orderFeatures]
-      }).then(updatedOrder => {
-        if (updatedOrder.status === 200) {
-          toast.invetorySuccess('Pedido editado con éxito')
-          const newList = ordersList.map(order => {
-            if (order._id === updatedOrder.data._id) {
-              return { ...updatedOrder.data }
-            }
-            return order
-          })
-          setOrdersList(newList)
-        } else {
-          toast.inventoryError('Error al editar pedido')
-        }
-      })
+      try {
+        const updatedOrder = await updateOrder({
+          ...actualOrder,
+          orderClient: orderClientId,
+          orderProduct: orderProductId,
+          orderNumber,
+          orderProductAmount,
+          orderProductAmountType,
+          orderPrice,
+          orderDeliveryDate,
+          uiName: `Pedido #${orderNumber} - ${orderProduct.uiName}`,
+          orderFeatures: [...orderFeatures]
+        })
+        toast.invetorySuccess('Pedido editado con éxito')
+        const newList = ordersList.map(order => {
+          if (order._id === updatedOrder.data._id) {
+            return { ...updatedOrder.data }
+          }
+          return order
+        })
+        setOrdersList(newList)
+      } catch {
+        toast.inventoryError('Error al editar pedido')
+      }
       closeModal()
     }
   }

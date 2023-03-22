@@ -25,11 +25,13 @@ export const useInventoryInput = () => {
   const [providerId, setProviderId] = useState('')
 
   const [rawMaterial, setRawMaterial] = useState({})
+
   const [amount, setAmount] = useState('')
-  const [unitPrice, setUnitPrice] = useState('')
+  const [price, setPrice] = useState('')
   const [unitMeasure, setUnitMeasure] = useState('')
 
   const [listOfMaterials, setListOfMaterials] = useState([])
+  const [newInventoryInput, setNewInventoryInput] = useState({})
 
   const [numberOfInput, setNumberOfInput] = useState('')
   const [date, setDate] = useState('')
@@ -89,7 +91,7 @@ export const useInventoryInput = () => {
 
     setRawMaterial({})
     setAmount('')
-    setUnitPrice('')
+    setPrice('')
     setUnitMeasure('')
     setIsSubmited(false)
   }
@@ -113,20 +115,20 @@ export const useInventoryInput = () => {
 
   const onClickAddMaterial = e => {
     e.preventDefault()
-    if (rawMaterial._id !== '' && amount !== '' && unitPrice !== '') {
+    if (rawMaterial._id !== '' && amount !== '' && price !== '') {
       setListOfMaterials([
         ...listOfMaterials,
         {
           rawMaterial,
           amount,
-          unitPrice,
+          price,
           unitMeasure
         }
       ])
-      setTotalPrice(prevTotal => prevTotal + Number(unitPrice))
-      setRawMaterial({})
+      setTotalPrice(prevTotal => prevTotal + Number(price))
       setAmount('')
-      setUnitPrice('')
+      setPrice('')
+      setRawMaterial({ uiName: '' })
       setUnitMeasure('')
     }
   }
@@ -134,7 +136,7 @@ export const useInventoryInput = () => {
   const onRemoveMaterial = index => {
     const material = listOfMaterials[index]
     setListOfMaterials(listOfMaterials.filter((_, i) => i !== index))
-    setTotalPrice(prevTotal => prevTotal - Number(material.unitPrice))
+    setTotalPrice(prevTotal => prevTotal - Number(material.price))
   }
 
   const deleteActualInventoryInput = () => {
@@ -151,27 +153,29 @@ export const useInventoryInput = () => {
     dispatch(setActualInventoryInput(data))
   }
 
-  const onClickSave = e => {
-    e.preventDefault()
+  const onClickSave = async () => {
+    // e.preventDefault()
     setIsSubmited(true)
     if (providerId !== '' && date !== '' && numberOfInput !== '') {
-      dispatch(
-        createInventoryInput({
-          numberOfInput,
-          provider: providerId,
-          date,
-          totalPrice,
-          listOfMaterials
-        })
-      ).then(status => {
-        if (status) {
-          toast.invetorySuccess('Entrada creada con éxito')
-        } else {
-          toast.inventoryError('Error al registrar entrada')
-        }
-      })
-      closeModal()
-    }
+
+        const response =  dispatch(
+          createInventoryInput({
+            numberOfInput,
+            provider: providerId,
+            date,
+            totalPrice,
+            listOfMaterials: listOfMaterials.map(material => {
+              return {
+                rawMaterial: material.rawMaterial._id,
+                amount: material.amount,
+                price: material.price,
+                unitMeasure: material.unitMeasure
+              }
+            })
+          })
+        )
+        return response
+      }
   }
 
   const onEditSave = e => {
@@ -228,8 +232,8 @@ export const useInventoryInput = () => {
     setUnitMeasure,
     amount,
     setAmount,
-    unitPrice,
-    setUnitPrice,
+    price,
+    setPrice,
     onClickAddMaterial,
     onRemoveMaterial,
 
@@ -246,6 +250,7 @@ export const useInventoryInput = () => {
     providersList,
     materialsList,
     emptyFields,
-    validateRequiredFields
+    validateRequiredFields,
+    newInventoryInput
   }
 }

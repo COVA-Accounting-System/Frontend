@@ -6,8 +6,7 @@ import {
   ModalBody,
   ModalCloseButton,
   Stack,
-  ModalFooter,
-  Flex
+  ModalFooter
 } from '@chakra-ui/react'
 
 import { Button } from '../Button/Button'
@@ -75,8 +74,8 @@ const RegisterExpense = ({ expenseHook, inventoryInputHook }) => {
                 paddingSpace={0}
                 value={expenseHook.creditorEmployee}
                 onSelect={data => {
-                  expenseHook.creditorEmployee(data)
-                  expenseHook.creditorEmployeeId(data._id)
+                  expenseHook.setCreditorEmployee(data)
+                  expenseHook.setCreditorEmployeeId(data._id)
                 }}
                 isSubmited={expenseHook.isSubmited}
                 isRequired
@@ -148,7 +147,16 @@ const RegisterExpense = ({ expenseHook, inventoryInputHook }) => {
           <Button
             label='Guardar'
             type='confirm'
-            onClick={expenseHook.onClickSave}
+            onClick={
+              expenseHook.typeOfExpense.rawMaterial
+                ? async () => {
+                    const response = await inventoryInputHook.onClickSave()
+                    expenseHook.onClickSaveRawMaterial(response.data)
+                  }
+                : expenseHook.typeOfExpense.labour
+                ? expenseHook.onClickSaveLabour
+                : expenseHook.onClickSaveIndirectCosts
+            }
           />
         </Stack>
       </ModalFooter>

@@ -16,7 +16,8 @@ import { theme } from './styles/chakraTheme'
 import { LightMode } from '@chakra-ui/react'
 
 // Library imports
-import { Toaster } from 'react-hot-toast'
+// import { Toaster } from 'react-hot-toast'
+import { ToasterR } from './services/toastService'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
@@ -30,7 +31,7 @@ root.render(
         </ChakraProvider>
       </Provider>
     </BrowserRouter>
-    <Toaster />
+    <ToasterR />
   </React.StrictMode>
 )
 

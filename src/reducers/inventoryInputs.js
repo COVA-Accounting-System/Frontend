@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 import axios from 'axios'
+import * as toast from '../services/toastService'
 
 export const inventoryInputInstance = axios.create({
   baseURL: `${process.env.REACT_APP_DATA_API}/inventory/inventory_input`,
@@ -54,8 +55,10 @@ export const createInventoryInput = data => async dispatch => {
   try {
     const newInventoryInput = await inventoryInputInstance.post('/', data)
     dispatch(addInventoryInput(newInventoryInput.data))
-    return newInventoryInput.status
+    toast.invetorySuccess('Entrada de inventario creada con éxito')
+    return newInventoryInput
   } catch (err) {
+    toast.inventoryError('Error al registrar entrada de inventario')
     console.error(err)
   }
 }

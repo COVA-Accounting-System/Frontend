@@ -92,36 +92,33 @@ const RegisterInventoryEntry = ({ expenseHook, inventoryInputHook }) => {
                 value={inventoryInputHook.rawMaterial}
                 onSelect={data => {
                   inventoryInputHook.setRawMaterial(data)
+                  inventoryInputHook.setUnitMeasure(data.unitMeasure.abbreviation)
                 }}
                 entityList={inventoryInputHook.materialsList}
                 // width={'250px'}
               />
               <UnitMeasureFormControl
                 labelName='Cantidad'
-                unitMeasure={
-                  inventoryInputHook.rawMaterial._id !== undefined
-                    ? inventoryInputHook.rawMaterial.unitMeasure.abbreviation
-                    : ''
-                }
+                unitMeasure={inventoryInputHook.unitMeasure}
                 value={inventoryInputHook.amount}
                 onInput={data => inventoryInputHook.setAmount(data)}
               />
               <PriceFormControl
                 labelName='Precio'
-                value={inventoryInputHook.unitPrice}
-                onInput={data => inventoryInputHook.setUnitPrice(data)}
+                value={inventoryInputHook.price}
+                onInput={data => inventoryInputHook.setPrice(data)}
               />
               <Flex alignItems={'flex-end'}>
                 <IconButton
                   isDisabled={
-                    inventoryInputHook.rawMaterial === '' ||
+                    inventoryInputHook.unitMeasure === '' ||
                     inventoryInputHook.amount === '' ||
-                    inventoryInputHook.unitPrice === ''
+                    inventoryInputHook.price === ''
                   }
                   backgroundColor={'acsys.primaryColor'}
                   _hover={{ boxShadow: '0px 3px 10px #a3aab7' }}
                   icon={<AddIcon />}
-                  colorScheme='blue'
+                  // colorScheme='blue'
                   onClick={inventoryInputHook.onClickAddMaterial}
                 />
               </Flex>
@@ -152,7 +149,7 @@ const RegisterInventoryEntry = ({ expenseHook, inventoryInputHook }) => {
                             <Td>
                               {material.amount} {material.unitMeasure}
                             </Td>
-                            <Td>{material.unitPrice}</Td>
+                            <Td>{material.price} Bs.</Td>
                             <Td>
                               <DeleteIcon
                                 fontSize={14}
@@ -192,11 +189,9 @@ const RegisterInventoryEntry = ({ expenseHook, inventoryInputHook }) => {
           <Button
             label='Anterior'
             type='confirm'
-            onClick={
-              () => {
-                expenseHook.setPage(prev => prev - 1)
-              }
-            }
+            onClick={() => {
+              expenseHook.setPage(prev => prev - 1)
+            }}
           />
           <Button
             label='Siguiente'

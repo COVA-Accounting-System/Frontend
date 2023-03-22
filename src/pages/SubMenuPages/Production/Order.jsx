@@ -39,7 +39,6 @@ const Order = () => {
   //pass ref to custom hook
   // const orderState = useOrderState(gridRef.current)
 
-
   const columnDefs = useMemo(
     () => [
       {
@@ -69,7 +68,7 @@ const Order = () => {
         resizable: true,
         sortable: true,
         // minWidth: 130,
-        width: 210,
+        width: 210
         // maxWidth: 250,
       },
       {
@@ -78,7 +77,7 @@ const Order = () => {
         resizable: false,
         sortable: true,
         // minWidth: 130,
-        width: 210,
+        width: 210
         // maxWidth: 250,
       },
       {
@@ -212,7 +211,11 @@ const Order = () => {
             <Table
               gridRef={gridRef}
               gridOptions={gridOptions}
-              rowData={order.ordersList.filter(param => param.isVisible === true)}
+              rowData={
+                order.ordersList
+                  ? order.ordersList.filter(param => param.isVisible === true)
+                  : []
+              }
             />
           </section>
         </div>
