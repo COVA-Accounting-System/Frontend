@@ -40,7 +40,8 @@ const Client = () => {
         resizable: false,
         sortable: true,
         width: 180,
-        minWidth: 100
+        minWidth: 100,
+        unSortIcon: true
         // maxWidth: 230,
       },
       {

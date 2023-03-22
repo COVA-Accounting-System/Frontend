@@ -22,39 +22,41 @@ $toggle-background-color: #e6e9f0;
 }
 
 .ag-theme-alpine {
-    --ag-foreground-color: #5D6A7E;
+    --ag-foreground-color: #384a66;
     // --ag-background-color: rgb(255, 255, 255);
 
-    --ag-border-color: #C3CAD6;
-    --ag-borders: solid 1px; 
+    // --ag-border-color: #C3CAD6;
+    // --ag-borders: solid 1px; 
 
     // --ag-header-foreground-color: #585858;
     --ag-header-background-color: #f1f3f6;
-    --ag-odd-row-background-color: #f7f9fcc0;
-    --ag-header-column-resize-handle-color: #C3CAD6;
+    // --ag-odd-row-background-color: #f7f9fcc0;
+    // --ag-header-column-resize-handle-color: #C3CAD6;
 
-    --ag-row-hover-color: #f3f5f9;
-    --ag-selected-row-background-color: rgb(242, 246, 253);
-    --ag-grid-size: 6.5px;
+    --ag-row-hover-color: #f3f5f965;
+    // --ag-selected-row-background-color: rgb(242, 246, 253);
+    // --ag-grid-size: 6.5px;
     // --ag-font-size: 1.8vh;
     --ag-font-size: 12.5px;
     // --ag-font-family: 'Open Sans';
-    font-weight: 500;
+    // font-weight: 500;
     // border-radius: 10vh;
-    --ag-borders-row: solid 0.1vh;
-    color: $background-color;
-    .ag-root-wrapper { border-radius: 7px }
-    --ag-secondary-border-color: #F1F3F6;  
+    // --ag-borders-row: solid 0.1vh;
+    // color: $background-color;
+    .ag-root-wrapper { border-radius: 3px }
+    // --ag-secondary-border-color: #F1F3F6;  
     //  --ag-secondary-border-color: #141414;  
 }
 
 
-.ag-theme-alpine .ag-header-row{
-    font-weight: 700;
-    // font-size: 2vh ;
-    color: #5D6A7E;
-    font-size: 13.5px ;
-}
+// .ag-theme-alpine .ag-header-row{
+//     font-weight: 700;
+//     // font-size: 2vh ;
+//     color: #5D6A7E;
+//     font-size: 13.5px ;
+// }
+
+
 
 /* width */
 ::-webkit-scrollbar {
