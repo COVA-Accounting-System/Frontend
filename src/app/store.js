@@ -10,6 +10,7 @@ import rawMaterialReducer from '../reducers/rawMaterials'
 import incomeReducer from '../reducers/incomes'
 import expenseReducer from '../reducers/expenses'
 import inventoryInput from '../reducers/inventoryInputs'
+import inventoryOutput from '../reducers/inventoryOutputs'
 
 export const store = configureStore({
   reducer: {
@@ -24,5 +25,6 @@ export const store = configureStore({
     incomes: incomeReducer,
     expenses: expenseReducer,
     inventoryInputs: inventoryInput,
+    inventoryOutputs: inventoryOutput
   }
 })

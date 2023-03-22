@@ -29,7 +29,8 @@ const DataTableActionsOrder = props => {
     onEdit,
     onDelete,
     onChangeStateForward,
-    onChangeStateBackward
+    onChangeStateBackward,
+    onRegisterMaterial
   } = props
 
   const previousTagData =
@@ -89,7 +90,13 @@ const DataTableActionsOrder = props => {
             Pagos realizados
           </MenuItem>
           <MenuDivider margin={0} />
-          <MenuItem height='30px' fontWeight={500} onClick={() => {}}>
+          <MenuItem
+            height='30px'
+            fontWeight={500}
+            onClick={() => {
+              onRegisterMaterial(data)
+            }}
+          >
             Material utilizado
           </MenuItem>
           <MenuDivider margin={0} />

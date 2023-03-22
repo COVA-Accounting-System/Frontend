@@ -144,6 +144,9 @@ const Order = () => {
           },
           onChangeStateForward: data => {
             order.onMoveForwardState(data)
+          },
+          onRegisterMaterial: data => {
+
           }
         }
       }
@@ -268,7 +271,7 @@ const Order = () => {
               <div className='two-column-grid'>
                 <div>
                   <SelectEntityFormControl
-                    labelName='Modelo'
+                    labelName='Producto'
                     paddingSpace={4}
                     value={order.orderProduct}
                     onSelect={data => {
@@ -352,7 +355,6 @@ const Order = () => {
           </ModalFooter>
         </ModalContent>
       </Modal>
-
       <DeleteModal
         modalIsOpen={order.deleteModalIsOpen}
         entityName='Empleado'

@@ -31,6 +31,9 @@ export const useOrder = () => {
   const [orderProduct, setOrderProduct] = useState({})
   const [orderProductId, setOrderProductId] = useState('')
 
+  const [inventoryOutput, setInventoryOutput] = useState({})
+  // const [inventoryOutputId, setInventoryOutputId] = useState('')
+
   const [orderNumber, setOrderNumber] = useState('')
   const [orderProductAmount, setOrderProductAmount] = useState('')
   const [orderProductAmountType, setOrderProductAmountType] = useState('')
@@ -223,7 +226,7 @@ export const useOrder = () => {
           orderCreationDate: new Date(),
           orderDeliveryDate,
           orderState,
-          uiName: `Pedido #${orderNumber}`,
+          uiName: `Pedido #${orderNumber} - ${orderProduct.uiName}`,
           orderFeatures: [...orderFeatures]
         })
         toast.invetorySuccess('Pedido registrado con éxito')
@@ -295,6 +298,8 @@ export const useOrder = () => {
     setOrderProduct,
     orderProductId,
     setOrderProductId,
+    inventoryOutput,
+    setInventoryOutput,
 
     orderNumber,
     setOrderNumber,

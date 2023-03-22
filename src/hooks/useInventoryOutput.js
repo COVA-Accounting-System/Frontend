@@ -1,28 +1,30 @@
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {
-  getAllInventoryInputs,
-  setActualInventoryInput,
-  createInventoryInput,
-  deleteInventoryInput,
-  updateInventoryInput
-} from '../reducers/inventoryInputs'
+  getAllInventoryOutputs,
+  setActualInventoryOutput,
+  createInventoryOutput,
+  deleteInventoryOutput,
+  updateInventoryOutput
+} from '../reducers/inventoryOutputs'
 
-import { getAllProviders } from '../reducers/providers'
+import { getAllOrders } from '../reducers/orders'
+import { getAllEmployees } from '../reducers/employees'
 import { getAllRawMaterials } from '../reducers/rawMaterials'
 
 import * as toast from '../services/toastService'
 import { changeAction, changeEntity } from '../reducers/crud'
 
-export const useInventoryInput = () => {
+export const useInventoryOutput = () => {
   const dispatch = useDispatch()
 
   const [modalIsOpen, setModalIsOpen] = useState(false)
   const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false)
   const [viewModalIsOpen, setViewModalIsOpen] = useState(false)
 
-  const [provider, setProvider] = useState({})
-  const [providerId, setProviderId] = useState('')
+  const [order, setOrder] = useState({})
+  const [orderId, setOrderId] = useState('')
+  //   const [orderId, setOrderId] = useState('')
 
   const [rawMaterial, setRawMaterial] = useState({})
 
@@ -31,26 +33,29 @@ export const useInventoryInput = () => {
   const [unitMeasure, setUnitMeasure] = useState('')
 
   const [listOfMaterials, setListOfMaterials] = useState([])
-  const [newInventoryInput, setNewInventoryInput] = useState({})
 
   const [numberOfInput, setNumberOfInput] = useState('')
   const [date, setDate] = useState('')
-  const [totalPrice, setTotalPrice] = useState(0)
+  const [estimatedPrice, setEstimatedPrice] = useState(0)
 
   const [isSubmited, setIsSubmited] = useState(false)
 
   const action = useSelector(state => state.crud.action)
 
-  const actualInventoryInput = useSelector(
-    state => state.inventoryInputs.actualInventoryInput
+  const actualInventoryOutput = useSelector(
+    state => state.inventoryOutputs.actualInventoryOutput
   )
 
-  const inventoryInputsList = useSelector(state => {
-    return state.inventoryInputs.data.filter(param => param.isVisible === true)
+  const inventoryOutputsList = useSelector(state => {
+    return state.inventoryOutputs.data.filter(param => param.isVisible === true)
   })
 
-  const providersList = useSelector(state => {
-    return state.providers.data.filter(param => param.isVisible === true)
+  const ordersList = useSelector(state => {
+    return state.orders.data.filter(param => param.isVisible === true)
+  })
+
+  const employeesList = useSelector(state => {
+    return state.employees.data.filter(param => param.isVisible === true)
   })
 
   const materialsList = useSelector(state => {
@@ -58,17 +63,20 @@ export const useInventoryInput = () => {
   })
 
   useEffect(() => {
-    dispatch(getAllInventoryInputs())
-    if (providersList.length === 0) {
-      dispatch(getAllProviders())
+    dispatch(getAllInventoryOutputs())
+    if (employeesList.length === 0) {
+      dispatch(getAllEmployees())
     }
     if (materialsList.length === 0) {
       dispatch(getAllRawMaterials())
     }
+    if (ordersList.length === 0) {
+      dispatch(getAllOrders())
+    }
     dispatch(
       changeEntity({
-        entity: 'inventoryInput',
-        entityName: 'Entrada de inventario'
+        entity: 'inventoryOutput',
+        entityName: 'Salida de inventario'
       })
     )
   }, [dispatch])
@@ -84,10 +92,10 @@ export const useInventoryInput = () => {
   const emptyFields = () => {
     setNumberOfInput('')
     setDate('')
-    setProvider({})
-    setProviderId('')
+    setOrder({})
+    setOrderId('')
     setListOfMaterials([])
-    setTotalPrice(0)
+    setEstimatedPrice(0)
 
     setRawMaterial({})
     setAmount('')
@@ -110,7 +118,7 @@ export const useInventoryInput = () => {
 
   const validateRequiredFields = () => {
     setIsSubmited(true)
-    return numberOfInput !== '' && date !== '' && providerId !== ''
+    return numberOfInput !== '' && date !== '' && orderId !== ''
   }
 
   const onClickAddMaterial = e => {
@@ -125,7 +133,7 @@ export const useInventoryInput = () => {
           unitMeasure
         }
       ])
-      setTotalPrice(prevTotal => prevTotal + Number(price))
+      setEstimatedPrice(prevTotal => prevTotal + Number(price))
       setAmount('')
       setPrice('')
       setRawMaterial({ uiName: '' })
@@ -136,59 +144,33 @@ export const useInventoryInput = () => {
   const onRemoveMaterial = index => {
     const material = listOfMaterials[index]
     setListOfMaterials(listOfMaterials.filter((_, i) => i !== index))
-    setTotalPrice(prevTotal => prevTotal - Number(material.price))
+    setEstimatedPrice(prevTotal => prevTotal - Number(material.price))
   }
 
-  const deleteActualInventoryInput = () => {
-    dispatch(deleteInventoryInput(actualInventoryInput)).then(status => {
+  const deleteActualInventoryOutput = () => {
+    dispatch(deleteInventoryOutput(actualInventoryOutput)).then(status => {
       if (status) {
-        toast.invetorySuccess('Entrada eliminada con éxito')
+        toast.invetorySuccess('Salida de inventario eliminada con éxito')
       } else {
-        toast.inventoryError('Error al eliminar entrada')
+        toast.inventoryError('Error al eliminar salida de inventario')
       }
     })
   }
 
-  const setActualInventoryInputRedux = data => {
-    dispatch(setActualInventoryInput(data))
+  const setActualInventoryOutputRedux = data => {
+    dispatch(setActualInventoryOutput(data))
   }
 
-  const onClickSave = async () => {
-    // e.preventDefault()
-    setIsSubmited(true)
-    if (providerId !== '' && date !== '' && numberOfInput !== '') {
-
-        const response =  dispatch(
-          createInventoryInput({
-            numberOfInput,
-            provider: providerId,
-            date,
-            totalPrice,
-            listOfMaterials: listOfMaterials.map(material => {
-              return {
-                rawMaterial: material.rawMaterial._id,
-                amount: material.amount,
-                price: material.price,
-                unitMeasure: material.unitMeasure
-              }
-            })
-          })
-        )
-        return response
-      }
-  }
-
-  const onEditSave = e => {
+  const onClickSave = e => {
     e.preventDefault()
     setIsSubmited(true)
-    if (providerId !== '' && date !== '' && numberOfInput !== '') {
+    if (orderId !== '' && date !== '' && numberOfInput !== '') {
       dispatch(
-        updateInventoryInput({
-          ...actualInventoryInput,
+        createInventoryOutput({
           numberOfInput,
-          provider: providerId,
+          order: orderId,
           date,
-          totalPrice,
+          estimatedPrice,
           listOfMaterials: listOfMaterials.map(material => {
             return {
               rawMaterial: material.rawMaterial._id,
@@ -200,9 +182,40 @@ export const useInventoryInput = () => {
         })
       ).then(status => {
         if (status) {
-          toast.invetorySuccess('Entrada editada con éxito')
+          toast.invetorySuccess('Salida de inventario registrada con éxito')
         } else {
-          toast.inventoryError('Error al editar entrada')
+          toast.inventoryError('Error al registrar salida de inventario')
+        }
+      })
+      closeModal()
+    }
+  }
+
+  const onEditSave = e => {
+    e.preventDefault()
+    setIsSubmited(true)
+    if (orderId !== '' && date !== '' && numberOfInput !== '') {
+      dispatch(
+        updateInventoryOutput({
+          ...actualInventoryOutput,
+          numberOfInput,
+          order: orderId,
+          date,
+          estimatedPrice,
+          listOfMaterials: listOfMaterials.map(material => {
+            return {
+              rawMaterial: material.rawMaterial._id,
+              amount: material.amount,
+              price: material.price,
+              unitMeasure: material.unitMeasure
+            }
+          })
+        })
+      ).then(status => {
+        if (status) {
+          toast.invetorySuccess('Salida de inventario editada con éxito')
+        } else {
+          toast.inventoryError('Error al editar salida de inventario')
         }
       })
       closeModal()
@@ -217,19 +230,19 @@ export const useInventoryInput = () => {
     closeDeleteModal,
     deleteModalIsOpen,
     setDeleteModalIsOpen,
-    setActualInventoryInputRedux,
+    setActualInventoryOutputRedux,
 
     numberOfInput,
     setNumberOfInput,
     date,
     setDate,
-    totalPrice,
-    setTotalPrice,
+    estimatedPrice,
+    setEstimatedPrice,
 
-    provider,
-    setProvider,
-    providerId,
-    setProviderId,
+    order,
+    setOrder,
+    setOrderId,
+    orderId,
     listOfMaterials,
     setListOfMaterials,
 
@@ -245,19 +258,19 @@ export const useInventoryInput = () => {
     onRemoveMaterial,
 
     isSubmited,
-    inventoryInputsList,
+    inventoryOutputsList,
     changeActionRedux,
-    deleteActualInventoryInput,
+    deleteActualInventoryOutput,
     onClickSave,
     onEditSave,
 
     viewModalIsOpen,
     setViewModalIsOpen,
 
-    providersList,
+    employeesList,
+    ordersList,
     materialsList,
     emptyFields,
-    validateRequiredFields,
-    newInventoryInput
+    validateRequiredFields
   }
 }

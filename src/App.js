@@ -21,6 +21,7 @@ import Order from './pages/SubMenuPages/Production/Order'
 //Inventory imports
 import RawMaterial from './pages/SubMenuPages/Inventory/RawMaterial'
 import InventoryInput from './pages/SubMenuPages/Inventory/InventoryInput'
+import InventoryOutput from './pages/SubMenuPages/Inventory/InventoryOutput'
 
 //Accounting imports
 import Income from './pages/SubMenuPages/Accounting/Income'
@@ -39,7 +40,7 @@ const App = () => {
 
           <Route path='inventory/raw-material' element={<RawMaterial />} />
           <Route path='inventory/input' element={<InventoryInput />} />
-          <Route path='inventory/output' />
+          <Route path='inventory/output' element={<InventoryOutput />} />
           <Route path='inventory/stock' />
 
           <Route path='accounting/income' element={<Income />} />
