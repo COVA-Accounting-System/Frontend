@@ -101,7 +101,7 @@ export const useProvider = () => {
         })
       ).then((status) => {
         if (status) {
-          toast.invetorySuccess('Proveedor creado con éxito')
+          toast.invetorySuccess('Proveedor registrado con éxito')
         } else {
           toast.inventoryError('Error al registrar proveedor')
         }

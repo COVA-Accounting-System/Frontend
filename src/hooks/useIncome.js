@@ -137,7 +137,7 @@ export const useIncome = () => {
         })
       ).then(status => {
         if (status) {
-          toast.invetorySuccess('Ingreso creado con éxito')
+          toast.invetorySuccess('Ingreso registrado con éxito')
         } else {
           toast.inventoryError('Error al registrar ingreso')
         }

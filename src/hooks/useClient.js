@@ -95,7 +95,7 @@ export const useClient = () => {
         })
       ).then(status => {
         if (status) {
-          toast.invetorySuccess('Cliente creado con éxito')
+          toast.invetorySuccess('Cliente registrado con éxito')
         } else {
           toast.inventoryError('Error al registrar cliente')
         }

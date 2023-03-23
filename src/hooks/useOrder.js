@@ -42,6 +42,7 @@ export const useOrder = () => {
   const [orderDeliveryDate, setOrderDeliveryDate] = useState('')
 
   const [orderState, setOrderState] = useState('pending')
+  // const []
   const [orderFeatures, setOrderFeatures] = useState([])
 
   const [isSubmited, setIsSubmited] = useState(false)
@@ -223,9 +224,14 @@ export const useOrder = () => {
           orderProductAmount,
           orderProductAmountType,
           orderPrice,
+          orderState: 'On hold',
+          orderStateNumber: 0,
+          orderPaidState: 'Not paid',
+          orderPaidStateNumber: 0,
+          orderPayedPrice: 0,
+          orderBalance: 0,
           orderCreationDate: new Date(),
           orderDeliveryDate,
-          orderState,
           uiName: `Pedido #${orderNumber} - ${orderProduct.uiName}`,
           orderFeatures: [...orderFeatures]
         })

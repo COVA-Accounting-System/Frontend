@@ -56,6 +56,9 @@ const InventoryOutput = () => {
         resizable: true,
         sortable: true,
         unSortIcon: true,
+        valueGetter: data => {
+          return `${data.data.estimatedPrice} Bs.`
+        },
         // maxWidth: 180,
         flex: 1
       },

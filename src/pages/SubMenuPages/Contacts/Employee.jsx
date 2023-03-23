@@ -245,7 +245,7 @@ const Employee = () => {
                 />
                 <DateFormControl
                   labelName='Fecha de nacimiento'
-                  widht='330px'
+                  width='330px'
                   paddingSpace={4}
                   value={employee.birthday}
                   onInput={data => employee.setBirthday(data)}
@@ -253,7 +253,7 @@ const Employee = () => {
                 />
                 <DateFormControl
                   labelName='Fecha de inicio'
-                  widht='330px'
+                  width='330px'
                   paddingSpace={4}
                   value={employee.startDate}
                   onInput={data => employee.setStartDate(data)}

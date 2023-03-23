@@ -1,5 +1,3 @@
-
-
 export const orderState = [
   {
     state: 'On hold',

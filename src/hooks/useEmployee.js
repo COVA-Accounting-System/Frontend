@@ -106,7 +106,7 @@ export const useEmployee = () => {
         })
       ).then((status) => {
         if (status) {
-          toast.invetorySuccess('Empleado creado con éxito')
+          toast.invetorySuccess('Empleado registrado con éxito')
         } else {
           toast.inventoryError('Error al registrar empleado')
         }

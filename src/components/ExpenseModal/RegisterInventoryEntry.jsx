@@ -61,7 +61,7 @@ const RegisterInventoryEntry = ({ expenseHook, inventoryInputHook }) => {
             />
             <DateFormControl
               labelName='Fecha de entrada'
-              //   widht='330px'
+              //   width='330px'
               paddingSpace={0}
               value={inventoryInputHook.date}
               onInput={data => {

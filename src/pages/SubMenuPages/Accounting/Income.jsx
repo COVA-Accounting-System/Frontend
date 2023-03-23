@@ -52,7 +52,7 @@ const Income = () => {
         resizable: true,
         sortable: true,
         unSortIcon: true,
-        widht: 250
+        width: 300
         // maxWidth: 250,
       },
       {
@@ -61,7 +61,7 @@ const Income = () => {
         resizable: true,
         sortable: true,
         unSortIcon: true,
-        widht: 250
+        width: 250
         // minWidth: 60,
         // maxWidth: 160,
       },
@@ -218,7 +218,7 @@ const Income = () => {
                 />
                 <DateFormControl
                   labelName='Fecha de ingreso'
-                  widht='330px'
+                  width='330px'
                   paddingSpace={0}
                   value={income.date}
                   onInput={data => income.setDate(data)}

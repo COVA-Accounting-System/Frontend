@@ -100,7 +100,7 @@ const RegisterExpense = ({ expenseHook, inventoryInputHook }) => {
 
             <DateFormControl
               labelName='Fecha de gasto'
-              //   widht='330px'
+              //   width='330px'
               paddingSpace={0}
               value={expenseHook.date}
               onInput={data => expenseHook.setDate(data)}

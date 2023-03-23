@@ -150,7 +150,7 @@ export const useExpense = () => {
         })
       ).then(status => {
         if (status) {
-          toast.invetorySuccess('Gasto creado con éxito')
+          toast.invetorySuccess('Gasto registrado con éxito')
         } else {
           toast.inventoryError('Error al registrar gasto')
         }
@@ -180,7 +180,7 @@ export const useExpense = () => {
         })
       ).then(status => {
         if (status) {
-          toast.invetorySuccess('Gasto creado con éxito')
+          toast.invetorySuccess('Gasto registrado con éxito')
         } else {
           toast.inventoryError('Error al registrar gasto')
         }
@@ -210,7 +210,7 @@ export const useExpense = () => {
         })
       ).then(status => {
         if (status) {
-          toast.invetorySuccess('Gasto creado con éxito')
+          toast.invetorySuccess('Gasto registrado con éxito')
         } else {
           toast.inventoryError('Error al registrar gasto')
         }

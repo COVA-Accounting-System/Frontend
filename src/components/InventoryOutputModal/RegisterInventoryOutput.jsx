@@ -79,7 +79,7 @@ const RegisterInventoryOutput = ({ inventoryOutputHook }) => {
               />
               <DateFormControl
                 labelName='Fecha de salida'
-                //   widht='330px'
+                //   width='330px'
                 paddingSpace={0}
                 value={inventoryOutputHook.date}
                 onInput={data => {

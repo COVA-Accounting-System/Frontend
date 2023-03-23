@@ -96,10 +96,6 @@ const Order = () => {
       },
       {
         headerName: 'Estado de pago',
-        // field: 'phoneNumber',
-        // cellRenderer: (data) => {
-        //   return `${data.data.phoneCountryCode} ${data.data.phoneNumber}`
-        // },
         resizable: true,
         sortable: true,
         unSortIcon: true,
@@ -112,6 +108,9 @@ const Order = () => {
         resizable: true,
         sortable: true,
         unSortIcon: true,
+        valueGetter: data => {
+          return `${data.data.orderPrice} Bs.`
+        },
       },
       {
         headerName: ' ',
@@ -320,7 +319,7 @@ const Order = () => {
                   />
                   <DateFormControl
                     labelName='Fecha de entrega'
-                    widht='330px'
+                    width='330px'
                     paddingSpace={4}
                     value={order.orderDeliveryDate}
                     onInput={data => order.setOrderDeliveryDate(data)}

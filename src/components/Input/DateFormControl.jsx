@@ -8,7 +8,7 @@ import {
 
 const DateFormControl = ({
   labelName,
-  widht,
+  width,
   paddingSpace,
   value,
   onInput,
@@ -38,7 +38,7 @@ const DateFormControl = ({
           focusBorderColor='acsys.primaryColor'
           type='date'
           size='sm'
-          width={widht}
+          width={width}
           value={value}
           spellCheck='false'
           borderRadius='5px'

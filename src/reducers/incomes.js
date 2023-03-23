@@ -52,7 +52,7 @@ export const getAllIncomes = () => async dispatch => {
 
 export const createIncome = data => async dispatch => {
   try {
-    const newIncome = await incomeInstance.post('/', data)
+    const newIncome = await incomeInstance.post('/createAndRegisterInOrder', data)
     dispatch(addIncome(newIncome.data))
     return newIncome.status
   } catch (err) {
