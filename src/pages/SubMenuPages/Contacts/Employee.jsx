@@ -36,73 +36,80 @@ const Employee = () => {
   const columnDefs = useMemo(
     () => [
       {
-        headerName: 'Nombre',
+        headerName: 'Nombres',
         field: 'name',
-        resizable: false,
+        resizable: true,
         sortable: true,
-        width: 160
+        unSortIcon: true
+        // width: 160
         // minWidth: 120,
         // maxWidth: 250,
       },
       {
         headerName: 'Apellidos',
         field: 'lastName',
-        resizable: false,
+        resizable: true,
         sortable: true,
+        unSortIcon: true
         // minWidth: 130,
-        width: 210
+        // width: 210
         // maxWidth: 250,
       },
       {
         headerName: 'CI',
         field: 'ci',
-        resizable: false,
-        sortable: false,
-        width: 130
+        resizable: true,
+        sortable: true,
+        unSortIcon: true,
+        width: 150
         // minWidth: 60,
         // maxWidth: 160,
       },
       {
         headerName: 'Teléfono',
-        // field: 'phoneNumber',
-        cellRenderer: data => {
+        valueGetter: data => {
           return `${data.data.phoneCountryCode} ${data.data.phoneNumber}`
         },
-        resizable: false,
-        width: 140
+        resizable: true,
+        sortable: true,
+        unSortIcon: true
+        // width: 140
         // minWidth: 110,
         // maxWidth: 160,
       },
       {
         headerName: 'Fecha de inicio',
         // field: 'startDate',
-        cellRenderer: data => {
+        valueGetter: data => {
           return new Date(data.data.startDate).toLocaleDateString()
         },
-        resizable: false,
+        resizable: true,
         sortable: true,
-        width: 150
+        unSortIcon: true
+        // width: 150
       },
       {
         headerName: 'Nacionalidad',
         // field: 'nationality',
-        cellRenderer: data => {
+        valueGetter: data => {
           return `${data.data.nationality}`
         },
-        resizable: false,
+        resizable: true,
         sortable: true,
-        width: 150
+        unSortIcon: true
+        // width: 150
         // minWidth: 140,
       },
       {
         headerName: 'Fecha de nacimiento',
         // field: 'birthday',
-        cellRenderer: data => {
+        valueGetter: data => {
           return new Date(data.data.birthday).toLocaleDateString()
         },
-        resizable: false,
+        resizable: true,
         sortable: true,
-        width: 190
+        unSortIcon: true
+        // width: 190
         // minWidth: 190,
       },
       {
@@ -211,7 +218,7 @@ const Employee = () => {
           >
             Registrar empleado
           </ModalHeader>
-          <ModalCloseButton color={'acsys.titleColor'}/>
+          <ModalCloseButton color={'acsys.titleColor'} />
 
           <ModalBody pb={3}>
             <form className='two-column-grid'>

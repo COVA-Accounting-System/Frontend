@@ -31,58 +31,58 @@ const Expense = () => {
       {
         headerName: 'N.º asiento',
         field: 'accountingSeat',
-        resizable: false,
+        resizable: true,
         sortable: true,
-        width: 160
+        unSortIcon: true,
+        width: 150
         // minWidth: 120,
         // maxWidth: 250,
       },
       {
         headerName: 'Categoría',
         field: 'category',
-        resizable: false,
+        resizable: true,
         sortable: true,
-        // minWidth: 130,
-        width: 210
+        unSortIcon: true,
+        width: 250
         // maxWidth: 250,
       },
       {
         headerName: 'Acreedor',
         field: '',
-        resizable: false,
-        sortable: false,
-        width: 130
+        resizable: true,
+        sortable: true,
+        unSortIcon: true,
+        width: 250
         // minWidth: 60,
         // maxWidth: 160,
       },
       {
         headerName: 'Fecha',
         field: 'date',
-        cellRenderer: data => {
+        valueGetter: data => {
           return new Date(data.data.date).toLocaleDateString()
         },
-        resizable: false,
+        resizable: true,
         sortable: true,
-        width: 150
+        unSortIcon: true,
       },
       {
         headerName: 'Concepto',
         field: 'concept',
-        resizable: false,
+        resizable: true,
         sortable: true,
-        width: 150
-        // minWidth: 140,
+        unSortIcon: true
       },
       {
         headerName: 'Monto',
         field: 'amount',
-        cellRenderer: data => {
+        valueGetter: data => {
           return `${data.data.amount} Bs.`
         },
-        resizable: false,
+        resizable: true,
         sortable: true,
-        width: 150
-        // minWidth: 140,
+        unSortIcon: true,
       },
       {
         headerName: ' ',

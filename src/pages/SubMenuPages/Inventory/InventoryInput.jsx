@@ -25,37 +25,42 @@ const InventoryInput = () => {
       {
         headerName: 'Nº de entrada',
         field: 'numberOfInput',
-        resizable: false,
+        resizable: true,
         sortable: true,
-        // minWidth: 110,
-        width: 220
+        unSortIcon: true,
+        // width: 150
         // maxWidth: 300,
       },
       {
         headerName: 'Proveedor',
         field: 'provider.storeName',
-        resizable: false,
+        resizable: true,
         sortable: true,
-        // minWidth: 100,
-        width: 130
+        unSortIcon: true,
         // maxWidth: 160,
+        width: 250
       },
       {
         headerName: 'Fecha de entrada',
         field: 'date',
-        resizable: false,
+        valueGetter: data => {
+          return new Date(data.data.date).toLocaleDateString()
+        },
+        resizable: true,
         sortable: true,
-        // minWidth: 120,
-        width: 147
+        unSortIcon: true,
         // maxWidth: 177,
       },
       {
         headerName: 'Precio total',
         field: 'totalPrice',
-        resizable: false,
+        resizable: true,
         sortable: true,
-        // minWidth: 120,
-        width: 150
+        unSortIcon: true,
+        valueGetter: data => {
+          return `${data.data.totalPrice} Bs.`
+        },
+        flex: 1
         // maxWidth: 180,
       },
       {

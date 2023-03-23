@@ -39,37 +39,34 @@ const RawMaterial = () => {
       {
         headerName: 'Material',
         field: 'name',
-        resizable: false,
+        resizable: true,
         sortable: true,
-        // minWidth: 110,
-        width: 220
+        unSortIcon: true,
+        // width: 250
         // maxWidth: 300,
       },
       {
         headerName: 'Caracteristicas',
-        // field: 'productFeatures',
-        resizable: false,
+        resizable: true,
         sortable: true,
-        // minWidth: 100,
-        width: 130
+        unSortIcon: true
         // maxWidth: 160,
       },
       {
         headerName: 'Medida',
         field: 'unitMeasure.spanishName',
-        resizable: false,
+        resizable: true,
         sortable: true,
-        // minWidth: 120,
-        width: 147
+        unSortIcon: true
         // maxWidth: 177,
       },
       {
         headerName: 'Medida Abreviada',
         field: 'unitMeasure.abbreviation',
-        resizable: false,
+        resizable: true,
         sortable: true,
-        // minWidth: 120,
-        width: 150
+        unSortIcon: true,
+        flex: 1
         // maxWidth: 180,
       },
       {

@@ -37,57 +37,50 @@ const Provider = () => {
       {
         headerName: 'Tienda',
         field: 'storeName',
-        resizable: false,
+        resizable: true,
         sortable: true,
-        // minWidth: 110,
-        width: 220
-        // maxWidth: 300,
+        unSortIcon: true,
+        width: 250
       },
       {
         headerName: 'NIT',
         field: 'nit',
-        resizable: false,
+        resizable: true,
         sortable: true,
-        // minWidth: 100,
-        width: 130
-        // maxWidth: 160,
+        unSortIcon: true,
+        width: 160
       },
       {
         headerName: 'Teléfono',
         field: 'phoneNumber',
-        resizable: false,
-        cellRenderer: (data) => {
+        valueGetter: data => {
           return `${data.data.phoneCountryCode} ${data.data.phoneNumber}`
         },
-        // minWidth: 120,
-        width: 147
-        // maxWidth: 177,
+        resizable: true,
+        sortable: true,
+        unSortIcon: true
       },
       {
         headerName: 'Ciudad',
         field: 'city',
-        resizable: false,
+        resizable: true,
         sortable: true,
-        // minWidth: 120,
-        width: 150
-        // maxWidth: 180,
+        unSortIcon: true
       },
       {
         headerName: 'Pais',
         field: 'country',
-        resizable: false,
+        resizable: true,
         sortable: true,
-        width: 150
-        // minWidth: 100,
-        // maxWidth: 180,
+        unSortIcon: true
       },
       {
         headerName: 'Direccion',
         field: 'address',
-        resizable: false,
+        resizable: true,
         sortable: true,
-        // minWidth: 130,
-        width: 240
+        unSortIcon: true,
+        width: 300
         // maxWidth: 320,
       },
       {

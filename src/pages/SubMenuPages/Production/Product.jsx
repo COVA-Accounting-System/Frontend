@@ -39,53 +39,47 @@ const Product = () => {
       {
         headerName: 'Producto',
         field: 'productName',
-        resizable: false,
+        resizable: true,
         sortable: true,
-        // minWidth: 110,
-        width: 220
-        // maxWidth: 300,
+        unSortIcon: true,
       },
       {
         headerName: 'Caracteristicas',
-        // field: 'productFeatures',
-        resizable: false,
+        resizable: true,
         sortable: true,
-        // minWidth: 100,
-        width: 130
+        unSortIcon: true,
         // maxWidth: 160,
       },
       {
         headerName: 'Tipo de unidad',
         field: 'productType',
-        resizable: false,
+        resizable: true,
         sortable: true,
-        // minWidth: 120,
-        width: 147
-        // maxWidth: 177,
+        unSortIcon: true,
+        width: 160,
       },
       {
-        headerName: 'Precio',
+        headerName: 'Precio por unidad',
         field: 'productPrice',
-        resizable: false,
+        resizable: true,
         sortable: true,
-        // minWidth: 120,
-        width: 150,
-        cellRenderer: data => {
+        unSortIcon: true,
+        valueGetter: data => {
           return `${data.data.productPrice} Bs.`
-        }
-        // maxWidth: 180,
+        },
+        // width: 130,
       },
       {
         headerName: 'Precio por docena',
         field: 'productDozenPrice',
-        resizable: false,
+        resizable: true,
         sortable: true,
-        width: 150,
-        // minWidth: 100,
-        // maxWidth: 180,
-        cellRenderer: data => {
+        unSortIcon: true,
+        flex: 1,
+        valueGetter: data => {
           return `${data.data.productDozenPrice} Bs.`
         }
+        
       },
       {
         headerName: ' ',
@@ -126,7 +120,7 @@ const Product = () => {
         // params.api.sizeColumnsToFit();
       },
       onGridSizeChanged: params => {
-        // params.api.sizeColumnsToFit();
+        params.api.sizeColumnsToFit();
       },
       columnDefs,
       cacheQuickFilter: true,

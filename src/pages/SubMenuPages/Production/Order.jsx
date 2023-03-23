@@ -27,6 +27,8 @@ import { Button } from '../../../components/Button/Button'
 import StateTag from '../../../components/StateTags/StateTag'
 import SearchByState from '../../../components/SearchInputs/SearchByState'
 
+import { orderState } from '../../../assets/orderState'
+
 // HOOKS IMPORTS
 import { useOrder } from '../../../hooks/useOrder'
 
@@ -43,21 +45,22 @@ const Order = () => {
     () => [
       {
         headerName: 'Estado',
+        // field: 'orderState',
         resizable: true,
         sortable: true,
         width: 160,
-        cellRenderer: StateTag
-        // cellRendererParams: {
-
-        // }
-        // minWidth: 120,
-        // maxWidth: 250,
+        cellRenderer: StateTag,
+        unSortIcon: true,
+        valueGetter: data => {
+          return orderState[data.data.orderStateNumber].stateSpanish
+        },
       },
       {
         headerName: 'Nº de pedido',
         field: 'orderNumber',
         resizable: true,
         sortable: true,
+        unSortIcon: true,
         width: 160
         // minWidth: 120,
         // maxWidth: 250,
@@ -67,25 +70,27 @@ const Order = () => {
         field: 'orderClient.uiName',
         resizable: true,
         sortable: true,
+        unSortIcon: true,
         // minWidth: 130,
-        width: 210
+        width: 250
         // maxWidth: 250,
       },
       {
         headerName: 'Producto',
         field: 'orderProduct.uiName',
-        resizable: false,
+        resizable: true,
         sortable: true,
-        // minWidth: 130,
-        width: 210
-        // maxWidth: 250,
+        unSortIcon: true,
       },
       {
         headerName: 'Fecha de entrega',
         field: 'orderDeliveryDate',
-        resizable: false,
-        sortable: false,
-        width: 130
+        resizable: true,
+        sortable: true,
+        unSortIcon: true,
+        valueGetter: data => {
+          return new Date(data.data.orderDeliveryDate).toLocaleDateString()
+        },
         // minWidth: 60,
         // maxWidth: 160,
       },
@@ -95,17 +100,18 @@ const Order = () => {
         // cellRenderer: (data) => {
         //   return `${data.data.phoneCountryCode} ${data.data.phoneNumber}`
         // },
-        resizable: false,
-        width: 140
+        resizable: true,
+        sortable: true,
+        unSortIcon: true,
         // minWidth: 110,
         // maxWidth: 160,
       },
       {
         headerName: 'Precio total',
         field: 'orderPrice',
-        resizable: false,
+        resizable: true,
         sortable: true,
-        width: 150
+        unSortIcon: true,
       },
       {
         headerName: ' ',

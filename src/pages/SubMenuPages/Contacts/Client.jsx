@@ -35,41 +35,45 @@ const Client = () => {
   const columnDefs = useMemo(
     () => [
       {
-        headerName: 'Nombre',
+        headerName: 'Nombres',
         field: 'name',
-        resizable: false,
+        resizable: true,
         sortable: true,
-        width: 180,
-        minWidth: 100,
         unSortIcon: true
+        // width: 180,
+        // minWidth: 100,
+
         // maxWidth: 230,
       },
       {
-        headerName: 'Apellido',
+        headerName: 'Apellidos',
         field: 'lastName',
-        resizable: false,
+        resizable: true,
         sortable: true,
-        minWidth: 100,
-        width: 230
+        unSortIcon: true
+        // minWidth: 100,
+        // width: 230
         // maxWidth: 270,
       },
       {
         headerName: 'Teléfono',
-        // field: 'phoneNumber',
-        cellRenderer: data => {
+        // field: 'phoneCountryCode', 'phoneNumber',
+        valueGetter: data => {
           return `${data.data.phoneCountryCode} ${data.data.phoneNumber}`
         },
-        resizable: false,
-        minWidth: 100,
-        width: 190
+        unSortIcon: true,
+        sortable: true,
+        resizable: true
+        // minWidth: 100,
+        // width: 190
         // maxWidth: 200,
       },
       {
         headerName: 'Dirección',
         field: 'address',
-        resizable: false,
+        resizable: true,
         sortable: true,
-        minWidth: 110,
+        // minWidth: 110,
         flex: 1
       },
       {
@@ -108,7 +112,8 @@ const Client = () => {
     () => ({
       pagination: false,
       onGridReady: params => {
-        // params.api.sizeColumnsToFit();
+        // params.api.sizeColumnsToFit()
+        // params.columnApi.autoSizeAllColumns();
       },
       onGridSizeChanged: params => {
         // params.api.sizeColumnsToFit();

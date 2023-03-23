@@ -49,6 +49,7 @@ $toggle-background-color: #e6e9f0;
 }
 
 
+
 // .ag-theme-alpine .ag-header-row{
 //     font-weight: 700;
 //     // font-size: 2vh ;
@@ -60,8 +61,8 @@ $toggle-background-color: #e6e9f0;
 
 /* width */
 ::-webkit-scrollbar {
-    width: 9px;
-    height: 9px;
+    // width: 11px;
+    // height: 11px;
   }
   
       /* Track */
@@ -72,7 +73,7 @@ $toggle-background-color: #e6e9f0;
   /* Handle */
   ::-webkit-scrollbar-thumb {
     background: #C3CAD6; 
-    border-radius: 0.4vh;
+    // border-radius: 0.4vh;
   }
   
   /* Handle on hover */
