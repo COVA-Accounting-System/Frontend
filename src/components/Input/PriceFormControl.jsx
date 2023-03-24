@@ -5,7 +5,8 @@ import {
   NumberInput,
   NumberInputField,
   FormErrorMessage,
-  InputRightAddon
+  InputRightAddon,
+  Input
 } from '@chakra-ui/react'
 
 const PriceFormControl = ({
@@ -16,12 +17,14 @@ const PriceFormControl = ({
   isSubmited,
   isRequired,
   isRequiredMessage,
-  isDisabled = false
+  maxAllowed,
+  isDisabled = false,
+  mt = 4
 }) => {
   const isError = isSubmited && value === ''
   return (
     <>
-      <FormControl mt={4} isInvalid={isError} isRequired={isRequired}>
+      <FormControl mt={mt} isInvalid={isError} isRequired={isRequired}>
         <FormLabel
           color='acsys.subtitleColor'
           mb='1'
@@ -30,33 +33,35 @@ const PriceFormControl = ({
         >
           {labelName}
         </FormLabel>
-        <InputGroup maxW={width}>
-          <NumberInput
-            precision={2}
-            step={0.2}
-            min={0}
-            value={value}
-            isDisabled={isDisabled}
-          >
-            <NumberInputField
-              focusBorderColor='acsys.primaryColor'
-              size='sm'
-              onInput={event => {
-                onInput(event.target.value)
-              }}
-              placeholder=''
-              spellCheck='false'
-              borderRadius='5px'
-              fontSize='15px'
-              height='35px'
-              color={isDisabled ? 'gray.900 !important' : 'acsys.iconColor'}
-              bgColor={isDisabled ? 'gray.200' : 'transparent'}
-              type='number'
+        <InputGroup >
+            <NumberInput
+              precision={2}
+              step={0.2}
               min={0}
-              // width='500'
-              borderRightRadius={0}
-            />
-          </NumberInput>
+              max={maxAllowed}
+              value={value}
+              isDisabled={isDisabled}
+            >
+              <NumberInputField
+                focusBorderColor='acsys.primaryColor'
+                size='md'
+                onInput={event => {
+                  onInput(event.target.value)
+                }}
+                placeholder=''
+                spellCheck='false'
+                borderRadius='5px'
+                fontSize='15px'
+                height='35px'
+                color={isDisabled ? 'gray.900 !important' : 'acsys.iconColor'}
+                bgColor={isDisabled ? 'gray.200' : 'transparent'}
+                type='number'
+                min={0}
+                // width='320px'
+                borderRightRadius={0}
+              />
+            </NumberInput>
+          {/* <Input></Input> */}
           <InputRightAddon
             children='Bs.'
             // width='102px'

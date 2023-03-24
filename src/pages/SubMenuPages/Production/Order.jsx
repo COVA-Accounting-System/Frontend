@@ -113,6 +113,26 @@ const Order = () => {
         },
       },
       {
+        headerName: 'Monto pagado',
+        field: 'orderPayedPrice',
+        resizable: true,
+        sortable: true,
+        unSortIcon: true,
+        valueGetter: data => {
+          return `${data.data.orderPayedPrice} Bs.`
+        },
+      },
+      {
+        headerName: 'Saldo',
+        field: 'orderBalance',
+        resizable: true,
+        sortable: true,
+        unSortIcon: true,
+        valueGetter: data => {
+          return `${data.data.orderBalance} Bs.`
+        },
+      },
+      {
         headerName: ' ',
         resizable: false,
         pinned: 'right',

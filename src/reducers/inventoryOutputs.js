@@ -38,8 +38,12 @@ const inventoryOutputSlice = createSlice({
   }
 })
 
-export const { setInitialState, addInventoryOutput, setActualInventoryOutput, editInventoryOutput } =
-  inventoryOutputSlice.actions
+export const {
+  setInitialState,
+  addInventoryOutput,
+  setActualInventoryOutput,
+  editInventoryOutput
+} = inventoryOutputSlice.actions
 export default inventoryOutputSlice.reducer
 
 export const getAllInventoryOutputs = () => async dispatch => {
@@ -53,7 +57,10 @@ export const getAllInventoryOutputs = () => async dispatch => {
 
 export const createInventoryOutput = data => async dispatch => {
   try {
-    const newInventoryOutput = await inventoryOutputInstance.post('/', data)
+    const newInventoryOutput = await inventoryOutputInstance.post(
+      '/createAndRegisterInOrder',
+      data
+    )
     dispatch(addInventoryOutput(newInventoryOutput.data))
     // toast.invetorySuccess('Entrada de inventario creada con éxito')
     return newInventoryOutput
@@ -65,8 +72,13 @@ export const createInventoryOutput = data => async dispatch => {
 
 export const deleteInventoryOutput = data => async dispatch => {
   try {
-    const deletedInventoryOutput = await inventoryOutputInstance.put('/delete', data)
-    dispatch(editInventoryOutput(deletedInventoryOutput.data))
+    const deletedInventoryOutput = await inventoryOutputInstance.put(
+      '/deleteAndRemoveFromOrder',
+      data
+    )
+    dispatch(
+      editInventoryOutput({ ...deletedInventoryOutput.data, isVisible: false })
+    )
     return deletedInventoryOutput.status
   } catch (err) {
     console.error(err)
@@ -75,11 +87,13 @@ export const deleteInventoryOutput = data => async dispatch => {
 
 export const updateInventoryOutput = data => async dispatch => {
   try {
-    const updatedInventoryOutput = await inventoryOutputInstance.put('/update', data)
+    const updatedInventoryOutput = await inventoryOutputInstance.put(
+      '/update',
+      data
+    )
     dispatch(editInventoryOutput(updatedInventoryOutput.data))
     return updatedInventoryOutput.status
   } catch (err) {
     console.error(err)
   }
 }
-

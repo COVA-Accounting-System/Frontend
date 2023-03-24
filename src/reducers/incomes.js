@@ -52,7 +52,10 @@ export const getAllIncomes = () => async dispatch => {
 
 export const createIncome = data => async dispatch => {
   try {
-    const newIncome = await incomeInstance.post('/createAndRegisterInOrder', data)
+    const newIncome = await incomeInstance.post(
+      '/createAndRegisterInOrder',
+      data
+    )
     dispatch(addIncome(newIncome.data))
     return newIncome.status
   } catch (err) {
@@ -62,8 +65,11 @@ export const createIncome = data => async dispatch => {
 
 export const deleteIncome = data => async dispatch => {
   try {
-    const deletedIncome = await incomeInstance.put('/delete', data)
-    dispatch(editIncome(deletedIncome.data))
+    const deletedIncome = await incomeInstance.put(
+      '/deleteAndRemoveFromOrder',
+      data
+    )
+    dispatch(editIncome({ ...deletedIncome.data, isVisible: false }))
     return deletedIncome.status
   } catch (err) {
     console.error(err)
@@ -79,4 +85,3 @@ export const updateIncome = data => async dispatch => {
     console.error(err)
   }
 }
-

@@ -10,7 +10,9 @@ import {
   ModalFooter,
   ModalBody,
   ModalCloseButton,
-  Input
+  Input,
+  Stack,
+  Text
 } from '@chakra-ui/react'
 
 // COMPONENTS IMPORTS
@@ -73,14 +75,14 @@ const Income = () => {
         },
         resizable: true,
         sortable: true,
-        unSortIcon: true,
+        unSortIcon: true
       },
       {
         headerName: 'Concepto',
         field: 'concept',
         resizable: true,
         sortable: true,
-        unSortIcon: true,
+        unSortIcon: true
         // minWidth: 140,
       },
       {
@@ -91,7 +93,7 @@ const Income = () => {
         },
         resizable: true,
         sortable: true,
-        unSortIcon: true,
+        unSortIcon: true
         // minWidth: 140,
       },
       {
@@ -193,108 +195,126 @@ const Income = () => {
         isOpen={income.modalIsOpen}
       >
         <ModalOverlay />
+
         <ModalContent userSelect='none' maxW='730px'>
-          <ModalHeader
-            color='acsys.titleColor'
-            fontWeight='700'
-            fontSize='25px'
-          >
-            Registrar ingreso
-          </ModalHeader>
-          <ModalCloseButton color={'acsys.titleColor'} />
+          <form>
+            <ModalHeader
+              color='acsys.titleColor'
+              fontWeight='700'
+              fontSize='25px'
+            >
+              Registrar ingreso
+            </ModalHeader>
+            <ModalCloseButton color={'acsys.titleColor'} />
 
-          <ModalBody pb={3}>
-            <form className='three-rows-grid'>
-              <div className='two-column-grid'>
-                <TextFormControl
-                  labelName='N.º asiento'
-                  width='330px'
-                  paddingSpace={0}
-                  value={income.accountingSeat}
-                  onInput={data => income.setAccountingSeat(data)}
-                  isSubmited={income.isSubmited}
-                  isRequired
-                  isRequiredMessage='Este campo es obligatorio'
-                />
-                <DateFormControl
-                  labelName='Fecha de ingreso'
-                  width='330px'
-                  paddingSpace={0}
-                  value={income.date}
-                  onInput={data => income.setDate(data)}
-                  isSubmited={income.isSubmited}
-                  isRequired={true}
-                  isRequiredMessage='Este campo es obligatorio'
-                />
-              </div>
+            <ModalBody pb={3}>
+              <Stack direction={'column'} spacing={4}>
+                <Stack direction={'row'} spacing={5}>
+                  {' '}
+                  <TextFormControl
+                    labelName='N.º asiento'
+                    // width='330px'
+                    paddingSpace={0}
+                    value={income.accountingSeat}
+                    onInput={data => income.setAccountingSeat(data)}
+                    isSubmited={income.isSubmited}
+                    isRequired
+                    isRequiredMessage='Este campo es obligatorio'
+                  />
+                  <DateFormControl
+                    labelName='Fecha de ingreso'
+                    // width='330px'
+                    paddingSpace={0}
+                    value={income.date}
+                    onInput={data => income.setDate(data)}
+                    isSubmited={income.isSubmited}
+                    isRequired={true}
+                    isRequiredMessage='Este campo es obligatorio'
+                  />
+                </Stack>
+                <Stack direction={'row'} spacing={5}>
+                  {' '}
+                  <SelectEntityFormControl
+                    labelName='Cliente'
+                    value={income.client}
+                    onSelect={data => {
+                      income.setClient(data)
+                      income.setClientId(data._id)
+                    }}
+                    isSubmited={income.isSubmited}
+                    entityList={income.clientsList}
+                    isRequired={true}
+                    isRequiredMessage='Este campo es obligatorio'
+                  />
+                  <SelectEntityFormControl
+                    labelName='Pedido'
+                    paddingSpace={4}
+                    value={income.order}
+                    onSelect={data => {
+                      income.setOrder(data)
+                      income.setOrderId(data._id)
+                    }}
+                    isSubmited={income.isSubmited}
+                    entityList={
+                      income.ordersList
+                        ? income.ordersList.filter(income.filterAtSelectClient)
+                        : []
+                    }
+                    isRequired={true}
+                    isRequiredMessage='Este campo es obligatorio'
+                    isDisabled={income.clientId === '' ? true : false}
+                  />
+                </Stack>
+                <Stack
+                  direction={'row'}
+                  spacing={5}
+                  justifyContent={'space-between'}
+                >
+                  {' '}
+                  <Stack width={'100%'}>
+                    <TextFormControl
+                      labelName='Concepto'
+                      value={income.concept}
+                      onInput={data => income.setConcept(data)}
+                      isSubmited={income.isSubmited}
+                      isRequired
+                      isRequiredMessage='Este campo es obligatorio'
+                    />
+                  </Stack>
+                  <Stack direction={'column'} width={'100%'}>
+                    <PriceFormControl
+                      mt='0'
+                      labelName='Monto'
+                      value={income.amount}
+                      onInput={data => income.setAmount(data)}
+                      isSubmited={income.isSubmited}
+                      maxAllowed={20}
+                      isRequired
+                      isRequiredMessage='Este campo es obligatorio'
+                    />
+                    <Text fontSize={'xs'} color='acsys.iconColor'>
+                      El saldo del pedido actual es:{' '}
+                      {income.order.orderBalance
+                        ? `${income.order.orderBalance} Bs.`
+                        : ''}
+                    </Text>
+                  </Stack>
+                </Stack>
+              </Stack>
+            </ModalBody>
 
-              <div className='two-column-grid'>
-                <SelectEntityFormControl
-                  labelName='Cliente'
-                  paddingSpace={4}
-                  value={income.client}
-                  onSelect={data => {
-                    income.setClient(data)
-                    income.setClientId(data._id)
-                  }}
-                  isSubmited={income.isSubmited}
-                  entityList={income.clientsList}
-                  isRequired={true}
-                  isRequiredMessage='Este campo es obligatorio'
-                />
-                <SelectEntityFormControl
-                  labelName='Pedido'
-                  paddingSpace={4}
-                  value={income.order}
-                  onSelect={data => {
-                    income.setOrder(data)
-                    income.setOrderId(data._id)
-                  }}
-                  isSubmited={income.isSubmited}
-                  entityList={
-                    income.ordersList
-                      ? income.ordersList.filter(income.filterAtSelectClient)
-                      : []
-                  }
-                  isRequired={true}
-                  isRequiredMessage='Este campo es obligatorio'
-                  isDisabled={income.clientId === '' ? true : false}
-                />
-              </div>
-              <div className='two-column-grid'>
-                <TextFormControl
-                  labelName='Concepto'
-                  width='330px'
-                  paddingSpace={4}
-                  value={income.concept}
-                  onInput={data => income.setConcept(data)}
-                  isSubmited={income.isSubmited}
-                  isRequired
-                  isRequiredMessage='Este campo es obligatorio'
-                />
-                <PriceFormControl
-                  labelName='Monto'
-                  value={income.amount}
-                  onInput={data => income.setAmount(data)}
-                  isSubmited={income.isSubmited}
-                  isRequired
-                  isRequiredMessage='Este campo es obligatorio'
-                />
-              </div>
-            </form>
-          </ModalBody>
-
-          <ModalFooter>
-            <Button
-              label='Guardar'
-              type='confirm'
-              onClick={
-                income.action === 'create'
-                  ? income.onClickSave
-                  : income.onEditSave
-              }
-            />
-          </ModalFooter>
+            <ModalFooter>
+              <Button
+                label='Guardar'
+                type='confirm'
+                onClick={
+                  income.action === 'create'
+                    ? income.onClickSave
+                    : income.onEditSave
+                }
+              />
+            </ModalFooter>
+          </form>
         </ModalContent>
       </Modal>
 
