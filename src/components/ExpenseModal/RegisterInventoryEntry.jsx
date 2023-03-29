@@ -92,7 +92,7 @@ const RegisterInventoryEntry = ({ expenseHook, inventoryInputHook }) => {
                 value={inventoryInputHook.rawMaterial}
                 onSelect={data => {
                   inventoryInputHook.setRawMaterial(data)
-                  inventoryInputHook.setUnitMeasure(data.unitMeasure.abbreviation)
+                  inventoryInputHook.setUnitMeasure(data.unitMeasure.uiName)
                 }}
                 entityList={inventoryInputHook.materialsList}
                 // width={'250px'}

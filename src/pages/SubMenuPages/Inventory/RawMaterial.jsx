@@ -41,7 +41,7 @@ const RawMaterial = () => {
         field: 'name',
         resizable: true,
         sortable: true,
-        unSortIcon: true,
+        unSortIcon: true
         // width: 250
         // maxWidth: 300,
       },
@@ -178,7 +178,9 @@ const RawMaterial = () => {
             fontWeight='700'
             fontSize='25px'
           >
-            Registrar materia prima
+            {rawMaterial.action === 'create'
+              ? 'Registrar materia prima'
+              : 'Editar materia prima'}
           </ModalHeader>
           <ModalCloseButton color={'acsys.titleColor'} />
 
@@ -215,6 +217,10 @@ const RawMaterial = () => {
                     rawMaterial.setFeatures(data)
                   }}
                   onRemoveFeature={data => {
+                    rawMaterial.setFeatures(data)
+                  }}
+                  onEditFeature={data => {
+                    console.log(data)
                     rawMaterial.setFeatures(data)
                   }}
                   marginTop={0}

@@ -1,116 +1,133 @@
-import React, { useState } from "react";
+import React, { useState } from 'react'
 import {
   FormControl,
   FormLabel,
   Input,
   UnorderedList,
   ListItem,
-} from "@chakra-ui/react";
-import { DeleteIcon } from "@chakra-ui/icons";
-import { Button } from "../Button/Button";
+  Editable,
+  EditablePreview,
+  EditableInput,
+  IconButton,
+  Stack,
+  Flex
+} from '@chakra-ui/react'
+
+import { DeleteIcon } from '@chakra-ui/icons'
+import { Button } from '../Button/Button'
+import FeaturesEditable from './FeaturesEditable'
 
 const FeaturesFormControl = ({
   listOfFeatures,
   onAddFeature,
+  onEditFeature,
   onRemoveFeature,
-  marginTop,
+  marginTop
 }) => {
-  const [featureInputValue, setFeatureInputValue] = useState("");
+  const [featureInputValue, setFeatureInputValue] = useState('')
   return (
     <FormControl mt={marginTop}>
       <FormLabel
-        color="acsys.subtitleColor"
-        mb="1"
-        fontWeight="600"
-        fontSize="13px"
+        color='acsys.subtitleColor'
+        mb='1'
+        fontWeight='600'
+        fontSize='13px'
       >
         Caracteristicas
       </FormLabel>
       <div
         style={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "space-between",
-          alignItems: "center",
-          width: "330px",
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          width: '330px'
           //   gap: '15px'
         }}
       >
         <Input
-          focusBorderColor="acsys.primaryColor"
-          size="sm"
+          focusBorderColor='acsys.primaryColor'
+          size='sm'
           value={featureInputValue}
-          onInput={(event) => {
-            setFeatureInputValue(event.target.value);
+          onInput={event => {
+            setFeatureInputValue(event.target.value)
           }}
-          placeholder=""
-          spellCheck="false"
-          borderRadius="5px"
-          fontSize="15px"
-          height="35px"
-          color="acsys.iconColor"
-          type="string"
-          marginRight="10px"
+          placeholder=''
+          spellCheck='false'
+          borderRadius='5px'
+          fontSize='15px'
+          height='35px'
+          color='acsys.iconColor'
+          type='string'
+          marginRight='10px'
         />
-        {featureInputValue !== "" ? (
+        {featureInputValue !== '' ? (
           <Button
-            label="+"
-            type="add"
-            system="accounting"
-            onClick={(event) => {
-              event.preventDefault();
-              const newListOfFeatures = [...listOfFeatures];
-              newListOfFeatures.push({ description: featureInputValue });
-              onAddFeature(newListOfFeatures);
-              setFeatureInputValue("");
+            label='+'
+            type='add'
+            system='accounting'
+            onClick={event => {
+              event.preventDefault()
+              const newListOfFeatures = [...listOfFeatures]
+              newListOfFeatures.push({ description: featureInputValue })
+              onAddFeature(newListOfFeatures)
+              setFeatureInputValue('')
             }}
           />
         ) : (
-          <Button label="+" type="add-disabled" isDisabled={true}/>
+          <Button label='+' type='add-disabled' isDisabled={true} />
         )}
       </div>
-      <div className="features-list-container">
+      <div className='features-list-container'>
         <UnorderedList>
           {listOfFeatures.map((feature, index) => {
             return (
               <ListItem mb={1}>
-                <div
-                  style={{
-                    display: "flex",
-                    position: "relative",
+                {' '}
+                <Editable
+                  defaultValue={feature.description}
+                  onSubmit={value => {
+                    const featureToUpdate = { ...listOfFeatures[index] }
+                    featureToUpdate.description = value
+                    const newListOfFeatures = [...listOfFeatures]
+                    newListOfFeatures[index] = featureToUpdate
+                    onEditFeature(newListOfFeatures)
                   }}
                 >
-                  <p style={{paddingRight: '20px'}}>{feature.description}</p>
-                  <div
-                    style={{
-                      display: "block",
-                      // minHeight: '20px',
-                      position: "absolute",
-                      right: "0",
-                      // justifyContent: 'center'
-                    }}
+                  <Flex
+                    flexDirection={'row'}
+                    justifyContent={'space-between'}
+                    maxW={'100%'}
                   >
-                    <DeleteIcon
-                      color="acsys.fontColor"
-                      _hover={{
-                        color: "acsys.redColor",
-                        cursor: "pointer",
-                      }}
-                      onClick={() => {
-                        const newListOfFeatures = [...listOfFeatures];
-                        newListOfFeatures.splice(index, 1);
-                        onRemoveFeature(newListOfFeatures);
-                      }}
-                    />
-                  </div>
-                </div>
+                    <EditablePreview />
+                    <EditableInput />
+                    <Flex alignItems={'center'} columnGap={1} ml={2}>
+                      <FeaturesEditable />
+                      <IconButton
+                        size={'xs'}
+                        icon={<DeleteIcon />}
+                        color='acsys.fontColor'
+                        _hover={{
+                          color: 'acsys.redColor',
+                          cursor: 'pointer'
+                        }}
+                        onClick={() => {
+                          const newListOfFeatures = [...listOfFeatures]
+                          newListOfFeatures.splice(index, 1)
+                          onRemoveFeature(newListOfFeatures)
+                        }}
+                      />
+                    </Flex>
+                  </Flex>
+                </Editable>
+                {/* <p style={{paddingRight: '20px'}}>{feature.description}</p> */}
               </ListItem>
-            );
+            )
           })}
         </UnorderedList>
       </div>
     </FormControl>
-  );
-};
+  )
+}
 
-export default FeaturesFormControl;
+export default FeaturesFormControl

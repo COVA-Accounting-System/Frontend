@@ -192,7 +192,7 @@ const Client = () => {
               fontWeight='700'
               fontSize='25px'
             >
-              Registrar cliente
+              {client.action === 'create' ? 'Registrar cliente' : 'Editar cliente'}
             </ModalHeader>
             <ModalCloseButton color={'acsys.titleColor'} />
             <ModalBody pb={3}>

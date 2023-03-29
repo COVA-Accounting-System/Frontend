@@ -7,8 +7,7 @@ import {
   updateOrder,
   deleteOrder,
   changeStateBackward,
-  changeStateForward,
-  getOneOrder
+  changeStateForward
 } from '../services/orderService'
 import { getAllClients } from '../reducers/clients'
 import { getAllProducts } from '../reducers/products'

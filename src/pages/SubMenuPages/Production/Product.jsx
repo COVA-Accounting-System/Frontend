@@ -191,7 +191,7 @@ const Product = () => {
             fontWeight='700'
             fontSize='25px'
           >
-            Registrar producto
+            {product.action === 'create' ? 'Registrar producto' : 'Editar producto'}
           </ModalHeader>
           <ModalCloseButton color={'acsys.titleColor'} />
 
@@ -248,6 +248,9 @@ const Product = () => {
                     product.setProductFeatures(data)
                   }}
                   onRemoveFeature={data => {
+                    product.setProductFeatures(data)
+                  }}
+                  onEditFeature={data => {
                     product.setProductFeatures(data)
                   }}
                   marginTop={0}

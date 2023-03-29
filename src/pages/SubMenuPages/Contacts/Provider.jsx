@@ -192,7 +192,7 @@ const Provider = () => {
             fontWeight='700'
             fontSize='25px'
           >
-            Registrar proveedor
+            {provider.action === 'create' ? 'Registrar proveedor' : 'Editar proveedor'}
           </ModalHeader>
           <ModalCloseButton color={'acsys.titleColor'}/>
 

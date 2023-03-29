@@ -262,7 +262,7 @@ const Order = () => {
             fontWeight='700'
             fontSize='25px'
           >
-            Registrar pedido
+            {order.action === 'create' ? 'Registrar pedido' : 'Editar pedido'}
           </ModalHeader>
           <ModalCloseButton color={'acsys.titleColor'} />
 
@@ -357,6 +357,9 @@ const Order = () => {
                       order.setOrderFeatures(data)
                     }}
                     onRemoveFeature={data => {
+                      order.setOrderFeatures(data)
+                    }}
+                    onEditFeature={data => { 
                       order.setOrderFeatures(data)
                     }}
                     marginTop={4}

@@ -216,7 +216,7 @@ const Employee = () => {
             fontWeight='700'
             fontSize='25px'
           >
-            Registrar operador
+            {employee.action === 'create' ? 'Registrar operador' : 'Editar operador'}
           </ModalHeader>
           <ModalCloseButton color={'acsys.titleColor'} />
 

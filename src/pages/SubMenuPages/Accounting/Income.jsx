@@ -205,7 +205,7 @@ const Income = () => {
               fontWeight='700'
               fontSize='25px'
             >
-              Registrar ingreso
+              {income.action === 'create' ? 'Registrar ingreso' : 'Editar ingreso'}
             </ModalHeader>
             <ModalCloseButton color={'acsys.titleColor'} />
 

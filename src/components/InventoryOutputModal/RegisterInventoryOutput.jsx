@@ -56,7 +56,9 @@ const RegisterInventoryOutput = ({ inventoryOutputHook }) => {
         // transition='max-width 0.3s ease-in-out, height 5s ease-in-out'
       >
         <ModalHeader color='acsys.titleColor' fontWeight='700' fontSize='25px'>
-          Registrar salida de inventario
+          {inventoryOutputHook.action === 'create'
+            ? 'Registrar salida de inventario'
+            : 'Editar salida de inventario'}
         </ModalHeader>
         <ModalCloseButton color={'acsys.titleColor'} />
 
@@ -109,9 +111,7 @@ const RegisterInventoryOutput = ({ inventoryOutputHook }) => {
                   value={inventoryOutputHook.rawMaterial}
                   onSelect={data => {
                     inventoryOutputHook.setRawMaterial(data)
-                    inventoryOutputHook.setUnitMeasure(
-                      data.unitMeasure.uiName
-                    )
+                    inventoryOutputHook.setUnitMeasure(data.unitMeasure.uiName)
                   }}
                   entityList={inventoryOutputHook.materialsList}
                   // width={'250px'}
