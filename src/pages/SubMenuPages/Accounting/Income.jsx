@@ -280,7 +280,7 @@ const Income = () => {
                       onInput={data => income.setAmount(data)}
                       isSubmited={income.isSubmited}
                       maxAllowed={
-                        income.order.orderBalance
+                        income.order.orderBalance >= 0
                           ? income.action === 'create'
                             ? income.order.orderBalance
                             : income.order.orderBalance + income.oldAmount
