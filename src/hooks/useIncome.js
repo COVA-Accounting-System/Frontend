@@ -58,11 +58,14 @@ export const useIncome = () => {
     dispatch(changeEntity({ entity: 'income', entityName: 'ingreso' }))
   }, [dispatch])
 
-
   useEffect(() => {
-    setOrder({})
-    setOrderId('')
-  },[clientId])
+    if (clientId !== '' && orderId !== '') {
+      if (clientId !== order.orderClient._id) {
+        setOrder({})
+        setOrderId('')
+      }
+    }
+  }, [clientId])
 
   const changeActionRedux = action => {
     dispatch(changeAction(action))
@@ -138,6 +141,9 @@ export const useIncome = () => {
       ).then(status => {
         if (status) {
           toast.invetorySuccess('Ingreso registrado con éxito')
+          getAllOrders().then(element => {
+            setOrdersList(element)
+          })
         } else {
           toast.inventoryError('Error al registrar ingreso')
         }
@@ -170,6 +176,9 @@ export const useIncome = () => {
       ).then(status => {
         if (status) {
           toast.invetorySuccess('Ingreso editado con éxito')
+          getAllOrders().then(element => {
+            setOrdersList(element)
+          })
         } else {
           toast.inventoryError('Error al editar ingreso')
         }

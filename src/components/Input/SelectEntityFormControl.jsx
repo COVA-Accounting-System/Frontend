@@ -19,6 +19,8 @@ const SelectEntityFormControl = ({
   isDisabled,
   isReadOnly = false
 }) => {
+  // console.log(value)
+  // console.log(entityList)
   const isError = isSubmited && value._id === undefined
   return (
     <FormControl mt={paddingSpace} isInvalid={isError} isRequired={isRequired}>

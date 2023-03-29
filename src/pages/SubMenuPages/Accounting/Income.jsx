@@ -288,14 +288,17 @@ const Income = () => {
                       value={income.amount}
                       onInput={data => income.setAmount(data)}
                       isSubmited={income.isSubmited}
-                      maxAllowed={20}
+                      maxAllowed={
+                        income.order.orderBalance
+                          ? income.order.orderBalance
+                          : Number.MAX_SAFE_INTEGER
+                      }
                       isRequired
                       isRequiredMessage='Este campo es obligatorio'
                     />
                     <Text fontSize={'xs'} color='acsys.iconColor'>
-                      El saldo del pedido actual es:{' '}
                       {income.order.orderBalance
-                        ? `${income.order.orderBalance} Bs.`
+                        ? `El saldo del pedido actual es: ${income.order.orderBalance} Bs.`
                         : ''}
                     </Text>
                   </Stack>
