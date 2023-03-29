@@ -37,7 +37,7 @@ export const useEmployee = () => {
 
   useEffect(() => {
     dispatch(getAllEmployees())
-    dispatch(changeEntity({ entity: 'employee', entityName: 'empleado' }))
+    dispatch(changeEntity({ entity: 'employee', entityName: 'operador' }))
   }, [dispatch])
 
   const changeActionRedux = (action) => {
@@ -76,9 +76,9 @@ export const useEmployee = () => {
   const deleteActualEmployee = () => {
     dispatch(deleteEmployee(actualEmployee)).then((status) => {
       if (status) {
-        toast.invetorySuccess('Empleado eliminado con éxito')
+        toast.invetorySuccess('Operador eliminado con éxito')
       } else {
-        toast.inventoryError('Error al eliminar empleado')
+        toast.inventoryError('Error al eliminar operador')
       }
     })
   }
@@ -106,9 +106,9 @@ export const useEmployee = () => {
         })
       ).then((status) => {
         if (status) {
-          toast.invetorySuccess('Empleado registrado con éxito')
+          toast.invetorySuccess('Operador registrado con éxito')
         } else {
-          toast.inventoryError('Error al registrar empleado')
+          toast.inventoryError('Error al registrar operador')
         }
       })
       closeModal()
@@ -133,9 +133,9 @@ export const useEmployee = () => {
         })
       ).then((status) => {
         if (status) {
-          toast.invetorySuccess('Empleado editado con éxito')
+          toast.invetorySuccess('Operador editado con éxito')
         } else {
-          toast.inventoryError('Error al editar empleado')
+          toast.inventoryError('Error al editar operador')
         }
       })
       closeModal()

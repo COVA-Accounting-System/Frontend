@@ -54,21 +54,21 @@ const RawMaterial = () => {
       },
       {
         headerName: 'Medida',
-        field: 'unitMeasure.spanishName',
+        field: 'unitMeasure.uiName',
         resizable: true,
         sortable: true,
         unSortIcon: true
         // maxWidth: 177,
       },
-      {
-        headerName: 'Medida Abreviada',
-        field: 'unitMeasure.abbreviation',
-        resizable: true,
-        sortable: true,
-        unSortIcon: true,
-        flex: 1
-        // maxWidth: 180,
-      },
+      // {
+      //   headerName: 'Medida Abreviada',
+      //   field: 'unitMeasure.abbreviation',
+      //   resizable: true,
+      //   sortable: true,
+      //   unSortIcon: true,
+      //   flex: 1
+      //   // maxWidth: 180,
+      // },
       {
         headerName: ' ',
         resizable: false,
@@ -125,7 +125,7 @@ const RawMaterial = () => {
   return (
     <div>
       <div className='page-container'>
-        <h1 className='page-title'>Materiales</h1>
+        <h1 className='page-title'>Materia Prima</h1>
         <div className='elements-container'>
           <section className='task-bar-datatable'>
             <div className='input-container'>
@@ -178,7 +178,7 @@ const RawMaterial = () => {
             fontWeight='700'
             fontSize='25px'
           >
-            Registrar producto
+            Registrar materia prima
           </ModalHeader>
           <ModalCloseButton color={'acsys.titleColor'} />
 
@@ -186,7 +186,7 @@ const RawMaterial = () => {
             <form className='two-column-grid'>
               <div>
                 <TextFormControl
-                  labelName='Nombre del material'
+                  labelName='Nombre de la materia prima'
                   width='330px'
                   paddingSpace={0}
                   value={rawMaterial.name}

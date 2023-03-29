@@ -384,7 +384,7 @@ const Order = () => {
       </Modal>
       <DeleteModal
         modalIsOpen={order.deleteModalIsOpen}
-        entityName='Empleado'
+        entityName='Pedido'
         onClose={() => order.closeDeleteModal()}
         onDelete={() => {
           order.deleteActualOrder()

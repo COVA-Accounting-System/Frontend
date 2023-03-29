@@ -142,7 +142,7 @@ const Sidebar = () => {
                 to='/ca/inventory/raw-material'
                 style={({ isActive }) => (isActive ? activeStyle : {})}
               >
-                Materiales
+                Materia Prima
               </NavLink>
             </li>
             <li>
@@ -269,7 +269,7 @@ const Sidebar = () => {
                 to='/ca/contact/employee'
                 style={({ isActive }) => (isActive ? activeStyle : {})}
               >
-                Empleados
+                Operadores
               </NavLink>
             </li>
             <li>

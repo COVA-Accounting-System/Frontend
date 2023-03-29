@@ -110,7 +110,7 @@ const RegisterInventoryOutput = ({ inventoryOutputHook }) => {
                   onSelect={data => {
                     inventoryOutputHook.setRawMaterial(data)
                     inventoryOutputHook.setUnitMeasure(
-                      data.unitMeasure.abbreviation
+                      data.unitMeasure.uiName
                     )
                   }}
                   entityList={inventoryOutputHook.materialsList}

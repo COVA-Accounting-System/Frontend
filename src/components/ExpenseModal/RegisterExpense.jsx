@@ -70,7 +70,7 @@ const RegisterExpense = ({ expenseHook, inventoryInputHook }) => {
               />
             ) : expenseHook.typeOfExpense.labour ? (
               <SelectEntityFormControl
-                labelName='Empleado'
+                labelName='Operador'
                 paddingSpace={0}
                 value={expenseHook.creditorEmployee}
                 onSelect={data => {

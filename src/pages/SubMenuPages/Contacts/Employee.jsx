@@ -163,7 +163,7 @@ const Employee = () => {
   return (
     <div>
       <div className='page-container'>
-        <h1 className='page-title'>Empleados</h1>
+        <h1 className='page-title'>Operadores</h1>
         <div className='elements-container'>
           <section className='task-bar-datatable'>
             <div className='input-container'>
@@ -185,7 +185,7 @@ const Employee = () => {
             </div>
             <div className='button-container'>
               <Button
-                label='Registrar empleado'
+                label='Registrar operador'
                 type='login'
                 system='accounting'
                 onClick={() => {
@@ -216,7 +216,7 @@ const Employee = () => {
             fontWeight='700'
             fontSize='25px'
           >
-            Registrar empleado
+            Registrar operador
           </ModalHeader>
           <ModalCloseButton color={'acsys.titleColor'} />
 
@@ -307,7 +307,7 @@ const Employee = () => {
 
       <DeleteModal
         modalIsOpen={employee.deleteModalIsOpen}
-        entityName='Empleado'
+        entityName='Operador'
         onClose={() => employee.closeDeleteModal()}
         onDelete={() => {
           employee.deleteActualEmployee()

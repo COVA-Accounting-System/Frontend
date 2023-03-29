@@ -6,16 +6,16 @@ const unitMeasures = [
         pluralName: 'Units',
         spanishName: 'Unidad',
         pluralSpanishName: 'Unidades',
-        uiName: 'Unidades | u',
+        uiName: 'Unidades',
         abbreviation: 'u'
     },
     {
         _id: '2',
-        name: 'Feet',
-        pluralName: 'Feets',
-        spanishName: 'Pie',
-        pluralSpanishName: 'Pies',
-        uiName: 'Pies | ft',
+        name: 'Square feet',
+        pluralName: 'Square feets',
+        spanishName: 'Pie cuadrado',
+        pluralSpanishName: 'Pies cuadrados',
+        uiName: 'Pies2',
         abbreviation: 'ft'
     },
     {
@@ -24,7 +24,7 @@ const unitMeasures = [
         pluralName: 'Square meters',
         spanishName: 'Metro cuadrado',
         pluralSpanishName: 'Metros cuadrados',
-        uiName: 'Metros cuadrados | m2',
+        uiName: 'Metros2',
         abbreviation: 'm2'
     },
     {
@@ -33,7 +33,7 @@ const unitMeasures = [
         pluralName: 'Liters',
         spanishName: 'Litro',
         pluralSpanishName: 'Litros',
-        uiName: 'Litros | l',
+        uiName: 'Litros',
         abbreviation: 'l'
     },
     {
@@ -42,7 +42,7 @@ const unitMeasures = [
         pluralName: 'Kilograms',
         spanishName: 'Kilogramo',
         pluralSpanishName: 'Kilogramos',
-        uiName: 'Kilogramos | kg',
+        uiName: 'Kilogramos',
         abbreviation: 'kg'
     },
     {
@@ -51,8 +51,17 @@ const unitMeasures = [
         pluralName: 'Thread cones',
         spanishName: 'Cono de hilo',
         pluralSpanishName: 'Conos de hilo',
-        uiName: 'Conos de hilo | c',
+        uiName: 'Conos',
         abbreviation: 'c.h.'
+    },
+    {
+        _id: '7',
+        name: 'Can',
+        pluralName: 'Can',
+        spanishName: 'Lata',
+        pluralSpanishName: 'Latas',
+        uiName: 'Latas',
+        abbreviation: 'lata'
     }
 ]
 
