@@ -291,7 +291,7 @@ const Income = () => {
                       isRequiredMessage='Este campo es obligatorio'
                     />
                     <Text fontSize={'xs'} color='acsys.iconColor'>
-                      {income.order.orderBalance
+                      {income.order.orderBalance >= 0
                         ? income.action === 'create'
                           ? `Saldo actual: ${
                               income.order.orderBalance - income.amount

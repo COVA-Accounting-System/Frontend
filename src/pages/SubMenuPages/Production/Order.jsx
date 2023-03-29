@@ -26,6 +26,7 @@ import Table from '../../../components/Table/Table'
 import { Button } from '../../../components/Button/Button'
 import StateTag from '../../../components/StateTags/StateTag'
 import SearchByState from '../../../components/SearchInputs/SearchByState'
+import OrderPaidTag from '../../../components/OrderPaidTag/OrderPaidTag'
 
 import { orderState } from '../../../assets/orderState'
 
@@ -99,6 +100,7 @@ const Order = () => {
         resizable: true,
         sortable: true,
         unSortIcon: true,
+        cellRenderer: OrderPaidTag
         // minWidth: 110,
         // maxWidth: 160,
       },

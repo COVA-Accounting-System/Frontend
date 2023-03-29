@@ -112,6 +112,10 @@ export const useIncome = () => {
       } else {
         toast.inventoryError('Error al eliminar ingreso')
       }
+      getAllOrders().then(element => {
+        setOrdersList(element)
+      })
+      dispatch(getAllIncomes())
     })
   }
 
