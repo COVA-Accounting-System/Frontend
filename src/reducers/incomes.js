@@ -78,7 +78,7 @@ export const deleteIncome = data => async dispatch => {
 
 export const updateIncome = data => async dispatch => {
   try {
-    const updatedIncome = await incomeInstance.put('/update', data)
+    const updatedIncome = await incomeInstance.put('/updateAndUpdateOrder', data)
     dispatch(editIncome(updatedIncome.data))
     return updatedIncome.status
   } catch (err) {

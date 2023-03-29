@@ -106,6 +106,7 @@ const Income = () => {
         cellRendererParams: {
           onView: () => {},
           onEdit: data => {
+            console.log(data.order)
             income.setAccountingSeat(data.accountingSeat)
             income.setClient(data.client)
             income.setClientId(data.client._id)
@@ -113,6 +114,7 @@ const Income = () => {
             income.setOrderId(data.order._id)
             income.setDate(data.date)
             income.setAmount(data.amount)
+            income.setOldAmount(data.amount)
             income.setConcept(data.concept)
 
             income.changeActionRedux('edit')
@@ -270,17 +272,6 @@ const Income = () => {
                   spacing={5}
                   justifyContent={'space-between'}
                 >
-                  {' '}
-                  <Stack width={'100%'}>
-                    <TextFormControl
-                      labelName='Concepto'
-                      value={income.concept}
-                      onInput={data => income.setConcept(data)}
-                      isSubmited={income.isSubmited}
-                      isRequired
-                      isRequiredMessage='Este campo es obligatorio'
-                    />
-                  </Stack>
                   <Stack direction={'column'} width={'100%'}>
                     <PriceFormControl
                       mt='0'
@@ -290,17 +281,37 @@ const Income = () => {
                       isSubmited={income.isSubmited}
                       maxAllowed={
                         income.order.orderBalance
-                          ? income.order.orderBalance
+                          ? income.action === 'create'
+                            ? income.order.orderBalance
+                            : income.order.orderBalance + income.oldAmount
                           : Number.MAX_SAFE_INTEGER
+                        // Number.MAX_SAFE_INTEGER
                       }
                       isRequired
                       isRequiredMessage='Este campo es obligatorio'
                     />
                     <Text fontSize={'xs'} color='acsys.iconColor'>
                       {income.order.orderBalance
-                        ? `El saldo del pedido actual es: ${income.order.orderBalance} Bs.`
+                        ? income.action === 'create'
+                          ? `Saldo actual: ${
+                              income.order.orderBalance - income.amount
+                            } Bs.`
+                          : `Saldo actual: ${
+                              income.order.orderBalance -
+                              (income.amount - income.oldAmount)
+                            } Bs.`
                         : ''}
                     </Text>
+                  </Stack>
+                  <Stack width={'100%'}>
+                    <TextFormControl
+                      labelName='Concepto'
+                      value={income.concept}
+                      onInput={data => income.setConcept(data)}
+                      isSubmited={income.isSubmited}
+                      isRequired
+                      isRequiredMessage='Este campo es obligatorio'
+                    />
                   </Stack>
                 </Stack>
               </Stack>

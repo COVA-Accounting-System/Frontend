@@ -28,6 +28,7 @@ export const useIncome = () => {
   const [date, setDate] = useState('')
   const [concept, setConcept] = useState('')
   const [amount, setAmount] = useState('')
+  const [oldAmount, setOldAmount] = useState('')
 
   const [isSubmited, setIsSubmited] = useState(false)
 
@@ -144,6 +145,7 @@ export const useIncome = () => {
           getAllOrders().then(element => {
             setOrdersList(element)
           })
+          dispatch(getAllIncomes())
         } else {
           toast.inventoryError('Error al registrar ingreso')
         }
@@ -179,6 +181,7 @@ export const useIncome = () => {
           getAllOrders().then(element => {
             setOrdersList(element)
           })
+          dispatch(getAllIncomes())
         } else {
           toast.inventoryError('Error al editar ingreso')
         }
@@ -227,6 +230,8 @@ export const useIncome = () => {
 
     ordersList,
     clientsList,
+    oldAmount,
+    setOldAmount,
 
     filterAtSelectClient
   }
