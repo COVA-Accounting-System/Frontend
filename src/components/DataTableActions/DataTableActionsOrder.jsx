@@ -15,8 +15,7 @@ import {
   MenuButton,
   MenuList,
   MenuItem,
-  MenuDivider,
-  Text
+  MenuDivider
 } from '@chakra-ui/react'
 import { ChevronDownIcon } from '@chakra-ui/icons'
 

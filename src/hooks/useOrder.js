@@ -41,7 +41,13 @@ export const useOrder = () => {
   const [orderDeliveryDate, setOrderDeliveryDate] = useState('')
 
   const [orderState, setOrderState] = useState('pending')
-  // const []
+ const [filterByState, setFilterByState] = useState({
+    pending: true,
+    inProgress: true,
+    ready: true,
+    delivered: true,
+ })
+
   const [orderFeatures, setOrderFeatures] = useState([])
 
   const [isSubmited, setIsSubmited] = useState(false)
@@ -65,6 +71,11 @@ export const useOrder = () => {
   //   dispatch(getAllProducts())
   //   dispatch(changeEntity({ entity: 'order', entityName: 'pedido' }))
   // }, [dispatch])
+
+// useEffect(() => {
+// console.log(filterByState)
+// },[filterByState])
+
 
   useEffect(() => {
     if (clientsList.length === 0) {
@@ -331,6 +342,8 @@ export const useOrder = () => {
     productsList,
     deleteActualOrder,
     onClickSave,
-    onEditSave
+    onEditSave,
+    filterByState,
+    setFilterByState,
   }
 }

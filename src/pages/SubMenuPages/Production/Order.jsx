@@ -1,5 +1,5 @@
 // REACT IMPORTS
-import React, { useMemo, useCallback, useRef } from 'react'
+import React, { useMemo, useCallback, useRef, useEffect } from 'react'
 
 // CHAKRA UI IMPORTS
 import {
@@ -39,6 +39,7 @@ import '../Template.styles.scss'
 const Order = () => {
   const gridRef = useRef()
   const order = useOrder()
+  var state = 'state'
   //pass ref to custom hook
   // const orderState = useOrderState(gridRef.current)
 
@@ -54,7 +55,7 @@ const Order = () => {
         unSortIcon: true,
         valueGetter: data => {
           return orderState[data.data.orderStateNumber].stateSpanish
-        },
+        }
       },
       {
         headerName: 'Nº de pedido',
@@ -81,7 +82,7 @@ const Order = () => {
         field: 'orderProduct.uiName',
         resizable: true,
         sortable: true,
-        unSortIcon: true,
+        unSortIcon: true
       },
       {
         headerName: 'Fecha de entrega',
@@ -91,7 +92,7 @@ const Order = () => {
         unSortIcon: true,
         valueGetter: data => {
           return new Date(data.data.orderDeliveryDate).toLocaleDateString()
-        },
+        }
         // minWidth: 60,
         // maxWidth: 160,
       },
@@ -112,7 +113,7 @@ const Order = () => {
         unSortIcon: true,
         valueGetter: data => {
           return `${data.data.orderPrice} Bs.`
-        },
+        }
       },
       {
         headerName: 'Monto pagado',
@@ -122,7 +123,7 @@ const Order = () => {
         unSortIcon: true,
         valueGetter: data => {
           return `${data.data.orderPayedPrice} Bs.`
-        },
+        }
       },
       {
         headerName: 'Saldo',
@@ -132,7 +133,7 @@ const Order = () => {
         unSortIcon: true,
         valueGetter: data => {
           return `${data.data.orderBalance} Bs.`
-        },
+        }
       },
       {
         headerName: ' ',
@@ -172,9 +173,7 @@ const Order = () => {
           onChangeStateForward: data => {
             order.onMoveForwardState(data)
           },
-          onRegisterMaterial: data => {
-
-          }
+          onRegisterMaterial: data => {}
         }
       }
     ],
@@ -186,10 +185,48 @@ const Order = () => {
       pagination: false,
       columnDefs,
       cacheQuickFilter: true,
-      animateRows: true
+      animateRows: true,
+      isExternalFilterPresent: () => true
     }),
     [columnDefs]
   )
+
+  // const externalFilterChanged = useCallback(() => {
+  //   gridRef.current.api.onFilterChanged()
+  // }, [])
+
+  // const isExternalFilterPresent = () => {
+  //   // if ageType is not everyone, then we are filtering
+  //   // console.log(order.filterByState)
+  //   return true
+  // }
+  
+  const externalFilterChanged = useCallback(data => {
+    console.log('on filter changed')
+    console.log(data)
+    state = data
+    gridRef.current.api.onFilterChanged()
+  }, [])
+
+  const doesExternalFilterPass = useCallback(
+    node => {
+      console.log(state)
+      if (node.data) {
+        if (
+          (state.pending === true && node.data.orderStateNumber === 0) ||
+          (state.inProgress === true && node.data.orderStateNumber === 1) ||
+          (state.ready === true && node.data.orderStateNumber === 2) ||
+          (state.delivered === true && node.data.orderStateNumber === 3)
+        ) {
+          return true
+        }
+        return false
+      }
+      return true
+    },
+    [state]
+  )
+
 
   const onFilterTextBoxChanged = useCallback(() => {
     gridRef.current.api.setQuickFilter(
@@ -220,7 +257,11 @@ const Order = () => {
                 borderColor={'gray.200'}
               />
               <div className='search-by-state-container'>
-                <SearchByState />
+                <SearchByState
+                  filterByState={order.filterByState}
+                  setFilterByState={order.setFilterByState}
+                  externalFilterChanged={externalFilterChanged}
+                />
               </div>
             </div>
 
@@ -240,6 +281,8 @@ const Order = () => {
           <section className='table-section'>
             <Table
               gridRef={gridRef}
+              doesExternalFilterPass={doesExternalFilterPass}
+              // isExternalFilterPresent={isExternalFilterPresent}
               gridOptions={gridOptions}
               rowData={
                 order.ordersList
@@ -359,7 +402,7 @@ const Order = () => {
                     onRemoveFeature={data => {
                       order.setOrderFeatures(data)
                     }}
-                    onEditFeature={data => { 
+                    onEditFeature={data => {
                       order.setOrderFeatures(data)
                     }}
                     marginTop={4}
