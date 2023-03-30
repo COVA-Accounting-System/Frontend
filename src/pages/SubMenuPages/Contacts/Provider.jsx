@@ -278,7 +278,6 @@ const Provider = () => {
         onClose={() => provider.closeDeleteModal()}
         onDelete={() => {
           provider.deleteActualProvider()
-          provider.closeDeleteModal()
         }}
       />
     </div>

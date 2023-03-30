@@ -264,7 +264,6 @@ const Client = () => {
         onClose={() => client.closeDeleteModal()}
         onDelete={() => {
           client.deleteActualClient()
-          client.closeDeleteModal()
         }}
       />
     </div>

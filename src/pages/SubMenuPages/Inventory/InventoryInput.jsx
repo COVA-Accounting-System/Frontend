@@ -163,7 +163,6 @@ const InventoryInput = () => {
         onClose={() => inventoryInput.closeDeleteModal()}
         onDelete={() => {
             inventoryInput.deleteActualInventoryInput()
-            inventoryInput.closeDeleteModal()
         }}
       />
       {/* <ViewProduct

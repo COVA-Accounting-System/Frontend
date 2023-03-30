@@ -151,6 +151,7 @@ export const useInventoryOutput = () => {
     dispatch(deleteInventoryOutput(actualInventoryOutput)).then(status => {
       if (status) {
         toast.invetorySuccess('Salida de inventario eliminada con éxito')
+        closeDeleteModal()
       } else {
         toast.inventoryError('Error al eliminar salida de inventario')
       }
@@ -183,11 +184,12 @@ export const useInventoryOutput = () => {
       ).then(status => {
         if (status) {
           toast.invetorySuccess('Salida de inventario registrada con éxito')
+          closeModal()
         } else {
           toast.inventoryError('Error al registrar salida de inventario')
         }
       })
-      closeModal()
+
     }
   }
 
@@ -214,11 +216,12 @@ export const useInventoryOutput = () => {
       ).then(status => {
         if (status) {
           toast.invetorySuccess('Salida de inventario editada con éxito')
+          closeModal()
         } else {
           toast.inventoryError('Error al editar salida de inventario')
         }
       })
-      closeModal()
+
     }
   }
 

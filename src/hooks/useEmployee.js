@@ -77,6 +77,7 @@ export const useEmployee = () => {
     dispatch(deleteEmployee(actualEmployee)).then((status) => {
       if (status) {
         toast.invetorySuccess('Operador eliminado con éxito')
+        closeDeleteModal()
       } else {
         toast.inventoryError('Error al eliminar operador')
       }
@@ -107,11 +108,12 @@ export const useEmployee = () => {
       ).then((status) => {
         if (status) {
           toast.invetorySuccess('Operador registrado con éxito')
+          closeModal()
         } else {
           toast.inventoryError('Error al registrar operador')
         }
       })
-      closeModal()
+
     }
   }
 
@@ -134,11 +136,12 @@ export const useEmployee = () => {
       ).then((status) => {
         if (status) {
           toast.invetorySuccess('Operador editado con éxito')
+          closeModal()
         } else {
           toast.inventoryError('Error al editar operador')
         }
       })
-      closeModal()
+
     }
   }
 

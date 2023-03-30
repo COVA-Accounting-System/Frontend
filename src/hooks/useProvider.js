@@ -73,6 +73,7 @@ export const useProvider = () => {
     dispatch(deleteProvider(actualProvider)).then((status) => {
       if (status) {
         toast.invetorySuccess('Proveedor eliminado con éxito')
+        closeDeleteModal()
       } else {
         toast.inventoryError('Error al eliminar proveedor')
       }
@@ -102,11 +103,12 @@ export const useProvider = () => {
       ).then((status) => {
         if (status) {
           toast.invetorySuccess('Proveedor registrado con éxito')
+          closeModal()
         } else {
           toast.inventoryError('Error al registrar proveedor')
         }
       })
-      closeModal()
+
     }
   }
 
@@ -128,11 +130,12 @@ export const useProvider = () => {
       ).then((status) => {
         if (status) {
           toast.invetorySuccess('Proveedor editado con éxito')
+          closeModal()
         } else {
           toast.inventoryError('Error al editar proveedor')
         }
       })
-      closeModal()
+
     }
   }
 

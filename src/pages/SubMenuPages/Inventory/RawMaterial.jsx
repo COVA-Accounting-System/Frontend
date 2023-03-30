@@ -249,7 +249,6 @@ const RawMaterial = () => {
         onClose={() => rawMaterial.closeDeleteModal()}
         onDelete={() => {
           rawMaterial.deleteActualRawMaterial()
-          rawMaterial.closeDeleteModal()
         }}
       />
       {/* <ViewProduct

@@ -10,7 +10,8 @@ import {
   ModalFooter,
   ModalBody,
   ModalCloseButton,
-  Input
+  Input,
+  Button
 } from '@chakra-ui/react'
 
 // COMPONENTS IMPORTS
@@ -22,7 +23,6 @@ import FeaturesFormControl from '../../../components/Input/FeaturesFormControl'
 import DeleteModal from '../../../components/DeleteModal/DeleteModal'
 import Table from '../../../components/Table/Table'
 import ViewProduct from '../../../components/ViewModals/ViewProduct'
-import { Button } from '../../../components/Button/Button'
 
 // HOOKS IMPORTS
 import { useProduct } from '../../../hooks/useProduct'
@@ -41,13 +41,13 @@ const Product = () => {
         field: 'productName',
         resizable: true,
         sortable: true,
-        unSortIcon: true,
+        unSortIcon: true
       },
       {
         headerName: 'Caracteristicas',
         resizable: true,
         sortable: true,
-        unSortIcon: true,
+        unSortIcon: true
         // maxWidth: 160,
       },
       {
@@ -56,7 +56,7 @@ const Product = () => {
         resizable: true,
         sortable: true,
         unSortIcon: true,
-        width: 160,
+        width: 160
       },
       {
         headerName: 'Precio por unidad',
@@ -66,7 +66,7 @@ const Product = () => {
         unSortIcon: true,
         valueGetter: data => {
           return `${data.data.productPrice} Bs.`
-        },
+        }
         // width: 130,
       },
       {
@@ -79,7 +79,6 @@ const Product = () => {
         valueGetter: data => {
           return `${data.data.productDozenPrice} Bs.`
         }
-        
       },
       {
         headerName: ' ',
@@ -89,7 +88,7 @@ const Product = () => {
         cellRenderer: DataTableActions,
         colId: 'Actions',
         cellRendererParams: {
-          onView: (data) => {
+          onView: data => {
             product.setActualProductRedux(data)
             product.setViewModalIsOpen(true)
           },
@@ -120,7 +119,7 @@ const Product = () => {
         // params.api.sizeColumnsToFit();
       },
       onGridSizeChanged: params => {
-        params.api.sizeColumnsToFit();
+        params.api.sizeColumnsToFit()
       },
       columnDefs,
       cacheQuickFilter: true,
@@ -160,14 +159,16 @@ const Product = () => {
             </div>
             <div className='button-container'>
               <Button
-                label='Registrar producto'
-                type='login'
-                system='accounting'
+                backgroundColor={'acsys.primaryColor'}
+                _hover={{ backgroundColor: '#098bb6' }}
+                colorScheme='linkedin'
                 onClick={() => {
                   product.openModal()
                   product.changeActionRedux('create')
                 }}
-              />
+              >
+                Registrar producto
+              </Button>
             </div>
           </section>
           <section className='table-section'>
@@ -191,7 +192,9 @@ const Product = () => {
             fontWeight='700'
             fontSize='25px'
           >
-            {product.action === 'create' ? 'Registrar producto' : 'Editar producto'}
+            {product.action === 'create'
+              ? 'Registrar producto'
+              : 'Editar producto'}
           </ModalHeader>
           <ModalCloseButton color={'acsys.titleColor'} />
 
@@ -261,25 +264,29 @@ const Product = () => {
 
           <ModalFooter>
             <Button
-              label='Guardar'
-              type='confirm'
+              backgroundColor={'acsys.primaryColor'}
+              _hover={{ backgroundColor: '#098bb6' }}
+              colorScheme='linkedin'
+              isLoading={product.isLoading}
               onClick={
                 product.action === 'create'
                   ? product.onClickSave
                   : product.onEditSave
               }
-            />
+            >
+              Guardar
+            </Button>
           </ModalFooter>
         </ModalContent>
       </Modal>
 
       <DeleteModal
+        isLoading={product.isLoading}
         modalIsOpen={product.deleteModalIsOpen}
         entityName='Producto'
         onClose={() => product.closeDeleteModal()}
         onDelete={() => {
           product.deleteActualProduct()
-          product.closeDeleteModal()
         }}
       />
       <ViewProduct

@@ -1,5 +1,5 @@
 // REACT IMPORTS
-import React, { useMemo, useCallback, useRef, useEffect } from 'react'
+import React, { useMemo, useCallback, useRef } from 'react'
 
 // CHAKRA UI IMPORTS
 import {
@@ -10,7 +10,11 @@ import {
   ModalFooter,
   ModalBody,
   ModalCloseButton,
-  Input
+  Input,
+  UnorderedList,
+  ListItem,
+  Stack,
+  Button
 } from '@chakra-ui/react'
 
 // COMPONENTS IMPORTS
@@ -23,7 +27,7 @@ import FeaturesFormControl from '../../../components/Input/FeaturesFormControl'
 import InputWithSelectFormControl from '../../../components/Input/InputWithSelectFormControl'
 import DeleteModal from '../../../components/DeleteModal/DeleteModal'
 import Table from '../../../components/Table/Table'
-import { Button } from '../../../components/Button/Button'
+// import { Button } from '../../../components/Button/Button'
 import StateTag from '../../../components/StateTags/StateTag'
 import SearchByState from '../../../components/SearchInputs/SearchByState'
 import OrderPaidTag from '../../../components/OrderPaidTag/OrderPaidTag'
@@ -39,7 +43,7 @@ import '../Template.styles.scss'
 const Order = () => {
   const gridRef = useRef()
   const order = useOrder()
-  var state = 'state'
+  var state = 'initial'
   //pass ref to custom hook
   // const orderState = useOrderState(gridRef.current)
 
@@ -83,6 +87,34 @@ const Order = () => {
         resizable: true,
         sortable: true,
         unSortIcon: true
+      },
+      {
+        headerName: 'Características',
+        field: 'orderFeatures',
+        resizable: true,
+        sortable: true,
+        autoHeight: true,
+        // height: 100,
+        unSortIcon: true,
+        // wrapText: true,
+        valueGetter: data => {
+          return data.data.orderFeatures.map((feature, index) => {
+            return `• ${feature.description}`
+          })
+        },
+        cellRenderer: params => {
+          return (
+            <div>
+              {params.data.orderFeatures.map((feature, index) => (
+                <span title={feature.description}>
+                  {` • ${feature.description}`}&nbsp;{' '}
+                </span>
+              ))}
+            </div>
+          )
+        }
+        // minWidth: 60,
+        // maxWidth: 160,
       },
       {
         headerName: 'Fecha de entrega',
@@ -200,18 +232,15 @@ const Order = () => {
   //   // console.log(order.filterByState)
   //   return true
   // }
-  
+
   const externalFilterChanged = useCallback(data => {
-    console.log('on filter changed')
-    console.log(data)
     state = data
     gridRef.current.api.onFilterChanged()
   }, [])
 
   const doesExternalFilterPass = useCallback(
     node => {
-      console.log(state)
-      if (node.data) {
+      if (node.data && state !== 'initial') {
         if (
           (state.pending === true && node.data.orderStateNumber === 0) ||
           (state.inProgress === true && node.data.orderStateNumber === 1) ||
@@ -226,7 +255,6 @@ const Order = () => {
     },
     [state]
   )
-
 
   const onFilterTextBoxChanged = useCallback(() => {
     gridRef.current.api.setQuickFilter(
@@ -267,15 +295,18 @@ const Order = () => {
 
             <div className='button-container'>
               <Button
-                label='Registrar pedido'
-                type='login'
-                system='accounting'
+                backgroundColor={'acsys.primaryColor'}
+                _hover={{ backgroundColor: '#098bb6' }}
+                colorScheme='linkedin'
+                // color='white'
                 onClick={() => {
                   order.openModal()
                   order.setAction('create')
                   // order.changeActionRedux('create')
                 }}
-              />
+              >
+                Registrar pedido
+              </Button>
             </div>
           </section>
           <section className='table-section'>
@@ -419,22 +450,26 @@ const Order = () => {
           </ModalBody>
           <ModalFooter>
             <Button
-              label='Guardar'
-              type='confirm'
+              backgroundColor={'acsys.primaryColor'}
+              _hover={{ backgroundColor: '#098bb6' }}
+              colorScheme='linkedin'
+              isLoading={order.isLoading}
               onClick={
                 order.action === 'create' ? order.onClickSave : order.onEditSave
               }
-            />
+            >
+              Guardar
+            </Button>
           </ModalFooter>
         </ModalContent>
       </Modal>
       <DeleteModal
+        isLoading={order.isLoading}
         modalIsOpen={order.deleteModalIsOpen}
         entityName='Pedido'
         onClose={() => order.closeDeleteModal()}
         onDelete={() => {
           order.deleteActualOrder()
-          order.closeDeleteModal()
         }}
       />
     </div>

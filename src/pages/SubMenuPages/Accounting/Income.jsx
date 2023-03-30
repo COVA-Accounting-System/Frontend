@@ -338,7 +338,6 @@ const Income = () => {
         onClose={() => income.closeDeleteModal()}
         onDelete={() => {
           income.deleteActualIncome()
-          income.closeDeleteModal()
         }}
       />
     </div>

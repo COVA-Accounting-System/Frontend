@@ -187,7 +187,6 @@ const Expense = () => {
         onClose={() => expense.closeDeleteModal()}
         onDelete={() => {
           expense.deleteActualExpense()
-          expense.closeDeleteModal()
         }}
       />
     </div>

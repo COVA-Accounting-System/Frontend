@@ -24,14 +24,15 @@ export const useProduct = () => {
   const [productPrice, setProductPrice] = useState('')
   const [productDozenPrice, setProductDozenPrice] = useState('')
 
+  const [isLoading, setIsLoading] = useState(false)
   const [isSubmited, setIsSubmited] = useState(false)
 
-  const action = useSelector((state) => state.crud.action)
+  const action = useSelector(state => state.crud.action)
 
-  const actualProduct = useSelector((state) => state.products.actualProduct)
+  const actualProduct = useSelector(state => state.products.actualProduct)
 
-  const productsList = useSelector((state) => {
-    return state.products.data.filter((param) => param.isVisible === true)
+  const productsList = useSelector(state => {
+    return state.products.data.filter(param => param.isVisible === true)
   })
 
   useEffect(() => {
@@ -39,7 +40,17 @@ export const useProduct = () => {
     dispatch(changeEntity({ entity: 'product', entityName: 'producto' }))
   }, [dispatch])
 
-  const changeActionRedux = (action) => {
+  useEffect(() => {
+      // console.log(isSubmited)
+      console.log('isLoading')
+  }, [ isLoading])
+
+  useEffect(() => {
+    // console.log(isSubmited)
+    console.log('is submited')
+}, [ isSubmited])
+
+  const changeActionRedux = action => {
     dispatch(changeAction(action))
   }
 
@@ -67,25 +78,39 @@ export const useProduct = () => {
     setIsSubmited(false)
   }
 
-  const deleteActualProduct = () => {
-    dispatch(deleteProduct(actualProduct)).then((status) => {
+  const deleteActualProduct = async () => {
+    setIsLoading(true)
+    await dispatch(deleteProduct(actualProduct)).then(status => {
       if (status) {
+        closeDeleteModal()
         toast.invetorySuccess('Producto eliminado con éxito')
       } else {
         toast.inventoryError('Error al eliminar producto')
       }
+      setIsLoading(false)
     })
   }
 
-  const setActualProductRedux = (data) => {
+  const setActualProductRedux = data => {
     dispatch(setActualProduct(data))
   }
 
-  const onClickSave = (e) => {
+  const setLoading = async (boolean) => {
+    console.log('aaaa')
+    setIsLoading(boolean)
+  }
+
+  const onClickSave = async e => {
     e.preventDefault()
-    setIsSubmited(true)
-    if (productName !== '' && productType !== '' && productPrice !== '' && productDozenPrice !== '') {
-      dispatch(
+     setIsSubmited(true)
+    if (
+      productName !== '' &&
+      productType !== '' &&
+      productPrice !== '' &&
+      productDozenPrice !== ''
+    ) {
+      await setLoading(true)
+      await dispatch(
         createProduct({
           productName,
           productFeatures: [...productFeatures],
@@ -94,22 +119,32 @@ export const useProduct = () => {
           productDozenPrice,
           uiName: `${productName}`
         })
-      ).then((status) => {
+      ).then(status => {
         if (status) {
           toast.invetorySuccess('Producto registrado con éxito')
+          closeModal()
         } else {
           toast.inventoryError('Error al registrar producto')
         }
       })
-      closeModal()
+      setIsLoading(false)
     }
   }
 
-  const onEditSave = (e) => {
+  const onEditSave = async e => {
+    
     e.preventDefault()
     setIsSubmited(true)
-    if (productName !== '' && productType !== '' && productPrice !== '' && productDozenPrice !== '') {
-      dispatch(
+    if (
+      productName !== '' &&
+      productType !== '' &&
+      productPrice !== '' &&
+      productDozenPrice !== ''
+    ) {
+    
+      // console.log('aaaa')
+      await setLoading(true)
+     await dispatch(
         updateProduct({
           ...actualProduct,
           productName,
@@ -119,14 +154,16 @@ export const useProduct = () => {
           productDozenPrice,
           uiName: `${productName}`
         })
-      ).then((status) => {
+      ).then(status => {
         if (status) {
           toast.invetorySuccess('Producto editado con éxito')
+          closeModal()
         } else {
           toast.inventoryError('Error al editar producto')
         }
       })
-      closeModal()
+      setIsLoading(false)
+
     }
   }
 
@@ -158,6 +195,8 @@ export const useProduct = () => {
     onEditSave,
 
     viewModalIsOpen,
-    setViewModalIsOpen
+    setViewModalIsOpen,
+    isLoading,
+    setIsLoading
   }
 }

@@ -311,7 +311,6 @@ const Employee = () => {
         onClose={() => employee.closeDeleteModal()}
         onDelete={() => {
           employee.deleteActualEmployee()
-          employee.closeDeleteModal()
         }}
       />
     </div>

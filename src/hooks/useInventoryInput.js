@@ -143,6 +143,7 @@ export const useInventoryInput = () => {
     dispatch(deleteInventoryInput(actualInventoryInput)).then(status => {
       if (status) {
         toast.invetorySuccess('Entrada eliminada con éxito')
+        closeDeleteModal()
       } else {
         toast.inventoryError('Error al eliminar entrada')
       }
@@ -201,11 +202,12 @@ export const useInventoryInput = () => {
       ).then(status => {
         if (status) {
           toast.invetorySuccess('Entrada editada con éxito')
+          closeModal()
         } else {
           toast.inventoryError('Error al editar entrada')
         }
       })
-      closeModal()
+
     }
   }
 

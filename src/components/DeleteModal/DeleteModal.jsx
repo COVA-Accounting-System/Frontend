@@ -6,12 +6,14 @@ import {
   ModalHeader,
   ModalFooter,
   ModalBody,
-  ModalCloseButton
+  ModalCloseButton,
+  Button,
+  Stack
 } from '@chakra-ui/react'
-import { Button } from '../Button/Button'
+// import { Button } from '../Button/Button'
 
-const DeleteModal = (props) => {
-  const { modalIsOpen, onClose, entityName, onDelete } = props
+const DeleteModal = props => {
+  const { modalIsOpen, onClose, entityName, onDelete, isLoading } = props
 
   return (
     <>
@@ -26,19 +28,37 @@ const DeleteModal = (props) => {
             Eliminar {entityName}
           </ModalHeader>
           <ModalCloseButton />
-          <ModalBody color='acsys.subtitleColor' fontWeight='500' fontSize='15px'>
+          <ModalBody
+            color='acsys.subtitleColor'
+            fontWeight='500'
+            fontSize='15px'
+          >
             <p>
               ¿Está seguro que desea eliminar este {entityName.toLowerCase()}?
             </p>
           </ModalBody>
           <ModalFooter>
-            <Button label='Cancelar' type='cancel' onClick={onClose} />
-            <Button
-              className='button-cancel'
-              label='Eliminar'
-              type='confirm-delete'
-              onClick={onDelete}
-            />
+            <Stack direction={'row'}>
+              <Button
+                colorScheme={'gray'}
+                // backgroundColor={'#758399'}
+                // _hover={{ backgroundColor: '#6d788a' }}
+                color='acsys.titleColor'
+                onClick={onClose}
+                isDisabled={isLoading}
+              >
+                Cancelar
+              </Button>
+              <Button
+                colorScheme={'red'}
+                onClick={onDelete}
+                // _hover={{ backgroundColor: '#EE6270' }}
+                // backgroundColor={'#EE6270'}
+                isLoading={isLoading}
+              >
+                Eliminar
+              </Button>
+            </Stack>
           </ModalFooter>
         </ModalContent>
       </Modal>

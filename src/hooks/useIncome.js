@@ -109,6 +109,7 @@ export const useIncome = () => {
     dispatch(deleteIncome(actualIncome)).then(status => {
       if (status) {
         toast.invetorySuccess('Ingreso eliminado con éxito')
+        closeDeleteModal()
       } else {
         toast.inventoryError('Error al eliminar ingreso')
       }
@@ -150,11 +151,12 @@ export const useIncome = () => {
             setOrdersList(element)
           })
           dispatch(getAllIncomes())
+          closeModal()
         } else {
           toast.inventoryError('Error al registrar ingreso')
         }
       })
-      closeModal()
+
     }
   }
 
@@ -186,11 +188,12 @@ export const useIncome = () => {
             setOrdersList(element)
           })
           dispatch(getAllIncomes())
+          closeModal()
         } else {
           toast.inventoryError('Error al editar ingreso')
         }
       })
-      closeModal()
+
     }
   }
 

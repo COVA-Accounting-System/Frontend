@@ -118,6 +118,7 @@ export const useExpense = () => {
     dispatch(deleteExpense(actualExpense)).then(status => {
       if (status) {
         toast.invetorySuccess('Gasto eliminado con éxito')
+        closeDeleteModal()
       } else {
         toast.inventoryError('Error al eliminar gasto')
       }
@@ -151,11 +152,11 @@ export const useExpense = () => {
       ).then(status => {
         if (status) {
           toast.invetorySuccess('Gasto registrado con éxito')
+          closeModal()
         } else {
           toast.inventoryError('Error al registrar gasto')
         }
       })
-      closeModal()
     }
   }
 
@@ -181,11 +182,12 @@ export const useExpense = () => {
       ).then(status => {
         if (status) {
           toast.invetorySuccess('Gasto registrado con éxito')
+          closeModal()
         } else {
           toast.inventoryError('Error al registrar gasto')
         }
       })
-      closeModal()
+
     }
   }
 
@@ -211,11 +213,12 @@ export const useExpense = () => {
       ).then(status => {
         if (status) {
           toast.invetorySuccess('Gasto registrado con éxito')
+          closeModal()
         } else {
           toast.inventoryError('Error al registrar gasto')
         }
       })
-      closeModal()
+
     }
   }
 
@@ -243,11 +246,12 @@ export const useExpense = () => {
       ).then(status => {
         if (status) {
           toast.invetorySuccess('Gasto editado con éxito')
+          closeModal()
         } else {
           toast.inventoryError('Error al editar gasto')
         }
       })
-      closeModal()
+
     }
   }
 
@@ -273,11 +277,12 @@ export const useExpense = () => {
       ).then(status => {
         if (status) {
           toast.invetorySuccess('Gasto editado con éxito')
+          closeModal()
         } else {
           toast.inventoryError('Error al editar gasto')
         }
       })
-      closeModal()
+
     }
   }
 
@@ -303,11 +308,12 @@ export const useExpense = () => {
       ).then(status => {
         if (status) {
           toast.invetorySuccess('Gasto editado con éxito')
+          closeModal()
         } else {
           toast.inventoryError('Error al editar gasto')
         }
       })
-      closeModal()
+
     }
   }
 

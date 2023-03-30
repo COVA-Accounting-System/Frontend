@@ -70,6 +70,7 @@ export const useClient = () => {
     dispatch(deleteClient(actualClient)).then(status => {
       if (status) {
         toast.invetorySuccess('Cliente eliminado con éxito')
+        closeDeleteModal()
       } else {
         toast.inventoryError('Error al eliminar cliente')
       }
@@ -96,11 +97,12 @@ export const useClient = () => {
       ).then(status => {
         if (status) {
           toast.invetorySuccess('Cliente registrado con éxito')
+          closeModal()
         } else {
           toast.inventoryError('Error al registrar cliente')
         }
       })
-      closeModal()
+  
     }
   }
 
@@ -121,11 +123,12 @@ export const useClient = () => {
       ).then(status => {
         if (status) {
           toast.invetorySuccess('Cliente editado con éxito')
+          closeModal()
         } else {
           toast.inventoryError('Error al editar cliente')
         }
       })
-      closeModal()
+ 
     }
   }
 

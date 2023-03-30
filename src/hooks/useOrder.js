@@ -41,16 +41,17 @@ export const useOrder = () => {
   const [orderDeliveryDate, setOrderDeliveryDate] = useState('')
 
   const [orderState, setOrderState] = useState('pending')
- const [filterByState, setFilterByState] = useState({
+  const [filterByState, setFilterByState] = useState({
     pending: true,
     inProgress: true,
     ready: true,
-    delivered: true,
- })
+    delivered: true
+  })
 
   const [orderFeatures, setOrderFeatures] = useState([])
 
   const [isSubmited, setIsSubmited] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
 
   const clientsList = useSelector(state => {
     return state.clients.data.filter(param => param.isVisible === true)
@@ -72,10 +73,9 @@ export const useOrder = () => {
   //   dispatch(changeEntity({ entity: 'order', entityName: 'pedido' }))
   // }, [dispatch])
 
-// useEffect(() => {
-// console.log(filterByState)
-// },[filterByState])
-
+  // useEffect(() => {
+  // console.log(filterByState)
+  // },[filterByState])
 
   useEffect(() => {
     if (clientsList.length === 0) {
@@ -152,9 +152,10 @@ export const useOrder = () => {
   }
 
   const deleteActualOrder = async () => {
+    setIsLoading(true)
     try {
       const deletedOrder = await deleteOrder(actualOrder)
-      toast.invetorySuccess('Pedido eliminado con éxito')
+
       const newList = ordersList.map(order => {
         if (order._id === deletedOrder.data._id) {
           return { ...deletedOrder.data }
@@ -162,9 +163,12 @@ export const useOrder = () => {
         return order
       })
       setOrdersList(newList)
+      closeDeleteModal()
+      toast.invetorySuccess('Pedido eliminado con éxito')
     } catch {
       toast.inventoryError('Error al eliminar pedido')
     }
+    setIsLoading(false)
   }
 
   const onMoveBackwardState = async data => {
@@ -226,6 +230,7 @@ export const useOrder = () => {
       orderProductAmount !== '' &&
       orderDeliveryDate !== ''
     ) {
+      setIsLoading(true)
       try {
         const newOrder = await createOrder({
           orderClient: orderClientId,
@@ -246,13 +251,14 @@ export const useOrder = () => {
           uiName: `Pedido #${orderNumber} - ${orderProduct.uiName}`,
           orderFeatures: [...orderFeatures]
         })
-        toast.invetorySuccess('Pedido registrado con éxito')
 
         setOrdersList([...ordersList, newOrder.data])
+        closeModal()
+        toast.invetorySuccess('Pedido registrado con éxito')
       } catch {
         toast.inventoryError('Error al registrar pedido')
       }
-      closeModal()
+      setIsLoading(false)
     }
   }
 
@@ -267,6 +273,7 @@ export const useOrder = () => {
       orderProductAmount !== '' &&
       orderDeliveryDate !== ''
     ) {
+      setIsLoading(true)
       try {
         const updatedOrder = await updateOrder({
           ...actualOrder,
@@ -280,7 +287,7 @@ export const useOrder = () => {
           uiName: `Pedido #${orderNumber} - ${orderProduct.uiName}`,
           orderFeatures: [...orderFeatures]
         })
-        toast.invetorySuccess('Pedido editado con éxito')
+
         const newList = ordersList.map(order => {
           if (order._id === updatedOrder.data._id) {
             return { ...updatedOrder.data }
@@ -288,10 +295,12 @@ export const useOrder = () => {
           return order
         })
         setOrdersList(newList)
+        closeModal()
+        toast.invetorySuccess('Pedido editado con éxito')
       } catch {
         toast.inventoryError('Error al editar pedido')
       }
-      closeModal()
+      setIsLoading(false)
     }
   }
 
@@ -306,6 +315,8 @@ export const useOrder = () => {
     closeDeleteModal,
     deleteModalIsOpen,
     setDeleteModalIsOpen,
+    isLoading,
+    setIsLoading,
 
     orderClient,
     setOrderClient,
@@ -344,6 +355,6 @@ export const useOrder = () => {
     onClickSave,
     onEditSave,
     filterByState,
-    setFilterByState,
+    setFilterByState
   }
 }

@@ -70,6 +70,7 @@ export const useRawMaterial = () => {
     dispatch(deleteRawMaterial(actualRawMaterial)).then(status => {
       if (status) {
         toast.invetorySuccess('Material eliminado con éxito')
+        closeDeleteModal()
       } else {
         toast.inventoryError('Error al eliminar material')
       }
@@ -97,11 +98,12 @@ export const useRawMaterial = () => {
       ).then(status => {
         if (status) {
           toast.invetorySuccess('Material registrado con éxito')
+          closeModal()
         } else {
           toast.inventoryError('Error al registrar material')
         }
       })
-      closeModal()
+
     }
   }
 
@@ -122,11 +124,12 @@ export const useRawMaterial = () => {
       ).then(status => {
         if (status) {
           toast.invetorySuccess('Material editado con éxito')
+          closeModal()
         } else {
           toast.inventoryError('Error al editar material')
         }
       })
-      closeModal()
+
     }
   }
 

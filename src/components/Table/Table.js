@@ -8,8 +8,7 @@ const Table = ({
   rowData,
   gridOptions,
   gridRef,
-  doesExternalFilterPass,
-  isExternalFilterPresent
+  doesExternalFilterPass
 }) => {
 //  const a = isExternalFilterPresent()
 //   console.log(a)
@@ -19,7 +18,8 @@ const Table = ({
       <AgGridReact
         ref={gridRef}
         overlayNoRowsTemplate={'Cargando datos...'}
-        // isExternalFilterPresent={isExternalFilterPresent}
+        // rowHeight={}
+
         doesExternalFilterPass={doesExternalFilterPass}
         rowData={rowData}
         suppressRowTransform
