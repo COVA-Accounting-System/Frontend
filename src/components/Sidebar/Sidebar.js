@@ -10,7 +10,7 @@ import './Sidebar.scss'
 const Sidebar = () => {
   const [subMenus, setSubMenus] = useState([
     { name: 'submenu-production', isOpen: false, subElements: 2 },
-    { name: 'submenu-inventory', isOpen: false, subElements: 4 },
+    { name: 'submenu-inventory', isOpen: false, subElements: 3 },
     { name: 'submenu-accounting', isOpen: false, subElements: 2 },
     { name: 'submenu-contact', isOpen: false, subElements: 3 }
   ])
@@ -163,7 +163,7 @@ const Sidebar = () => {
                 Salidas
               </NavLink>
             </li>
-            <li>
+            {/* <li>
               <NavLink
                 className='element-inside'
                 to='/ca/inventory/stock'
@@ -171,7 +171,7 @@ const Sidebar = () => {
               >
                 Stock
               </NavLink>
-            </li>
+            </li> */}
           </ul>
         </li>
         <li>

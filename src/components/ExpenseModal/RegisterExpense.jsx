@@ -4,12 +4,12 @@ import React from 'react'
 import {
   ModalHeader,
   ModalBody,
+  Button,
   ModalCloseButton,
   Stack,
   ModalFooter
 } from '@chakra-ui/react'
 
-import { Button } from '../Button/Button'
 import TextFormControl from '../Input/TextFormControl'
 import SelectEntityFormControl from '../Input/SelectEntityFormControl'
 import PriceFormControl from '../Input/PriceFormControl'
@@ -140,13 +140,19 @@ const RegisterExpense = ({ expenseHook, inventoryInputHook }) => {
           width={'100%'}
         >
           <Button
-            label='Anterior'
-            type='confirm'
+            backgroundColor={'acsys.primaryColor'}
+            _hover={{ backgroundColor: '#098bb6' }}
+            colorScheme='linkedin'
+            // isLoading={expenseHook.isLoading}
             onClick={() => expenseHook.setPage(prev => prev - 1)}
-          />
+          >
+            Anterior
+          </Button>
           <Button
-            label='Guardar'
-            type='confirm'
+            backgroundColor={'acsys.primaryColor'}
+            _hover={{ backgroundColor: '#098bb6' }}
+            colorScheme='linkedin'
+            isLoading={expenseHook.isLoading}
             onClick={
               expenseHook.typeOfExpense.rawMaterial
                 ? async () => {
@@ -157,7 +163,9 @@ const RegisterExpense = ({ expenseHook, inventoryInputHook }) => {
                 ? expenseHook.onClickSaveLabour
                 : expenseHook.onClickSaveIndirectCosts
             }
-          />
+          >
+            Guardar
+          </Button>
         </Stack>
       </ModalFooter>
     </>

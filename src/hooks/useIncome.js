@@ -31,6 +31,7 @@ export const useIncome = () => {
   const [oldAmount, setOldAmount] = useState('')
 
   const [isSubmited, setIsSubmited] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
 
   const [ordersList, setOrdersList] = useState([])
 
@@ -105,8 +106,9 @@ export const useIncome = () => {
     }
   }
 
-  const deleteActualIncome = () => {
-    dispatch(deleteIncome(actualIncome)).then(status => {
+  const deleteActualIncome = async () => {
+    setIsLoading(true)
+    await dispatch(deleteIncome(actualIncome)).then(status => {
       if (status) {
         toast.invetorySuccess('Ingreso eliminado con éxito')
         closeDeleteModal()
@@ -118,13 +120,14 @@ export const useIncome = () => {
       })
       dispatch(getAllIncomes())
     })
+    setIsLoading(false)
   }
 
   const setActualIncomeRedux = data => {
     dispatch(setActualIncome(data))
   }
 
-  const onClickSave = e => {
+  const onClickSave = async e => {
     e.preventDefault()
     setIsSubmited(true)
     if (
@@ -135,7 +138,8 @@ export const useIncome = () => {
       amount !== '' &&
       concept !== ''
     ) {
-      dispatch(
+      setIsLoading(true)
+      await dispatch(
         createIncome({
           accountingSeat,
           client: clientId,
@@ -156,11 +160,11 @@ export const useIncome = () => {
           toast.inventoryError('Error al registrar ingreso')
         }
       })
-
+      setIsLoading(false)
     }
   }
 
-  const onEditSave = e => {
+  const onEditSave = async e => {
     e.preventDefault()
     setIsSubmited(true)
     if (
@@ -171,7 +175,8 @@ export const useIncome = () => {
       amount !== '' &&
       concept !== ''
     ) {
-      dispatch(
+      setIsLoading(true)
+      await dispatch(
         updateIncome({
           ...actualIncome,
           accountingSeat,
@@ -193,7 +198,7 @@ export const useIncome = () => {
           toast.inventoryError('Error al editar ingreso')
         }
       })
-
+      setIsLoading(false)
     }
   }
 
@@ -240,6 +245,7 @@ export const useIncome = () => {
     oldAmount,
     setOldAmount,
 
-    filterAtSelectClient
+    filterAtSelectClient,
+    isLoading
   }
 }

@@ -26,6 +26,7 @@ export const useEmployee = () => {
   const [startDate, setStartDate] = useState('')
 
   const [isSubmited, setIsSubmited] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
 
   const action = useSelector((state) => state.crud.action)
 
@@ -73,8 +74,9 @@ export const useEmployee = () => {
     setIsSubmited(false)
   }
 
-  const deleteActualEmployee = () => {
-    dispatch(deleteEmployee(actualEmployee)).then((status) => {
+  const deleteActualEmployee = async () => {
+    setIsLoading(true)
+    await dispatch(deleteEmployee(actualEmployee)).then((status) => {
       if (status) {
         toast.invetorySuccess('Operador eliminado con éxito')
         closeDeleteModal()
@@ -82,17 +84,19 @@ export const useEmployee = () => {
         toast.inventoryError('Error al eliminar operador')
       }
     })
+    setIsLoading(false)
   }
 
   const setActualEmployeeRedux = (data) => {
     dispatch(setActualEmployee(data))
   }
 
-  const onClickSave = (e) => {
+  const onClickSave = async (e) => {
     e.preventDefault()
     setIsSubmited(true)
     if (name !== '' && lastName !== '' && ci !== '') {
-      dispatch(
+      setIsLoading(true)
+      await dispatch(
         createEmployee({
           name,
           lastName,
@@ -113,15 +117,16 @@ export const useEmployee = () => {
           toast.inventoryError('Error al registrar operador')
         }
       })
-
+setIsLoading(false)
     }
   }
 
-  const onEditSave = (e) => {
+  const onEditSave = async (e) => {
     e.preventDefault()
     setIsSubmited(true)
     if (name !== '' && lastName !== '' && ci !== '') {
-      dispatch(
+      setIsLoading(true)
+     await dispatch(
         updateEmployee({
           ...actualEmployee,
           name,
@@ -141,7 +146,7 @@ export const useEmployee = () => {
           toast.inventoryError('Error al editar operador')
         }
       })
-
+setIsLoading(false)
     }
   }
 
@@ -175,6 +180,8 @@ export const useEmployee = () => {
     changeActionRedux,
     deleteActualEmployee,
     onClickSave,
-    onEditSave
+    onEditSave,
+
+    isLoading
   }
 }

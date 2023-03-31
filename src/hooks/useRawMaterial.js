@@ -24,6 +24,7 @@ export const useRawMaterial = () => {
   const [viewModalIsOpen, setViewModalIsOpen] = useState(false)
 
   const [isSubmited, setIsSubmited] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
 
   const action = useSelector(state => state.crud.action)
 
@@ -66,8 +67,9 @@ export const useRawMaterial = () => {
     setIsSubmited(false)
   }
 
-  const deleteActualRawMaterial = () => {
-    dispatch(deleteRawMaterial(actualRawMaterial)).then(status => {
+  const deleteActualRawMaterial = async () => {
+    setIsLoading(true)
+    await dispatch(deleteRawMaterial(actualRawMaterial)).then(status => {
       if (status) {
         toast.invetorySuccess('Material eliminado con éxito')
         closeDeleteModal()
@@ -75,20 +77,22 @@ export const useRawMaterial = () => {
         toast.inventoryError('Error al eliminar material')
       }
     })
+    setIsLoading(false)
   }
 
   const setActualRawMaterialRedux = data => {
     dispatch(setActualRawMaterial(data))
   }
 
-  const onClickSave = e => {
+  const onClickSave = async e => {
     e.preventDefault()
     setIsSubmited(true)
     if (
       name !== '' &&
       unitMeasure !== {}
     ) {
-      dispatch(
+      setIsLoading(true)
+      await dispatch(
         createRawMaterial({
           name,
           uiName: name,
@@ -103,18 +107,19 @@ export const useRawMaterial = () => {
           toast.inventoryError('Error al registrar material')
         }
       })
-
+      setIsLoading(false)
     }
   }
 
-  const onEditSave = e => {
+  const onEditSave = async e => {
     e.preventDefault()
     setIsSubmited(true)
     if (
       name !== '' &&
       unitMeasure !== {}
     ) {
-      dispatch(
+      setIsLoading(true)
+      await dispatch(
         updatedRawMaterial({
           ...actualRawMaterial,
           name,
@@ -129,7 +134,7 @@ export const useRawMaterial = () => {
           toast.inventoryError('Error al editar material')
         }
       })
-
+      setIsLoading(false)
     }
   }
 
@@ -158,6 +163,7 @@ export const useRawMaterial = () => {
     onEditSave,
 
     viewModalIsOpen,
-    setViewModalIsOpen
+    setViewModalIsOpen,
+    isLoading
   }
 }

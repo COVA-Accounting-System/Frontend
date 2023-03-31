@@ -13,7 +13,7 @@ import {
   Flex
 } from '@chakra-ui/react'
 
-import { DeleteIcon } from '@chakra-ui/icons'
+import { AddIcon, DeleteIcon } from '@chakra-ui/icons'
 import { Button } from '../Button/Button'
 import FeaturesEditable from './FeaturesEditable'
 
@@ -61,22 +61,33 @@ const FeaturesFormControl = ({
           type='string'
           marginRight='10px'
         />
-        {featureInputValue !== '' ? (
+        <IconButton
+          size={'sm'}
+          height={'35px'}
+          isDisabled={featureInputValue !== '' ? false : true}
+          backgroundColor={'acsys.primaryColor'}
+          colorScheme='linkedin'
+          _hover={{ backgroundColor: '#098bb6' }}
+          icon={<AddIcon />}
+          // colorScheme='blue'
+          onClick={event => {
+            event.preventDefault()
+            const newListOfFeatures = [...listOfFeatures]
+            newListOfFeatures.push({ description: featureInputValue })
+            onAddFeature(newListOfFeatures)
+            setFeatureInputValue('')
+          }}
+        />
+        {/* {featureInputValue !== '' ? (
           <Button
             label='+'
             type='add'
             system='accounting'
-            onClick={event => {
-              event.preventDefault()
-              const newListOfFeatures = [...listOfFeatures]
-              newListOfFeatures.push({ description: featureInputValue })
-              onAddFeature(newListOfFeatures)
-              setFeatureInputValue('')
-            }}
+
           />
         ) : (
           <Button label='+' type='add-disabled' isDisabled={true} />
-        )}
+        )} */}
       </div>
       <div className='features-list-container'>
         <UnorderedList>

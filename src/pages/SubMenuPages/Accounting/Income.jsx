@@ -12,7 +12,8 @@ import {
   ModalCloseButton,
   Input,
   Stack,
-  Text
+  Text,
+  Button
 } from '@chakra-ui/react'
 
 // COMPONENTS IMPORTS
@@ -24,7 +25,6 @@ import DateFormControl from '../../../components/Input/DateFormControl'
 
 import DeleteModal from '../../../components/DeleteModal/DeleteModal'
 import Table from '../../../components/Table/Table'
-import { Button } from '../../../components/Button/Button'
 
 // HOOKS IMPORTS
 import { useIncome } from '../../../hooks/useIncome'
@@ -172,14 +172,17 @@ const Income = () => {
             </div>
             <div className='button-container'>
               <Button
-                label='Registrar ingreso'
-                type='login'
-                system='accounting'
+                backgroundColor={'acsys.primaryColor'}
+                _hover={{ backgroundColor: '#098bb6' }}
+                colorScheme='linkedin'
+                // color='white'
                 onClick={() => {
                   income.openModal()
                   income.changeActionRedux('create')
                 }}
-              />
+              >
+                Registrar ingreso
+              </Button>
             </div>
           </section>
           <section className='table-section'>
@@ -205,7 +208,9 @@ const Income = () => {
               fontWeight='700'
               fontSize='25px'
             >
-              {income.action === 'create' ? 'Registrar ingreso' : 'Editar ingreso'}
+              {income.action === 'create'
+                ? 'Registrar ingreso'
+                : 'Editar ingreso'}
             </ModalHeader>
             <ModalCloseButton color={'acsys.titleColor'} />
 
@@ -319,20 +324,25 @@ const Income = () => {
 
             <ModalFooter>
               <Button
-                label='Guardar'
-                type='confirm'
+                backgroundColor={'acsys.primaryColor'}
+                _hover={{ backgroundColor: '#098bb6' }}
+                colorScheme='linkedin'
+                isLoading={income.isLoading}
                 onClick={
                   income.action === 'create'
                     ? income.onClickSave
                     : income.onEditSave
                 }
-              />
+              >
+                Guardar
+              </Button>
             </ModalFooter>
           </form>
         </ModalContent>
       </Modal>
 
       <DeleteModal
+        isLoading={income.isLoading}
         modalIsOpen={income.deleteModalIsOpen}
         entityName='Ingreso'
         onClose={() => income.closeDeleteModal()}

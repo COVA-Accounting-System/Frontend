@@ -25,6 +25,7 @@ export const useProvider = () => {
   const [address, setAddress] = useState('')
 
   const [isSubmited, setIsSubmited] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
 
   const action = useSelector((state) => state.crud.action)
 
@@ -69,8 +70,9 @@ export const useProvider = () => {
     setIsSubmited(false)
   }
 
-  const deleteActualProvider = () => {
-    dispatch(deleteProvider(actualProvider)).then((status) => {
+  const deleteActualProvider = async () => {
+    setIsLoading(true)
+    await dispatch(deleteProvider(actualProvider)).then((status) => {
       if (status) {
         toast.invetorySuccess('Proveedor eliminado con éxito')
         closeDeleteModal()
@@ -78,17 +80,19 @@ export const useProvider = () => {
         toast.inventoryError('Error al eliminar proveedor')
       }
     })
+    setIsLoading(false)
   }
 
   const setActualProviderRedux = (data) => {
     dispatch(setActualProvider(data))
   }
 
-  const onClickSave = (e) => {
+  const onClickSave = async (e) => {
     e.preventDefault()
     setIsSubmited(true)
     if (storeName !== '') {
-      dispatch(
+      setIsLoading(true)
+      await dispatch(
         createProvider({
           ...actualProvider,
           storeName,
@@ -108,15 +112,16 @@ export const useProvider = () => {
           toast.inventoryError('Error al registrar proveedor')
         }
       })
-
+      setIsLoading(false)
     }
   }
 
-  const onEditSave = (e) => {
+  const onEditSave = async (e) => {
     e.preventDefault()
     setIsSubmited(true)
     if (storeName !== '') {
-      dispatch(
+      setIsLoading(true)
+      await dispatch(
         updateProvider({
           ...actualProvider,
           storeName,
@@ -135,7 +140,7 @@ export const useProvider = () => {
           toast.inventoryError('Error al editar proveedor')
         }
       })
-
+      setIsLoading(false)
     }
   }
 
@@ -167,6 +172,8 @@ export const useProvider = () => {
     changeActionRedux,
     deleteActualProvider,
     onClickSave,
-    onEditSave
+    onEditSave,
+
+    isLoading
   }
 }

@@ -39,6 +39,7 @@ export const useInventoryOutput = () => {
   const [estimatedPrice, setEstimatedPrice] = useState(0)
 
   const [isSubmited, setIsSubmited] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
 
   const action = useSelector(state => state.crud.action)
 
@@ -147,8 +148,9 @@ export const useInventoryOutput = () => {
     setEstimatedPrice(prevTotal => prevTotal - Number(material.price))
   }
 
-  const deleteActualInventoryOutput = () => {
-    dispatch(deleteInventoryOutput(actualInventoryOutput)).then(status => {
+  const deleteActualInventoryOutput = async () => {
+    setIsLoading(true)
+    await dispatch(deleteInventoryOutput(actualInventoryOutput)).then(status => {
       if (status) {
         toast.invetorySuccess('Salida de inventario eliminada con éxito')
         closeDeleteModal()
@@ -156,17 +158,19 @@ export const useInventoryOutput = () => {
         toast.inventoryError('Error al eliminar salida de inventario')
       }
     })
+    setIsLoading(false)
   }
 
   const setActualInventoryOutputRedux = data => {
     dispatch(setActualInventoryOutput(data))
   }
 
-  const onClickSave = e => {
+  const onClickSave = async e => {
     e.preventDefault()
     setIsSubmited(true)
     if (orderId !== '' && date !== '' && numberOfInput !== '') {
-      dispatch(
+      setIsLoading(true)
+      await dispatch(
         createInventoryOutput({
           numberOfInput,
           order: orderId,
@@ -189,15 +193,16 @@ export const useInventoryOutput = () => {
           toast.inventoryError('Error al registrar salida de inventario')
         }
       })
-
+      setIsLoading(false)
     }
   }
 
-  const onEditSave = e => {
+  const onEditSave = async e => {
     e.preventDefault()
     setIsSubmited(true)
     if (orderId !== '' && date !== '' && numberOfInput !== '') {
-      dispatch(
+      setIsLoading(true)
+      await dispatch(
         updateInventoryOutput({
           ...actualInventoryOutput,
           numberOfInput,
@@ -221,7 +226,7 @@ export const useInventoryOutput = () => {
           toast.inventoryError('Error al editar salida de inventario')
         }
       })
-
+      setIsLoading(false)
     }
   }
 
@@ -274,6 +279,8 @@ export const useInventoryOutput = () => {
     ordersList,
     materialsList,
     emptyFields,
-    validateRequiredFields
+    validateRequiredFields,
+    
+    isLoading
   }
 }

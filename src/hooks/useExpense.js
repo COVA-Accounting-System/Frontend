@@ -46,6 +46,7 @@ export const useExpense = () => {
   const [page, setPage] = useState(0)
 
   const [isSubmited, setIsSubmited] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
 
   const action = useSelector(state => state.crud.action)
 
@@ -114,8 +115,9 @@ export const useExpense = () => {
     setIsSubmited(false)
   }
 
-  const deleteActualExpense = () => {
-    dispatch(deleteExpense(actualExpense)).then(status => {
+  const deleteActualExpense = async () => {
+    setIsLoading(true)
+    await dispatch(deleteExpense(actualExpense)).then(status => {
       if (status) {
         toast.invetorySuccess('Gasto eliminado con éxito')
         closeDeleteModal()
@@ -123,6 +125,7 @@ export const useExpense = () => {
         toast.inventoryError('Error al eliminar gasto')
       }
     })
+    setIsLoading(false)
   }
 
   const setActualExpenseRedux = data => {
@@ -139,7 +142,8 @@ export const useExpense = () => {
       amount !== '' &&
       concept !== ''
     ) {
-      dispatch(
+      setIsLoading(true)
+      await dispatch(
         createExpense({
           accountingSeat,
           category: 'Materia prima',
@@ -157,10 +161,11 @@ export const useExpense = () => {
           toast.inventoryError('Error al registrar gasto')
         }
       })
+      setIsLoading(false)
     }
   }
 
-  const onClickSaveLabour = e => {
+  const onClickSaveLabour = async e => {
     e.preventDefault()
     setIsSubmited(true)
     if (
@@ -170,7 +175,8 @@ export const useExpense = () => {
       amount !== '' &&
       concept !== ''
     ) {
-      dispatch(
+      setIsLoading(true)
+      await dispatch(
         createExpense({
           accountingSeat,
           category: 'Mano de obra directa',
@@ -187,11 +193,11 @@ export const useExpense = () => {
           toast.inventoryError('Error al registrar gasto')
         }
       })
-
+      setIsLoading(false)
     }
   }
 
-  const onClickSaveIndirectCosts = e => {
+  const onClickSaveIndirectCosts = async e => {
     e.preventDefault()
     setIsSubmited(true)
     if (
@@ -201,7 +207,8 @@ export const useExpense = () => {
       amount !== '' &&
       concept !== ''
     ) {
-      dispatch(
+      setIsLoading(true)
+      await dispatch(
         createExpense({
           accountingSeat,
           category: 'Costos indirectos de fabricación',
@@ -218,11 +225,11 @@ export const useExpense = () => {
           toast.inventoryError('Error al registrar gasto')
         }
       })
-
+      setIsLoading(false)
     }
   }
 
-  const onClickEditRawMaterial = e => {
+  const onClickEditRawMaterial = async e => {
     e.preventDefault()
     setIsSubmited(true)
     if (
@@ -233,7 +240,8 @@ export const useExpense = () => {
       amount !== '' &&
       concept !== ''
     ) {
-      dispatch(
+      setIsLoading(true)
+      await dispatch(
         updateExpense({
           ...actualExpense,
           accountingSeat,
@@ -251,11 +259,11 @@ export const useExpense = () => {
           toast.inventoryError('Error al editar gasto')
         }
       })
-
+      setIsLoading(false)
     }
   }
 
-  const onClickEditLabour = e => {
+  const onClickEditLabour = async e => {
     e.preventDefault()
     setIsSubmited(true)
     if (
@@ -265,7 +273,8 @@ export const useExpense = () => {
       amount !== '' &&
       concept !== ''
     ) {
-      dispatch(
+      setIsLoading(true)
+      await dispatch(
         updateExpense({
           ...actualExpense,
           accountingSeat,
@@ -282,11 +291,11 @@ export const useExpense = () => {
           toast.inventoryError('Error al editar gasto')
         }
       })
-
+      setIsLoading(false)
     }
   }
 
-  const onClickEditIndirectCosts = e => {
+  const onClickEditIndirectCosts = async e => {
     e.preventDefault()
     setIsSubmited(true)
     if (
@@ -296,7 +305,8 @@ export const useExpense = () => {
       amount !== '' &&
       concept !== ''
     ) {
-      dispatch(
+      setIsLoading(true)
+      await dispatch(
         updateExpense({
           ...actualExpense,
           accountingSeat,
@@ -313,7 +323,7 @@ export const useExpense = () => {
           toast.inventoryError('Error al editar gasto')
         }
       })
-
+      setIsLoading(false)
     }
   }
 
@@ -375,6 +385,7 @@ export const useExpense = () => {
 
     page,
     setPage,
-    emptyFields
+    emptyFields,
+    isLoading
   }
 }

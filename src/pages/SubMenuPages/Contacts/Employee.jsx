@@ -10,7 +10,8 @@ import {
   ModalFooter,
   ModalBody,
   ModalCloseButton,
-  Input
+  Input,
+  Button
 } from '@chakra-ui/react'
 
 // COMPONENTS IMPORTS
@@ -21,7 +22,6 @@ import DateFormControl from '../../../components/Input/DateFormControl'
 import CountryFormControl from '../../../components/Input/CountryFormControl'
 import DeleteModal from '../../../components/DeleteModal/DeleteModal'
 import Table from '../../../components/Table/Table'
-import { Button } from '../../../components/Button/Button'
 
 // HOOKS IMPORTS
 import { useEmployee } from '../../../hooks/useEmployee'
@@ -185,14 +185,17 @@ const Employee = () => {
             </div>
             <div className='button-container'>
               <Button
-                label='Registrar operador'
-                type='login'
-                system='accounting'
+                backgroundColor={'acsys.primaryColor'}
+                _hover={{ backgroundColor: '#098bb6' }}
+                colorScheme='linkedin'
+                // color='white'
                 onClick={() => {
                   employee.openModal()
                   employee.changeActionRedux('create')
                 }}
-              />
+              >
+                Registrar operador
+              </Button>
             </div>
           </section>
           <section className='table-section'>
@@ -216,7 +219,9 @@ const Employee = () => {
             fontWeight='700'
             fontSize='25px'
           >
-            {employee.action === 'create' ? 'Registrar operador' : 'Editar operador'}
+            {employee.action === 'create'
+              ? 'Registrar operador'
+              : 'Editar operador'}
           </ModalHeader>
           <ModalCloseButton color={'acsys.titleColor'} />
 
@@ -293,19 +298,24 @@ const Employee = () => {
 
           <ModalFooter>
             <Button
-              label='Guardar'
-              type='confirm'
+              backgroundColor={'acsys.primaryColor'}
+              _hover={{ backgroundColor: '#098bb6' }}
+              colorScheme='linkedin'
+              isLoading={employee.isLoading}
               onClick={
                 employee.action === 'create'
                   ? employee.onClickSave
                   : employee.onEditSave
               }
-            />
+            >
+              Guardar
+            </Button>
           </ModalFooter>
         </ModalContent>
       </Modal>
 
       <DeleteModal
+        isLoading={employee.isLoading}
         modalIsOpen={employee.deleteModalIsOpen}
         entityName='Operador'
         onClose={() => employee.closeDeleteModal()}

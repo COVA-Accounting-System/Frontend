@@ -109,7 +109,7 @@ export const useProduct = () => {
       productPrice !== '' &&
       productDozenPrice !== ''
     ) {
-      await setLoading(true)
+       setLoading(true)
       await dispatch(
         createProduct({
           productName,
@@ -141,9 +141,7 @@ export const useProduct = () => {
       productPrice !== '' &&
       productDozenPrice !== ''
     ) {
-    
-      // console.log('aaaa')
-      await setLoading(true)
+       setLoading(true)
      await dispatch(
         updateProduct({
           ...actualProduct,

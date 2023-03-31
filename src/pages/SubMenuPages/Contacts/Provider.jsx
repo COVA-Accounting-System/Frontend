@@ -10,7 +10,8 @@ import {
   ModalFooter,
   ModalBody,
   ModalCloseButton,
-  Input
+  Input,
+  Button
 } from '@chakra-ui/react'
 
 // COMPONENTS IMPORTS
@@ -20,7 +21,6 @@ import PhoneFormControl from '../../../components/Input/PhoneFormControl'
 import CountryFormControl from '../../../components/Input/CountryFormControl'
 import DeleteModal from '../../../components/DeleteModal/DeleteModal'
 import Table from '../../../components/Table/Table'
-import { Button } from '../../../components/Button/Button'
 
 // HOOKS IMPORTS
 import { useProvider } from '../../../hooks/useProvider'
@@ -92,7 +92,7 @@ const Provider = () => {
         colId: 'Actions',
         cellRendererParams: {
           onView: () => {},
-          onEdit: (data) => {
+          onEdit: data => {
             provider.setStoreName(data.storeName)
             provider.setNit(data.nit)
             provider.setCountry(data.country)
@@ -104,7 +104,7 @@ const Provider = () => {
             provider.setActualProviderRedux(data)
             provider.openModal()
           },
-          onDelete: (data) => {
+          onDelete: data => {
             provider.setDeleteModalIsOpen(true)
             provider.setActualProviderRedux(data)
           }
@@ -117,10 +117,10 @@ const Provider = () => {
   const gridOptions = useMemo(
     () => ({
       pagination: false,
-      onGridReady: (params) => {
+      onGridReady: params => {
         // params.columnApi.autoSizeAllColumns();
       },
-      onGridSizeChanged: (params) => {
+      onGridSizeChanged: params => {
         // params.columnApi.autoSizeAllColumns();
       },
       columnDefs,
@@ -161,14 +161,17 @@ const Provider = () => {
             </div>
             <div className='button-container'>
               <Button
-                label='Registrar proveedor'
-                type='login'
-                system='accounting'
+                backgroundColor={'acsys.primaryColor'}
+                _hover={{ backgroundColor: '#098bb6' }}
+                colorScheme='linkedin'
+                // color='white'
                 onClick={() => {
                   provider.openModal()
                   provider.changeActionRedux('create')
                 }}
-              />
+              >
+                Registrar proveedor
+              </Button>
             </div>
           </section>
           <section className='table-section'>
@@ -192,9 +195,11 @@ const Provider = () => {
             fontWeight='700'
             fontSize='25px'
           >
-            {provider.action === 'create' ? 'Registrar proveedor' : 'Editar proveedor'}
+            {provider.action === 'create'
+              ? 'Registrar proveedor'
+              : 'Editar proveedor'}
           </ModalHeader>
-          <ModalCloseButton color={'acsys.titleColor'}/>
+          <ModalCloseButton color={'acsys.titleColor'} />
 
           <ModalBody pb={3}>
             <form className='three-rows-grid'>
@@ -203,7 +208,7 @@ const Provider = () => {
                   labelName='Nombre de la tienda'
                   paddingSpace={0}
                   value={provider.storeName}
-                  onInput={(data) => provider.setStoreName(data)}
+                  onInput={data => provider.setStoreName(data)}
                   isSubmited={provider.isSubmited}
                   isRequired
                   isRequiredMessage='Este campo es obligatorio'
@@ -212,7 +217,7 @@ const Provider = () => {
                   labelName='NIT'
                   paddingSpace={0}
                   value={provider.nit}
-                  onInput={(data) => provider.setNit(data)}
+                  onInput={data => provider.setNit(data)}
                   // isSubmited={provider.isSubmited}
                   isRequired={false}
                   // isRequiredMessage="Este campo es obligatorio"
@@ -222,13 +227,13 @@ const Provider = () => {
                 <CountryFormControl
                   labelName='País'
                   value={provider.country}
-                  onSelectCountry={(data) => provider.setCountry(data)}
+                  onSelectCountry={data => provider.setCountry(data)}
                 />
                 <TextFormControl
                   labelName='Ciudad'
                   paddingSpace={4}
                   value={provider.city}
-                  onInput={(data) => provider.setCity(data)}
+                  onInput={data => provider.setCity(data)}
                   // isSubmited={provider.isSubmited}
                   isRequired={false}
                   // isRequiredMessage='Este campo es obligatorio'
@@ -239,7 +244,7 @@ const Provider = () => {
                   labelName='Dirección'
                   paddingSpace={4}
                   value={provider.address}
-                  onInput={(data) => provider.setAddress(data)}
+                  onInput={data => provider.setAddress(data)}
                   // isSubmited={provider.isSubmited}
                   isRequired={false}
                   // isRequiredMessage='Este campo es obligatorio'
@@ -247,32 +252,36 @@ const Provider = () => {
                 <PhoneFormControl
                   phoneNumberValue={provider.phoneNumber}
                   phoneCountryCodeValue={provider.phoneCountryCode}
-                  phoneNumberOnInput={(number) => {
+                  phoneNumberOnInput={number => {
                     provider.setPhoneNumber(number)
                   }}
-                  phoneCountryCodeOnInput={(number) => {
+                  phoneCountryCodeOnInput={number => {
                     provider.setPhoneCountryCode(number)
                   }}
                 />
               </div>
             </form>
           </ModalBody>
-
           <ModalFooter>
             <Button
-              label='Guardar'
-              type='confirm'
+              backgroundColor={'acsys.primaryColor'}
+              _hover={{ backgroundColor: '#098bb6' }}
+              colorScheme='linkedin'
+              isLoading={provider.isLoading}
               onClick={
                 provider.action === 'create'
                   ? provider.onClickSave
                   : provider.onEditSave
               }
-            />
+            >
+              Guardar
+            </Button>
           </ModalFooter>
         </ModalContent>
       </Modal>
 
       <DeleteModal
+      isLoading={provider.isLoading}
         modalIsOpen={provider.deleteModalIsOpen}
         entityName='Proveedor'
         onClose={() => provider.closeDeleteModal()}

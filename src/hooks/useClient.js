@@ -23,7 +23,9 @@ export const useClient = () => {
   const [phoneCountryCode, setPhoneCountryCode] = useState('')
   const [phoneNumber, setPhoneNumber] = useState('')
   const [address, setAddress] = useState('')
+
   const [isSubmited, setIsSubmited] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
 
   const action = useSelector(state => state.crud.action)
 
@@ -66,8 +68,9 @@ export const useClient = () => {
     setIsSubmited(false)
   }
 
-  const deleteActualClient = () => {
-    dispatch(deleteClient(actualClient)).then(status => {
+  const deleteActualClient = async () => {
+    setIsLoading(true)
+    await dispatch(deleteClient(actualClient)).then(status => {
       if (status) {
         toast.invetorySuccess('Cliente eliminado con éxito')
         closeDeleteModal()
@@ -75,17 +78,19 @@ export const useClient = () => {
         toast.inventoryError('Error al eliminar cliente')
       }
     })
+    setIsLoading(false)
   }
 
   const setActualClientRedux = data => {
     dispatch(setActualClient(data))
   }
 
-  const onClickSave = e => {
+  const onClickSave = async e => {
     e.preventDefault()
     setIsSubmited(true)
     if (name !== '' && lastName !== '') {
-      dispatch(
+      setIsLoading(true)
+      await dispatch(
         createClient({
           name,
           lastName,
@@ -102,15 +107,16 @@ export const useClient = () => {
           toast.inventoryError('Error al registrar cliente')
         }
       })
-  
+      setIsLoading(false)
     }
   }
 
-  const onEditSave = e => {
+  const onEditSave = async e => {
     e.preventDefault()
     setIsSubmited(true)
     if (name !== '' && lastName !== '') {
-      dispatch(
+      setIsLoading(true)
+      await dispatch(
         updateClient({
           ...actualClient,
           name,
@@ -128,7 +134,7 @@ export const useClient = () => {
           toast.inventoryError('Error al editar cliente')
         }
       })
- 
+      setIsLoading(false)
     }
   }
 
@@ -159,6 +165,9 @@ export const useClient = () => {
     changeActionRedux,
     deleteActualClient,
     onClickSave,
-    onEditSave
+    onEditSave,
+
+    isLoading,
+    setIsLoading
   }
 }

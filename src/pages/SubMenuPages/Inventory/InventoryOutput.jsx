@@ -1,14 +1,13 @@
 import React, { useMemo, useCallback, useRef } from 'react'
 
 // CHAKRA UI IMPORTS
-import { Input } from '@chakra-ui/react'
+import { Input, Button } from '@chakra-ui/react'
 
 // COMPONENTS IMPORTS
 import DataTableActions from '../../../components/DataTableActions/DataTableActions'
 import DeleteModal from '../../../components/DeleteModal/DeleteModal'
 import Table from '../../../components/Table/Table'
 import RegisterInventoryOutput from '../../../components/InventoryOutputModal/RegisterInventoryOutput'
-import { Button } from '../../../components/Button/Button'
 
 // HOOKS IMPORTS
 import { useInventoryOutput } from '../../../hooks/useInventoryOutput'
@@ -27,7 +26,7 @@ const InventoryOutput = () => {
         field: 'numberOfInput',
         resizable: true,
         sortable: true,
-        unSortIcon: true,
+        unSortIcon: true
         // maxWidth: 300,
       },
       {
@@ -47,7 +46,7 @@ const InventoryOutput = () => {
         },
         resizable: true,
         sortable: true,
-        unSortIcon: true,
+        unSortIcon: true
         // maxWidth: 177,
       },
       {
@@ -145,14 +144,17 @@ const InventoryOutput = () => {
 
             <div className='button-container'>
               <Button
-                label='Registrar salida'
-                type='login'
-                system='accounting'
+                backgroundColor={'acsys.primaryColor'}
+                _hover={{ backgroundColor: '#098bb6' }}
+                colorScheme='linkedin'
+                // color='white'
                 onClick={() => {
-                    inventoryOutput.openModal()
-                    inventoryOutput.changeActionRedux('create')
+                  inventoryOutput.openModal()
+                  inventoryOutput.changeActionRedux('create')
                 }}
-              />
+              >
+                Registrar salida
+              </Button>
             </div>
           </section>
           <section className='table-section'>
@@ -166,6 +168,7 @@ const InventoryOutput = () => {
       </div>
       <RegisterInventoryOutput inventoryOutputHook={inventoryOutput} />
       <DeleteModal
+        isLoading={inventoryOutput.isLoading}
         modalIsOpen={inventoryOutput.deleteModalIsOpen}
         entityName='Entrada'
         onClose={() => inventoryOutput.closeDeleteModal()}

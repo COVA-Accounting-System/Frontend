@@ -7,6 +7,7 @@ import {
   ModalHeader,
   ModalBody,
   ModalCloseButton,
+  Button,
   Stack,
   ModalFooter,
   Divider,
@@ -31,8 +32,6 @@ import DateFormControl from '../Input/DateFormControl'
 import TextFormControl from '../Input/TextFormControl'
 import PriceFormControl from '../Input/PriceFormControl'
 import UnitMeasureFormControl from '../Input/UnitMeasureFormControl'
-
-import { Button } from '../Button/Button'
 
 const RegisterInventoryOutput = ({ inventoryOutputHook }) => {
   return (
@@ -129,13 +128,16 @@ const RegisterInventoryOutput = ({ inventoryOutputHook }) => {
                 />
                 <Flex alignItems={'flex-end'}>
                   <IconButton
+                  size={'sm'}
+                  height={'35px'}
                     isDisabled={
                       inventoryOutputHook.unitMeasure === '' ||
                       inventoryOutputHook.amount === '' ||
                       inventoryOutputHook.price === ''
                     }
                     backgroundColor={'acsys.primaryColor'}
-                    _hover={{ boxShadow: '0px 3px 10px #a3aab7' }}
+                    colorScheme='linkedin'
+                    _hover={{ backgroundColor: '#098bb6' }}
                     icon={<AddIcon />}
                     // colorScheme='blue'
                     onClick={inventoryOutputHook.onClickAddMaterial}
@@ -209,14 +211,18 @@ const RegisterInventoryOutput = ({ inventoryOutputHook }) => {
             // width={'100%'}
           >
             <Button
-              label='Guardar'
-              type='confirm'
+              backgroundColor={'acsys.primaryColor'}
+              _hover={{ backgroundColor: '#098bb6' }}
+              colorScheme='linkedin'
+              isLoading={inventoryOutputHook.isLoading}
               onClick={
                 inventoryOutputHook.action === 'create'
                   ? inventoryOutputHook.onClickSave
                   : inventoryOutputHook.onEditSave
               }
-            />
+            >
+              Guardar
+            </Button>
           </Stack>
         </ModalFooter>
       </ModalContent>

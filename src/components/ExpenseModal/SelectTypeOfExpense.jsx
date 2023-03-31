@@ -6,10 +6,10 @@ import {
   ModalCloseButton,
   Stack,
   Checkbox,
-  ModalFooter
+  ModalFooter,
+  Button
 } from '@chakra-ui/react'
 
-import { Button } from '../Button/Button'
 
 const SelectTypeOfExpense = ({ expenseHook, inventoryInputHook }) => {
   return (
@@ -82,14 +82,10 @@ const SelectTypeOfExpense = ({ expenseHook, inventoryInputHook }) => {
       </ModalBody>
       <ModalFooter>
         <Button
-          label='Siguiente'
-          type={
-            expenseHook.typeOfExpense.rawMaterial ||
-            expenseHook.typeOfExpense.labour ||
-            expenseHook.typeOfExpense.indirectCosts
-              ? 'confirm'
-              : 'confirm-disabled'
-          }
+          backgroundColor={'acsys.primaryColor'}
+          _hover={{ backgroundColor: '#098bb6' }}
+          colorScheme='linkedin'
+          // isLoading={expenseHook.isLoading}
           isDisabled={
             expenseHook.typeOfExpense.rawMaterial ||
             expenseHook.typeOfExpense.labour ||
@@ -98,7 +94,9 @@ const SelectTypeOfExpense = ({ expenseHook, inventoryInputHook }) => {
               : true
           }
           onClick={() => expenseHook.setPage(prev => prev + 1)}
-        />
+        >
+          Siguiente
+        </Button>
       </ModalFooter>
     </>
   )

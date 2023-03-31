@@ -5,6 +5,7 @@ import {
   ModalHeader,
   ModalBody,
   ModalCloseButton,
+  Button,
   Stack,
   ModalFooter,
   Divider,
@@ -29,8 +30,6 @@ import DateFormControl from '../Input/DateFormControl'
 import TextFormControl from '../Input/TextFormControl'
 import PriceFormControl from '../Input/PriceFormControl'
 import UnitMeasureFormControl from '../Input/UnitMeasureFormControl'
-
-import { Button } from '../Button/Button'
 
 const RegisterInventoryEntry = ({ expenseHook, inventoryInputHook }) => {
   return (
@@ -110,13 +109,16 @@ const RegisterInventoryEntry = ({ expenseHook, inventoryInputHook }) => {
               />
               <Flex alignItems={'flex-end'}>
                 <IconButton
+                size={'sm'}
+                height={'35px'}
                   isDisabled={
                     inventoryInputHook.unitMeasure === '' ||
                     inventoryInputHook.amount === '' ||
                     inventoryInputHook.price === ''
                   }
                   backgroundColor={'acsys.primaryColor'}
-                  _hover={{ boxShadow: '0px 3px 10px #a3aab7' }}
+                  colorScheme='linkedin'
+                  _hover={{ backgroundColor: '#098bb6' }}
                   icon={<AddIcon />}
                   // colorScheme='blue'
                   onClick={inventoryInputHook.onClickAddMaterial}
@@ -187,21 +189,29 @@ const RegisterInventoryEntry = ({ expenseHook, inventoryInputHook }) => {
           width={'100%'}
         >
           <Button
-            label='Anterior'
-            type='confirm'
+            backgroundColor={'acsys.primaryColor'}
+            _hover={{ backgroundColor: '#098bb6' }}
+            colorScheme='linkedin'
+            // isLoading={expenseHook.isLoading}
             onClick={() => {
               expenseHook.setPage(prev => prev - 1)
             }}
-          />
+          >
+            Anterior
+          </Button>
           <Button
-            label='Siguiente'
-            type='confirm'
+            backgroundColor={'acsys.primaryColor'}
+            _hover={{ backgroundColor: '#098bb6' }}
+            colorScheme='linkedin'
+            // isLoading={expenseHook.isLoading}
             onClick={() => {
               const validate = inventoryInputHook.validateRequiredFields()
               expenseHook.setAmount(inventoryInputHook.totalPrice)
               if (validate) expenseHook.setPage(prev => prev + 1)
             }}
-          />
+          >
+            Siguiente
+          </Button>
         </Stack>
       </ModalFooter>
     </>

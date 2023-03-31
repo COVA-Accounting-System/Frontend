@@ -7,12 +7,9 @@ import ExpenseModal from '../../../components/ExpenseModal/ExpenseModal'
 
 import DeleteModal from '../../../components/DeleteModal/DeleteModal'
 import Table from '../../../components/Table/Table'
-import { Button } from '../../../components/Button/Button'
 
 // CHAKRA UI IMPORTS
-import {
-  Input
-} from '@chakra-ui/react'
+import { Input, Button } from '@chakra-ui/react'
 
 // HOOKS IMPORTS
 import { useExpense } from '../../../hooks/useExpense'
@@ -65,7 +62,7 @@ const Expense = () => {
         },
         resizable: true,
         sortable: true,
-        unSortIcon: true,
+        unSortIcon: true
       },
       {
         headerName: 'Concepto',
@@ -82,7 +79,7 @@ const Expense = () => {
         },
         resizable: true,
         sortable: true,
-        unSortIcon: true,
+        unSortIcon: true
       },
       {
         headerName: ' ',
@@ -160,14 +157,17 @@ const Expense = () => {
             </div>
             <div className='button-container'>
               <Button
-                label='Registrar gasto'
-                type='login'
-                system='accounting'
+                backgroundColor={'acsys.primaryColor'}
+                _hover={{ backgroundColor: '#098bb6' }}
+                colorScheme='linkedin'
+                // color='white'
                 onClick={() => {
                   expense.openModal()
                   expense.changeActionRedux('create')
                 }}
-              />
+              >
+                Registrar gasto
+              </Button>
             </div>
           </section>
           <section className='table-section'>
@@ -179,9 +179,10 @@ const Expense = () => {
           </section>
         </div>
       </div>
-     <ExpenseModal expenseHook={expense} inventoryInputHook={inventoryInput}/>
+      <ExpenseModal expenseHook={expense} inventoryInputHook={inventoryInput} />
 
       <DeleteModal
+        isLoading={expense.isLoading}
         modalIsOpen={expense.deleteModalIsOpen}
         entityName='Gasto'
         onClose={() => expense.closeDeleteModal()}
@@ -194,7 +195,3 @@ const Expense = () => {
 }
 
 export default Expense
-
-
-
-

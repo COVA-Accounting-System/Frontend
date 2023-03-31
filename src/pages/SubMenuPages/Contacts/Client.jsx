@@ -10,7 +10,8 @@ import {
   ModalFooter,
   ModalBody,
   ModalCloseButton,
-  Input
+  Input,
+  Button
 } from '@chakra-ui/react'
 
 // COMPONENTS IMPORTS
@@ -20,7 +21,6 @@ import TextFormControl from '../../../components/Input/TextFormControl'
 import PhoneFormControl from '../../../components/Input/PhoneFormControl'
 import DeleteModal from '../../../components/DeleteModal/DeleteModal'
 import Table from '../../../components/Table/Table'
-import { Button } from '../../../components/Button/Button'
 
 // HOOKS IMPORTS
 import { useClient } from '../../../hooks/useClient'
@@ -157,15 +157,18 @@ const Client = () => {
             </div>
             <div className='button-container'>
               <Button
-                label='Registrar cliente'
-                type='login'
-                system='accounting'
+                backgroundColor={'acsys.primaryColor'}
+                _hover={{ backgroundColor: '#098bb6' }}
+                colorScheme='linkedin'
+                // color='white'
                 onClick={() => {
                   client.openModal()
                   client.changeActionRedux('create')
                   // dispatch(changeAction("create"));
                 }}
-              />
+              >
+                Registrar cliente
+              </Button>
             </div>
           </section>
           <section className='table-section'>
@@ -192,7 +195,9 @@ const Client = () => {
               fontWeight='700'
               fontSize='25px'
             >
-              {client.action === 'create' ? 'Registrar cliente' : 'Editar cliente'}
+              {client.action === 'create'
+                ? 'Registrar cliente'
+                : 'Editar cliente'}
             </ModalHeader>
             <ModalCloseButton color={'acsys.titleColor'} />
             <ModalBody pb={3}>
@@ -240,14 +245,18 @@ const Client = () => {
 
             <ModalFooter>
               <Button
-                label='Guardar'
-                type='confirm'
+                backgroundColor={'acsys.primaryColor'}
+                _hover={{ backgroundColor: '#098bb6' }}
+                colorScheme='linkedin'
+                isLoading={client.isLoading}
                 onClick={
                   client.action === 'create'
                     ? client.onClickSave
                     : client.onEditSave
                 }
-              />
+              >
+                Guardar
+              </Button>
             </ModalFooter>
           </form>
         </ModalContent>
@@ -259,6 +268,7 @@ const Client = () => {
         }}
       />
       <DeleteModal
+        isLoading={client.isLoading}
         modalIsOpen={client.deleteModalIsOpen}
         entityName='Cliente'
         onClose={() => client.closeDeleteModal()}

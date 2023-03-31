@@ -9,7 +9,8 @@ import {
   ModalFooter,
   ModalBody,
   ModalCloseButton,
-  Input
+  Input,
+  Button
 } from '@chakra-ui/react'
 
 import unitMeasures from '../../../assets/unitMeasures'
@@ -21,7 +22,6 @@ import SelectEntityFormControl from '../../../components/Input/SelectEntityFormC
 import FeaturesFormControl from '../../../components/Input/FeaturesFormControl'
 import DeleteModal from '../../../components/DeleteModal/DeleteModal'
 import Table from '../../../components/Table/Table'
-import { Button } from '../../../components/Button/Button'
 
 // HOOKS IMPORTS
 import { useRawMaterial } from '../../../hooks/useRawMaterial'
@@ -147,14 +147,17 @@ const RawMaterial = () => {
             </div>
             <div className='button-container'>
               <Button
-                label='Registrar material'
-                type='login'
-                system='accounting'
+                backgroundColor={'acsys.primaryColor'}
+                _hover={{ backgroundColor: '#098bb6' }}
+                colorScheme='linkedin'
+                // color='white'
                 onClick={() => {
                   rawMaterial.openModal()
                   rawMaterial.changeActionRedux('create')
                 }}
-              />
+              >
+                Registrar materia prima
+              </Button>
             </div>
           </section>
           <section className='table-section'>
@@ -231,19 +234,24 @@ const RawMaterial = () => {
 
           <ModalFooter>
             <Button
-              label='Guardar'
-              type='confirm'
+              backgroundColor={'acsys.primaryColor'}
+              _hover={{ backgroundColor: '#098bb6' }}
+              colorScheme='linkedin'
+              isLoading={rawMaterial.isLoading}
               onClick={
                 rawMaterial.action === 'create'
                   ? rawMaterial.onClickSave
                   : rawMaterial.onEditSave
               }
-            />
+            >
+              Guardar
+            </Button>
           </ModalFooter>
         </ModalContent>
       </Modal>
 
       <DeleteModal
+        isLoading={rawMaterial.isLoading}
         modalIsOpen={rawMaterial.deleteModalIsOpen}
         entityName='Material'
         onClose={() => rawMaterial.closeDeleteModal()}
