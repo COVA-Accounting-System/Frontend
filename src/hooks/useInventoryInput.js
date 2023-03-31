@@ -158,25 +158,38 @@ export const useInventoryInput = () => {
     // e.preventDefault()
     setIsSubmited(true)
     if (providerId !== '' && date !== '' && numberOfInput !== '') {
-
-        const response =  dispatch(
-          createInventoryInput({
-            numberOfInput,
-            provider: providerId,
-            date,
-            totalPrice,
-            listOfMaterials: listOfMaterials.map(material => {
-              return {
-                rawMaterial: material.rawMaterial._id,
-                amount: material.amount,
-                price: material.price,
-                unitMeasure: material.unitMeasure
-              }
-            })
-          })
-        )
-        return response
+      return {
+        numberOfInput,
+        provider: providerId,
+        date,
+        totalPrice,
+        listOfMaterials: listOfMaterials.map(material => {
+          return {
+            rawMaterial: material.rawMaterial._id,
+            amount: material.amount,
+            price: material.price,
+            unitMeasure: material.unitMeasure
+          }
+        })
       }
+      // const response =  dispatch(
+      //   createInventoryInput({
+      //     numberOfInput,
+      //     provider: providerId,
+      //     date,
+      //     totalPrice,
+      //     listOfMaterials: listOfMaterials.map(material => {
+      //       return {
+      //         rawMaterial: material.rawMaterial._id,
+      //         amount: material.amount,
+      //         price: material.price,
+      //         unitMeasure: material.unitMeasure
+      //       }
+      //     })
+      //   })
+      // )
+    }
+    return null
   }
 
   const onEditSave = e => {
@@ -207,7 +220,6 @@ export const useInventoryInput = () => {
           toast.inventoryError('Error al editar entrada')
         }
       })
-
     }
   }
 

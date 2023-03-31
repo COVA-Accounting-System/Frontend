@@ -55,10 +55,8 @@ export const createInventoryInput = data => async dispatch => {
   try {
     const newInventoryInput = await inventoryInputInstance.post('/', data)
     dispatch(addInventoryInput(newInventoryInput.data))
-    toast.invetorySuccess('Entrada de inventario creada con éxito')
     return newInventoryInput
   } catch (err) {
-    toast.inventoryError('Error al registrar entrada de inventario')
     console.error(err)
   }
 }

@@ -31,7 +31,7 @@ import TextFormControl from '../Input/TextFormControl'
 import PriceFormControl from '../Input/PriceFormControl'
 import UnitMeasureFormControl from '../Input/UnitMeasureFormControl'
 
-const RegisterInventoryEntry = ({ expenseHook, inventoryInputHook }) => {
+const RegisterInventoryEntry = ({ expenseHook, inventoryInputHook, isFromExpense }) => {
   return (
     <>
       <ModalHeader color='acsys.titleColor' fontWeight='700' fontSize='25px'>
@@ -185,7 +185,7 @@ const RegisterInventoryEntry = ({ expenseHook, inventoryInputHook }) => {
       <ModalFooter>
         <Stack
           direction={'row'}
-          justifyContent={'space-between'}
+          justifyContent={isFromExpense ? 'space-between' : 'flex-end'}
           width={'100%'}
         >
           <Button
@@ -196,6 +196,7 @@ const RegisterInventoryEntry = ({ expenseHook, inventoryInputHook }) => {
             onClick={() => {
               expenseHook.setPage(prev => prev - 1)
             }}
+            hidden={!isFromExpense}
           >
             Anterior
           </Button>

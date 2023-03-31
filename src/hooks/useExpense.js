@@ -6,7 +6,8 @@ import {
   createExpense,
   updateExpense,
   deleteExpense,
-  setActualExpense
+  setActualExpense,
+  createExpenseAndInventoryInput
 } from '../reducers/expenses'
 
 import { getAllProviders } from '../reducers/providers'
@@ -133,7 +134,6 @@ export const useExpense = () => {
   }
 
   const onClickSaveRawMaterial = async inventoryData => {
- 
     setIsSubmited(true)
     if (
       accountingSeat !== '' &&
@@ -143,17 +143,16 @@ export const useExpense = () => {
       concept !== ''
     ) {
       setIsLoading(true)
-      await dispatch(
-        createExpense({
-          accountingSeat,
-          category: 'Materia prima',
-          creditorProvider: creditorProviderId,
-          inventoryInput: inventoryData._id,
-          date,
-          amount,
-          concept
-        })
-      ).then(status => {
+
+      const expenseData = {
+        accountingSeat,
+        category: 'Materia prima',
+        creditorProvider: creditorProviderId,
+        date,
+        amount,
+        concept
+      }
+      await dispatch(createExpenseAndInventoryInput(expenseData, inventoryData)).then(status => {
         if (status) {
           toast.invetorySuccess('Gasto registrado con éxito')
           closeModal()

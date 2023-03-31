@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import axios from 'axios'
+import { addInventoryInput } from './inventoryInputs'
 
 export const expenseInstance = axios.create({
   baseURL: `${process.env.REACT_APP_DATA_API}/accounting/expense`,
@@ -48,6 +49,21 @@ export const getAllExpenses = () => async dispatch => {
     console.error(err)
   }
 }
+
+export const createExpenseAndInventoryInput =
+  (expenseData, inventoryData) => async dispatch => {
+    try {
+      const newExpense = await expenseInstance.post(
+        '/createExpenseOfInventoryInput',
+        { expenseData, inventoryData }
+      )
+      dispatch(addExpense(newExpense.data.expense))
+      dispatch(addInventoryInput(newExpense.data.inventoryInput))
+      return newExpense.status
+    } catch (err) {
+      console.error(err)
+    }
+  }
 
 export const createExpense = data => async dispatch => {
   try {

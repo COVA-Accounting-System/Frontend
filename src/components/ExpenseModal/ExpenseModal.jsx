@@ -7,7 +7,7 @@ import SelectTypeOfExpense from './SelectTypeOfExpense'
 import RegisterInventoryEntry from './RegisterInventoryEntry'
 import RegisterExpense from './RegisterExpense'
 
-const ExpenseModal = ({ expenseHook, inventoryInputHook }) => {
+const ExpenseModal = ({ expenseHook, inventoryInputHook, isFromExpense }) => {
   return (
     <Modal
       size='lg'
@@ -35,6 +35,7 @@ const ExpenseModal = ({ expenseHook, inventoryInputHook }) => {
           <RegisterInventoryEntry
             expenseHook={expenseHook}
             inventoryInputHook={inventoryInputHook}
+            isFromExpense={isFromExpense}
           />
         ) : (
           <RegisterExpense

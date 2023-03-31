@@ -179,7 +179,11 @@ const Expense = () => {
           </section>
         </div>
       </div>
-      <ExpenseModal expenseHook={expense} inventoryInputHook={inventoryInput} />
+      <ExpenseModal
+        expenseHook={expense}
+        inventoryInputHook={inventoryInput}
+        isFromExpense={true}
+      />
 
       <DeleteModal
         isLoading={expense.isLoading}

@@ -1,17 +1,17 @@
 import React, { useMemo, useCallback, useRef } from 'react'
 
 // CHAKRA UI IMPORTS
-import {
-  Input
-} from '@chakra-ui/react'
+import { Input, Button } from '@chakra-ui/react'
 
 // COMPONENTS IMPORTS
 import DataTableActions from '../../../components/DataTableActions/DataTableActions'
 import DeleteModal from '../../../components/DeleteModal/DeleteModal'
 import Table from '../../../components/Table/Table'
+import ExpenseModal from '../../../components/ExpenseModal/ExpenseModal'
 
 // HOOKS IMPORTS
 import { useInventoryInput } from '../../../hooks/useInventoryInput'
+import { useExpense } from '../../../hooks/useExpense'
 
 // STYLES IMPORTS
 import '../Template.styles.scss'
@@ -19,6 +19,7 @@ import '../Template.styles.scss'
 const InventoryInput = () => {
   const gridRef = useRef()
   const inventoryInput = useInventoryInput()
+  const expense = useExpense()
 
   const columnDefs = useMemo(
     () => [
@@ -27,7 +28,7 @@ const InventoryInput = () => {
         field: 'numberOfInput',
         resizable: true,
         sortable: true,
-        unSortIcon: true,
+        unSortIcon: true
         // width: 150
         // maxWidth: 300,
       },
@@ -48,7 +49,7 @@ const InventoryInput = () => {
         },
         resizable: true,
         sortable: true,
-        unSortIcon: true,
+        unSortIcon: true
         // maxWidth: 177,
       },
       {
@@ -144,7 +145,24 @@ const InventoryInput = () => {
               />
             </div>
             <div className='button-container'>
-             
+              <Button
+                backgroundColor={'acsys.primaryColor'}
+                _hover={{ backgroundColor: '#098bb6' }}
+                colorScheme='linkedin'
+                // color='white'
+                onClick={() => {
+                  expense.openModal()
+                  expense.changeActionRedux('create')
+                  expense.setPage(1)
+                  expense.setTypeOfExpense({
+                    rawMaterial: true,
+                    labour: false,
+                    indirectCosts: false
+                  })
+                }}
+              >
+                Registrar entrada
+              </Button>
             </div>
           </section>
           <section className='table-section'>
@@ -156,13 +174,17 @@ const InventoryInput = () => {
           </section>
         </div>
       </div>
-
+      <ExpenseModal
+        expenseHook={expense}
+        inventoryInputHook={inventoryInput}
+        isFromExpense={false}
+      />
       <DeleteModal
         modalIsOpen={inventoryInput.deleteModalIsOpen}
         entityName='Entrada'
         onClose={() => inventoryInput.closeDeleteModal()}
         onDelete={() => {
-            inventoryInput.deleteActualInventoryInput()
+          inventoryInput.deleteActualInventoryInput()
         }}
       />
       {/* <ViewProduct

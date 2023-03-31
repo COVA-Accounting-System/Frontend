@@ -156,8 +156,8 @@ const RegisterExpense = ({ expenseHook, inventoryInputHook }) => {
             onClick={
               expenseHook.typeOfExpense.rawMaterial
                 ? async () => {
-                    const response = await inventoryInputHook.onClickSave()
-                    expenseHook.onClickSaveRawMaterial(response.data)
+                    const inventoryInputData = await inventoryInputHook.onClickSave()
+                    expenseHook.onClickSaveRawMaterial(inventoryInputData)
                   }
                 : expenseHook.typeOfExpense.labour
                 ? expenseHook.onClickSaveLabour
