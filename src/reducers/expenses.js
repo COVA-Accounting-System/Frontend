@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import axios from 'axios'
-import { addInventoryInput } from './inventoryInputs'
+import { addInventoryInput, editInventoryInput } from './inventoryInputs'
 
 export const expenseInstance = axios.create({
   baseURL: `${process.env.REACT_APP_DATA_API}/accounting/expense`,
@@ -78,7 +78,7 @@ export const createExpense = data => async dispatch => {
 export const deleteExpense = data => async dispatch => {
   try {
     const deletedExpense = await expenseInstance.put('/delete', data)
-    dispatch(editExpense(deletedExpense.data))
+    dispatch(editExpense({...deletedExpense.data, isVisible: false}))
     return deletedExpense.status
   } catch (err) {
     console.error(err)
@@ -94,3 +94,41 @@ export const updateExpense = data => async dispatch => {
     console.error(err)
   }
 }
+
+export const editExpenseAndInventoryInput =
+  (expenseData, inventoryData) => async dispatch => {
+    try {
+      const newExpense = await expenseInstance.put(
+        '/updateExpenseAndInventoryInput',
+        { expenseData, inventoryData }
+      )
+      dispatch(editExpense(newExpense.data.expense))
+      dispatch(editInventoryInput(newExpense.data.inventoryInput))
+      return newExpense.status
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+export const deleteExpenseAndInventoryInput =
+  (expenseData, inventoryData) => async dispatch => {
+    try {
+      const deletedExpense = await expenseInstance.put(
+        '/deleteExpenseAndInventoryInput',
+        { expenseData, inventoryData }
+      )
+      console.log(deletedExpense.data)
+      dispatch(
+        editExpense({...deletedExpense.data.expense, isVisible: false })
+      )
+      dispatch(
+        editInventoryInput({
+          isVisible: false,
+          ...deletedExpense.data.inventoryInput
+        })
+      )
+      return deletedExpense.status
+    } catch (err) {
+      console.error(err)
+    }
+  }

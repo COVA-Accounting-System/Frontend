@@ -26,6 +26,7 @@ export const useInventoryInput = () => {
 
   const [rawMaterial, setRawMaterial] = useState({})
 
+  const [name, setName] = useState('')
   const [amount, setAmount] = useState('')
   const [price, setPrice] = useState('')
   const [unitMeasure, setUnitMeasure] = useState('')
@@ -115,10 +116,11 @@ export const useInventoryInput = () => {
 
   const onClickAddMaterial = e => {
     e.preventDefault()
-    if (rawMaterial._id !== '' && amount !== '' && price !== '') {
+    if (rawMaterial._id !== '' && amount !== '' && price !== '' && name !== '') {
       setListOfMaterials([
         ...listOfMaterials,
         {
+          name,
           rawMaterial,
           amount,
           price,
@@ -166,6 +168,7 @@ export const useInventoryInput = () => {
         listOfMaterials: listOfMaterials.map(material => {
           return {
             rawMaterial: material.rawMaterial._id,
+            name: material.name,
             amount: material.amount,
             price: material.price,
             unitMeasure: material.unitMeasure
@@ -192,35 +195,27 @@ export const useInventoryInput = () => {
     return null
   }
 
-  const onEditSave = e => {
-    e.preventDefault()
+  const onEditSave = async () => {
     setIsSubmited(true)
     if (providerId !== '' && date !== '' && numberOfInput !== '') {
-      dispatch(
-        updateInventoryInput({
-          ...actualInventoryInput,
-          numberOfInput,
-          provider: providerId,
-          date,
-          totalPrice,
-          listOfMaterials: listOfMaterials.map(material => {
-            return {
-              rawMaterial: material.rawMaterial._id,
-              amount: material.amount,
-              price: material.price,
-              unitMeasure: material.unitMeasure
-            }
-          })
+      return {
+        ...actualInventoryInput,
+        numberOfInput,
+        provider: providerId,
+        date,
+        totalPrice,
+        listOfMaterials: listOfMaterials.map(material => {
+          return {
+            rawMaterial: material.rawMaterial,
+            name: material.name,
+            amount: material.amount,
+            price: material.price,
+            unitMeasure: material.unitMeasure
+          }
         })
-      ).then(status => {
-        if (status) {
-          toast.invetorySuccess('Entrada editada con éxito')
-          closeModal()
-        } else {
-          toast.inventoryError('Error al editar entrada')
-        }
-      })
+      }
     }
+    return null
   }
 
   return {
@@ -247,6 +242,8 @@ export const useInventoryInput = () => {
     listOfMaterials,
     setListOfMaterials,
 
+    name,
+    setName,
     rawMaterial,
     setRawMaterial,
     unitMeasure,

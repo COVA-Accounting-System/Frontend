@@ -97,11 +97,44 @@ const Expense = () => {
             expense.setAmount(data.amount)
             expense.setConcept(data.concept)
 
-            expense.setCreditorEmployee(data.creditorEmployee)
-            expense.setCreditorEmployeeId(data.creditorEmployee._id)
-            expense.setCreditorProvider(data.setCreditorProvider)
-            expense.setCreditorProviderId(data.setCreditorProvider._id)
-
+            if (data.category === 'Materia prima') {
+              inventoryInput.setDate(data.inventoryInput.date)
+              inventoryInput.setProvider(data.creditorProvider)
+              inventoryInput.setProviderId(data.creditorProvider._id)
+              inventoryInput.setTotalPrice(data.inventoryInput.totalPrice)
+              inventoryInput.setNumberOfInput(data.inventoryInput.numberOfInput)
+              inventoryInput.setListOfMaterials(
+                data.inventoryInput.listOfMaterials
+              )
+              inventoryInput.setActualInventoryInputRedux(data.inventoryInput)
+              expense.setInventoryInput(data.inventoryInput)
+              expense.setInventoryInputId(data.inventoryInput._id)
+              expense.setCreditorProvider(data.creditorProvider)
+              expense.setCreditorProviderId(data.creditorProvider._id)
+              expense.setTypeOfExpense({
+                rawMaterial: true,
+                labour: false,
+                indirectCosts: false
+              })
+            }
+            if (data.category === 'Mano de obra directa') {
+              expense.setCreditorEmployee(data.creditorEmployee)
+              expense.setCreditorEmployeeId(data.creditorEmployee._id)
+              expense.setTypeOfExpense({
+                rawMaterial: false,
+                labour: true,
+                indirectCosts: false
+              })
+            }
+            if (data.category === 'Costos indirectos de fabricación') {
+              expense.setCreditorEntity(data.creditorEntity)
+              expense.setTypeOfExpense({
+                rawMaterial: false,
+                labour: false,
+                indirectCosts: true
+              })
+            }
+            expense.setPage(1)
             expense.changeActionRedux('edit')
             expense.setActualExpenseRedux(data)
             expense.openModal()
@@ -183,15 +216,21 @@ const Expense = () => {
         expenseHook={expense}
         inventoryInputHook={inventoryInput}
         isFromExpense={true}
+        isEditMode={expense.action === 'edit' ? true : false}
       />
 
       <DeleteModal
         isLoading={expense.isLoading}
         modalIsOpen={expense.deleteModalIsOpen}
         entityName='Gasto'
-        onClose={() => expense.closeDeleteModal()}
+        onClose={() => {
+          expense.closeDeleteModal()
+          // inventoryInput.closeDeleteModal()
+        }}
         onDelete={() => {
-          expense.deleteActualExpense()
+          expense.actualExpense.category === 'Materia prima'
+            ? expense.deleteActualExpenseRawMaterial()
+            : expense.deleteActualExpense()
         }}
       />
     </div>

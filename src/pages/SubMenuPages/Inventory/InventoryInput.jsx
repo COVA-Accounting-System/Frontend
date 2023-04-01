@@ -25,7 +25,7 @@ const InventoryInput = () => {
     () => [
       {
         headerName: 'Nº de entrada',
-        field: 'numberOfInput',
+        field: 'inventoryInput.numberOfInput',
         resizable: true,
         sortable: true,
         unSortIcon: true
@@ -34,7 +34,7 @@ const InventoryInput = () => {
       },
       {
         headerName: 'Proveedor',
-        field: 'provider.storeName',
+        field: 'creditorProvider.storeName',
         resizable: true,
         sortable: true,
         unSortIcon: true,
@@ -43,9 +43,9 @@ const InventoryInput = () => {
       },
       {
         headerName: 'Fecha de entrada',
-        field: 'date',
+        field: 'inventoryInput.date',
         valueGetter: data => {
-          return new Date(data.data.date).toLocaleDateString()
+          return new Date(data.data.inventoryInput.date).toLocaleDateString()
         },
         resizable: true,
         sortable: true,
@@ -54,12 +54,12 @@ const InventoryInput = () => {
       },
       {
         headerName: 'Precio total',
-        field: 'totalPrice',
+        field: 'inventoryInput.totalPrice',
         resizable: true,
         sortable: true,
         unSortIcon: true,
         valueGetter: data => {
-          return `${data.data.totalPrice} Bs.`
+          return `${data.data.inventoryInput.totalPrice} Bs.`
         },
         flex: 1
         // maxWidth: 180,
@@ -77,21 +77,39 @@ const InventoryInput = () => {
             // product.setViewModalIsOpen(true)
           },
           onEdit: data => {
-            inventoryInput.setNumberOfInput(data.numberOfInput)
-            inventoryInput.setDate(data.date)
-            inventoryInput.setTotalPrice(data.totalPrice)
+            expense.setAccountingSeat(data.accountingSeat)
+            expense.setCategory(data.category)
+            expense.setDate(data.date)
+            expense.setAmount(data.amount)
+            expense.setConcept(data.concept)
 
-            inventoryInput.setProvider(data.provider)
-            inventoryInput.setProviderId(data.provider._id)
-            inventoryInput.setListOfMaterials(data.setListOfMaterials)
+            inventoryInput.setDate(data.inventoryInput.date)
+            inventoryInput.setProvider(data.creditorProvider)
+            inventoryInput.setProviderId(data.creditorProvider._id)
+            inventoryInput.setTotalPrice(data.inventoryInput.totalPrice)
+            inventoryInput.setNumberOfInput(data.inventoryInput.numberOfInput)
+            inventoryInput.setListOfMaterials(
+              data.inventoryInput.listOfMaterials
+            )
+            inventoryInput.setActualInventoryInputRedux(data.inventoryInput)
+            expense.setInventoryInput(data.inventoryInput)
+            expense.setInventoryInputId(data.inventoryInput._id)
+            expense.setCreditorProvider(data.creditorProvider)
+            expense.setCreditorProviderId(data.creditorProvider._id)
+            expense.setTypeOfExpense({
+              rawMaterial: true,
+              labour: false,
+              indirectCosts: false
+            })
 
-            inventoryInput.changeActionRedux('edit')
-            inventoryInput.setActualInventoryInputRedux(data)
-            inventoryInput.openModal()
+            expense.setPage(1)
+            expense.changeActionRedux('edit')
+            expense.setActualExpenseRedux(data)
+            expense.openModal()
           },
           onDelete: data => {
-            inventoryInput.setDeleteModalIsOpen(true)
-            inventoryInput.setActualInventoryInputRedux(data)
+            expense.setDeleteModalIsOpen(true)
+            expense.setActualExpenseRedux(data)
           }
         }
       }
@@ -169,7 +187,7 @@ const InventoryInput = () => {
             <Table
               gridRef={gridRef}
               gridOptions={gridOptions}
-              rowData={inventoryInput.inventoryInputsList}
+              rowData={expense.expensesListForInventoryInput}
             />
           </section>
         </div>
@@ -180,11 +198,14 @@ const InventoryInput = () => {
         isFromExpense={false}
       />
       <DeleteModal
-        modalIsOpen={inventoryInput.deleteModalIsOpen}
+        isLoading={expense.isLoading}
+        modalIsOpen={expense.deleteModalIsOpen}
         entityName='Entrada'
-        onClose={() => inventoryInput.closeDeleteModal()}
+        onClose={() => expense.closeDeleteModal()}
         onDelete={() => {
-          inventoryInput.deleteActualInventoryInput()
+          expense.actualExpense.category === 'Materia prima'
+            ? expense.deleteActualExpenseRawMaterial(inventoryInput.closeDeleteModal)
+            : expense.deleteActualExpense()
         }}
       />
       {/* <ViewProduct

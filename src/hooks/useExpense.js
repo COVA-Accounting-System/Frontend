@@ -7,7 +7,9 @@ import {
   updateExpense,
   deleteExpense,
   setActualExpense,
-  createExpenseAndInventoryInput
+  createExpenseAndInventoryInput,
+  editExpenseAndInventoryInput,
+  deleteExpenseAndInventoryInput
 } from '../reducers/expenses'
 
 import { getAllProviders } from '../reducers/providers'
@@ -55,6 +57,12 @@ export const useExpense = () => {
 
   const expensesList = useSelector(state => {
     return state.expenses.data.filter(param => param.isVisible === true)
+  })
+
+  const expensesListForInventoryInput = useSelector(state => {
+    return state.expenses.data.filter(
+      param => param.isVisible === true && param.category === 'Materia prima'
+    )
   })
 
   const providersList = useSelector(state => {
@@ -116,6 +124,25 @@ export const useExpense = () => {
     setIsSubmited(false)
   }
 
+  const deleteActualExpenseRawMaterial = async (closeInventoryModal) => {
+    setIsLoading(true)
+    await dispatch(
+      deleteExpenseAndInventoryInput(
+        actualExpense,
+        actualExpense.inventoryInput
+      )
+    ).then(status => {
+      if (status) {
+        toast.invetorySuccess('Gasto eliminado con éxito')
+        closeDeleteModal()
+        closeInventoryModal()
+      } else {
+        toast.inventoryError('Error al eliminar gasto')
+      }
+    })
+    setIsLoading(false)
+  }
+
   const deleteActualExpense = async () => {
     setIsLoading(true)
     await dispatch(deleteExpense(actualExpense)).then(status => {
@@ -133,7 +160,7 @@ export const useExpense = () => {
     dispatch(setActualExpense(data))
   }
 
-  const onClickSaveRawMaterial = async inventoryData => {
+  const onClickSaveRawMaterial = async (inventoryData, closeModalInventory) => {
     setIsSubmited(true)
     if (
       accountingSeat !== '' &&
@@ -152,10 +179,13 @@ export const useExpense = () => {
         amount,
         concept
       }
-      await dispatch(createExpenseAndInventoryInput(expenseData, inventoryData)).then(status => {
+      await dispatch(
+        createExpenseAndInventoryInput(expenseData, inventoryData)
+      ).then(status => {
         if (status) {
           toast.invetorySuccess('Gasto registrado con éxito')
           closeModal()
+          closeModalInventory()
         } else {
           toast.inventoryError('Error al registrar gasto')
         }
@@ -228,8 +258,7 @@ export const useExpense = () => {
     }
   }
 
-  const onClickEditRawMaterial = async e => {
-    e.preventDefault()
+  const onClickEditRawMaterial = async (inventoryData, closeModalInventory) => {
     setIsSubmited(true)
     if (
       accountingSeat !== '' &&
@@ -239,21 +268,23 @@ export const useExpense = () => {
       amount !== '' &&
       concept !== ''
     ) {
+      const expenseData = {
+        ...actualExpense,
+        accountingSeat,
+        creditorProvider: creditorProviderId,
+        inventoryInput: inventoryInputId,
+        date,
+        amount,
+        concept
+      }
       setIsLoading(true)
       await dispatch(
-        updateExpense({
-          ...actualExpense,
-          accountingSeat,
-          creditorProvider: creditorProviderId,
-          inventoryInput: inventoryInputId,
-          date,
-          amount,
-          concept
-        })
+        editExpenseAndInventoryInput(expenseData, inventoryData)
       ).then(status => {
         if (status) {
           toast.invetorySuccess('Gasto editado con éxito')
           closeModal()
+          closeModalInventory()
         } else {
           toast.inventoryError('Error al editar gasto')
         }
@@ -306,7 +337,7 @@ export const useExpense = () => {
     ) {
       setIsLoading(true)
       await dispatch(
-        updateExpense({
+        editExpenseAndInventoryInput({
           ...actualExpense,
           accountingSeat,
           creditorEntity,
@@ -379,12 +410,15 @@ export const useExpense = () => {
     onClickEditLabour,
     onClickEditIndirectCosts,
 
+    actualExpense,
     viewModalIsOpen,
     setViewModalIsOpen,
+    deleteActualExpenseRawMaterial,
 
     page,
     setPage,
     emptyFields,
-    isLoading
+    isLoading,
+    expensesListForInventoryInput
   }
 }

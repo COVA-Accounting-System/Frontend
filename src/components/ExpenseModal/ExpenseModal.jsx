@@ -7,11 +7,19 @@ import SelectTypeOfExpense from './SelectTypeOfExpense'
 import RegisterInventoryEntry from './RegisterInventoryEntry'
 import RegisterExpense from './RegisterExpense'
 
-const ExpenseModal = ({ expenseHook, inventoryInputHook, isFromExpense }) => {
+const ExpenseModal = ({
+  expenseHook,
+  inventoryInputHook,
+  isFromExpense,
+  isEditMode
+}) => {
   return (
     <Modal
       size='lg'
-      onClose={() => expenseHook.closeModal()}
+      onClose={() => {
+        expenseHook.closeModal()
+        inventoryInputHook.closeModal()
+      }}
       isOpen={expenseHook.modalIsOpen}
     >
       <ModalOverlay />
@@ -39,6 +47,7 @@ const ExpenseModal = ({ expenseHook, inventoryInputHook, isFromExpense }) => {
           />
         ) : (
           <RegisterExpense
+            isEditMode={isEditMode}
             expenseHook={expenseHook}
             inventoryInputHook={inventoryInputHook}
           />

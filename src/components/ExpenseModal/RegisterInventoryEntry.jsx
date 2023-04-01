@@ -91,6 +91,7 @@ const RegisterInventoryEntry = ({ expenseHook, inventoryInputHook, isFromExpense
                 value={inventoryInputHook.rawMaterial}
                 onSelect={data => {
                   inventoryInputHook.setRawMaterial(data)
+                  inventoryInputHook.setName(data.name)
                   inventoryInputHook.setUnitMeasure(data.unitMeasure.uiName)
                 }}
                 entityList={inventoryInputHook.materialsList}
@@ -147,7 +148,7 @@ const RegisterInventoryEntry = ({ expenseHook, inventoryInputHook, isFromExpense
                         return (
                           <Tr key={index}>
                             <Td>{index + 1}</Td>
-                            <Td>{material.rawMaterial.name}</Td>
+                            <Td>{material.name}</Td>
                             <Td>
                               {material.amount} {material.unitMeasure}
                             </Td>

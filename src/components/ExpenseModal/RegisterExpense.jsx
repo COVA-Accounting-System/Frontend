@@ -15,7 +15,7 @@ import SelectEntityFormControl from '../Input/SelectEntityFormControl'
 import PriceFormControl from '../Input/PriceFormControl'
 import DateFormControl from '../Input/DateFormControl'
 
-const RegisterExpense = ({ expenseHook, inventoryInputHook }) => {
+const RegisterExpense = ({ expenseHook, inventoryInputHook, isEditMode }) => {
   return (
     <>
       <ModalHeader color='acsys.titleColor' fontWeight='700' fontSize='25px'>
@@ -136,7 +136,11 @@ const RegisterExpense = ({ expenseHook, inventoryInputHook }) => {
       <ModalFooter>
         <Stack
           direction={'row'}
-          justifyContent={'space-between'}
+          justifyContent={
+            isEditMode && !expenseHook.typeOfExpense.rawMaterial
+              ? 'flex-end'
+              : 'space-between'
+          }
           width={'100%'}
         >
           <Button
@@ -145,6 +149,7 @@ const RegisterExpense = ({ expenseHook, inventoryInputHook }) => {
             colorScheme='linkedin'
             // isLoading={expenseHook.isLoading}
             onClick={() => expenseHook.setPage(prev => prev - 1)}
+            hidden={isEditMode && !expenseHook.typeOfExpense.rawMaterial}
           >
             Anterior
           </Button>
@@ -155,13 +160,32 @@ const RegisterExpense = ({ expenseHook, inventoryInputHook }) => {
             isLoading={expenseHook.isLoading}
             onClick={
               expenseHook.typeOfExpense.rawMaterial
-                ? async () => {
-                    const inventoryInputData = await inventoryInputHook.onClickSave()
-                    expenseHook.onClickSaveRawMaterial(inventoryInputData)
-                  }
+                ? expenseHook.action === 'create'
+                  ? async () => {
+                      const inventoryInputData =
+                        await inventoryInputHook.onClickSave()
+                      expenseHook.onClickSaveRawMaterial(
+                        inventoryInputData,
+                        inventoryInputHook.closeModal
+                      )
+                    }
+                  : async () => {
+                      const inventoryInputData =
+                        await inventoryInputHook.onEditSave()
+                      expenseHook.onClickEditRawMaterial(
+                        inventoryInputData,
+                        inventoryInputHook.closeModal
+                      )
+                    }
                 : expenseHook.typeOfExpense.labour
-                ? expenseHook.onClickSaveLabour
-                : expenseHook.onClickSaveIndirectCosts
+                ? expenseHook.action === 'create'
+                  ? expenseHook.onClickSaveLabour
+                  : expenseHook.onClickEditLabour
+                : expenseHook.typeOfExpense.indirectCosts
+                ? expenseHook.action === 'create'
+                  ? expenseHook.onClickSaveIndirectCosts
+                  : expenseHook.onClickEditIndirectCosts
+                : null
             }
           >
             Guardar
