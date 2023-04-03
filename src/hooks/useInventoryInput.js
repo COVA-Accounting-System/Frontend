@@ -3,9 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import {
   getAllInventoryInputs,
   setActualInventoryInput,
-  createInventoryInput,
-  deleteInventoryInput,
-  updateInventoryInput
+  deleteInventoryInput
 } from '../reducers/inventoryInputs'
 
 import { getAllProviders } from '../reducers/providers'
@@ -26,13 +24,13 @@ export const useInventoryInput = () => {
 
   const [rawMaterial, setRawMaterial] = useState({})
 
-  const [name, setName] = useState('')
   const [amount, setAmount] = useState('')
   const [price, setPrice] = useState('')
   const [unitMeasure, setUnitMeasure] = useState('')
 
   const [listOfMaterials, setListOfMaterials] = useState([])
-  const [newInventoryInput, setNewInventoryInput] = useState({})
+  const [isMaterialListEditing, setIsMaterialListEditing] = useState(false)
+  const [indexOfMaterialToEdit, setIndexOfMaterialToEdit] = useState(0)
 
   const [numberOfInput, setNumberOfInput] = useState('')
   const [date, setDate] = useState('')
@@ -116,11 +114,10 @@ export const useInventoryInput = () => {
 
   const onClickAddMaterial = e => {
     e.preventDefault()
-    if (rawMaterial._id !== '' && amount !== '' && price !== '' && name !== '') {
+    if (rawMaterial._id !== '' && amount !== '' && price !== '') {
       setListOfMaterials([
         ...listOfMaterials,
         {
-          name,
           rawMaterial,
           amount,
           price,
@@ -133,6 +130,25 @@ export const useInventoryInput = () => {
       setRawMaterial({ uiName: '' })
       setUnitMeasure('')
     }
+  }
+
+  const onEditMaterial = () => {
+    const material = listOfMaterials[indexOfMaterialToEdit]
+    setListOfMaterials([
+      ...listOfMaterials.filter((_, i) => i !== indexOfMaterialToEdit),
+      {
+        rawMaterial,
+        amount,
+        price,
+        unitMeasure
+      }
+    ])
+    setTotalPrice(prevTotal => prevTotal - Number(material.price) + Number(price))
+    setAmount('')
+    setPrice('')
+    setRawMaterial({ uiName: '' })
+    setUnitMeasure('')
+    setIsMaterialListEditing(false)
   }
 
   const onRemoveMaterial = index => {
@@ -206,7 +222,7 @@ export const useInventoryInput = () => {
         totalPrice,
         listOfMaterials: listOfMaterials.map(material => {
           return {
-            rawMaterial: material.rawMaterial,
+            rawMaterial: material.rawMaterial._id,
             name: material.name,
             amount: material.amount,
             price: material.price,
@@ -242,8 +258,6 @@ export const useInventoryInput = () => {
     listOfMaterials,
     setListOfMaterials,
 
-    name,
-    setName,
     rawMaterial,
     setRawMaterial,
     unitMeasure,
@@ -269,6 +283,11 @@ export const useInventoryInput = () => {
     materialsList,
     emptyFields,
     validateRequiredFields,
-    newInventoryInput
+    isMaterialListEditing,
+    setIsMaterialListEditing,
+    indexOfMaterialToEdit,
+    setIndexOfMaterialToEdit,
+
+    onEditMaterial
   }
 }

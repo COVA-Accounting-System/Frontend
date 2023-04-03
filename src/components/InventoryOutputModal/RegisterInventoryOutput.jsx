@@ -25,7 +25,7 @@ import {
 } from '@chakra-ui/react'
 
 import { AddIcon } from '@chakra-ui/icons'
-import { DeleteIcon } from '@chakra-ui/icons'
+import { DeleteIcon, EditIcon, CheckIcon, CloseIcon } from '@chakra-ui/icons'
 
 import SelectEntityFormControl from '../Input/SelectEntityFormControl'
 import DateFormControl from '../Input/DateFormControl'
@@ -127,9 +127,47 @@ const RegisterInventoryOutput = ({ inventoryOutputHook }) => {
                   onInput={data => inventoryOutputHook.setPrice(data)}
                 />
                 <Flex alignItems={'flex-end'}>
+                  <Stack
+                    hidden={!inventoryOutputHook.isMaterialListEditing}
+                    direction={'row'}
+                  >
+                    <IconButton
+                      size={'sm'}
+                      height={'35px'}
+                      isDisabled={
+                        inventoryOutputHook.unitMeasure === '' ||
+                        inventoryOutputHook.amount === '' ||
+                        inventoryOutputHook.price === ''
+                      }
+                      backgroundColor={'acsys.primaryColor'}
+                      colorScheme='linkedin'
+                      _hover={{ backgroundColor: '#098bb6' }}
+                      icon={<CheckIcon />}
+                      // colorScheme='blue'
+                      onClick={inventoryOutputHook.onEditMaterial}
+                    />
+                    <IconButton
+                      size={'sm'}
+                      height={'35px'}
+                      backgroundColor={'acsys.primaryColor'}
+                      colorScheme='linkedin'
+                      _hover={{ backgroundColor: '#098bb6' }}
+                      icon={<CloseIcon />}
+                      // colorScheme='blue'
+                      onClick={() => {
+                        inventoryOutputHook.setIsMaterialListEditing(false)
+                        inventoryOutputHook.setRawMaterial({ uiName: '' })
+                        inventoryOutputHook.setUnitMeasure('')
+                        inventoryOutputHook.setAmount('')
+                        inventoryOutputHook.setPrice('')
+                      }}
+                    />
+                  </Stack>
+
                   <IconButton
-                  size={'sm'}
-                  height={'35px'}
+                    hidden={inventoryOutputHook.isMaterialListEditing}
+                    size={'sm'}
+                    height={'35px'}
                     isDisabled={
                       inventoryOutputHook.unitMeasure === '' ||
                       inventoryOutputHook.amount === '' ||
@@ -172,7 +210,48 @@ const RegisterInventoryOutput = ({ inventoryOutputHook }) => {
                               </Td>
                               <Td>{material.price} Bs.</Td>
                               <Td>
-                                <DeleteIcon
+                                <Stack direction={'row'}>
+                                  <IconButton
+                                    size='xs'
+                                    color='acsys.fontColor'
+                                    icon={<EditIcon />}
+                                    onClick={() => {
+                                      inventoryOutputHook.setIsMaterialListEditing(
+                                        true
+                                      )
+                                      inventoryOutputHook.setIndexOfMaterialToEdit(
+                                        index
+                                      )
+                                      inventoryOutputHook.setRawMaterial(
+                                        material.rawMaterial
+                                      )
+                                      inventoryOutputHook.setUnitMeasure(
+                                        material.unitMeasure
+                                      )
+                                      inventoryOutputHook.setAmount(
+                                        material.amount
+                                      )
+                                      inventoryOutputHook.setPrice(
+                                        material.price
+                                      )
+                                    }}
+                                  />
+                                  <IconButton
+                                    size={'xs'}
+                                    icon={<DeleteIcon />}
+                                    color='acsys.fontColor'
+                                    _hover={{
+                                      color: 'acsys.redColor',
+                                      cursor: 'pointer'
+                                    }}
+                                    onClick={() => {
+                                      inventoryOutputHook.onRemoveMaterial(
+                                        index
+                                      )
+                                    }}
+                                  />
+                                </Stack>
+                                {/* <DeleteIcon
                                   fontSize={14}
                                   _hover={{
                                     color: 'red.500',
@@ -181,7 +260,7 @@ const RegisterInventoryOutput = ({ inventoryOutputHook }) => {
                                   onClick={() => {
                                     inventoryOutputHook.onRemoveMaterial(index)
                                   }}
-                                />
+                                /> */}
                               </Td>
                             </Tr>
                           )

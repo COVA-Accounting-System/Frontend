@@ -117,7 +117,6 @@ export const deleteExpenseAndInventoryInput =
         '/deleteExpenseAndInventoryInput',
         { expenseData, inventoryData }
       )
-      console.log(deletedExpense.data)
       dispatch(
         editExpense({...deletedExpense.data.expense, isVisible: false })
       )

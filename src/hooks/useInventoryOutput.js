@@ -33,6 +33,8 @@ export const useInventoryOutput = () => {
   const [unitMeasure, setUnitMeasure] = useState('')
 
   const [listOfMaterials, setListOfMaterials] = useState([])
+  const [isMaterialListEditing, setIsMaterialListEditing] = useState(false)
+  const [indexOfMaterialToEdit, setIndexOfMaterialToEdit] = useState(0)
 
   const [numberOfInput, setNumberOfInput] = useState('')
   const [date, setDate] = useState('')
@@ -40,7 +42,7 @@ export const useInventoryOutput = () => {
 
   const [isSubmited, setIsSubmited] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
-
+  
   const action = useSelector(state => state.crud.action)
 
   const actualInventoryOutput = useSelector(
@@ -102,6 +104,7 @@ export const useInventoryOutput = () => {
     setAmount('')
     setPrice('')
     setUnitMeasure('')
+    setIsMaterialListEditing(false)
     setIsSubmited(false)
   }
 
@@ -140,6 +143,25 @@ export const useInventoryOutput = () => {
       setRawMaterial({ uiName: '' })
       setUnitMeasure('')
     }
+  }
+
+  const onEditMaterial = () => {
+    const material = listOfMaterials[indexOfMaterialToEdit]
+    setListOfMaterials([
+      ...listOfMaterials.filter((_, i) => i !== indexOfMaterialToEdit),
+      {
+        rawMaterial,
+        amount,
+        price,
+        unitMeasure
+      }
+    ])
+    setEstimatedPrice(prevTotal => prevTotal - Number(material.price) + Number(price))
+    setAmount('')
+    setPrice('')
+    setRawMaterial({ uiName: '' })
+    setUnitMeasure('')
+    setIsMaterialListEditing(false)
   }
 
   const onRemoveMaterial = index => {
@@ -281,6 +303,11 @@ export const useInventoryOutput = () => {
     emptyFields,
     validateRequiredFields,
     
-    isLoading
+    isLoading,
+    onEditMaterial,
+    isMaterialListEditing,
+    setIsMaterialListEditing,
+    indexOfMaterialToEdit,
+    setIndexOfMaterialToEdit
   }
 }
