@@ -42,8 +42,9 @@ const Expense = () => {
         resizable: true,
         sortable: true,
         unSortIcon: true,
+        // autoHeight: true,
         width: 250,
-        cellRenderer: ExpenseCategoryTag,
+        cellRenderer: ExpenseCategoryTag
         // cellRendererParams:
         // maxWidth: 250,
       },
@@ -53,7 +54,16 @@ const Expense = () => {
         resizable: true,
         sortable: true,
         unSortIcon: true,
-        width: 250
+        width: 250,
+        valueGetter: data => {
+          return data.data.category === 'Materia prima'
+            ? data.data.creditorProvider.uiName
+            : data.data.category === 'Mano de obra directa'
+            ? data.data.creditorEmployee.uiName
+            : data.data.category === 'Costos indirectos de fabricación'
+            ? data.data.creditorEntity
+            : ''
+        }
         // minWidth: 60,
         // maxWidth: 160,
       },

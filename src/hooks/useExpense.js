@@ -337,7 +337,7 @@ export const useExpense = () => {
     ) {
       setIsLoading(true)
       await dispatch(
-        editExpenseAndInventoryInput({
+        updateExpense({
           ...actualExpense,
           accountingSeat,
           creditorEntity,

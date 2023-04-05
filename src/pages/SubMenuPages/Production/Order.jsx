@@ -28,6 +28,7 @@ import Table from '../../../components/Table/Table'
 import StateTag from '../../../components/StateTags/StateTag'
 import SearchByState from '../../../components/SearchInputs/SearchByState'
 import OrderPaidTag from '../../../components/OrderPaidTag/OrderPaidTag'
+import FeaturesTooltip from '../../../components/Tooltip/FeaturesTooltip'
 // import ClientPopover from '../../../components/Popover/ClientPopover'
 // import ProductPopover from '../../../components/Popover/ProductPopover'
 
@@ -113,16 +114,11 @@ const Order = () => {
             return `• ${feature.description}`
           })
         },
-        cellRenderer: params => {
-          return (
-            <div>
-              {params.data.orderFeatures.map((feature, index) => (
-                <span title={feature.description}>
-                  {` • ${feature.description}`}&nbsp;{' '}
-                </span>
-              ))}
-            </div>
-          )
+        cellRenderer: FeaturesTooltip,
+        cellRendererParams: {
+          getListOfFeatures: data => {
+            return data.orderFeatures
+          }
         }
         // minWidth: 60,
         // maxWidth: 160,

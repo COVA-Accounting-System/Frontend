@@ -22,6 +22,7 @@ import SelectFormControl from '../../../components/Input/SelectFormControl'
 import FeaturesFormControl from '../../../components/Input/FeaturesFormControl'
 import DeleteModal from '../../../components/DeleteModal/DeleteModal'
 import Table from '../../../components/Table/Table'
+import FeaturesTooltip from '../../../components/Tooltip/FeaturesTooltip'
 // import ViewProduct from '../../../components/ViewModals/ViewProduct'
 
 // HOOKS IMPORTS
@@ -45,9 +46,22 @@ const Product = () => {
       },
       {
         headerName: 'Caracteristicas',
+        field: 'productFeatures',
         resizable: true,
         sortable: true,
-        unSortIcon: true
+        unSortIcon: true,
+        autoHeight: true,
+        valueGetter: data => {
+          return data.data.productFeatures.map((feature, index) => {
+            return `• ${feature.description}`
+          })
+        },
+        cellRenderer: FeaturesTooltip,
+        cellRendererParams: {
+          getListOfFeatures: data => {
+            return data.productFeatures
+          }
+        }
         // maxWidth: 160,
       },
       {

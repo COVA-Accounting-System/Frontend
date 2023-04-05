@@ -8,12 +8,14 @@ import DataTableActions from '../../../components/DataTableActions/DataTableActi
 import DeleteModal from '../../../components/DeleteModal/DeleteModal'
 import Table from '../../../components/Table/Table'
 import RegisterInventoryOutput from '../../../components/InventoryOutputModal/RegisterInventoryOutput'
+import MaterialsTooltip from '../../../components/Tooltip/MaterialsTooltip'
 
 // HOOKS IMPORTS
 import { useInventoryOutput } from '../../../hooks/useInventoryOutput'
 
 // STYLES IMPORTS
 import '../Template.styles.scss'
+
 
 const InventoryOutput = () => {
   const gridRef = useRef()
@@ -48,6 +50,20 @@ const InventoryOutput = () => {
         sortable: true,
         unSortIcon: true
         // maxWidth: 177,
+      },
+      {
+        headerName: 'Materiales',
+        field: '',
+        resizable: true,
+        sortable: true,
+        unSortIcon: true,
+        autoHeight: true,
+        cellRenderer: MaterialsTooltip,
+        cellRendererParams: {
+          getListOfMaterials: data => {
+            return data.listOfMaterials
+          }
+        },
       },
       {
         headerName: 'Precio estimado',

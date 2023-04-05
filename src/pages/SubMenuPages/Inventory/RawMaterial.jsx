@@ -17,6 +17,7 @@ import unitMeasures from '../../../assets/unitMeasures'
 
 // COMPONENTS IMPORTS
 import DataTableActions from '../../../components/DataTableActions/DataTableActions'
+import FeaturesTooltip from '../../../components/Tooltip/FeaturesTooltip'
 import TextFormControl from '../../../components/Input/TextFormControl'
 import SelectEntityFormControl from '../../../components/Input/SelectEntityFormControl'
 import FeaturesFormControl from '../../../components/Input/FeaturesFormControl'
@@ -49,26 +50,37 @@ const RawMaterial = () => {
         headerName: 'Caracteristicas',
         resizable: true,
         sortable: true,
-        unSortIcon: true
+        unSortIcon: true,
+        autoHeight: true,
+        valueGetter: data => {
+          return data.data.features.map((feature, index) => {
+            return `• ${feature.description}`
+          })
+        },
+        cellRenderer: FeaturesTooltip,
+        cellRendererParams: {
+          getListOfFeatures: data => {
+            return data.features
+          }
+        }
         // maxWidth: 160,
       },
       {
         headerName: 'Medida',
-        field: 'unitMeasure.uiName',
+        field: 'unitMeasure.pluralSpanishName',
         resizable: true,
         sortable: true,
         unSortIcon: true
         // maxWidth: 177,
       },
-      // {
-      //   headerName: 'Medida Abreviada',
-      //   field: 'unitMeasure.abbreviation',
-      //   resizable: true,
-      //   sortable: true,
-      //   unSortIcon: true,
-      //   flex: 1
-      //   // maxWidth: 180,
-      // },
+      {
+        headerName: 'Nomeclatura',
+        field: 'unitMeasure.uiName',
+        resizable: true,
+        sortable: true,
+        unSortIcon: true,
+        // maxWidth: 180,
+      },
       {
         headerName: ' ',
         resizable: false,

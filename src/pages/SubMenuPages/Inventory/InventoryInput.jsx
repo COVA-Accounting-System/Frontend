@@ -8,6 +8,7 @@ import DataTableActions from '../../../components/DataTableActions/DataTableActi
 import DeleteModal from '../../../components/DeleteModal/DeleteModal'
 import Table from '../../../components/Table/Table'
 import ExpenseModal from '../../../components/ExpenseModal/ExpenseModal'
+import MaterialsTooltip from '../../../components/Tooltip/MaterialsTooltip'
 // import ProviderPopover from '../../../components/Popover/ProviderPopover'
 
 // HOOKS IMPORTS
@@ -61,6 +62,25 @@ const InventoryInput = () => {
         // maxWidth: 177,
       },
       {
+        headerName: 'Materiales',
+        field: '',
+        resizable: true,
+        sortable: true,
+        unSortIcon: true,
+        autoHeight: true,
+        cellRenderer: MaterialsTooltip,
+        cellRendererParams: {
+          getListOfMaterials: data => {
+            return data.inventoryInput.listOfMaterials
+          }
+        },
+        // valueGetter: data => {
+        //   return `${data.data.inventoryInput.totalPrice} Bs.`
+        // },
+
+        // maxWidth: 180,
+      },
+      {
         headerName: 'Precio total',
         field: 'inventoryInput.totalPrice',
         resizable: true,
@@ -69,9 +89,10 @@ const InventoryInput = () => {
         valueGetter: data => {
           return `${data.data.inventoryInput.totalPrice} Bs.`
         },
-        flex: 1
+
         // maxWidth: 180,
       },
+ 
       {
         headerName: ' ',
         resizable: false,
