@@ -15,7 +15,7 @@ import {
 } from '@chakra-ui/react'
 
 // COMPONENTS IMPORTS
-import ViewClient from '../../../components/ViewModals/ViewClient'
+// import ViewClient from '../../../components/ViewModals/ViewClient'
 import DataTableActions from '../../../components/DataTableActions/DataTableActions'
 import TextFormControl from '../../../components/Input/TextFormControl'
 import PhoneFormControl from '../../../components/Input/PhoneFormControl'
@@ -84,10 +84,10 @@ const Client = () => {
         cellRenderer: DataTableActions,
         colId: 'Actions',
         cellRendererParams: {
-          onView: data => {
-            client.setActualClientRedux(data)
-            client.setViewModalIsOpen(true)
-          },
+          // onView: data => {
+          //   client.setActualClientRedux(data)
+          //   client.setViewModalIsOpen(true)
+          // },
           onEdit: data => {
             client.setName(data.name)
             client.setLastName(data.lastName)
@@ -261,12 +261,12 @@ const Client = () => {
           </form>
         </ModalContent>
       </Modal>
-      <ViewClient
+      {/* <ViewClient
         isOpen={client.viewModalIsOpen}
         onClose={() => {
           client.setViewModalIsOpen(false)
         }}
-      />
+      /> */}
       <DeleteModal
         isLoading={client.isLoading}
         modalIsOpen={client.deleteModalIsOpen}

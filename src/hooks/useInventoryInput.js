@@ -17,7 +17,7 @@ export const useInventoryInput = () => {
 
   const [modalIsOpen, setModalIsOpen] = useState(false)
   const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false)
-  const [viewModalIsOpen, setViewModalIsOpen] = useState(false)
+  // const [viewModalIsOpen, setViewModalIsOpen] = useState(false)
 
   const [provider, setProvider] = useState({})
   const [providerId, setProviderId] = useState('')
@@ -276,8 +276,8 @@ export const useInventoryInput = () => {
     onClickSave,
     onEditSave,
 
-    viewModalIsOpen,
-    setViewModalIsOpen,
+    // viewModalIsOpen,
+    // setViewModalIsOpen,
 
     providersList,
     materialsList,

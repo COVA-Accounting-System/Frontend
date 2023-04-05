@@ -28,8 +28,8 @@ import Table from '../../../components/Table/Table'
 import StateTag from '../../../components/StateTags/StateTag'
 import SearchByState from '../../../components/SearchInputs/SearchByState'
 import OrderPaidTag from '../../../components/OrderPaidTag/OrderPaidTag'
-import ClientPopover from '../../../components/Popover/ClientPopover'
-import ProductPopover from '../../../components/Popover/ProductPopover'
+// import ClientPopover from '../../../components/Popover/ClientPopover'
+// import ProductPopover from '../../../components/Popover/ProductPopover'
 
 import { orderState } from '../../../assets/orderState'
 
@@ -78,12 +78,12 @@ const Order = () => {
         unSortIcon: true,
         // minWidth: 130,
         width: 250,
-        cellRenderer: ClientPopover,
-        cellRendererParams: {
-          getClientData: data => {
-            return data.orderClient
-          }
-        }
+        // cellRenderer: ClientPopover,
+        // cellRendererParams: {
+        //   getClientData: data => {
+        //     return data.orderClient
+        //   }
+        // }
         // maxWidth: 250,
       },
       {
@@ -92,12 +92,12 @@ const Order = () => {
         resizable: true,
         sortable: true,
         unSortIcon: true,
-        cellRenderer: ProductPopover,
-        cellRendererParams: {
-          getProductData: data => {
-            return data.orderProduct
-          }
-        }
+        // cellRenderer: ProductPopover,
+        // cellRendererParams: {
+        //   getProductData: data => {
+        //     return data.orderProduct
+        //   }
+        // }
       },
       {
         headerName: 'Características',
@@ -187,7 +187,7 @@ const Order = () => {
         cellRenderer: DataTableActionsOrder,
         colId: 'Actions',
         cellRendererParams: {
-          onView: () => {},
+          // onView: () => {},
           onEdit: data => {
             order.setOrderFeatures(data.orderFeatures)
             order.setOrderState(data.orderState)

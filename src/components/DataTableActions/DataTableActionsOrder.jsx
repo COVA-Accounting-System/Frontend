@@ -24,7 +24,7 @@ import './DataTableActions.scss'
 const DataTableActionsOrder = props => {
   const {
     data,
-    onView,
+    // onView,
     onEdit,
     onDelete,
     onChangeStateForward,
@@ -64,7 +64,7 @@ const DataTableActionsOrder = props => {
           // paddingTop={0}
           // pb={0}
         >
-          <MenuItem
+          {/* <MenuItem
             height='30px'
             fontWeight={500}
             onClick={onView}
@@ -72,7 +72,7 @@ const DataTableActionsOrder = props => {
             borderTopRightRadius={'5px'}
           >
             Ver
-          </MenuItem>
+          </MenuItem> */}
           <MenuItem height='30px' fontWeight={500} onClick={() => onEdit(data)}>
             Editar
           </MenuItem>

@@ -92,7 +92,7 @@ const Expense = () => {
         cellRenderer: DataTableActions,
         colId: 'Actions',
         cellRendererParams: {
-          onView: () => {},
+          // onView: () => {},
           onEdit: data => {
             expense.setAccountingSeat(data.accountingSeat)
             expense.setCategory(data.category)

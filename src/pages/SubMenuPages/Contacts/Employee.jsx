@@ -121,10 +121,10 @@ const Employee = () => {
         cellRenderer: DataTableActions,
         colId: 'Actions',
         cellRendererParams: {
-          onView: data => {
-            employee.setActualEmployeeRedux(data)
-            employee.setViewModalIsOpen(true)
-          },
+          // onView: data => {
+          //   employee.setActualEmployeeRedux(data)
+          //   employee.setViewModalIsOpen(true)
+          // },
           onEdit: data => {
             employee.setName(data.name)
             employee.setLastName(data.lastName)

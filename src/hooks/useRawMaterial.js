@@ -21,7 +21,7 @@ export const useRawMaterial = () => {
 
   const [modalIsOpen, setModalIsOpen] = useState(false)
   const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false)
-  const [viewModalIsOpen, setViewModalIsOpen] = useState(false)
+  // const [viewModalIsOpen, setViewModalIsOpen] = useState(false)
 
   const [isSubmited, setIsSubmited] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
@@ -162,8 +162,8 @@ export const useRawMaterial = () => {
     onClickSave,
     onEditSave,
 
-    viewModalIsOpen,
-    setViewModalIsOpen,
+    // viewModalIsOpen,
+    // setViewModalIsOpen,
     isLoading
   }
 }

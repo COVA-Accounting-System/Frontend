@@ -15,7 +15,7 @@ export const useEmployee = () => {
 
   const [modalIsOpen, setModalIsOpen] = useState(false)
   const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false)
-  const [viewModalIsOpen, setViewModalIsOpen] = useState(false)
+  // const [viewModalIsOpen, setViewModalIsOpen] = useState(false)
 
   const [name, setName] = useState('')
   const [lastName, setLastName] = useState('')
@@ -184,7 +184,7 @@ setIsLoading(false)
     onEditSave,
 
     isLoading,
-    viewModalIsOpen,
-    setViewModalIsOpen
+    // viewModalIsOpen,
+    // setViewModalIsOpen
   }
 }

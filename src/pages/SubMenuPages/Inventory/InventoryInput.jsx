@@ -8,7 +8,7 @@ import DataTableActions from '../../../components/DataTableActions/DataTableActi
 import DeleteModal from '../../../components/DeleteModal/DeleteModal'
 import Table from '../../../components/Table/Table'
 import ExpenseModal from '../../../components/ExpenseModal/ExpenseModal'
-import ProviderPopover from '../../../components/Popover/ProviderPopover'
+// import ProviderPopover from '../../../components/Popover/ProviderPopover'
 
 // HOOKS IMPORTS
 import { useInventoryInput } from '../../../hooks/useInventoryInput'
@@ -39,14 +39,15 @@ const InventoryInput = () => {
         resizable: true,
         sortable: true,
         unSortIcon: true,
-        cellRenderer: ProviderPopover,
-        cellRendererParams: {
-          getProviderData: data => {
-            return data.creditorProvider
-          }
-        },
-        // maxWidth: 160,
         width: 250
+        // cellRenderer: ProviderPopover,
+        // cellRendererParams: {
+        //   getProviderData: data => {
+        //     return data.creditorProvider
+        //   }
+        // },
+        // maxWidth: 160,
+        
       },
       {
         headerName: 'Fecha de entrada',
@@ -79,10 +80,10 @@ const InventoryInput = () => {
         cellRenderer: DataTableActions,
         colId: 'Actions',
         cellRendererParams: {
-          onView: data => {
-            // product.setActualProductRedux(data)
-            // product.setViewModalIsOpen(true)
-          },
+          // onView: data => {
+          //   product.setActualProductRedux(data)
+          //   product.setViewModalIsOpen(true)
+          // },
           onEdit: data => {
             expense.setAccountingSeat(data.accountingSeat)
             expense.setCategory(data.category)

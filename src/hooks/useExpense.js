@@ -23,7 +23,7 @@ export const useExpense = () => {
 
   const [modalIsOpen, setModalIsOpen] = useState(false)
   const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false)
-  const [viewModalIsOpen, setViewModalIsOpen] = useState(false)
+  // const [viewModalIsOpen, setViewModalIsOpen] = useState(false)
 
   const [typeOfExpense, setTypeOfExpense] = useState({
     rawMaterial: false,
@@ -411,8 +411,8 @@ export const useExpense = () => {
     onClickEditIndirectCosts,
 
     actualExpense,
-    viewModalIsOpen,
-    setViewModalIsOpen,
+    // viewModalIsOpen,
+    // setViewModalIsOpen,
     deleteActualExpenseRawMaterial,
 
     page,

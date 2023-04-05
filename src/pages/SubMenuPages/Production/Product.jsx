@@ -22,7 +22,7 @@ import SelectFormControl from '../../../components/Input/SelectFormControl'
 import FeaturesFormControl from '../../../components/Input/FeaturesFormControl'
 import DeleteModal from '../../../components/DeleteModal/DeleteModal'
 import Table from '../../../components/Table/Table'
-import ViewProduct from '../../../components/ViewModals/ViewProduct'
+// import ViewProduct from '../../../components/ViewModals/ViewProduct'
 
 // HOOKS IMPORTS
 import { useProduct } from '../../../hooks/useProduct'
@@ -88,10 +88,10 @@ const Product = () => {
         cellRenderer: DataTableActions,
         colId: 'Actions',
         cellRendererParams: {
-          onView: data => {
-            product.setActualProductRedux(data)
-            product.setViewModalIsOpen(true)
-          },
+          // onView: data => {
+          //   product.setActualProductRedux(data)
+          //   product.setViewModalIsOpen(true)
+          // },
           onEdit: data => {
             product.setProductName(data.productName)
             product.setProductFeatures(data.productFeatures)
@@ -289,10 +289,10 @@ const Product = () => {
           product.deleteActualProduct()
         }}
       />
-      <ViewProduct
+      {/* <ViewProduct
         onClose={() => product.setViewModalIsOpen(false)}
         isOpen={product.viewModalIsOpen}
-      />
+      /> */}
     </div>
   )
 }

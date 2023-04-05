@@ -16,7 +16,7 @@ export const useProduct = () => {
 
   const [modalIsOpen, setModalIsOpen] = useState(false)
   const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false)
-  const [viewModalIsOpen, setViewModalIsOpen] = useState(false)
+  // const [viewModalIsOpen, setViewModalIsOpen] = useState(false)
 
   const [productName, setProductName] = useState('')
   const [productFeatures, setProductFeatures] = useState([])
@@ -192,8 +192,8 @@ export const useProduct = () => {
     onClickSave,
     onEditSave,
 
-    viewModalIsOpen,
-    setViewModalIsOpen,
+    // viewModalIsOpen,
+    // setViewModalIsOpen,
     isLoading,
     setIsLoading
   }

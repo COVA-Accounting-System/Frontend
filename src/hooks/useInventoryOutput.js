@@ -20,7 +20,7 @@ export const useInventoryOutput = () => {
 
   const [modalIsOpen, setModalIsOpen] = useState(false)
   const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false)
-  const [viewModalIsOpen, setViewModalIsOpen] = useState(false)
+  // const [viewModalIsOpen, setViewModalIsOpen] = useState(false)
 
   const [order, setOrder] = useState({})
   const [orderId, setOrderId] = useState('')
@@ -294,8 +294,8 @@ export const useInventoryOutput = () => {
     onClickSave,
     onEditSave,
 
-    viewModalIsOpen,
-    setViewModalIsOpen,
+    // viewModalIsOpen,
+    // setViewModalIsOpen,
 
     employeesList,
     ordersList,

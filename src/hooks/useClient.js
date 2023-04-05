@@ -16,7 +16,7 @@ export const useClient = () => {
 
   const [modalIsOpen, setModalIsOpen] = useState(false)
   const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false)
-  const [viewModalIsOpen, setViewModalIsOpen] = useState(false)
+  // const [viewModalIsOpen, setViewModalIsOpen] = useState(false)
 
   const [name, setName] = useState('')
   const [lastName, setLastName] = useState('')
@@ -160,8 +160,8 @@ export const useClient = () => {
     isSubmited,
     clientsList,
 
-    viewModalIsOpen,
-    setViewModalIsOpen,
+    // viewModalIsOpen,
+    // setViewModalIsOpen,
     changeActionRedux,
     deleteActualClient,
     onClickSave,

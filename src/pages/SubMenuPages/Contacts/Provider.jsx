@@ -91,7 +91,7 @@ const Provider = () => {
         cellRenderer: DataTableActions,
         colId: 'Actions',
         cellRendererParams: {
-          onView: () => {},
+          // onView: () => {},
           onEdit: data => {
             provider.setStoreName(data.storeName)
             provider.setNit(data.nit)

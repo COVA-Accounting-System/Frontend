@@ -77,10 +77,7 @@ const RawMaterial = () => {
         cellRenderer: DataTableActions,
         colId: 'Actions',
         cellRendererParams: {
-          onView: data => {
-            // product.setActualProductRedux(data)
-            // product.setViewModalIsOpen(true)
-          },
+          // onView: data => {},
           onEdit: data => {
             rawMaterial.setName(data.name)
             rawMaterial.setUnitMeasure(data.unitMeasure)

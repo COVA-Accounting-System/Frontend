@@ -17,7 +17,7 @@ export const useIncome = () => {
 
   const [modalIsOpen, setModalIsOpen] = useState(false)
   const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false)
-  const [viewModalIsOpen, setViewModalIsOpen] = useState(false)
+  // const [viewModalIsOpen, setViewModalIsOpen] = useState(false)
 
   const [client, setClient] = useState({})
   const [clientId, setClientId] = useState('')
@@ -237,8 +237,8 @@ export const useIncome = () => {
     onClickSave,
     onEditSave,
 
-    viewModalIsOpen,
-    setViewModalIsOpen,
+    // viewModalIsOpen,
+    // setViewModalIsOpen,
 
     ordersList,
     clientsList,

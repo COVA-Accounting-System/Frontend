@@ -69,10 +69,10 @@ const InventoryOutput = () => {
         cellRenderer: DataTableActions,
         colId: 'Actions',
         cellRendererParams: {
-          onView: data => {
-            // product.setActualProductRedux(data)
-            // product.setViewModalIsOpen(true)
-          },
+          // onView: data => {
+          //   product.setActualProductRedux(data)
+          //   product.setViewModalIsOpen(true)
+          // },
           onEdit: data => {
             inventoryOutput.setNumberOfInput(data.numberOfInput)
             inventoryOutput.setDate(data.date)
