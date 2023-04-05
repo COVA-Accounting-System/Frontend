@@ -13,7 +13,8 @@ import {
   ModalHeader,
   ModalFooter,
   ModalBody,
-  ModalCloseButton
+  ModalCloseButton,
+  Divider
 } from '@chakra-ui/react'
 
 const ViewClient = ({ isOpen, onClose }) => {
@@ -23,19 +24,27 @@ const ViewClient = ({ isOpen, onClose }) => {
     <Modal isOpen={isOpen} onClose={onClose} size='md'>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader color='acsys.titleColor' fontWeight='700' fontSize='25px'>
-          Ver cliente
-        </ModalHeader>
+        <ModalHeader></ModalHeader>
+        {/* <Divider></Divider> */}
         <ModalCloseButton color={'acsys.titleColor'} />
-        <ModalBody>
+        <ModalBody pt={0}>
+          <Flex
+            fontSize={'2xl'}
+            color={'acsys.iconColor'}
+            fontWeight={700}
+            mb={6}
+            mr={5}
+          >
+            {actualClient.name} {actualClient.lastName}
+          </Flex>
           <Stack direction='row' spacing={'80px'}>
             <Stack direction='column' spacing='30px'>
-              <Flex direction='column' rowGap='7px'>
+              {/* <Flex direction='column' rowGap='7px'>
                 <Heading color={'acsys.fontColor'} as='h5' size='xs'>
                   Nombres:{' '}
                 </Heading>
                 <Text color={'acsys.iconColor'}>{actualClient.name}</Text>
-              </Flex>
+              </Flex> */}
               <Flex direction='column' rowGap='7px'>
                 <Heading color={'acsys.fontColor'} as='h5' size='xs'>
                   Teléfono:{' '}
@@ -46,12 +55,12 @@ const ViewClient = ({ isOpen, onClose }) => {
               </Flex>
             </Stack>
             <Stack direction='column' spacing='30px'>
-              <Flex direction='column' rowGap='7px'>
+              {/* <Flex direction='column' rowGap='7px'>
                 <Heading color={'acsys.fontColor'} as='h5' size='xs'>
                   Apellidos:{' '}
                 </Heading>
                 <Text color={'acsys.iconColor'}>{actualClient.lastName}</Text>
-              </Flex>
+              </Flex> */}
 
               <Flex direction='column' rowGap='7px'>
                 <Heading color={'acsys.fontColor'} as='h5' size='xs'>
@@ -72,11 +81,11 @@ const ViewClient = ({ isOpen, onClose }) => {
         </ModalBody>
 
         <ModalFooter
-          mt={6}
-          borderBottomLeftRadius={'5'}
-          borderBottomRightRadius={'5'}
-          padding={'5px'}
-          bgColor={'acsys.primaryColor'}
+        // mt={6}
+        // borderBottomLeftRadius={'5'}
+        // borderBottomRightRadius={'5'}
+        // padding={'5px'}
+        // bgColor={'acsys.primaryColor'}
         ></ModalFooter>
       </ModalContent>
     </Modal>

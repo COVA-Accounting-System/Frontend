@@ -22,6 +22,7 @@ import DateFormControl from '../../../components/Input/DateFormControl'
 import CountryFormControl from '../../../components/Input/CountryFormControl'
 import DeleteModal from '../../../components/DeleteModal/DeleteModal'
 import Table from '../../../components/Table/Table'
+import ViewEmployee from '../../../components/ViewModals/ViewEmployee'
 
 // HOOKS IMPORTS
 import { useEmployee } from '../../../hooks/useEmployee'
@@ -120,7 +121,10 @@ const Employee = () => {
         cellRenderer: DataTableActions,
         colId: 'Actions',
         cellRendererParams: {
-          onView: () => {},
+          onView: data => {
+            employee.setActualEmployeeRedux(data)
+            employee.setViewModalIsOpen(true)
+          },
           onEdit: data => {
             employee.setName(data.name)
             employee.setLastName(data.lastName)
@@ -313,7 +317,12 @@ const Employee = () => {
           </ModalFooter>
         </ModalContent>
       </Modal>
-
+      <ViewEmployee
+        isOpen={employee.viewModalIsOpen}
+        onClose={() => {
+          employee.setViewModalIsOpen(false)
+        }}
+      />
       <DeleteModal
         isLoading={employee.isLoading}
         modalIsOpen={employee.deleteModalIsOpen}

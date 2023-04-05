@@ -22,6 +22,8 @@ import TextFormControl from '../../../components/Input/TextFormControl'
 import SelectEntityFormControl from '../../../components/Input/SelectEntityFormControl'
 import PriceFormControl from '../../../components/Input/PriceFormControl'
 import DateFormControl from '../../../components/Input/DateFormControl'
+import ClientPopover from '../../../components/Popover/ClientPopover'
+import OrderPopover from '../../../components/Popover/OrderPopover'
 
 import DeleteModal from '../../../components/DeleteModal/DeleteModal'
 import Table from '../../../components/Table/Table'
@@ -54,7 +56,13 @@ const Income = () => {
         resizable: true,
         sortable: true,
         unSortIcon: true,
-        width: 300
+        width: 300,
+        cellRenderer: ClientPopover,
+        cellRendererParams: {
+          getClientData: data => {
+            return data.client
+          }
+        }
         // maxWidth: 250,
       },
       {
@@ -63,9 +71,13 @@ const Income = () => {
         resizable: true,
         sortable: true,
         unSortIcon: true,
-        width: 250
-        // minWidth: 60,
-        // maxWidth: 160,
+        width: 250,
+        cellRenderer: OrderPopover,
+        cellRendererParams: {
+          getOrderData: data => {
+            return data.order
+          }
+        }
       },
       {
         headerName: 'Fecha',

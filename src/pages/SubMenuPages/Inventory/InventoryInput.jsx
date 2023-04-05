@@ -8,6 +8,7 @@ import DataTableActions from '../../../components/DataTableActions/DataTableActi
 import DeleteModal from '../../../components/DeleteModal/DeleteModal'
 import Table from '../../../components/Table/Table'
 import ExpenseModal from '../../../components/ExpenseModal/ExpenseModal'
+import ProviderPopover from '../../../components/Popover/ProviderPopover'
 
 // HOOKS IMPORTS
 import { useInventoryInput } from '../../../hooks/useInventoryInput'
@@ -38,6 +39,12 @@ const InventoryInput = () => {
         resizable: true,
         sortable: true,
         unSortIcon: true,
+        cellRenderer: ProviderPopover,
+        cellRendererParams: {
+          getProviderData: data => {
+            return data.creditorProvider
+          }
+        },
         // maxWidth: 160,
         width: 250
       },
@@ -204,7 +211,9 @@ const InventoryInput = () => {
         onClose={() => expense.closeDeleteModal()}
         onDelete={() => {
           expense.actualExpense.category === 'Materia prima'
-            ? expense.deleteActualExpenseRawMaterial(inventoryInput.closeDeleteModal)
+            ? expense.deleteActualExpenseRawMaterial(
+                inventoryInput.closeDeleteModal
+              )
             : expense.deleteActualExpense()
         }}
       />

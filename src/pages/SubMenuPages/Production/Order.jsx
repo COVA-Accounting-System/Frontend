@@ -11,9 +11,6 @@ import {
   ModalBody,
   ModalCloseButton,
   Input,
-  UnorderedList,
-  ListItem,
-  Stack,
   Button
 } from '@chakra-ui/react'
 
@@ -31,6 +28,8 @@ import Table from '../../../components/Table/Table'
 import StateTag from '../../../components/StateTags/StateTag'
 import SearchByState from '../../../components/SearchInputs/SearchByState'
 import OrderPaidTag from '../../../components/OrderPaidTag/OrderPaidTag'
+import ClientPopover from '../../../components/Popover/ClientPopover'
+import ProductPopover from '../../../components/Popover/ProductPopover'
 
 import { orderState } from '../../../assets/orderState'
 
@@ -78,7 +77,13 @@ const Order = () => {
         sortable: true,
         unSortIcon: true,
         // minWidth: 130,
-        width: 250
+        width: 250,
+        cellRenderer: ClientPopover,
+        cellRendererParams: {
+          getClientData: data => {
+            return data.orderClient
+          }
+        }
         // maxWidth: 250,
       },
       {
@@ -86,7 +91,13 @@ const Order = () => {
         field: 'orderProduct.uiName',
         resizable: true,
         sortable: true,
-        unSortIcon: true
+        unSortIcon: true,
+        cellRenderer: ProductPopover,
+        cellRendererParams: {
+          getProductData: data => {
+            return data.orderProduct
+          }
+        }
       },
       {
         headerName: 'Características',
@@ -171,6 +182,7 @@ const Order = () => {
         headerName: ' ',
         resizable: false,
         pinned: 'right',
+        // autoHeight: true,
         maxWidth: 160,
         cellRenderer: DataTableActionsOrder,
         colId: 'Actions',

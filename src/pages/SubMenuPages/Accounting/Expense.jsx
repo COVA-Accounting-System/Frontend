@@ -4,6 +4,7 @@ import React, { useMemo, useCallback, useRef } from 'react'
 // COMPONENTS IMPORTS
 import DataTableActions from '../../../components/DataTableActions/DataTableActions'
 import ExpenseModal from '../../../components/ExpenseModal/ExpenseModal'
+import ExpenseCategoryTag from '../../../components/ExpenseCategoryTag/ExpenseCategoryTag'
 
 import DeleteModal from '../../../components/DeleteModal/DeleteModal'
 import Table from '../../../components/Table/Table'
@@ -41,7 +42,9 @@ const Expense = () => {
         resizable: true,
         sortable: true,
         unSortIcon: true,
-        width: 250
+        width: 250,
+        cellRenderer: ExpenseCategoryTag,
+        // cellRendererParams:
         // maxWidth: 250,
       },
       {
