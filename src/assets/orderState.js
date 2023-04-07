@@ -2,22 +2,26 @@ export const orderState = [
   {
     state: 'On hold',
     stateSpanish: 'En fila',
-    color: 'acsys.redColorState'
+    color: 'acsys.redColorState',
+    progress: 0
   },
   {
     states: 'In production',
     stateSpanish: 'En producción',
-    color: 'acsys.violetColorState'
+    color: 'acsys.violetColorState',
+    progress: 33
   },
   {
     state: 'Finished',
     stateSpanish: 'Terminado',
-    color: 'acsys.blueColorState'
+    color: 'acsys.blueColorState',
+    progress: 66
   },
   {
     state: 'Delivered',
     stateSpanish: 'Entregado',
-    color: 'acsys.greenColorState'
+    color: 'acsys.greenColorState',
+    progress: 100
   }
 ]
 

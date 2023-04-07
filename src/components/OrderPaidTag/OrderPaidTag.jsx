@@ -3,7 +3,7 @@ import React from 'react'
 import { Flex, Tag } from '@chakra-ui/react'
 
 const OrderPaidTag = ({ data }) => {
-  console.log(data)
+  // console.log(data)
   return (
     // <Flex justifyContent={'center'} alignItems={'center'} >
     <Flex height={'100%'} alignItems={'center'}>

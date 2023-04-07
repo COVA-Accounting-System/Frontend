@@ -3,28 +3,16 @@ import React, { useMemo, useCallback, useRef } from 'react'
 
 // CHAKRA UI IMPORTS
 import {
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
   Input,
-  Stack,
-  Text,
   Button
 } from '@chakra-ui/react'
 
 // COMPONENTS IMPORTS
 import DataTableActions from '../../../components/DataTableActions/DataTableActions'
-import TextFormControl from '../../../components/Input/TextFormControl'
-import SelectEntityFormControl from '../../../components/Input/SelectEntityFormControl'
-import PriceFormControl from '../../../components/Input/PriceFormControl'
-import DateFormControl from '../../../components/Input/DateFormControl'
 // import ClientPopover from '../../../components/Popover/ClientPopover'
 // import OrderPopover from '../../../components/Popover/OrderPopover'
 
+import IncomeModal from '../../../components/IncomeModal/IncomeModal'
 import DeleteModal from '../../../components/DeleteModal/DeleteModal'
 import Table from '../../../components/Table/Table'
 
@@ -124,11 +112,13 @@ const Income = () => {
             income.setClientId(data.client._id)
             income.setOrder(data.order)
             income.setOrderId(data.order._id)
+            income.setTypeOfIncome(data.typeOfIncome)
             income.setDate(data.date)
             income.setAmount(data.amount)
             income.setOldAmount(data.amount)
             income.setConcept(data.concept)
 
+            income.setPage(1)
             income.changeActionRedux('edit')
             income.setActualIncomeRedux(data)
             income.openModal()
@@ -206,152 +196,8 @@ const Income = () => {
           </section>
         </div>
       </div>
-      <Modal
-        size='sm'
-        onClose={() => income.closeModal()}
-        isOpen={income.modalIsOpen}
-      >
-        <ModalOverlay />
+      <IncomeModal income={income}/>
 
-        <ModalContent userSelect='none' maxW='730px'>
-          <form>
-            <ModalHeader
-              color='acsys.titleColor'
-              fontWeight='700'
-              fontSize='25px'
-            >
-              {income.action === 'create'
-                ? 'Registrar ingreso'
-                : 'Editar ingreso'}
-            </ModalHeader>
-            <ModalCloseButton color={'acsys.titleColor'} />
-
-            <ModalBody pb={3}>
-              <Stack direction={'column'} spacing={4}>
-                <Stack direction={'row'} spacing={5}>
-                  {' '}
-                  <TextFormControl
-                    labelName='N.º asiento'
-                    // width='330px'
-                    paddingSpace={0}
-                    value={income.accountingSeat}
-                    onInput={data => income.setAccountingSeat(data)}
-                    isSubmited={income.isSubmited}
-                    isRequired
-                    isRequiredMessage='Este campo es obligatorio'
-                  />
-                  <DateFormControl
-                    labelName='Fecha de ingreso'
-                    // width='330px'
-                    paddingSpace={0}
-                    value={income.date}
-                    onInput={data => income.setDate(data)}
-                    isSubmited={income.isSubmited}
-                    isRequired={true}
-                    isRequiredMessage='Este campo es obligatorio'
-                  />
-                </Stack>
-                <Stack direction={'row'} spacing={5}>
-                  {' '}
-                  <SelectEntityFormControl
-                    labelName='Cliente'
-                    value={income.client}
-                    onSelect={data => {
-                      income.setClient(data)
-                      income.setClientId(data._id)
-                    }}
-                    isSubmited={income.isSubmited}
-                    entityList={income.clientsList}
-                    isRequired={true}
-                    isRequiredMessage='Este campo es obligatorio'
-                  />
-                  <SelectEntityFormControl
-                    labelName='Pedido'
-                    paddingSpace={4}
-                    value={income.order}
-                    onSelect={data => {
-                      income.setOrder(data)
-                      income.setOrderId(data._id)
-                    }}
-                    isSubmited={income.isSubmited}
-                    entityList={
-                      income.ordersList
-                        ? income.ordersList.filter(income.filterAtSelectClient)
-                        : []
-                    }
-                    isRequired={true}
-                    isRequiredMessage='Este campo es obligatorio'
-                    isDisabled={income.clientId === '' ? true : false}
-                  />
-                </Stack>
-                <Stack
-                  direction={'row'}
-                  spacing={5}
-                  justifyContent={'space-between'}
-                >
-                  <Stack direction={'column'} width={'100%'}>
-                    <PriceFormControl
-                      mt='0'
-                      labelName='Monto'
-                      value={income.amount}
-                      onInput={data => income.setAmount(data)}
-                      isSubmited={income.isSubmited}
-                      maxAllowed={
-                        income.order.orderBalance >= 0
-                          ? income.action === 'create'
-                            ? income.order.orderBalance
-                            : income.order.orderBalance + income.oldAmount
-                          : Number.MAX_SAFE_INTEGER
-                        // Number.MAX_SAFE_INTEGER
-                      }
-                      isRequired
-                      isRequiredMessage='Este campo es obligatorio'
-                    />
-                    <Text fontSize={'xs'} color='acsys.iconColor'>
-                      {income.order.orderBalance >= 0
-                        ? income.action === 'create'
-                          ? `Saldo actual: ${
-                              income.order.orderBalance - income.amount
-                            } Bs.`
-                          : `Saldo actual: ${
-                              income.order.orderBalance -
-                              (income.amount - income.oldAmount)
-                            } Bs.`
-                        : ''}
-                    </Text>
-                  </Stack>
-                  <Stack width={'100%'}>
-                    <TextFormControl
-                      labelName='Concepto'
-                      value={income.concept}
-                      onInput={data => income.setConcept(data)}
-                      isSubmited={income.isSubmited}
-                      isRequired
-                      isRequiredMessage='Este campo es obligatorio'
-                    />
-                  </Stack>
-                </Stack>
-              </Stack>
-            </ModalBody>
-
-            <ModalFooter>
-              <Button
-                backgroundColor={'acsys.primaryColor'}
-                _hover={{ backgroundColor: '#098bb6' }}
-                colorScheme='linkedin'
-                isLoading={income.isLoading}
-                onClick={
-                  income.action === 'create'
-                    ? income.onClickSave
-                    : income.onEditSave
-                }
-              >
-                Guardar
-              </Button>
-            </ModalFooter>
-          </form>
-        </ModalContent>
-      </Modal>
 
       <DeleteModal
         isLoading={income.isLoading}

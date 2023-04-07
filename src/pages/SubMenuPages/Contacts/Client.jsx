@@ -11,14 +11,26 @@ import {
   ModalBody,
   ModalCloseButton,
   Input,
-  Button
+  Button,
+  Stack,
+  Flex,
+  IconButton,
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+  PopoverHeader,
+  PopoverBody,
+  PopoverCloseButton
 } from '@chakra-ui/react'
+
+import { QuestionOutlineIcon, QuestionIcon } from '@chakra-ui/icons'
 
 // COMPONENTS IMPORTS
 // import ViewClient from '../../../components/ViewModals/ViewClient'
 import DataTableActions from '../../../components/DataTableActions/DataTableActions'
 import TextFormControl from '../../../components/Input/TextFormControl'
 import PhoneFormControl from '../../../components/Input/PhoneFormControl'
+import PriceFormControl from '../../../components/Input/PriceFormControl'
 import DeleteModal from '../../../components/DeleteModal/DeleteModal'
 import Table from '../../../components/Table/Table'
 
@@ -183,12 +195,12 @@ const Client = () => {
       <Modal
         // initialFocusRef={initialRef}
         // finalFocusRef={finalRef}
-        size='sm'
+        size={'xl'}
         onClose={() => client.closeModal()}
         isOpen={client.modalIsOpen}
       >
         <ModalOverlay />
-        <ModalContent userSelect='none'>
+        <ModalContent userSelect='none' maxW='350px'>
           <form>
             <ModalHeader
               color='acsys.titleColor'
@@ -201,46 +213,83 @@ const Client = () => {
             </ModalHeader>
             <ModalCloseButton color={'acsys.titleColor'} />
             <ModalBody pb={3}>
-              <TextFormControl
-                labelName='Nombres'
-                width='330px'
-                paddingSpace={0}
-                value={client.name}
-                onInput={data => client.setName(data)}
-                isSubmited={client.isSubmited}
-                isRequired
-                isRequiredMessage='Este campo es obligatorio'
-              />
-              <TextFormControl
-                labelName='Apellidos'
-                width='330px'
-                paddingSpace={4}
-                value={client.lastName}
-                onInput={data => client.setLastName(data)}
-                isSubmited={client.isSubmited}
-                isRequired
-                isRequiredMessage='Este campo es obligatorio'
-              />
+              <Stack direction={'column'} rowGap={1}>
+                <TextFormControl
+                  labelName='Nombres'
+                  paddingSpace={0}
+                  value={client.name}
+                  onInput={data => client.setName(data)}
+                  isSubmited={client.isSubmited}
+                  isRequired
+                  isRequiredMessage='Este campo es obligatorio'
+                />
+                <TextFormControl
+                  labelName='Apellidos'
+                  paddingSpace={0}
+                  value={client.lastName}
+                  onInput={data => client.setLastName(data)}
+                  isSubmited={client.isSubmited}
+                  isRequired
+                  isRequiredMessage='Este campo es obligatorio'
+                />
+                <Stack direction={'row'}>
+                  <PriceFormControl
+                    mt={0}
+                    labelName='Monto que adeuda'
+                    value={client.balance}
+                    onInput={data => client.setBalance(data)}
+                    isSubmited={client.isSubmited}
+                    isRequired
+                    isRequiredMessage='Este campo es obligatorio'
+                  />
+                  <Flex alignItems={'flex-end'}>
+                    <Popover>
+                      <PopoverTrigger>
+                        <IconButton
+                          height={'35px'}
+                          width={'35px'}
+                          icon={<QuestionIcon />}
+                          color={'acsys.titleColor'}
+                        />
+                      </PopoverTrigger>
+                      <PopoverContent>
+                        <PopoverCloseButton />
+                        <PopoverBody color={'acsys.iconColor'} fontSize={'sm'}>
+                          Este es el monto que adeuda el cliente al momento del
+                          registro, si el cliente no adeuda nada, puede dejar
+                          este campo en 0. Este monto se 
+                          <span style={{fontWeight: '600', color: '#109AC6'}}> actualiza
+                          automáticamente 
+                            </span> cuando una orden es entregada o cuando
+                          se registra un ingreso.
+                        </PopoverBody>
+                      </PopoverContent>
+                    </Popover>
+                  </Flex>
+                </Stack>
 
-              <PhoneFormControl
-                phoneNumberValue={client.phoneNumber}
-                phoneCountryCodeValue={client.phoneCountryCode}
-                phoneNumberOnInput={number => {
-                  client.setPhoneNumber(number)
-                }}
-                phoneCountryCodeOnInput={number => {
-                  client.setPhoneCountryCode(number)
-                }}
-              />
+                <TextFormControl
+                  labelName='Dirección'
+                  // width='330px'
 
-              <TextFormControl
-                labelName='Dirección'
-                width='330px'
-                paddingSpace={4}
-                value={client.address}
-                onInput={data => client.setAddress(data)}
-                isRequired={false}
-              />
+                  paddingSpace={0}
+                  value={client.address}
+                  onInput={data => client.setAddress(data)}
+                  isRequired={false}
+                />
+
+                <PhoneFormControl
+                  phoneNumberValue={client.phoneNumber}
+                  mt={0}
+                  phoneCountryCodeValue={client.phoneCountryCode}
+                  phoneNumberOnInput={number => {
+                    client.setPhoneNumber(number)
+                  }}
+                  phoneCountryCodeOnInput={number => {
+                    client.setPhoneCountryCode(number)
+                  }}
+                />
+              </Stack>
             </ModalBody>
 
             <ModalFooter>

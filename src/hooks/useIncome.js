@@ -17,12 +17,19 @@ export const useIncome = () => {
 
   const [modalIsOpen, setModalIsOpen] = useState(false)
   const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false)
+
+  const [page, setPage] = useState(0)
+  const [incomeTypes, setIncomeTypes] = useState({
+    Prepayment: false,
+    Payment: false
+  })
   // const [viewModalIsOpen, setViewModalIsOpen] = useState(false)
 
   const [client, setClient] = useState({})
   const [clientId, setClientId] = useState('')
   const [order, setOrder] = useState({})
   const [orderId, setOrderId] = useState('')
+  const [typeOfIncome, setTypeOfIncome] = useState('')
 
   const [accountingSeat, setAccountingSeat] = useState('')
   const [date, setDate] = useState('')
@@ -86,6 +93,12 @@ export const useIncome = () => {
     setDate('')
     setConcept('')
     setAmount('')
+    setPage(0)
+    setTypeOfIncome('')
+    setIncomeTypes({
+      Prepayment: false,
+      Payment: false
+    })
   }
 
   const closeModal = () => {
@@ -100,9 +113,15 @@ export const useIncome = () => {
     setIsSubmited(false)
   }
 
-  const filterAtSelectClient = order => {
+  const filterAtSelectClientPrepayment = order => {
     if (clientId !== '') {
-      return order.orderClient._id === clientId
+      return order.orderClient._id === clientId && order.orderStateNumber !== 3
+    }
+  }
+
+  const filterAtSelectClientPayment = order => {
+    if (clientId !== '') {
+      return order.orderClient._id === clientId && order.orderStateNumber === 3
     }
   }
 
@@ -144,6 +163,7 @@ export const useIncome = () => {
           accountingSeat,
           client: clientId,
           order: orderId,
+          typeOfIncome,
           date,
           amount,
           concept
@@ -180,6 +200,7 @@ export const useIncome = () => {
         updateIncome({
           ...actualIncome,
           accountingSeat,
+          typeOfIncome,
           client: clientId,
           order: orderId,
           date,
@@ -245,7 +266,18 @@ export const useIncome = () => {
     oldAmount,
     setOldAmount,
 
-    filterAtSelectClient,
-    isLoading
+    page,
+    setPage,
+
+    filterAtSelectClientPayment,
+    filterAtSelectClientPrepayment,
+
+    isLoading,
+    incomeTypes,
+    setIncomeTypes,
+    emptyFields,
+
+    typeOfIncome,
+    setTypeOfIncome
   }
 }

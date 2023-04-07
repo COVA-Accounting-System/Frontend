@@ -23,6 +23,7 @@ export const useClient = () => {
   const [phoneCountryCode, setPhoneCountryCode] = useState('')
   const [phoneNumber, setPhoneNumber] = useState('')
   const [address, setAddress] = useState('')
+  const [balance, setBalance] = useState('')
 
   const [isSubmited, setIsSubmited] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
@@ -54,6 +55,7 @@ export const useClient = () => {
     setPhoneCountryCode('')
     setPhoneNumber('')
     setAddress('')
+    setBalance('')
   }
 
   const closeModal = () => {
@@ -88,7 +90,7 @@ export const useClient = () => {
   const onClickSave = async e => {
     e.preventDefault()
     setIsSubmited(true)
-    if (name !== '' && lastName !== '') {
+    if (name !== '' && lastName !== '' && balance !== '') {
       setIsLoading(true)
       await dispatch(
         createClient({
@@ -97,7 +99,8 @@ export const useClient = () => {
           phoneCountryCode,
           phoneNumber,
           address,
-          uiName: `${name} ${lastName}`
+          uiName: `${name} ${lastName}`,
+          balance
         })
       ).then(status => {
         if (status) {
@@ -114,7 +117,7 @@ export const useClient = () => {
   const onEditSave = async e => {
     e.preventDefault()
     setIsSubmited(true)
-    if (name !== '' && lastName !== '') {
+    if (name !== '' && lastName !== '' && balance !== '') {
       setIsLoading(true)
       await dispatch(
         updateClient({
@@ -124,7 +127,8 @@ export const useClient = () => {
           phoneCountryCode,
           phoneNumber,
           address,
-          uiName: `${name} ${lastName}`
+          uiName: `${name} ${lastName}`,
+          balance
         })
       ).then(status => {
         if (status) {
@@ -157,6 +161,9 @@ export const useClient = () => {
     setPhoneNumber,
     address,
     setAddress,
+    balance,
+    setBalance,
+    
     isSubmited,
     clientsList,
 

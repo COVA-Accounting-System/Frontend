@@ -21,6 +21,10 @@ export const useOrder = () => {
 
   const [modalIsOpen, setModalIsOpen] = useState(false)
   const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false)
+
+  const [changeStateModalIsOpen, setChangeStateModalIsOpen] = useState(false)
+  const [actualStateNumber, setActualStateNumber] = useState(0)
+
   const [ordersList, setOrdersList] = useState([])
   const [actualOrder, setActualOrder] = useState({})
   const [action, setAction] = useState('')
@@ -40,7 +44,9 @@ export const useOrder = () => {
 
   const [orderDeliveryDate, setOrderDeliveryDate] = useState('')
 
-  const [orderState, setOrderState] = useState('pending')
+  const [orderState, setOrderState] = useState('')
+  const [orderStateNumber, setOrderStateNumber] = useState(0)
+
   const [filterByState, setFilterByState] = useState({
     pending: true,
     inProgress: true,
@@ -118,6 +124,10 @@ export const useOrder = () => {
   //     }
 
   // }, [orderProductAmount, orderProduct, orderProductAmountType])
+
+  useEffect(() => {
+    console.log(actualStateNumber)
+  }, [actualStateNumber])
 
   const openModal = () => {
     setModalIsOpen(true)
@@ -243,6 +253,7 @@ export const useOrder = () => {
           orderStateNumber: 0,
           orderPaidState: 'Not paid',
           orderPaidStateNumber: 0,
+          orderPrePayedPrice: 0,
           orderPayedPrice: 0,
           orderBalance: orderPrice,
           orderMaterialCosts: 0,
@@ -260,6 +271,30 @@ export const useOrder = () => {
       }
       setIsLoading(false)
     }
+  }
+
+  const onEditState = async () => {
+    setIsLoading(true)
+    try {
+      const updatedOrder = await updateOrder({
+        ...actualOrder,
+        orderStateNumber: actualStateNumber,
+        orderState: orderAsset[actualStateNumber].state,
+      })
+
+      const newList = ordersList.map(order => {
+        if (order._id === updatedOrder.data._id) {
+          return { ...updatedOrder.data }
+        }
+        return order
+      })
+      setOrdersList(newList)
+      setChangeStateModalIsOpen(false)
+      toast.invetorySuccess('Estado editado con éxito')
+    } catch {
+      toast.inventoryError('Error al editar estado')
+    }
+    setIsLoading(false)
   }
 
   const onEditSave = async e => {
@@ -280,6 +315,8 @@ export const useOrder = () => {
           orderClient: orderClientId,
           orderProduct: orderProductId,
           orderNumber,
+          orderStateNumber,
+          orderState: orderAsset[orderStateNumber].state,
           orderProductAmount,
           orderProductAmountType,
           orderPrice,
@@ -308,6 +345,7 @@ export const useOrder = () => {
     action,
     setAction,
     ordersList,
+    actualOrder,
     setActualOrder,
     modalIsOpen,
     openModal,
@@ -355,6 +393,15 @@ export const useOrder = () => {
     onClickSave,
     onEditSave,
     filterByState,
-    setFilterByState
+    setFilterByState,
+
+    actualStateNumber,
+    setActualStateNumber,
+    changeStateModalIsOpen,
+    setChangeStateModalIsOpen,
+
+    orderStateNumber,
+    setOrderStateNumber,
+    onEditState
   }
 }

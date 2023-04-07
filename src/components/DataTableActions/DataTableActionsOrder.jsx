@@ -26,10 +26,12 @@ const DataTableActionsOrder = props => {
     data,
     // onView,
     onEdit,
+    onChangeState,
     onDelete,
     onChangeStateForward,
     onChangeStateBackward,
-    onRegisterMaterial
+    onRegisterMaterial,
+
   } = props
 
   const previousTagData =
@@ -99,7 +101,12 @@ const DataTableActionsOrder = props => {
             Material utilizado
           </MenuItem>
           <MenuDivider margin={0} />
-          {data.orderStateNumber !== minOrderState ? (
+          <MenuItem height='30px' fontWeight={500} onClick={() =>
+            onChangeState(data)
+          }>
+            Cambiar estado
+          </MenuItem>
+          {/* {data.orderStateNumber !== minOrderState ? (
             <MenuItem
               height='30px'
               fontWeight={500}
@@ -126,7 +133,7 @@ const DataTableActionsOrder = props => {
               {`Mover a:`}&nbsp;
               <StateTag data={nextTagData} />
             </MenuItem>
-          ) : null}
+          ) : null} */}
         </MenuList>
       </Menu>
     </div>

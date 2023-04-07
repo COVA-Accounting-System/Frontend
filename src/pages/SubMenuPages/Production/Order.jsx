@@ -29,6 +29,7 @@ import StateTag from '../../../components/StateTags/StateTag'
 import SearchByState from '../../../components/SearchInputs/SearchByState'
 import OrderPaidTag from '../../../components/OrderPaidTag/OrderPaidTag'
 import FeaturesTooltip from '../../../components/Tooltip/FeaturesTooltip'
+import ChangeState from '../../../components/OrderModals/ChangeState'
 // import ClientPopover from '../../../components/Popover/ClientPopover'
 // import ProductPopover from '../../../components/Popover/ProductPopover'
 
@@ -78,7 +79,7 @@ const Order = () => {
         sortable: true,
         unSortIcon: true,
         // minWidth: 130,
-        width: 250,
+        width: 250
         // cellRenderer: ClientPopover,
         // cellRendererParams: {
         //   getClientData: data => {
@@ -92,7 +93,7 @@ const Order = () => {
         field: 'orderProduct.uiName',
         resizable: true,
         sortable: true,
-        unSortIcon: true,
+        unSortIcon: true
         // cellRenderer: ProductPopover,
         // cellRendererParams: {
         //   getProductData: data => {
@@ -197,6 +198,8 @@ const Order = () => {
             order.setOrderProductAmountType(data.orderProductAmountType)
             order.setOrderProductAmount(data.orderProductAmount)
 
+            order.setOrderStateNumber(data.orderStateNumber)
+
             // order.changeActionRedux('edit')
             order.setAction('edit')
             order.setActualOrder(data)
@@ -213,7 +216,13 @@ const Order = () => {
           onChangeStateForward: data => {
             order.onMoveForwardState(data)
           },
-          onRegisterMaterial: data => {}
+          onRegisterMaterial: data => {},
+          onChangeState: data => {
+            order.setOrderStateNumber(data.orderStateNumber)
+            order.setActualStateNumber(data.orderStateNumber)
+            order.setActualOrder(data)
+            order.setChangeStateModalIsOpen(true)
+          }
         }
       }
     ],
@@ -478,6 +487,17 @@ const Order = () => {
         onClose={() => order.closeDeleteModal()}
         onDelete={() => {
           order.deleteActualOrder()
+        }}
+      />
+      <ChangeState
+        isLoading={order.isLoading}
+        orderStateNumber={order.orderStateNumber}
+        modalIsOpen={order.changeStateModalIsOpen}
+        onClose={() => order.setChangeStateModalIsOpen(false)}
+        actualStateNumber={order.actualStateNumber}
+        setActualStateNumber={order.setActualStateNumber}
+        onSaveClick={() => {
+          order.onEditState()
         }}
       />
     </div>
