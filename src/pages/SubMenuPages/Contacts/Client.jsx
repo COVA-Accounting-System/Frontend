@@ -81,6 +81,19 @@ const Client = () => {
         // maxWidth: 200,
       },
       {
+        headerName: 'Adeuda',
+        // field: 'phoneCountryCode', 'phoneNumber',
+        valueGetter: data => {
+          return `${data.data.balance} Bs.`
+        },
+        unSortIcon: true,
+        sortable: true,
+        resizable: true
+        // minWidth: 100,
+        // width: 190
+        // maxWidth: 200,
+      },
+      {
         headerName: 'Dirección',
         field: 'address',
         resizable: true,
@@ -106,6 +119,7 @@ const Client = () => {
             client.setPhoneCountryCode(data.phoneCountryCode)
             client.setPhoneNumber(data.phoneNumber)
             client.setAddress(data.address)
+            client.setBalance(data.balance)
             client.changeActionRedux('edit')
             client.setActualClientRedux(data)
             client.openModal()
@@ -260,7 +274,7 @@ const Client = () => {
                           este campo en 0. Este monto se 
                           <span style={{fontWeight: '600', color: '#109AC6'}}> actualiza
                           automáticamente 
-                            </span> cuando una orden es entregada o cuando
+                            </span> cuando un pedido es entregado o cuando
                           se registra un ingreso.
                         </PopoverBody>
                       </PopoverContent>

@@ -6,7 +6,8 @@ import DataTableActions from '../../../components/DataTableActions/DataTableActi
 import ExpenseModal from '../../../components/ExpenseModal/ExpenseModal'
 import ExpenseCategoryTag from '../../../components/ExpenseCategoryTag/ExpenseCategoryTag'
 
-import DeleteModal from '../../../components/DeleteModal/DeleteModal'
+// import DeleteModal from '../../../components/DeleteModal/DeleteModal'
+import DeleteExpenseAndInventoryInput from '../../../components/DeleteModal/DeleteExpenseAndInventoryInput'
 import Table from '../../../components/Table/Table'
 
 // CHAKRA UI IMPORTS
@@ -153,6 +154,9 @@ const Expense = () => {
             expense.openModal()
           },
           onDelete: data => {
+            expense.setInventoryInput(data.inventoryInput)
+            expense.setAccountingSeat(data.accountingSeat)
+            // expense.setInventoryInputId(data.inventoryInput._id)
             expense.setDeleteModalIsOpen(true)
             expense.setActualExpenseRedux(data)
           }
@@ -232,14 +236,14 @@ const Expense = () => {
         isEditMode={expense.action === 'edit' ? true : false}
       />
 
-      <DeleteModal
+      <DeleteExpenseAndInventoryInput
         isLoading={expense.isLoading}
         modalIsOpen={expense.deleteModalIsOpen}
-        entityName='Gasto'
         onClose={() => {
           expense.closeDeleteModal()
-          // inventoryInput.closeDeleteModal()
         }}
+        expenseName={expense.accountingSeat}
+        inventoryInputName={expense.inventoryInput}
         onDelete={() => {
           expense.actualExpense.category === 'Materia prima'
             ? expense.deleteActualExpenseRawMaterial()

@@ -78,6 +78,14 @@ const Income = () => {
         unSortIcon: true
       },
       {
+        headerName: 'Tipo de pago',
+        field: 'typeOfIncome',
+        resizable: true,
+        sortable: true,
+        unSortIcon: true
+        // minWidth: 140,
+      },
+      {
         headerName: 'Concepto',
         field: 'concept',
         resizable: true,

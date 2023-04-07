@@ -5,7 +5,8 @@ import { Input, Button } from '@chakra-ui/react'
 
 // COMPONENTS IMPORTS
 import DataTableActions from '../../../components/DataTableActions/DataTableActions'
-import DeleteModal from '../../../components/DeleteModal/DeleteModal'
+import DeleteExpenseAndInventoryInput from '../../../components/DeleteModal/DeleteExpenseAndInventoryInput'
+// import DeleteModal from '../../../components/DeleteModal/DeleteModal'
 import Table from '../../../components/Table/Table'
 import ExpenseModal from '../../../components/ExpenseModal/ExpenseModal'
 import MaterialsTooltip from '../../../components/Tooltip/MaterialsTooltip'
@@ -48,7 +49,6 @@ const InventoryInput = () => {
         //   }
         // },
         // maxWidth: 160,
-        
       },
       {
         headerName: 'Fecha de entrada',
@@ -73,7 +73,7 @@ const InventoryInput = () => {
           getListOfMaterials: data => {
             return data.inventoryInput.listOfMaterials
           }
-        },
+        }
         // valueGetter: data => {
         //   return `${data.data.inventoryInput.totalPrice} Bs.`
         // },
@@ -88,11 +88,11 @@ const InventoryInput = () => {
         unSortIcon: true,
         valueGetter: data => {
           return `${data.data.inventoryInput.totalPrice} Bs.`
-        },
+        }
 
         // maxWidth: 180,
       },
- 
+
       {
         headerName: ' ',
         resizable: false,
@@ -226,11 +226,12 @@ const InventoryInput = () => {
         inventoryInputHook={inventoryInput}
         isFromExpense={false}
       />
-      <DeleteModal
+      <DeleteExpenseAndInventoryInput
         isLoading={expense.isLoading}
         modalIsOpen={expense.deleteModalIsOpen}
-        entityName='Entrada'
         onClose={() => expense.closeDeleteModal()}
+        expenseName={expense.accountingSeat}
+        inventoryInputName={expense.inventoryInput}
         onDelete={() => {
           expense.actualExpense.category === 'Materia prima'
             ? expense.deleteActualExpenseRawMaterial(

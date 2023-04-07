@@ -7,11 +7,11 @@ const OrderPaidTag = ({ data }) => {
   return (
     // <Flex justifyContent={'center'} alignItems={'center'} >
     <Flex height={'100%'} alignItems={'center'}>
-      {data.orderPayedPrice === 0 ? (
+      {data.orderPayedPrice === 0 && data.orderPrePayedPrice === 0 ? (
         <Tag colorScheme={'red'} fontSize={'small'} fontWeight={'semibold'}>
           NO PAGADO
         </Tag>
-      ) : data.orderPayedPrice !== data.orderPrice ? (
+      ) : data.orderBalance !== 0 ? (
         <Tag colorScheme={'yellow'} fontSize={'small'} fontWeight={'semibold'}>
           EN PAGO
         </Tag>

@@ -41,7 +41,9 @@ const ChangeState = ({
   actualStateNumber,
   setActualStateNumber,
   onSaveClick,
-  orderStateNumber
+  orderStateNumber,
+  balance,
+  clientName
 }) => {
   const [showTooltip, setShowTooltip] = useState(false)
 
@@ -65,6 +67,8 @@ const ChangeState = ({
               onMouseEnter={() => setShowTooltip(true)}
               onMouseLeave={() => setShowTooltip(false)}
               onChange={value => setActualStateNumber(value / 33)}
+              min={0}
+              max={99}
             >
               <SliderMark value={0} mt={4} ml={'-5'}>
                 En fila
@@ -100,10 +104,22 @@ const ChangeState = ({
 
           <Divider mt={10} />
           <Stack mt={3}>
-            <Text color={'acsys.iconColor'} fontSize={'sm'}>
-              Si modifica el estado a "Entregado", se agregará el precio de la
-              orden a la cuenta del cliente.
-            </Text>
+            {orderState[orderStateNumber].state !== 'Delivered' &&
+            orderState[actualStateNumber].state === 'Delivered' ? (
+              <Text color={'acsys.iconColor'} fontSize={'sm'}>
+                Si modifica el estado a "Entregado", se agregarán {balance} Bs.
+                de deuda a la cuenta de {clientName}.
+              </Text>
+            ) : orderState[orderStateNumber].state === 'Delivered' &&
+              orderState[actualStateNumber].state !== 'Delivered' ? (
+              <Text color={'acsys.iconColor'} fontSize={'sm'}>
+                Si modifica el estado a "
+                {orderState[actualStateNumber].stateSpanish}", se restarán{' '}
+                {balance} Bs. de deuda de la cuenta de {clientName}.
+              </Text>
+            ) : (
+              ''
+            )}
           </Stack>
         </ModalBody>
         <ModalFooter mt={0}>

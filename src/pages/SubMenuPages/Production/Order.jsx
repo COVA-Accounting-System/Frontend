@@ -156,6 +156,16 @@ const Order = () => {
         }
       },
       {
+        headerName: 'Monto por adelantado',
+        field: 'orderPrePayedPrice',
+        resizable: true,
+        sortable: true,
+        unSortIcon: true,
+        valueGetter: data => {
+          return `${data.data.orderPrePayedPrice} Bs.`
+        }
+      },
+      {
         headerName: 'Monto pagado',
         field: 'orderPayedPrice',
         resizable: true,
@@ -197,6 +207,8 @@ const Order = () => {
             order.setOrderPrice(data.orderPrice)
             order.setOrderProductAmountType(data.orderProductAmountType)
             order.setOrderProductAmount(data.orderProductAmount)
+            order.setOrderPrePayedPrice(data.orderPrePayedPrice)
+            order.setOrderPayedPrice(data.orderPayedPrice)
 
             order.setOrderStateNumber(data.orderStateNumber)
 
@@ -222,6 +234,9 @@ const Order = () => {
             order.setActualStateNumber(data.orderStateNumber)
             order.setActualOrder(data)
             order.setChangeStateModalIsOpen(true)
+            order.setOrderBalance(data.orderBalance)
+            order.setOrderClient(data.orderClient)
+            order.setOrderClientId(data.orderClient._id)
           }
         }
       }
@@ -491,9 +506,14 @@ const Order = () => {
       />
       <ChangeState
         isLoading={order.isLoading}
+        balance={order.orderBalance}
+        clientName={order.orderClient.uiName}
         orderStateNumber={order.orderStateNumber}
         modalIsOpen={order.changeStateModalIsOpen}
-        onClose={() => order.setChangeStateModalIsOpen(false)}
+        onClose={() => {
+          order.setChangeStateModalIsOpen(false)
+          order.emptyFields()
+        }}
         actualStateNumber={order.actualStateNumber}
         setActualStateNumber={order.setActualStateNumber}
         onSaveClick={() => {

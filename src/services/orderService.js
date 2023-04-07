@@ -49,6 +49,22 @@ const updateOrder = data => {
   }
 }
 
+export const updateStateToDelivered = data => {
+  try {
+    return orderInstance.put('/updateStateToDelivered', data)
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+export const updateStateToNotDelivered = data => {
+  try {
+    return orderInstance.put('/updateStateToNotDelivered', data)
+  } catch (err) {
+    console.error(err)
+  }
+}
+
 const deleteOrder = data => {
   try {
     return orderInstance.put(`/delete`, data)

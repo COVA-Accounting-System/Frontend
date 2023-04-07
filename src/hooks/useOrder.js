@@ -7,7 +7,9 @@ import {
   updateOrder,
   deleteOrder,
   changeStateBackward,
-  changeStateForward
+  changeStateForward,
+  updateStateToDelivered,
+  updateStateToNotDelivered
 } from '../services/orderService'
 import { getAllClients } from '../reducers/clients'
 import { getAllProducts } from '../reducers/products'
@@ -41,6 +43,9 @@ export const useOrder = () => {
   const [orderProductAmount, setOrderProductAmount] = useState('')
   const [orderProductAmountType, setOrderProductAmountType] = useState('')
   const [orderPrice, setOrderPrice] = useState('')
+  const [orderBalance, setOrderBalance] = useState('')
+  const [orderPrePayedPrice, setOrderPrePayedPrice] = useState('')
+  const [orderPayedPrice, setOrderPayedPrice] = useState('')
 
   const [orderDeliveryDate, setOrderDeliveryDate] = useState('')
 
@@ -125,10 +130,6 @@ export const useOrder = () => {
 
   // }, [orderProductAmount, orderProduct, orderProductAmountType])
 
-  useEffect(() => {
-    console.log(actualStateNumber)
-  }, [actualStateNumber])
-
   const openModal = () => {
     setModalIsOpen(true)
   }
@@ -147,6 +148,7 @@ export const useOrder = () => {
 
     setOrderState('')
     setOrderFeatures([])
+    setOrderBalance('')
   }
 
   const closeModal = () => {
@@ -275,13 +277,23 @@ export const useOrder = () => {
 
   const onEditState = async () => {
     setIsLoading(true)
+    let updatedOrder
+    // let 
     try {
-      const updatedOrder = await updateOrder({
-        ...actualOrder,
-        orderStateNumber: actualStateNumber,
-        orderState: orderAsset[actualStateNumber].state,
-      })
-
+      if (orderAsset[actualStateNumber].state === 'Delivered') {
+       updatedOrder = await updateStateToDelivered({
+          ...actualOrder,
+          orderStateNumber: actualStateNumber,
+          orderState: orderAsset[actualStateNumber].state,
+        })
+      }
+      else {
+        updatedOrder = await updateStateToNotDelivered({
+          ...actualOrder,
+          orderStateNumber: actualStateNumber,
+          orderState: orderAsset[actualStateNumber].state,
+        })
+      }
       const newList = ordersList.map(order => {
         if (order._id === updatedOrder.data._id) {
           return { ...updatedOrder.data }
@@ -290,6 +302,7 @@ export const useOrder = () => {
       })
       setOrdersList(newList)
       setChangeStateModalIsOpen(false)
+      emptyFields()
       toast.invetorySuccess('Estado editado con éxito')
     } catch {
       toast.inventoryError('Error al editar estado')
@@ -320,6 +333,7 @@ export const useOrder = () => {
           orderProductAmount,
           orderProductAmountType,
           orderPrice,
+          orderBalance: orderPrice - (orderPrePayedPrice + orderPayedPrice),
           orderDeliveryDate,
           uiName: `Pedido #${orderNumber} - ${orderProduct.uiName}`,
           orderFeatures: [...orderFeatures]
@@ -402,6 +416,11 @@ export const useOrder = () => {
 
     orderStateNumber,
     setOrderStateNumber,
-    onEditState
+    onEditState,
+    emptyFields,
+    orderBalance,
+    setOrderBalance,
+    setOrderPayedPrice,
+    setOrderPrePayedPrice
   }
 }
