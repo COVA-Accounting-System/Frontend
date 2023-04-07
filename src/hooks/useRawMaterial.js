@@ -123,6 +123,7 @@ export const useRawMaterial = () => {
         updatedRawMaterial({
           ...actualRawMaterial,
           name,
+          uiName: name,
           features: [...features],
           unitMeasure
         })

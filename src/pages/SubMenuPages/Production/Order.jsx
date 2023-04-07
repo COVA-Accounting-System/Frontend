@@ -444,6 +444,7 @@ const Order = () => {
                     isRequired={true}
                     isRequiredMessage='Este campo es obligatorio'
                     isSubmited={order.isSubmited}
+                    formHelperText={order.calculatedPrice}
                   />
                   <DateFormControl
                     labelName='Fecha de entrega'
@@ -458,6 +459,7 @@ const Order = () => {
                 </div>
                 <div>
                   <FeaturesFormControl
+                    
                     listOfFeatures={order.orderFeatures}
                     onAddFeature={data => {
                       order.setOrderFeatures(data)
@@ -469,6 +471,7 @@ const Order = () => {
                       order.setOrderFeatures(data)
                     }}
                     marginTop={4}
+                    isExtended={true}
                   />
                 </div>
                 <div

@@ -22,7 +22,8 @@ const FeaturesFormControl = ({
   onAddFeature,
   onEditFeature,
   onRemoveFeature,
-  marginTop
+  marginTop,
+  isExtended = false
 }) => {
   const [featureInputValue, setFeatureInputValue] = useState('')
   return (
@@ -89,7 +90,8 @@ const FeaturesFormControl = ({
           <Button label='+' type='add-disabled' isDisabled={true} />
         )} */}
       </div>
-      <div className='features-list-container'>
+      <div className='features-list-container' style={isExtended ? {height: '229px'}: {}}>
+ 
         <UnorderedList>
           {listOfFeatures.map((feature, index) => {
             return (
@@ -136,6 +138,7 @@ const FeaturesFormControl = ({
             )
           })}
         </UnorderedList>
+
       </div>
     </FormControl>
   )

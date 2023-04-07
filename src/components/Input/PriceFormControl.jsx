@@ -5,7 +5,8 @@ import {
   NumberInput,
   NumberInputField,
   FormErrorMessage,
-  InputRightAddon
+  InputRightAddon,
+  FormHelperText
 } from '@chakra-ui/react'
 
 const PriceFormControl = ({
@@ -18,6 +19,7 @@ const PriceFormControl = ({
   isRequiredMessage,
   maxAllowed,
   isDisabled = false,
+  formHelperText = '',
   mt = 4
 }) => {
   const isError = isSubmited && value === ''
@@ -70,6 +72,9 @@ const PriceFormControl = ({
             bgColor={isDisabled ? 'gray.100' : 'acsys.backgroundColor'}
           />
         </InputGroup>
+        {formHelperText !== '' && (
+          <FormHelperText fontSize={'12px'} mt={1}>Precio calculado del pedido: {formHelperText}</FormHelperText>
+        )}
         {isError && <FormErrorMessage>{isRequiredMessage}</FormErrorMessage>}
       </FormControl>
     </>

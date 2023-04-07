@@ -93,6 +93,7 @@ export const useInventoryInput = () => {
     setPrice('')
     setUnitMeasure('')
     setIsSubmited(false)
+    setIsMaterialListEditing(false)
   }
 
   const closeModal = () => {

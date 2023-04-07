@@ -1,7 +1,8 @@
 
 
 body *{
-  font-family: "Open Sans", sans-serif;
+  font-family: "Open Sans", sans-serif, "Segoe UI Emoji", "Apple Color Emoji", "NotoColorEmoji", "Segoe UI Symbol", "Android Emoji", "EmojiSymbols";
+  /* font-family: 'Noto Color Emoji', sans-serif; */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

@@ -196,12 +196,16 @@ const RegisterInventoryEntry = ({
                             <Td>{index + 1}</Td>
                             <Td>{material.rawMaterial.name}</Td>
                             <Td>
-                              {material.amount} {material.unitMeasure}
+                              {material.amount}{' '}
+                              {material.rawMaterial.unitMeasure.uiName}
                             </Td>
                             <Td>{material.price} Bs.</Td>
                             <Td>
                               <Stack direction={'row'}>
                                 <IconButton
+                                  isDisabled={
+                                    inventoryInputHook.isMaterialListEditing
+                                  }
                                   size='xs'
                                   color='acsys.fontColor'
                                   icon={<EditIcon />}
@@ -213,10 +217,10 @@ const RegisterInventoryEntry = ({
                                       index
                                     )
                                     inventoryInputHook.setRawMaterial(
-                                     material.rawMaterial
+                                      material.rawMaterial
                                     )
                                     inventoryInputHook.setUnitMeasure(
-                                      material.unitMeasure
+                                      material.rawMaterial.unitMeasure.uiName
                                     )
                                     inventoryInputHook.setAmount(
                                       material.amount
@@ -225,13 +229,20 @@ const RegisterInventoryEntry = ({
                                   }}
                                 />
                                 <IconButton
+                                  isDisabled={
+                                    inventoryInputHook.isMaterialListEditing
+                                  }
                                   size={'xs'}
                                   icon={<DeleteIcon />}
                                   color='acsys.fontColor'
-                                  _hover={{
-                                    color: 'acsys.redColor',
-                                    cursor: 'pointer'
-                                  }}
+                                  _hover={
+                                    !inventoryInputHook.isMaterialListEditing
+                                      ? {
+                                          color: 'acsys.redColor',
+                                          cursor: 'pointer'
+                                        }
+                                      : {}
+                                  }
                                   onClick={() => {
                                     inventoryInputHook.onRemoveMaterial(index)
                                   }}

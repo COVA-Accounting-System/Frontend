@@ -206,12 +206,16 @@ const RegisterInventoryOutput = ({ inventoryOutputHook }) => {
                               <Td>{index + 1}</Td>
                               <Td>{material.rawMaterial.name}</Td>
                               <Td>
-                                {material.amount} {material.unitMeasure}
+                                {material.amount}{' '}
+                                {material.rawMaterial.unitMeasure.uiName}
                               </Td>
                               <Td>{material.price} Bs.</Td>
                               <Td>
                                 <Stack direction={'row'}>
                                   <IconButton
+                                    isDisabled={
+                                      inventoryOutputHook.isMaterialListEditing
+                                    }
                                     size='xs'
                                     color='acsys.fontColor'
                                     icon={<EditIcon />}
@@ -226,7 +230,7 @@ const RegisterInventoryOutput = ({ inventoryOutputHook }) => {
                                         material.rawMaterial
                                       )
                                       inventoryOutputHook.setUnitMeasure(
-                                        material.unitMeasure
+                                        material.rawMaterial.unitMeasure.uiName
                                       )
                                       inventoryOutputHook.setAmount(
                                         material.amount
@@ -237,13 +241,20 @@ const RegisterInventoryOutput = ({ inventoryOutputHook }) => {
                                     }}
                                   />
                                   <IconButton
+                                    isDisabled={
+                                      inventoryOutputHook.isMaterialListEditing
+                                    }
                                     size={'xs'}
                                     icon={<DeleteIcon />}
                                     color='acsys.fontColor'
-                                    _hover={{
-                                      color: 'acsys.redColor',
-                                      cursor: 'pointer'
-                                    }}
+                                    _hover={
+                                      !inventoryOutputHook.isMaterialListEditing
+                                        ? {
+                                            color: 'acsys.redColor',
+                                            cursor: 'pointer'
+                                          }
+                                        : {}
+                                    }
                                     onClick={() => {
                                       inventoryOutputHook.onRemoveMaterial(
                                         index

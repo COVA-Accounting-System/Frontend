@@ -47,6 +47,8 @@ export const useOrder = () => {
   const [orderPrePayedPrice, setOrderPrePayedPrice] = useState('')
   const [orderPayedPrice, setOrderPayedPrice] = useState('')
 
+  const [calculatedPrice, setCalculatedPrice] = useState(0)
+
   const [orderDeliveryDate, setOrderDeliveryDate] = useState('')
 
   const [orderState, setOrderState] = useState('')
@@ -71,23 +73,6 @@ export const useOrder = () => {
     return state.products.data.filter(param => param.isVisible === true)
   })
 
-  // const actualOrder = useSelector(state => state.orders.actualOrder)
-
-  // const ordersList = useSelector(state => {
-  //   return state.orders.data.filter(param => param.isVisible === true)
-  // })
-
-  // useEffect(() => {
-  //   dispatch(getAllOrders())
-  //   dispatch(getAllClients())
-  //   dispatch(getAllProducts())
-  //   dispatch(changeEntity({ entity: 'order', entityName: 'pedido' }))
-  // }, [dispatch])
-
-  // useEffect(() => {
-  // console.log(filterByState)
-  // },[filterByState])
-
   useEffect(() => {
     if (clientsList.length === 0) {
       dispatch(getAllClients())
@@ -103,32 +88,24 @@ export const useOrder = () => {
     })
   }, [])
 
-  // useEffect(() => {
+  useEffect(() => {
 
-  //     if (orderProductAmountType === 'Unidad') {
-  //       if (orderProductAmount !== '' && orderProduct.productPrice !== '') {
-  //         setOrderPrice(() => orderProductAmount * orderProduct.productPrice)
-  //       }
-  //     }
+    if (orderProductAmountType !== '' && orderProductAmount !== '' && orderProduct.productPrice) { 
+      if (orderProductAmountType === 'Unidad' || orderProductAmountType === 'Par') {
+        setCalculatedPrice(() => orderProductAmount * orderProduct.productPrice)
+      }
+      if (orderProductAmountType === 'Docena') {
+        setCalculatedPrice(
+          () => orderProductAmount * orderProduct.productDozenPrice
+        )
+      }
+    }
+    else{
+      setCalculatedPrice(0)
+    }
 
-  //     if (orderProductAmountType === 'Par') {
-  //       if (orderProductAmount !== '' && orderProduct.productPrice !== '') {
-  //         setOrderPrice(() => orderProductAmount * orderProduct.productPrice)
-  //       }
-  //     }
 
-  //     if (orderProductAmountType === 'Docena') {
-  //       if (
-  //         orderProductAmount !== '' &&
-  //         orderProduct.productDozenPrice !== ''
-  //       ) {
-  //         setOrderPrice(
-  //           () => orderProductAmount * orderProduct.productDozenPrice
-  //         )
-  //       }
-  //     }
-
-  // }, [orderProductAmount, orderProduct, orderProductAmountType])
+  }, [orderProductAmount, orderProduct, orderProductAmountType])
 
   const openModal = () => {
     setModalIsOpen(true)
@@ -421,6 +398,8 @@ export const useOrder = () => {
     orderBalance,
     setOrderBalance,
     setOrderPayedPrice,
-    setOrderPrePayedPrice
+    setOrderPrePayedPrice,
+
+    calculatedPrice
   }
 }
