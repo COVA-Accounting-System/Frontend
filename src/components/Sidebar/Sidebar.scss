@@ -1,4 +1,4 @@
-$background-color: #f1f3f6;
+$background-color: #ffffff;
 $title-color: #5D6A7E;
 $font-color: #758399;
 $icon-color: #384a66;
@@ -8,6 +8,8 @@ $toggle-background-color: #f1f3f6;
   width: 245px;
   height: 100%;
   background-color: $background-color;
+  border-right: 1px solid #E2E8F0;
+  // box-shadow:  0 0 10px 0 rgba(0,0,0,0.1);
   -webkit-user-select: none; /* Safari */
   -ms-user-select: none; /* IE 10 and IE 11 */
   user-select: none; /* Standard syntax */
@@ -32,7 +34,7 @@ ul {
 .element {
   text-decoration: none;
   color: $font-color;
-  font-weight: 600;
+  font-weight: 500;
   font-size: 14px;
   padding: 14px 0px 14px 35px;
   display: flex;
@@ -59,7 +61,7 @@ ul {
 .element-inside {
   text-decoration: none;
   color: $font-color;
-  font-weight: 600;
+  font-weight: 500;
   font-size: 14px;
   display: block;
   border-right-width: 0px;

@@ -1,38 +1,37 @@
 import React, { useState } from 'react'
 // import { Button } from '../../components/Button/Button'
-import { authentication } from '../../auth/authentication'
+import { adminAuthentication } from '../../auth/authentication'
 // import Input from '../../components/Input/Input'
 import { useDispatch, useSelector } from 'react-redux'
-import { setLogged } from '../../reducers/authentication'
+import { setAdminLogged } from '../../reducers/authentication'
 import { Navigate, NavLink } from 'react-router-dom'
 import { inventoryError } from '../../services/toastService'
 import TextFormControl from '../../components/Input/TextFormControl'
 import PasswordFormControl from '../../components/Input/PasswordFormControl'
 
-import './Login.scss'
 import { Stack, Text, Button } from '@chakra-ui/react'
 
-const Login = () => {
+const LoginAdmin = () => {
   const dispatch = useDispatch()
 
   const [isLoading, setIsLoading] = useState(false)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [isSubmited, setIsSubmited] = useState(false)
-  const isLogged = useSelector(state => state.authentication.isLogged)
+  const isAdminLogged = useSelector(state => state.authentication.isAdminLogged)
 
   const onLogin = async () => {
     // event.preventDefault()
     if (email !== '' && password !== '') {
       setIsLoading(true)
-      const { loginSuccess, token } = await authentication(email, password)
+      const { loginSuccess, token } = await adminAuthentication(email, password)
       if (loginSuccess) {
-        dispatch(setLogged(loginSuccess))
+        dispatch(setAdminLogged(loginSuccess))
         setEmail('')
         setPassword('')
       } else {
         inventoryError('Usuario o contraseña incorrectos')
-        dispatch(setLogged(loginSuccess))
+        dispatch(setAdminLogged(loginSuccess))
       }
       setIsSubmited(false)
       setIsLoading(false)
@@ -41,8 +40,8 @@ const Login = () => {
 
   return (
     <>
-      {isLogged ? (
-        <Navigate to='/ca' replace />
+      {isAdminLogged ? (
+        <Navigate to='/admin/management' replace />
       ) : (
         <Stack direction={'column'} spacing={'24'}>
           <Stack alignItems={'center'} direction={'row'} mt={4} ml={9}>
@@ -60,8 +59,9 @@ const Login = () => {
               fontWeight={'bold'}
               fontSize={'40px'}
               color={'acsys.titleColor'}
+              textAlign={'center'}
             >
-              Iniciar sesión
+              Iniciar sesión <br />(ADMIN)
             </Text>
             <form
               onKeyDown={e => {
@@ -89,9 +89,9 @@ const Login = () => {
                   isRequiredMessage='Este campo es obligatorio'
                 />
                 <Button
-                  colorScheme='linkedin'
+                  colorScheme='teal'
                   id='submit-btn'
-                  bgColor={'acsys.primaryColor'}
+                //   bgColor={'acsys.primaryColor'}
                   fontSize={'sm'}
                   fontWeight={'600'}
                   isLoading={isLoading}
@@ -114,16 +114,6 @@ const Login = () => {
               >
                 ¿Olvidaste tu contraseña?
               </Text>
-              <Text color={'acsys.fontColor'} fontSize={'13px'}>
-                {`¿No tienes una cuenta? `}
-                <Text
-                  as='span'
-                  textDecoration={'underline'}
-                  _hover={{ color: 'acsys.titleColor' }}
-                >
-                  <NavLink to='/register'>Regístrate</NavLink>
-                </Text>
-              </Text>
             </Stack>
           </Stack>
         </Stack>
@@ -132,4 +122,4 @@ const Login = () => {
   )
 }
 
-export default Login
+export default LoginAdmin

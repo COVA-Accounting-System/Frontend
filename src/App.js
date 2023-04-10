@@ -4,9 +4,19 @@ import { useSelector } from 'react-redux'
 // Router imports
 import { Routes, Route, Navigate } from 'react-router-dom'
 
-// Components imports
+// Homepage
+import Homepage from './pages/Homepage/Homepage'
+
+// Login components
 import Login from './pages/LoginPages/Login'
 import PageNotFound from './pages/LoginPages/PageNotFound'
+import Register from './pages/LoginPages/Register'
+
+//Admin components
+import Admin from './pages/AdminPages/Admin'
+import LoginAdmin from './pages/AdminPages/LoginAdmin'
+import MainPageAdmin from './pages/AdminPages/MainPageAdmin'
+
 
 import MainPage from './pages/MainPage/MainPage'
 //Contacts imports
@@ -29,10 +39,25 @@ import Expense from './pages/SubMenuPages/Accounting/Expense'
 
 const App = () => {
   const isLogged = useSelector(state => state.authentication.isLogged)
+  const isAdminLogged = useSelector(state => state.authentication.isAdminLogged)
   return (
     <Routes>
-      <Route path='/' element={<Navigate to='/login' replace />} />
+      <Route path='/' element={<Homepage />} />
       <Route path='/login' element={<Login />} />
+      <Route path='/register' element={<Register />} />
+      <Route path='/admin' element={<Admin />}>
+        <Route path='login' element={<LoginAdmin />} />
+        {isAdminLogged ? (
+          <Route path='management' element={<MainPageAdmin />} >
+             <Route path='listOfUsers' element={''} />
+             <Route path='createUser' element={''} />
+             <Route path='configuration' element={''} />
+          </Route>
+          
+        ) : undefined}
+         <Route path='*' element={<Navigate to='/admin/login' replace />} />
+        {/* <Route path='*' element={<Navigate to='/page-not-found' replace />} /> */}
+      </Route>
       {isLogged ? (
         <Route path='/ca' element={<MainPage />}>
           <Route path='production/order' element={<Order />} />
