@@ -38,7 +38,7 @@ const SelectFormControl = ({
         }}
       >
         <option value='' disabled hidden>
-          Seleccione un tipo
+         {labelName === 'Rubro' ? 'Seleccione un rubro' : 'Seleccione un tipo'} 
         </option>
         {optionList.map((optionElement) => {
           return (

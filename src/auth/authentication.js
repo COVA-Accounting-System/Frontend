@@ -31,9 +31,7 @@ export const adminAuthentication = async (email, password) => {
 }
 
 export const logOut = () => {
-  // const URL = process.env.REACT_APP_AUTH_API
   try {
-    // await axios.post(`${URL}/auth/logOut`)
     window.localStorage.removeItem('token')
     return true
   } catch (err) {
@@ -43,9 +41,7 @@ export const logOut = () => {
 }
 
 export const AdminLogOut = () => {
-  // const URL = process.env.REACT_APP_AUTH_API
   try {
-    // await axios.post(`${URL}/auth/logOut`)
     window.localStorage.removeItem('tokenAdmin')
     return true
   } catch (err) {

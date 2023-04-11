@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setLogged } from '../../reducers/authentication'
 import { Navigate, NavLink } from 'react-router-dom'
 import { inventoryError } from '../../services/toastService'
-import TextFormControl from '../../components/Input/TextFormControl'
+import EmailFormControl from '../../components/Input/EmailFormControl'
 import PasswordFormControl from '../../components/Input/PasswordFormControl'
 
 import './Login.scss'
@@ -72,7 +72,7 @@ const Login = () => {
               }}
             >
               <Stack maxW={'280px'} direction={'column'} spacing={7}>
-                <TextFormControl
+                <EmailFormControl
                   labelName='Correo electrónico'
                   value={email}
                   onInput={data => setEmail(data)}

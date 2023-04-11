@@ -9,13 +9,13 @@ import {
   EditablePreview,
   EditableInput,
   IconButton,
-  Stack,
   Flex
 } from '@chakra-ui/react'
 
 import { AddIcon, DeleteIcon } from '@chakra-ui/icons'
-import { Button } from '../Button/Button'
 import FeaturesEditable from './FeaturesEditable'
+
+import './Input.scss'
 
 const FeaturesFormControl = ({
   listOfFeatures,
@@ -90,54 +90,57 @@ const FeaturesFormControl = ({
           <Button label='+' type='add-disabled' isDisabled={true} />
         )} */}
       </div>
-      <div className='features-list-container' style={isExtended ? {height: '229px'}: {}}>
- 
-        <UnorderedList>
-          {listOfFeatures.map((feature, index) => {
-            return (
-              <ListItem mb={1}>
-                {' '}
-                <Editable
-                  defaultValue={feature.description}
-                  onSubmit={value => {
-                    const featureToUpdate = { ...listOfFeatures[index] }
-                    featureToUpdate.description = value
-                    const newListOfFeatures = [...listOfFeatures]
-                    newListOfFeatures[index] = featureToUpdate
-                    onEditFeature(newListOfFeatures)
-                  }}
-                >
-                  <Flex
-                    flexDirection={'row'}
-                    justifyContent={'space-between'}
-                    maxW={'100%'}
+      <div
+        className='features-list-container'
+        style={isExtended ? { height: '229px' } : { height: '209px' }}
+      >
+
+          <UnorderedList>
+            {listOfFeatures.map((feature, index) => {
+              return (
+                <ListItem mb={1}>
+                  {' '}
+                  <Editable
+                    defaultValue={feature.description}
+                    onSubmit={value => {
+                      const featureToUpdate = { ...listOfFeatures[index] }
+                      featureToUpdate.description = value
+                      const newListOfFeatures = [...listOfFeatures]
+                      newListOfFeatures[index] = featureToUpdate
+                      onEditFeature(newListOfFeatures)
+                    }}
                   >
-                    <EditablePreview />
-                    <EditableInput />
-                    <Flex alignItems={'center'} columnGap={1} ml={2}>
-                      <FeaturesEditable />
-                      <IconButton
-                        size={'xs'}
-                        icon={<DeleteIcon />}
-                        color='acsys.fontColor'
-                        _hover={{
-                          color: 'acsys.redColor',
-                          cursor: 'pointer'
-                        }}
-                        onClick={() => {
-                          const newListOfFeatures = [...listOfFeatures]
-                          newListOfFeatures.splice(index, 1)
-                          onRemoveFeature(newListOfFeatures)
-                        }}
-                      />
+                    <Flex
+                      flexDirection={'row'}
+                      justifyContent={'space-between'}
+                      maxW={'100%'}
+                    >
+                      <EditablePreview />
+                      <EditableInput />
+                      <Flex alignItems={'center'} columnGap={1} ml={2}>
+                        <FeaturesEditable />
+                        <IconButton
+                          size={'xs'}
+                          icon={<DeleteIcon />}
+                          color='acsys.fontColor'
+                          _hover={{
+                            color: 'acsys.redColor',
+                            cursor: 'pointer'
+                          }}
+                          onClick={() => {
+                            const newListOfFeatures = [...listOfFeatures]
+                            newListOfFeatures.splice(index, 1)
+                            onRemoveFeature(newListOfFeatures)
+                          }}
+                        />
+                      </Flex>
                     </Flex>
-                  </Flex>
-                </Editable>
-                {/* <p style={{paddingRight: '20px'}}>{feature.description}</p> */}
-              </ListItem>
-            )
-          })}
-        </UnorderedList>
+                  </Editable>
+                  {/* <p style={{paddingRight: '20px'}}>{feature.description}</p> */}
+                </ListItem>
+              )
+            })}
+          </UnorderedList>
 
       </div>
     </FormControl>

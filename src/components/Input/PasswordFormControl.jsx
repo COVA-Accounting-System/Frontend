@@ -6,7 +6,6 @@ import {
   FormErrorMessage,
   InputGroup,
   InputRightElement,
-  Button,
   Flex,
   IconButton
 } from '@chakra-ui/react'
@@ -19,10 +18,12 @@ const PasswordFormControl = ({
   onInput,
   isSubmited,
   isRequired,
-  isRequiredMessage
+  isRequiredMessage,
+  isPasswordRight = true,
+  isPasswordRightMessage
 }) => {
   const [show, setShow] = useState(false)
-  const isError = isSubmited && value === ''
+  const isError = (isSubmited && value === '') || (isSubmited && !isPasswordRight)
 
   const handleClick = () => {
     setShow(!show)
@@ -70,7 +71,8 @@ const PasswordFormControl = ({
           </InputRightElement>
         </InputGroup>
 
-        {isError && <FormErrorMessage>{isRequiredMessage}</FormErrorMessage>}
+        {isSubmited && value === '' && <FormErrorMessage>{isRequiredMessage}</FormErrorMessage>}
+        { !isPasswordRight &&  <FormErrorMessage>{isPasswordRightMessage}</FormErrorMessage>}
         {/* <FormErrorMessage>Este campo es obligatorio</FormErrorMessage> */}
       </FormControl>
     </>

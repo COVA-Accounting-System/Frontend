@@ -16,6 +16,8 @@ import Register from './pages/LoginPages/Register'
 import Admin from './pages/AdminPages/Admin'
 import LoginAdmin from './pages/AdminPages/LoginAdmin'
 import MainPageAdmin from './pages/AdminPages/MainPageAdmin'
+import RegisterUser from './pages/AdminPages/RegisterUser'
+import ListOfUsers from './pages/AdminPages/ListOfUsers'
 
 
 import MainPage from './pages/MainPage/MainPage'
@@ -49,8 +51,8 @@ const App = () => {
         <Route path='login' element={<LoginAdmin />} />
         {isAdminLogged ? (
           <Route path='management' element={<MainPageAdmin />} >
-             <Route path='listOfUsers' element={''} />
-             <Route path='createUser' element={''} />
+             <Route path='listOfUsers' element={<ListOfUsers />} />
+             <Route path='createUser' element={<RegisterUser/>} />
              <Route path='configuration' element={''} />
           </Route>
           

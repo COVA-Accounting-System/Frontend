@@ -9,7 +9,7 @@ const MainPageAdmin = () => {
   return (
     <Stack direction={'row'}>
         <SidebarAdmin />
-        <Stack>
+        <Stack w={'100%'}>
           <Outlet />
         </Stack>
     </Stack>

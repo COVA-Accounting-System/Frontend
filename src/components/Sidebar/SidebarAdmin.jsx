@@ -1,9 +1,9 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 
 import { Stack, Center, Tooltip, Text, IconButton } from '@chakra-ui/react'
 import { BiLogOut } from 'react-icons/bi'
 
-import { NavLink } from 'react-router-dom'
+import { NavLink, useLocation } from 'react-router-dom'
 
 import { useDispatch } from 'react-redux'
 import { setAdminLogged } from '../../reducers/authentication'
@@ -13,7 +13,19 @@ import { FaList, FaAddressBook } from 'react-icons/fa'
 import { BsFillGearFill } from 'react-icons/bs'
 
 const SidebarAdmin = () => {
+  const location = useLocation()
   const dispatch = useDispatch()
+  const [isActive, setIsActive] = useState([false, false, false])
+
+  useEffect(() => {
+    if (location.pathname === '/admin/management/listOfUsers') {
+      setIsActive([true, false, false])
+    } else if (location.pathname === '/admin/management/createUser') {
+      setIsActive([false, true, false])
+    } else if (location.pathname === '/admin/management/settings') {
+      setIsActive([false, false, true])
+    }
+  })
 
   const onLogOut = () => {
     const response = AdminLogOut()
@@ -24,7 +36,7 @@ const SidebarAdmin = () => {
 
   return (
     <Stack
-      width={'245px'}
+      minWidth={'245px'}
       height={'100vh'}
       borderRight={'1px'}
       borderColor={'#E2E8F0'}
@@ -33,39 +45,45 @@ const SidebarAdmin = () => {
       p={5}
     >
       <Stack pt={10}>
-      <NavLink to='/admin/management/listOfUsers'>
+        <NavLink
+          to='/admin/management/listOfUsers'
+        >
           <Stack
             spacing={3}
             alignItems={'center'}
-            borderRadius={4}
+            borderRadius={5}
             p={4}
-            _hover={{ backgroundColor: '#f1f5f9', cursor: 'pointer' }}
+            bgColor={ isActive[0] ? '#f1f5f9' : 'white'}
+            _hover={ !isActive[0] ? { backgroundColor: '#f1f5f9', cursor: 'pointer' }: {}}
             direction={'row'}
+            onClick={() => setIsActive([true, false, false])}
           >
-            <FaAddressBook color={'#5D6A7E'} />
+            <FaAddressBook color={!isActive[0] ? '#5D6A7E' : '#319795'} />
             <Text
               fontWeight={'500'}
               fontSize={'15px'}
-              color={'acsys.titleColor'}
+              color={!isActive[0] ? 'acsys.titleColor' : 'teal.500'}
             >
               Lista de usuarios
             </Text>{' '}
           </Stack>
         </NavLink>
-        <NavLink  to='/admin/management/createUser'>
+        <NavLink to='/admin/management/createUser'>
           <Stack
             spacing={3}
-            borderRadius={4}
+            borderRadius={5}
             p={4}
-            _hover={{ backgroundColor: '#f1f5f9', cursor: 'pointer' }}
+            _hover={ !isActive[1] ? { backgroundColor: '#f1f5f9', cursor: 'pointer' }: {}}
             direction={'row'}
             alignItems={'center'}
+            bgColor={ isActive[1] ? '#f1f5f9' : 'white'}
+            onClick={() => setIsActive([false, true, false])}
           >
-            <FaList color={'#5D6A7E'} />
+            <FaList color={!isActive[1] ? '#5D6A7E' : '#319795'}/>
             <Text
               fontWeight={'500'}
               fontSize={'15px'}
-              color={'acsys.titleColor'}
+              color={!isActive[1] ? 'acsys.titleColor' : 'teal.500'}
             >
               Registrar usuario
             </Text>
@@ -75,18 +93,20 @@ const SidebarAdmin = () => {
       <Stack>
         <NavLink to='/admin/management/configuration'>
           <Stack
-            spacing={3}
-            borderRadius={4}
-            p={4}
-            _hover={{ backgroundColor: '#f1f5f9', cursor: 'pointer' }}
-            alignItems={'center'}
-            direction={'row'}
+                 spacing={3}
+                 alignItems={'center'}
+                 borderRadius={5}
+                 p={4}
+                 bgColor={ isActive[2] ? '#f1f5f9' : 'white'}
+                 _hover={ !isActive[2] ? { backgroundColor: '#f1f5f9', cursor: 'pointer' }: {}}
+                 direction={'row'}
+                 onClick={() => setIsActive([false, false, true])}
           >
-            <BsFillGearFill color={'#5D6A7E'} />
+            <BsFillGearFill color={!isActive[2] ? '#5D6A7E' : '#319795'} />
             <Text
               fontWeight={'500'}
               fontSize={'15px'}
-              color={'acsys.titleColor'}
+              color={!isActive[2] ? 'acsys.titleColor' : 'teal.500'}
             >
               Configuración
             </Text>{' '}

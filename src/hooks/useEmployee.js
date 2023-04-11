@@ -29,12 +29,12 @@ export const useEmployee = () => {
   const [isSubmited, setIsSubmited] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
 
-  const action = useSelector((state) => state.crud.action)
+  const action = useSelector(state => state.crud.action)
 
-  const actualEmployee = useSelector((state) => state.employees.actualEmployee)
+  const actualEmployee = useSelector(state => state.employees.actualEmployee)
 
-  const employeesList = useSelector((state) => {
-    return state.employees.data.filter((param) => param.isVisible === true)
+  const employeesList = useSelector(state => {
+    return state.employees.data.filter(param => param.isVisible === true)
   })
 
   useEffect(() => {
@@ -42,7 +42,7 @@ export const useEmployee = () => {
     dispatch(changeEntity({ entity: 'employee', entityName: 'operador' }))
   }, [dispatch])
 
-  const changeActionRedux = (action) => {
+  const changeActionRedux = action => {
     dispatch(changeAction(action))
   }
 
@@ -77,7 +77,7 @@ export const useEmployee = () => {
 
   const deleteActualEmployee = async () => {
     setIsLoading(true)
-    await dispatch(deleteEmployee(actualEmployee)).then((status) => {
+    await dispatch(deleteEmployee(actualEmployee)).then(status => {
       if (status) {
         toast.invetorySuccess('Operador eliminado con éxito')
         closeDeleteModal()
@@ -88,11 +88,11 @@ export const useEmployee = () => {
     setIsLoading(false)
   }
 
-  const setActualEmployeeRedux = (data) => {
+  const setActualEmployeeRedux = data => {
     dispatch(setActualEmployee(data))
   }
 
-  const onClickSave = async (e) => {
+  const onClickSave = async e => {
     e.preventDefault()
     setIsSubmited(true)
     if (name !== '' && lastName !== '' && ci !== '') {
@@ -110,7 +110,7 @@ export const useEmployee = () => {
           phoneNumber,
           startDate
         })
-      ).then((status) => {
+      ).then(status => {
         if (status) {
           toast.invetorySuccess('Operador registrado con éxito')
           closeModal()
@@ -118,16 +118,16 @@ export const useEmployee = () => {
           toast.inventoryError('Error al registrar operador')
         }
       })
-setIsLoading(false)
+      setIsLoading(false)
     }
   }
 
-  const onEditSave = async (e) => {
+  const onEditSave = async e => {
     e.preventDefault()
     setIsSubmited(true)
     if (name !== '' && lastName !== '' && ci !== '') {
       setIsLoading(true)
-     await dispatch(
+      await dispatch(
         updateEmployee({
           ...actualEmployee,
           name,
@@ -139,7 +139,7 @@ setIsLoading(false)
           phoneNumber,
           startDate
         })
-      ).then((status) => {
+      ).then(status => {
         if (status) {
           toast.invetorySuccess('Operador editado con éxito')
           closeModal()
@@ -147,7 +147,7 @@ setIsLoading(false)
           toast.inventoryError('Error al editar operador')
         }
       })
-setIsLoading(false)
+      setIsLoading(false)
     }
   }
 
@@ -183,7 +183,7 @@ setIsLoading(false)
     onClickSave,
     onEditSave,
 
-    isLoading,
+    isLoading
     // viewModalIsOpen,
     // setViewModalIsOpen
   }
