@@ -332,6 +332,7 @@ const Order = () => {
                 colorScheme='linkedin'
                 // color='white'
                 onClick={() => {
+                  order.setOrderNumberDB()
                   order.openModal()
                   order.setAction('create')
                   // order.changeActionRedux('create')
@@ -398,6 +399,7 @@ const Order = () => {
                   isSubmited={order.isSubmited}
                   isRequired
                   isRequiredMessage='Este campo es obligatorio'
+                  isDisabled={true}
                 />
               </div>
               {/* <Divider mt={5} mb={-1} /> */}
@@ -459,7 +461,6 @@ const Order = () => {
                 </div>
                 <div>
                   <FeaturesFormControl
-                    
                     listOfFeatures={order.orderFeatures}
                     onAddFeature={data => {
                       order.setOrderFeatures(data)

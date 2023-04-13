@@ -1,6 +1,7 @@
 import React from 'react'
 import Navbar from './Navbar'
 
+import { NavLink } from 'react-router-dom'
 
 import { Stack, Text, Button, Flex } from '@chakra-ui/react'
 
@@ -31,15 +32,17 @@ const Homepage = () => {
             </Text>
           </Stack>
           <Flex justifyContent={'center'}>
-            <Button
-              colorScheme='linkedin'
-              bg={'acsys.primaryColor'}
-              paddingLeft={9}
-              paddingRight={9}
-              fontWeight={'bold'}
-            >
-              Obtenlo gratis
-            </Button>
+            <NavLink to='/register'>
+              <Button
+                colorScheme='linkedin'
+                bg={'acsys.primaryColor'}
+                paddingLeft={9}
+                paddingRight={9}
+                fontWeight={'bold'}
+              >
+                Obtenlo gratis
+              </Button>
+            </NavLink>
           </Flex>
         </Stack>
         <Stack></Stack>

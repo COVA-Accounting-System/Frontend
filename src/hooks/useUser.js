@@ -167,14 +167,14 @@ export const useUser = () => {
         })
 
         if (response) {
-          invetorySuccess('Usuario registrado con éxito')
+          invetorySuccess('Usuario editado con éxito')
           getAllUsers().then(response => {
             setUsers(response)
           })
           setIsEditModalOpen(false)
           emptyFields()
         } else {
-          inventoryError('Error al registrar usuario')
+          inventoryError('Error al editar usuario')
         }
       } catch (error) {
         console.log(error)

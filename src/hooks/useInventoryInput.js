@@ -6,6 +6,7 @@ import {
   deleteInventoryInput
 } from '../reducers/inventoryInputs'
 
+import { getConfig } from '../reducers/config'
 import { getAllProviders } from '../reducers/providers'
 import { getAllRawMaterials } from '../reducers/rawMaterials'
 
@@ -14,29 +15,6 @@ import { changeAction, changeEntity } from '../reducers/crud'
 
 export const useInventoryInput = () => {
   const dispatch = useDispatch()
-
-  const [modalIsOpen, setModalIsOpen] = useState(false)
-  const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false)
-  // const [viewModalIsOpen, setViewModalIsOpen] = useState(false)
-
-  const [provider, setProvider] = useState({})
-  const [providerId, setProviderId] = useState('')
-
-  const [rawMaterial, setRawMaterial] = useState({})
-
-  const [amount, setAmount] = useState('')
-  const [price, setPrice] = useState('')
-  const [unitMeasure, setUnitMeasure] = useState('')
-
-  const [listOfMaterials, setListOfMaterials] = useState([])
-  const [isMaterialListEditing, setIsMaterialListEditing] = useState(false)
-  const [indexOfMaterialToEdit, setIndexOfMaterialToEdit] = useState(0)
-
-  const [numberOfInput, setNumberOfInput] = useState('')
-  const [date, setDate] = useState('')
-  const [totalPrice, setTotalPrice] = useState(0)
-
-  const [isSubmited, setIsSubmited] = useState(false)
 
   const action = useSelector(state => state.crud.action)
 
@@ -56,6 +34,33 @@ export const useInventoryInput = () => {
     return state.rawMaterials.data.filter(param => param.isVisible === true)
   })
 
+  const config = useSelector(state => state.config.config)
+
+  const [modalIsOpen, setModalIsOpen] = useState(false)
+  const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false)
+  // const [viewModalIsOpen, setViewModalIsOpen] = useState(false)
+
+  const [provider, setProvider] = useState({})
+  const [providerId, setProviderId] = useState('')
+
+  const [rawMaterial, setRawMaterial] = useState({})
+
+  const [amount, setAmount] = useState('')
+  const [price, setPrice] = useState('')
+  const [unitMeasure, setUnitMeasure] = useState('')
+
+  const [listOfMaterials, setListOfMaterials] = useState([])
+  const [isMaterialListEditing, setIsMaterialListEditing] = useState(false)
+  const [indexOfMaterialToEdit, setIndexOfMaterialToEdit] = useState(0)
+
+  const [numberOfInput, setNumberOfInput] = useState(0)
+  const [date, setDate] = useState('')
+  const [totalPrice, setTotalPrice] = useState(0)
+
+  const [isSubmited, setIsSubmited] = useState(false)
+
+
+
   useEffect(() => {
     dispatch(getAllInventoryInputs())
     if (providersList.length === 0) {
@@ -63,6 +68,9 @@ export const useInventoryInput = () => {
     }
     if (materialsList.length === 0) {
       dispatch(getAllRawMaterials())
+    }
+    if (config.inventoryInputNumber === 0) {
+      dispatch(getConfig())
     }
     dispatch(
       changeEntity({
@@ -80,8 +88,12 @@ export const useInventoryInput = () => {
     setModalIsOpen(true)
   }
 
+  const setNumberOfInputFromConfig = () => {
+    setNumberOfInput(Number(config.inventoryInputNumber) + 1)
+  }
+
   const emptyFields = () => {
-    setNumberOfInput('')
+    setNumberOfInput(0)
     setDate('')
     setProvider({})
     setProviderId('')
@@ -289,6 +301,7 @@ export const useInventoryInput = () => {
     indexOfMaterialToEdit,
     setIndexOfMaterialToEdit,
 
-    onEditMaterial
+    onEditMaterial,
+    setNumberOfInputFromConfig
   }
 }

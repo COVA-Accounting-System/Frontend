@@ -4,10 +4,11 @@ import { Navigate, NavLink } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
 import './Login.scss'
-import { Stack, Text, Divider } from '@chakra-ui/react'
+import { Stack, Text, Divider, Spinner, Box, Center } from '@chakra-ui/react'
 
 const Register = () => {
   const isLogged = useSelector(state => state.authentication.isLogged)
+  const [isMapLoaded, setIsMapLoaded] = useState(false)
 
   return (
     <>
@@ -102,16 +103,49 @@ const Register = () => {
                 </Stack>
               </Stack>
               <Stack>
-                <iframe
-                  src='https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1693.7982301986183!2d-66.12447529518575!3d-17.43117545958221!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x93e3719e08e9b8b1%3A0x49767983e0d89b01!2sProductive%20Innovation%20Center%20Leather%20PROBOLIVIA!5e0!3m2!1sen!2sus!4v1681113373604!5m2!1sen!2sus'
-                  width='250px'
-                  height='100%'
-                  style={{ border: '1px solid #758399', borderRadius: '10px' }}
-                  //   style='border:0;'
+                <Stack
+                  border={'1px'}
+                  borderRadius={'10px'}
+                  borderColor={'#758399'}
+                  height={'100%'}
+                  position={'relative'}
+                >
+                  { !isMapLoaded && (
+                    <Box
+                      position={'absolute'}
+                      // width={'250px'}
+                      // height={'100%'}
+                      //center
+                      top={'50%'}
+                      left={'50%'}
+                      transform={'translate(-50%, -50%)'}
+                    >
+                      <Spinner
+                        thickness='2px'
+                        speed='0.65s'
+                        // emptyColor='gray.200'
+                        color='gray.500'
+                        size='xl'
+                      />
+                    </Box>
+                  )}
+                  <iframe
+                    title='map'
+                    src='https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1693.7982301986183!2d-66.12447529518575!3d-17.43117545958221!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x93e3719e08e9b8b1%3A0x49767983e0d89b01!2sProductive%20Innovation%20Center%20Leather%20PROBOLIVIA!5e0!3m2!1sen!2sus!4v1681113373604!5m2!1sen!2sus'
+                    width='250px'
+                    height='100%'
+                    style={{
+                      // border: '1px solid #758399',
+                      borderRadius: '10px',
+                      marginTop: '0px'
+                    }}
+                    //   style='border:0;'
                     // allowfullscreen='true'
-                  loading='lazy'
-                  referrerpolicy='no-referrer-when-downgrade'
-                ></iframe>
+                    loading='lazy'
+                    // referrerpolicy='no-referrer-when-downgrade'
+                    onLoad={() => setIsMapLoaded(true)}
+                  ></iframe>
+                </Stack>
               </Stack>
             </Stack>
           </Stack>

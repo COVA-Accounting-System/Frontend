@@ -11,6 +11,7 @@ import incomeReducer from '../reducers/incomes'
 import expenseReducer from '../reducers/expenses'
 import inventoryInput from '../reducers/inventoryInputs'
 import inventoryOutput from '../reducers/inventoryOutputs'
+import config from '../reducers/config'
 
 export const store = configureStore({
   reducer: {
@@ -20,6 +21,7 @@ export const store = configureStore({
     products: productReducer,
     crud,
     authentication,
+    config,
     orders: orderReducer,
     rawMaterials: rawMaterialReducer,
     incomes: incomeReducer,

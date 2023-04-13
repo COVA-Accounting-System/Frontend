@@ -30,8 +30,9 @@ const RegisterIncome = ({ income }) => {
           <Stack direction={'row'} spacing={5} maxW={'290px'}>
             {' '}
             <TextFormControl
-              labelName='N.º asiento'
+              labelName='N.º de ingreso'
               //   width='290px'
+              isDisabled={true}
               paddingSpace={0}
               value={income.accountingSeat}
               onInput={data => income.setAccountingSeat(data)}

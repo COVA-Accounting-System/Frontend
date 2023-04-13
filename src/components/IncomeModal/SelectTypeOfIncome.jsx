@@ -50,7 +50,7 @@ const SelectTypeOfIncome = ({ income }) => {
               income.setTypeOfIncome('Pago de pedido entregado')
               income.setIncomeTypes({
                 Prepayment: false,
-                Payment:  e.target.checked,
+                Payment: e.target.checked
               })
             }}
           >
@@ -65,12 +65,14 @@ const SelectTypeOfIncome = ({ income }) => {
           colorScheme='linkedin'
           // isLoading={expenseHook.isLoading}
           isDisabled={
-            income.incomeTypes.Prepayment ||
-            income.incomeTypes.Payment
+            income.incomeTypes.Prepayment || income.incomeTypes.Payment
               ? false
               : true
           }
-          onClick={() => income.setPage(prev => prev + 1)}
+          onClick={() => {
+            income.setPage(prev => prev + 1)
+            income.setAccountingSeatFromConfig()
+          }}
         >
           Siguiente
         </Button>

@@ -31,89 +31,91 @@ const RegisterUser = () => {
           Registrar usuario
         </Text>
       </Stack>
-      <Stack direction={'column'} spacing={5}>
-        <Stack direction={'row'} spacing={5}>
-          <TextFormControl
-            labelName='Nombres'
-            paddingSpace={0}
-            value={user.name}
-            onInput={data => user.setName(data)}
-            isSubmited={user.isSubmited}
-            isRequired
-            isRequiredMessage='Este campo es obligatorio'
-          />
-          <TextFormControl
-            labelName='Apellidos'
-            paddingSpace={0}
-            value={user.lastName}
-            onInput={data => user.setLastName(data)}
-            isSubmited={user.isSubmited}
-            isRequired
-            isRequiredMessage='Este campo es obligatorio'
-          />
+      <form action=''>
+        <Stack direction={'column'} spacing={5}>
+          <Stack direction={'row'} spacing={5}>
+            <TextFormControl
+              labelName='Nombres'
+              paddingSpace={0}
+              value={user.name}
+              onInput={data => user.setName(data)}
+              isSubmited={user.isSubmited}
+              isRequired
+              isRequiredMessage='Este campo es obligatorio'
+            />
+            <TextFormControl
+              labelName='Apellidos'
+              paddingSpace={0}
+              value={user.lastName}
+              onInput={data => user.setLastName(data)}
+              isSubmited={user.isSubmited}
+              isRequired
+              isRequiredMessage='Este campo es obligatorio'
+            />
+          </Stack>
+          <Stack direction={'row'} spacing={5}>
+            <PhoneFormWithoutCountry
+              phoneNumberValue={user.phone}
+              phoneNumberOnInput={number => {
+                user.setPhone(number)
+              }}
+              isSubmited={user.isSubmited}
+              isRequired
+              isRequiredMessage='Este campo es obligatorio'
+            />
+            <SelectFormControl
+              labelName='Rubro'
+              paddingSpace={4}
+              value={user.field}
+              onSelect={data => user.setField(data)}
+              isSubmited={user.isSubmited}
+              optionList={user.fields}
+              isRequired
+              isRequiredMessage='Este campo es obligatorio'
+            />
+          </Stack>
+          <Stack direction={'row'} spacing={5}>
+            <EmailFormControl
+              labelName='Correo electrónico'
+              value={user.email}
+              onInput={data => {
+                user.setEmail(data)
+                user.validateEmail(data)
+              }}
+              isSubmited={user.isSubmited}
+              isRequired
+              isRequiredMessage='Este campo es obligatorio'
+              isEmailRight={user.isEmailRight}
+              isEmailRightMessage='El correo electrónico no es válido'
+            />
+            <PasswordFormControl
+              labelName='Contraseña'
+              value={user.password}
+              onInput={data => {
+                user.setPassword(data)
+                user.validatePassword(data)
+              }}
+              isSubmited={user.isSubmited}
+              isPasswordRight={user.isPasswordRight}
+              isPasswordRightMessage='La contraseña debe tener al menos 8 caracteres, 1 mayúscula, 1 minúscula y 1 número'
+              isRequired
+              isRequiredMessage='Este campo es obligatorio'
+            />
+          </Stack>
+          <Stack direction={'row'} justifyContent={'flex-end'} pt={'20px'}>
+            <Button
+              width={'100%'}
+              colorScheme='teal'
+              fontSize={'14px'}
+              fontWeight={'600'}
+              isLoading={user.isLoading}
+              onClick={user.handleRegister}
+            >
+              Registrar
+            </Button>
+          </Stack>
         </Stack>
-        <Stack direction={'row'} spacing={5}>
-          <PhoneFormWithoutCountry
-            phoneNumberValue={user.phone}
-            phoneNumberOnInput={number => {
-              user.setPhone(number)
-            }}
-            isSubmited={user.isSubmited}
-            isRequired
-            isRequiredMessage='Este campo es obligatorio'
-          />
-          <SelectFormControl
-            labelName='Rubro'
-            paddingSpace={4}
-            value={user.field}
-            onSelect={data => user.setField(data)}
-            isSubmited={user.isSubmited}
-            optionList={user.fields}
-            isRequired
-            isRequiredMessage='Este campo es obligatorio'
-          />
-        </Stack>
-        <Stack direction={'row'} spacing={5}>
-          <EmailFormControl
-            labelName='Correo electrónico'
-            value={user.email}
-            onInput={data => {
-              user.setEmail(data)
-              user.validateEmail(data)
-            }}
-            isSubmited={user.isSubmited}
-            isRequired
-            isRequiredMessage='Este campo es obligatorio'
-            isEmailRight={user.isEmailRight}
-            isEmailRightMessage='El correo electrónico no es válido'
-          />
-          <PasswordFormControl
-            labelName='Contraseña'
-            value={user.password}
-            onInput={data => {
-              user.setPassword(data)
-              user.validatePassword(data)
-            }}
-            isSubmited={user.isSubmited}
-            isPasswordRight={user.isPasswordRight}
-            isPasswordRightMessage='La contraseña debe tener al menos 8 caracteres, 1 mayúscula, 1 minúscula y 1 número'
-            isRequired
-            isRequiredMessage='Este campo es obligatorio'
-          />
-        </Stack>
-        <Stack direction={'row'} justifyContent={'flex-end'} pt={'20px'}>
-          <Button
-            width={'100%'}
-            colorScheme='teal'
-            fontSize={'14px'}
-            fontWeight={'600'}
-            isLoading={user.isLoading}
-            onClick={user.handleRegister}
-          >
-            Registrar
-          </Button>
-        </Stack>
-      </Stack>
+      </form>
     </Stack>
   )
 }

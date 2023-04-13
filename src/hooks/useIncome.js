@@ -7,6 +7,7 @@ import {
   deleteIncome,
   updateIncome
 } from '../reducers/incomes'
+import { getConfig, addOneToIncomeReducer } from '../reducers/config'
 import { getAllClients } from '../reducers/clients'
 import { getAllOrders } from '../services/orderService'
 import * as toast from '../services/toastService'
@@ -31,7 +32,7 @@ export const useIncome = () => {
   const [orderId, setOrderId] = useState('')
   const [typeOfIncome, setTypeOfIncome] = useState('')
 
-  const [accountingSeat, setAccountingSeat] = useState('')
+  const [accountingSeat, setAccountingSeat] = useState(0)
   const [date, setDate] = useState('')
   const [concept, setConcept] = useState('')
   const [amount, setAmount] = useState('')
@@ -54,6 +55,8 @@ export const useIncome = () => {
     return state.clients.data.filter(param => param.isVisible === true)
   })
 
+  const config = useSelector(state => state.config.config)
+
   useEffect(() => {
     dispatch(getAllIncomes())
     if (clientsList.length === 0) {
@@ -63,6 +66,10 @@ export const useIncome = () => {
       getAllOrders().then(element => {
         setOrdersList(element)
       })
+    }
+    if (config.incomeNumber === 0) {
+      console.log('get config')
+      dispatch(getConfig())
     }
     dispatch(changeEntity({ entity: 'income', entityName: 'ingreso' }))
   }, [dispatch])
@@ -84,8 +91,12 @@ export const useIncome = () => {
     setModalIsOpen(true)
   }
 
+  const setAccountingSeatFromConfig = () => {
+    setAccountingSeat(Number(config.incomeNumber) + 1)
+  }
+
   const emptyFields = () => {
-    setAccountingSeat('')
+    setAccountingSeat(0)
     setClient({})
     setClientId('')
     setOrder({})
@@ -175,6 +186,7 @@ export const useIncome = () => {
             setOrdersList(element)
           })
           dispatch(getAllIncomes())
+          dispatch(addOneToIncomeReducer())
           closeModal()
         } else {
           toast.inventoryError('Error al registrar ingreso')
@@ -278,6 +290,7 @@ export const useIncome = () => {
     emptyFields,
 
     typeOfIncome,
-    setTypeOfIncome
+    setTypeOfIncome,
+    setAccountingSeatFromConfig
   }
 }

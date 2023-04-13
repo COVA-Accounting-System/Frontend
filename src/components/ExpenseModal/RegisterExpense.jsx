@@ -44,7 +44,7 @@ const RegisterExpense = ({ expenseHook, inventoryInputHook, isEditMode }) => {
               // onInput={data => inventoryInputHook.setNumberOfInput(data)}
             />
             <TextFormControl
-              labelName='Nº de asiento'
+              labelName='Nº de gasto'
               //   width='330px'
               paddingSpace={0}
               value={expenseHook.accountingSeat}
@@ -52,7 +52,8 @@ const RegisterExpense = ({ expenseHook, inventoryInputHook, isEditMode }) => {
               isSubmited={expenseHook.isSubmited}
               isRequired
               isRequiredMessage='Este campo es obligatorio'
-              isDisabled={false}
+              isDisabled={true}
+              
             />
           </Stack>
           <Stack direction={'row'} spacing={3}>

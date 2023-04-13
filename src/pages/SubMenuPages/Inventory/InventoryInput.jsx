@@ -199,6 +199,8 @@ const InventoryInput = () => {
                 // color='white'
                 onClick={() => {
                   expense.openModal()
+                  inventoryInput.setNumberOfInputFromConfig()
+                  expense.setAccountingNumberFromConfig()
                   expense.changeActionRedux('create')
                   expense.setPage(1)
                   expense.setTypeOfExpense({

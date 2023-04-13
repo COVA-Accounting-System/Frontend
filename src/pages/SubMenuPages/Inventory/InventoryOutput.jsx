@@ -165,6 +165,7 @@ const InventoryOutput = () => {
                 colorScheme='linkedin'
                 // color='white'
                 onClick={() => {
+                  inventoryOutput.setNumberOfInputFromConfig()
                   inventoryOutput.openModal()
                   inventoryOutput.changeActionRedux('create')
                 }}

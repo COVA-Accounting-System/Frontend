@@ -15,9 +15,11 @@ export const ToasterR = () => {
         },
         style: {
           border: '1px solid #a3aab7',
+          // backgroundColor: '#F7FAFC',
           color: '#758399',
           fontSize: '15px',
-          fontWeight: '500'
+          fontWeight: '500',
+          boxShadow: '0 0 0px rgba(0, 0, 0, 0.1)'
         }
       }}
     />

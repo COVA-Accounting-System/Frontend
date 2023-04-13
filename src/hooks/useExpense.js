@@ -12,6 +12,7 @@ import {
   deleteExpenseAndInventoryInput
 } from '../reducers/expenses'
 
+import { getConfig, addOneToExpenseReducer, addOneToInventoryInputReducer } from '../reducers/config'
 import { getAllProviders } from '../reducers/providers'
 import { getAllEmployees } from '../reducers/employees'
 
@@ -40,7 +41,7 @@ export const useExpense = () => {
   const [inventoryInput, setInventoryInput] = useState({})
   const [inventoryInputId, setInventoryInputId] = useState('')
 
-  const [accountingSeat, setAccountingSeat] = useState('')
+  const [accountingSeat, setAccountingSeat] = useState(0)
   const [category, setCategory] = useState('')
   const [date, setDate] = useState('')
   const [concept, setConcept] = useState('')
@@ -73,6 +74,8 @@ export const useExpense = () => {
     return state.employees.data.filter(param => param.isVisible === true)
   })
 
+  const config = useSelector(state => state.config.config)
+
   useEffect(() => {
     dispatch(getAllExpenses())
     if (providersList.length === 0) {
@@ -80,6 +83,9 @@ export const useExpense = () => {
     }
     if (employeesList.length === 0) {
       dispatch(getAllEmployees())
+    }
+    if (config.expenseNumber === 0) {
+      dispatch(getConfig())
     }
     dispatch(changeEntity({ entity: 'expense', entityName: 'gasto' }))
   }, [dispatch])
@@ -90,6 +96,10 @@ export const useExpense = () => {
 
   const openModal = () => {
     setModalIsOpen(true)
+  }
+
+  const setAccountingNumberFromConfig = () => {
+    setAccountingSeat(Number(config.expenseNumber) + 1)
   }
 
   const emptyFields = () => {
@@ -103,7 +113,7 @@ export const useExpense = () => {
       indirectCosts: false
     })
     setPage(0)
-    setAccountingSeat('')
+    setAccountingSeat(0)
     setCategory('')
     setDate('')
     setConcept('')
@@ -184,6 +194,8 @@ export const useExpense = () => {
       ).then(status => {
         if (status) {
           toast.invetorySuccess('Gasto registrado con éxito')
+          dispatch(addOneToExpenseReducer())
+          dispatch(addOneToInventoryInputReducer())
           closeModal()
           closeModalInventory()
         } else {
@@ -217,6 +229,7 @@ export const useExpense = () => {
       ).then(status => {
         if (status) {
           toast.invetorySuccess('Gasto registrado con éxito')
+          dispatch(addOneToExpenseReducer())
           closeModal()
         } else {
           toast.inventoryError('Error al registrar gasto')
@@ -249,6 +262,7 @@ export const useExpense = () => {
       ).then(status => {
         if (status) {
           toast.invetorySuccess('Gasto registrado con éxito')
+          dispatch(addOneToExpenseReducer())
           closeModal()
         } else {
           toast.inventoryError('Error al registrar gasto')
@@ -419,6 +433,7 @@ export const useExpense = () => {
     setPage,
     emptyFields,
     isLoading,
-    expensesListForInventoryInput
+    expensesListForInventoryInput,
+    setAccountingNumberFromConfig
   }
 }

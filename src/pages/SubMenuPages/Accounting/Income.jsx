@@ -187,6 +187,7 @@ const Income = () => {
                 colorScheme='linkedin'
                 // color='white'
                 onClick={() => {
+
                   income.openModal()
                   income.changeActionRedux('create')
                 }}

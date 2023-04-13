@@ -38,7 +38,7 @@ const Navbar = () => {
             Iniciar sesión
           </Button>
         </NavLink>
-        <NavLink to='/'>
+        <NavLink to='/register'>
           {' '}
           <Button
             bgColor={'acsys.primaryColor'}
@@ -47,7 +47,7 @@ const Navbar = () => {
             fontSize={'sm'}
             w={'150px'}
           >
-            Crear cuenta
+            Regístrate
           </Button>
         </NavLink>
       </Stack>

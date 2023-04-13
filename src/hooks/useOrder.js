@@ -13,6 +13,7 @@ import {
 } from '../services/orderService'
 import { getAllClients } from '../reducers/clients'
 import { getAllProducts } from '../reducers/products'
+import { getConfig, addOneToOrdersReducer } from '../reducers/config'
 import * as toast from '../services/toastService'
 import { changeEntity } from '../reducers/crud'
 
@@ -20,6 +21,14 @@ import { orderState as orderAsset } from '../assets/orderState'
 
 export const useOrder = () => {
   const dispatch = useDispatch()
+
+  const clientsList = useSelector(state => {
+    return state.clients.data.filter(param => param.isVisible === true)
+  })
+  const productsList = useSelector(state => {
+    return state.products.data.filter(param => param.isVisible === true)
+  })
+  const config = useSelector(state => state.config.config)
 
   const [modalIsOpen, setModalIsOpen] = useState(false)
   const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false)
@@ -39,7 +48,7 @@ export const useOrder = () => {
   const [inventoryOutput, setInventoryOutput] = useState({})
   // const [inventoryOutputId, setInventoryOutputId] = useState('')
 
-  const [orderNumber, setOrderNumber] = useState('')
+  const [orderNumber, setOrderNumber] = useState(0)
   const [orderProductAmount, setOrderProductAmount] = useState('')
   const [orderProductAmountType, setOrderProductAmountType] = useState('')
   const [orderPrice, setOrderPrice] = useState('')
@@ -66,19 +75,15 @@ export const useOrder = () => {
   const [isSubmited, setIsSubmited] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
 
-  const clientsList = useSelector(state => {
-    return state.clients.data.filter(param => param.isVisible === true)
-  })
-  const productsList = useSelector(state => {
-    return state.products.data.filter(param => param.isVisible === true)
-  })
-
   useEffect(() => {
     if (clientsList.length === 0) {
       dispatch(getAllClients())
     }
     if (productsList.length === 0) {
       dispatch(getAllProducts())
+    }
+    if (config.orderNumber === 0) {
+      dispatch(getConfig())
     }
 
     dispatch(changeEntity({ entity: 'order', entityName: 'pedido' }))
@@ -89,9 +94,15 @@ export const useOrder = () => {
   }, [])
 
   useEffect(() => {
-
-    if (orderProductAmountType !== '' && orderProductAmount !== '' && orderProduct.productPrice) { 
-      if (orderProductAmountType === 'Unidad' || orderProductAmountType === 'Par') {
+    if (
+      orderProductAmountType !== '' &&
+      orderProductAmount !== '' &&
+      orderProduct.productPrice
+    ) {
+      if (
+        orderProductAmountType === 'Unidad' ||
+        orderProductAmountType === 'Par'
+      ) {
         setCalculatedPrice(() => orderProductAmount * orderProduct.productPrice)
       }
       if (orderProductAmountType === 'Docena') {
@@ -99,16 +110,18 @@ export const useOrder = () => {
           () => orderProductAmount * orderProduct.productDozenPrice
         )
       }
-    }
-    else{
+    } else {
       setCalculatedPrice(0)
     }
-
-
   }, [orderProductAmount, orderProduct, orderProductAmountType])
 
   const openModal = () => {
     setModalIsOpen(true)
+    // setOrderNumber(Number(config.orderNumber) + 1)
+  }
+
+  const setOrderNumberDB = async () => {
+    setOrderNumber(Number(config.orderNumber) + 1)
   }
 
   const emptyFields = () => {
@@ -117,7 +130,7 @@ export const useOrder = () => {
     setOrderProduct({})
     setOrderProductId('')
 
-    setOrderNumber('')
+    setOrderNumber(0)
     setOrderProductAmount('')
     setOrderPrice('')
     setOrderDeliveryDate('')
@@ -243,6 +256,7 @@ export const useOrder = () => {
         })
 
         setOrdersList([...ordersList, newOrder.data])
+        dispatch(addOneToOrdersReducer())
         closeModal()
         toast.invetorySuccess('Pedido registrado con éxito')
       } catch {
@@ -255,20 +269,19 @@ export const useOrder = () => {
   const onEditState = async () => {
     setIsLoading(true)
     let updatedOrder
-    // let 
+    // let
     try {
       if (orderAsset[actualStateNumber].state === 'Delivered') {
-       updatedOrder = await updateStateToDelivered({
+        updatedOrder = await updateStateToDelivered({
           ...actualOrder,
           orderStateNumber: actualStateNumber,
-          orderState: orderAsset[actualStateNumber].state,
+          orderState: orderAsset[actualStateNumber].state
         })
-      }
-      else {
+      } else {
         updatedOrder = await updateStateToNotDelivered({
           ...actualOrder,
           orderStateNumber: actualStateNumber,
-          orderState: orderAsset[actualStateNumber].state,
+          orderState: orderAsset[actualStateNumber].state
         })
       }
       const newList = ordersList.map(order => {
@@ -400,6 +413,7 @@ export const useOrder = () => {
     setOrderPayedPrice,
     setOrderPrePayedPrice,
 
-    calculatedPrice
+    calculatedPrice,
+    setOrderNumberDB
   }
 }

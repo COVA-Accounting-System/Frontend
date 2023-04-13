@@ -10,7 +10,6 @@ import {
   Button
 } from '@chakra-ui/react'
 
-
 const SelectTypeOfExpense = ({ expenseHook, inventoryInputHook }) => {
   return (
     <>
@@ -93,7 +92,11 @@ const SelectTypeOfExpense = ({ expenseHook, inventoryInputHook }) => {
               ? false
               : true
           }
-          onClick={() => expenseHook.setPage(prev => prev + 1)}
+          onClick={() => {
+            expenseHook.setPage(prev => prev + 1)
+            inventoryInputHook.setNumberOfInputFromConfig()
+            expenseHook.setAccountingNumberFromConfig()
+          }}
         >
           Siguiente
         </Button>

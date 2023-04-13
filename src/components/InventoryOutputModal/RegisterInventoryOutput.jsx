@@ -99,6 +99,7 @@ const RegisterInventoryOutput = ({ inventoryOutputHook }) => {
                 isSubmited={inventoryOutputHook.isSubmited}
                 isRequired
                 isRequiredMessage='Este campo es obligatorio'
+                isDisabled={true}
               />
               <Box w={'135px'}></Box>
             </Stack>
