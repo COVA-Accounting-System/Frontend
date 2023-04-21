@@ -14,6 +14,7 @@ export const ToasterR = () => {
           iconTheme: { primary: '#EE6270' }
         },
         style: {
+          maxWidth: '400px',
           border: '1px solid #a3aab7',
           // backgroundColor: '#F7FAFC',
           color: '#758399',

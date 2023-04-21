@@ -30,6 +30,7 @@ import SearchByState from '../../../components/SearchInputs/SearchByState'
 import OrderPaidTag from '../../../components/OrderPaidTag/OrderPaidTag'
 import FeaturesTooltip from '../../../components/Tooltip/FeaturesTooltip'
 import ChangeState from '../../../components/OrderModals/ChangeState'
+import RawMaterialUsed from '../../../components/OrderModals/RawMaterialUsed'
 // import ClientPopover from '../../../components/Popover/ClientPopover'
 // import ProductPopover from '../../../components/Popover/ProductPopover'
 
@@ -228,7 +229,10 @@ const Order = () => {
           onChangeStateForward: data => {
             order.onMoveForwardState(data)
           },
-          onRegisterMaterial: data => {},
+          onViewMaterial: data => {
+            order.setActualOrder(data)
+            order.setViewMaterialModalIsOpen(true)
+          },
           onChangeState: data => {
             order.setOrderStateNumber(data.orderStateNumber)
             order.setActualStateNumber(data.orderStateNumber)
@@ -522,6 +526,13 @@ const Order = () => {
         setActualStateNumber={order.setActualStateNumber}
         onSaveClick={() => {
           order.onEditState()
+        }}
+      />
+      <RawMaterialUsed
+        data={order.actualOrder}
+        modalIsOpen={order.viewMaterialModalIsOpen}
+        onClose={() => {
+          order.setViewMaterialModalIsOpen(false)
         }}
       />
     </div>

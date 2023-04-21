@@ -18,17 +18,6 @@ import {
   Container,
   Divider,
   Text,
-  IconButton,
-  Flex,
-  Box,
-  TableContainer,
-  Table,
-  Thead,
-  Tbody,
-  Tfoot,
-  Tr,
-  Th,
-  Td,
   Tooltip
 } from '@chakra-ui/react'
 

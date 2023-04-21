@@ -144,10 +144,12 @@ export const useExpense = () => {
     ).then(status => {
       if (status) {
         toast.invetorySuccess('Gasto eliminado con éxito')
+        toast.invetorySuccess('Entrada de inventario eliminada con éxito')
         closeDeleteModal()
         closeInventoryModal()
       } else {
         toast.inventoryError('Error al eliminar gasto')
+        toast.invetorySuccess('Error al eliminar entrada de inventario')
       }
     })
     setIsLoading(false)
@@ -194,12 +196,14 @@ export const useExpense = () => {
       ).then(status => {
         if (status) {
           toast.invetorySuccess('Gasto registrado con éxito')
+          toast.invetorySuccess('Entrada de inventario registrada con éxito')
           dispatch(addOneToExpenseReducer())
           dispatch(addOneToInventoryInputReducer())
           closeModal()
           closeModalInventory()
         } else {
           toast.inventoryError('Error al registrar gasto')
+          toast.invetorySuccess('Error al registrar entrada de inventario')
         }
       })
       setIsLoading(false)

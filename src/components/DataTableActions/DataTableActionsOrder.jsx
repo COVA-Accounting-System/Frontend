@@ -28,21 +28,21 @@ const DataTableActionsOrder = props => {
     onEdit,
     onChangeState,
     onDelete,
-    onChangeStateForward,
-    onChangeStateBackward,
-    onRegisterMaterial,
+    // onChangeStateForward,
+    // onChangeStateBackward,
+    onViewMaterial,
 
   } = props
 
-  const previousTagData =
-    data.orderStateNumber >= minOrderState
-      ? { orderStateNumber: data.orderStateNumber - 1 }
-      : { orderStateNumber: minOrderState }
+  // const previousTagData =
+  //   data.orderStateNumber >= minOrderState
+  //     ? { orderStateNumber: data.orderStateNumber - 1 }
+  //     : { orderStateNumber: minOrderState }
 
-  const nextTagData =
-    data.orderStateNumber <= maxOrderState
-      ? { orderStateNumber: data.orderStateNumber + 1 }
-      : { orderStateNumber: maxOrderState }
+  // const nextTagData =
+  //   data.orderStateNumber <= maxOrderState
+  //     ? { orderStateNumber: data.orderStateNumber + 1 }
+  //     : { orderStateNumber: maxOrderState }
 
   return (
     <div className='submenu'>
@@ -95,7 +95,7 @@ const DataTableActionsOrder = props => {
             height='30px'
             fontWeight={500}
             onClick={() => {
-              onRegisterMaterial(data)
+              onViewMaterial(data)
             }}
           >
             Material utilizado

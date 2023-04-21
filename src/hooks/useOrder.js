@@ -36,6 +36,8 @@ export const useOrder = () => {
   const [changeStateModalIsOpen, setChangeStateModalIsOpen] = useState(false)
   const [actualStateNumber, setActualStateNumber] = useState(0)
 
+  const [viewMaterialModalIsOpen, setViewMaterialModalIsOpen] = useState(false)
+
   const [ordersList, setOrdersList] = useState([])
   const [actualOrder, setActualOrder] = useState({})
   const [action, setAction] = useState('')
@@ -414,6 +416,8 @@ export const useOrder = () => {
     setOrderPrePayedPrice,
 
     calculatedPrice,
-    setOrderNumberDB
+    setOrderNumberDB,
+    viewMaterialModalIsOpen,
+    setViewMaterialModalIsOpen
   }
 }
