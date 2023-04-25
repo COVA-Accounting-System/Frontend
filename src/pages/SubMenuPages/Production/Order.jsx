@@ -31,6 +31,7 @@ import OrderPaidTag from '../../../components/OrderPaidTag/OrderPaidTag'
 import FeaturesTooltip from '../../../components/Tooltip/FeaturesTooltip'
 import ChangeState from '../../../components/OrderModals/ChangeState'
 import RawMaterialUsed from '../../../components/OrderModals/RawMaterialUsed'
+import IncomesPayed from '../../../components/OrderModals/IncomesPayed'
 // import ClientPopover from '../../../components/Popover/ClientPopover'
 // import ProductPopover from '../../../components/Popover/ProductPopover'
 
@@ -232,6 +233,10 @@ const Order = () => {
           onViewMaterial: data => {
             order.setActualOrder(data)
             order.setViewMaterialModalIsOpen(true)
+          },
+          onViewIncomes: data => {
+            order.setActualOrder(data)
+            order.setIncomesModalIsOpen(true)
           },
           onChangeState: data => {
             order.setOrderStateNumber(data.orderStateNumber)
@@ -534,6 +539,11 @@ const Order = () => {
         onClose={() => {
           order.setViewMaterialModalIsOpen(false)
         }}
+      />
+      <IncomesPayed
+        data={order.actualOrder}
+        modalIsOpen={order.incomesModalIsOpen}
+        onClose={() => order.setIncomesModalIsOpen(false)}
       />
     </div>
   )

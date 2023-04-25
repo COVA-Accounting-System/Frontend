@@ -30,7 +30,8 @@ const DataTableActionsOrder = props => {
     onDelete,
     // onChangeStateForward,
     // onChangeStateBackward,
-    onViewMaterial,
+    onViewIncomes,
+    onViewMaterial
 
   } = props
 
@@ -87,7 +88,7 @@ const DataTableActionsOrder = props => {
             Eliminar
           </MenuItem>
           <MenuDivider margin={0} />
-          <MenuItem height='30px' fontWeight={500} onClick={() => {}}>
+          <MenuItem height='30px' fontWeight={500} onClick={() => onViewIncomes(data)}>
             Pagos realizados
           </MenuItem>
           <MenuDivider margin={0} />

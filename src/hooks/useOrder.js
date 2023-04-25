@@ -37,6 +37,7 @@ export const useOrder = () => {
   const [actualStateNumber, setActualStateNumber] = useState(0)
 
   const [viewMaterialModalIsOpen, setViewMaterialModalIsOpen] = useState(false)
+  const [incomesModalIsOpen, setIncomesModalIsOpen] = useState(false)
 
   const [ordersList, setOrdersList] = useState([])
   const [actualOrder, setActualOrder] = useState({})
@@ -418,6 +419,8 @@ export const useOrder = () => {
     calculatedPrice,
     setOrderNumberDB,
     viewMaterialModalIsOpen,
-    setViewMaterialModalIsOpen
+    setViewMaterialModalIsOpen,
+    incomesModalIsOpen,
+    setIncomesModalIsOpen
   }
 }

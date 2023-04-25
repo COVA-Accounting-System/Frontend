@@ -94,7 +94,7 @@ const RegisterIncome = ({ income }) => {
                     ? income.ordersList.filter(
                         income.filterAtSelectClientPrepayment
                       )
-                    : income.typeOfIncome === 'Pago de pedido entregado'
+                    : income.typeOfIncome === 'Pago por venta'
                     ? income.ordersList.filter(
                         income.filterAtSelectClientPayment
                       )

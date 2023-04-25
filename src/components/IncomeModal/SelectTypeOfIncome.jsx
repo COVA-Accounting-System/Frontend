@@ -47,14 +47,14 @@ const SelectTypeOfIncome = ({ income }) => {
             color={'acsys.titleColor'}
             onChange={e => {
               income.emptyFields()
-              income.setTypeOfIncome('Pago de pedido entregado')
+              income.setTypeOfIncome('Pago por venta')
               income.setIncomeTypes({
                 Prepayment: false,
                 Payment: e.target.checked
               })
             }}
           >
-            Pago de pedido entregado
+            Pago por venta
           </Checkbox>
         </Stack>
       </ModalBody>
