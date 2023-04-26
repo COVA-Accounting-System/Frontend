@@ -8,6 +8,7 @@ import ExpenseCategoryTag from '../../../components/ExpenseCategoryTag/ExpenseCa
 
 // import DeleteModal from '../../../components/DeleteModal/DeleteModal'
 import DeleteExpenseAndInventoryInput from '../../../components/DeleteModal/DeleteExpenseAndInventoryInput'
+import DeleteModal from '../../../components/DeleteModal/DeleteModal'
 import Table from '../../../components/Table/Table'
 
 // CHAKRA UI IMPORTS
@@ -28,7 +29,7 @@ const Expense = () => {
   const columnDefs = useMemo(
     () => [
       {
-        headerName: 'N.º asiento',
+        headerName: 'N.º Gasto',
         field: 'accountingSeat',
         resizable: true,
         sortable: true,
@@ -157,7 +158,11 @@ const Expense = () => {
             expense.setInventoryInput(data.inventoryInput)
             expense.setAccountingSeat(data.accountingSeat)
             // expense.setInventoryInputId(data.inventoryInput._id)
-            expense.setDeleteModalIsOpen(true)
+            if (data.category === 'Materia prima') {
+              expense.setDeleteRawMaterialModalIsOpen(true)
+            } else {
+              expense.setDeleteModalIsOpen(true)
+            }
             expense.setActualExpenseRedux(data)
           }
         }
@@ -236,19 +241,29 @@ const Expense = () => {
         isEditMode={expense.action === 'edit' ? true : false}
       />
 
-      <DeleteExpenseAndInventoryInput
-        isLoading={expense.isLoading}
+      <DeleteModal
         modalIsOpen={expense.deleteModalIsOpen}
         onClose={() => {
           expense.closeDeleteModal()
         }}
+        entityName={'Gasto'}
+        onDelete={expense.deleteActualExpense}
+        isLoading={expense.isLoading}
+      />
+
+      <DeleteExpenseAndInventoryInput
+        isLoading={expense.isLoading}
+        modalIsOpen={expense.deleteRawMaterialModalIsOpen}
+        onClose={() => {
+          expense.closeDeleteRawMaterialModal()
+        }}
         expenseName={expense.accountingSeat}
         inventoryInputName={expense.inventoryInput}
-        onDelete={() => {
-          expense.actualExpense.category === 'Materia prima'
-            ? expense.deleteActualExpenseRawMaterial()
-            : expense.deleteActualExpense()
-        }}
+        onDelete={() =>
+          expense.deleteActualExpenseRawMaterial(
+            inventoryInput.closeDeleteModal
+          )
+        }
       />
     </div>
   )

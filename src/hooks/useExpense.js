@@ -24,6 +24,7 @@ export const useExpense = () => {
 
   const [modalIsOpen, setModalIsOpen] = useState(false)
   const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false)
+  const [deleteRawMaterialModalIsOpen, setDeleteRawMaterialModalIsOpen] = useState(false)
   // const [viewModalIsOpen, setViewModalIsOpen] = useState(false)
 
   const [typeOfExpense, setTypeOfExpense] = useState({
@@ -134,6 +135,12 @@ export const useExpense = () => {
     setIsSubmited(false)
   }
 
+  const closeDeleteRawMaterialModal = () => {
+    setDeleteRawMaterialModalIsOpen(false)
+    emptyFields()
+    setIsSubmited(false)
+  }
+
   const deleteActualExpenseRawMaterial = async (closeInventoryModal) => {
     setIsLoading(true)
     await dispatch(
@@ -145,7 +152,7 @@ export const useExpense = () => {
       if (status) {
         toast.invetorySuccess('Gasto eliminado con éxito')
         toast.invetorySuccess('Entrada de inventario eliminada con éxito')
-        closeDeleteModal()
+        closeDeleteRawMaterialModal()
         closeInventoryModal()
       } else {
         toast.inventoryError('Error al eliminar gasto')
@@ -383,6 +390,9 @@ export const useExpense = () => {
     closeDeleteModal,
     deleteModalIsOpen,
     setDeleteModalIsOpen,
+    deleteRawMaterialModalIsOpen,
+    setDeleteRawMaterialModalIsOpen,
+    closeDeleteRawMaterialModal,
     setActualExpenseRedux,
 
     providersList,

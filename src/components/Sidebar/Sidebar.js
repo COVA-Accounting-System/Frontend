@@ -7,23 +7,15 @@ import { MdOutlineArrowRight } from 'react-icons/md'
 import { NavLink } from 'react-router-dom'
 import './Sidebar.scss'
 
-import { logOut } from '../../auth/authentication'
-import { useDispatch } from 'react-redux'
-import { setLogged } from '../../reducers/authentication'
+import { useLogOut } from '../../hooks/useLogout'
 
 import { BiLogOut } from 'react-icons/bi'
 
 import { Stack, Center, Tooltip, Text, IconButton } from '@chakra-ui/react'
 
 const Sidebar = () => {
-  const dispatch = useDispatch()
 
-  const onLogOut = () => {
-    const response = logOut()
-    if (response) {
-      dispatch(setLogged(false))
-    }
-  }
+const logOut = useLogOut()
 
   const [subMenus, setSubMenus] = useState([
     { name: 'submenu-production', isOpen: false, subElements: 2 },
@@ -318,7 +310,7 @@ const Sidebar = () => {
                 style={({ isActive }) => (isActive ? activeStyle : {})}
               >
                 <AiFillSignal className='global-icon-class' />
-                Reportes
+                Costos
               </NavLink>
             </li>
           </ul>
@@ -374,7 +366,7 @@ const Sidebar = () => {
               color={'acsys.iconColor'}
               size={'sm'}
               icon={<BiLogOut />}
-              onClick={onLogOut}
+              onClick={logOut.logOutUser}
             />
           </Tooltip>
         </Stack>

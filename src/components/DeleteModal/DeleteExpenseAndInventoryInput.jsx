@@ -51,13 +51,13 @@ const DeleteExpenseAndInventoryInput = props => {
                 <span style={{ fontWeight: '700', fontSize: '14px' }}>
                   Gasto:
                 </span>{' '}
-                N.º de asiento {expenseName}
+                N.º  {expenseName}
               </ListItem>
               <ListItem>
                 <span style={{ fontWeight: '700', fontSize: '14px' }}>
                   Salida de inventario:
                 </span>{' '}
-                N.º de salida {inventoryInputName.numberOfInput}
+                N.º  {inventoryInputName && inventoryInputName.numberOfInput}
               </ListItem>
             </UnorderedList>
           </ModalBody>

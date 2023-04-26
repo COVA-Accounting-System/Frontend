@@ -29,7 +29,7 @@ const Income = () => {
   const columnDefs = useMemo(
     () => [
       {
-        headerName: 'N.º asiento',
+        headerName: 'N.º Ingreso',
         field: 'accountingSeat',
         resizable: true,
         sortable: true,
