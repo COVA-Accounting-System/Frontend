@@ -127,6 +127,7 @@ export const useProvider = () => {
           storeName,
           nit,
           country,
+          uiName: storeName,
           city,
           phoneCountryCode,
           phoneNumber,

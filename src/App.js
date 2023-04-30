@@ -39,6 +39,9 @@ import InventoryOutput from './pages/SubMenuPages/Inventory/InventoryOutput'
 import Income from './pages/SubMenuPages/Accounting/Income'
 import Expense from './pages/SubMenuPages/Accounting/Expense'
 
+//Costs imports
+import Costs from './pages/SubMenuPages/Costs/Costs'
+
 const App = () => {
   const isLogged = useSelector(state => state.authentication.isLogged)
   const isAdminLogged = useSelector(state => state.authentication.isAdminLogged)
@@ -77,7 +80,7 @@ const App = () => {
           <Route path='contact/employee' element={<Employee />} />
           <Route path='contact/provider' element={<Provider />} />
 
-          <Route path='report' />
+          <Route path='costs' element={<Costs />}/>
 
           <Route path='*' element={<Navigate to='/page-not-found' replace />} />
         </Route>

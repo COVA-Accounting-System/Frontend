@@ -132,6 +132,7 @@ export const useEmployee = () => {
           ...actualEmployee,
           name,
           lastName,
+          uiName: `${name} ${lastName}`,
           ci,
           nationality,
           birthday,

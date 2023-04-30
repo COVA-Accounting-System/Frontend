@@ -33,7 +33,10 @@ const InventoryOutput = () => {
       },
       {
         headerName: 'Pedido',
-        field: 'order.uiName',
+        valueGetter: data => {
+          return `Pedido #${data.data.order.orderNumber} - ${data.data.order.orderProduct.uiName}`
+         
+        },
         resizable: true,
         sortable: true,
         unSortIcon: true,

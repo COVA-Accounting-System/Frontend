@@ -1,12 +1,13 @@
 import React from 'react'
 
-import { Stack, Text, Button } from '@chakra-ui/react'
+import { Stack, Text, Button, Checkbox } from '@chakra-ui/react'
 
 import TextFormControl from '../../components/Input/TextFormControl'
 import PhoneFormWithoutCountry from '../../components/Input/PhoneFormWithoutCountry'
 import SelectFormControl from '../../components/Input/SelectFormControl'
 import PasswordFormControl from '../../components/Input/PasswordFormControl'
 import EmailFormControl from '../../components/Input/EmailFormControl'
+import ConditionsCheckbox from '../../components/Checkbox/ConditionsCheckbox'
 
 import { useUser } from '../../hooks/useUser'
 
@@ -102,7 +103,16 @@ const RegisterUser = () => {
               isRequiredMessage='Este campo es obligatorio'
             />
           </Stack>
-          <Stack direction={'row'} justifyContent={'flex-end'} pt={'20px'}>
+          <Stack>
+            <ConditionsCheckbox
+              isSubmited={user.isSubmited}
+              isChecked={user.isAproved}
+              setIsChecked={checked => {
+                user.setIsAproved(checked)
+              }}
+            />
+          </Stack>
+          <Stack direction={'row'} justifyContent={'flex-end'}>
             <Button
               width={'100%'}
               colorScheme='teal'

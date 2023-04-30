@@ -281,7 +281,6 @@ const Client = () => {
                     </Popover>
                   </Flex>
                 </Stack>
-
                 <TextFormControl
                   labelName='Dirección'
                   // width='330px'
@@ -291,7 +290,6 @@ const Client = () => {
                   onInput={data => client.setAddress(data)}
                   isRequired={false}
                 />
-
                 <PhoneFormControl
                   phoneNumberValue={client.phoneNumber}
                   mt={0}
@@ -324,12 +322,6 @@ const Client = () => {
           </form>
         </ModalContent>
       </Modal>
-      {/* <ViewClient
-        isOpen={client.viewModalIsOpen}
-        onClose={() => {
-          client.setViewModalIsOpen(false)
-        }}
-      /> */}
       <DeleteModal
         isLoading={client.isLoading}
         modalIsOpen={client.deleteModalIsOpen}

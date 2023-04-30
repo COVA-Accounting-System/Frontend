@@ -14,6 +14,7 @@ import {
 
 import TextFormControl from '../Input/TextFormControl'
 import SelectEntityFormControl from '../Input/SelectEntityFormControl'
+import SelectOrderFormControl from '../Input/SelectOrderFormControl'
 import PriceFormControl from '../Input/PriceFormControl'
 import DateFormControl from '../Input/DateFormControl'
 
@@ -79,7 +80,7 @@ const RegisterIncome = ({ income }) => {
               isRequired={true}
               isRequiredMessage='Este campo es obligatorio'
             />
-            <SelectEntityFormControl
+            <SelectOrderFormControl
               labelName='Pedido'
               paddingSpace={4}
               value={income.order}

@@ -44,14 +44,14 @@ const PhoneFormControl = ({
           {countriesInfo
             .filter(
               (country) =>
-                country.code != 'UM' &&
-                country.code != 'AQ' &&
-                country.code != 'SH' &&
-                country.code != 'GS' &&
-                country.code != 'TF' &&
-                country.code != 'VI' &&
-                country.code != 'VG' &&
-                country.code != 'IO'
+                country.code !== 'UM' &&
+                country.code !== 'AQ' &&
+                country.code !== 'SH' &&
+                country.code !== 'GS' &&
+                country.code !== 'TF' &&
+                country.code !== 'VI' &&
+                country.code !== 'VG' &&
+                country.code !== 'IO'
             )
             .map((country) => {
               return (
@@ -61,6 +61,7 @@ const PhoneFormControl = ({
                   value={country.phoneCode}
                 >
                   {country.flag} {country.name} ({country.phoneCode})
+      
                 </option>
               )
             })}

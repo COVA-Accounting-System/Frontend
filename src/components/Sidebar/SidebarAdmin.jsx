@@ -15,9 +15,15 @@ import { BsFillGearFill } from 'react-icons/bs'
 const SidebarAdmin = () => {
   const location = useLocation()
   const dispatch = useDispatch()
+
   const [isActive, setIsActive] = useState([false, false, false])
+  const [email, setEmail] = useState('')
+  const [fullName, setFullName] = useState('')
 
   useEffect(() => {
+
+    setEmail(window.localStorage.getItem('email'))
+    setFullName(window.localStorage.getItem('fullName'))
     if (location.pathname === '/admin/management/listOfUsers') {
       setIsActive([true, false, false])
     } else if (location.pathname === '/admin/management/createUser') {
@@ -25,7 +31,7 @@ const SidebarAdmin = () => {
     } else if (location.pathname === '/admin/management/settings') {
       setIsActive([false, false, true])
     }
-  })
+  }, [])
 
   const onLogOut = () => {
     const response = AdminLogOut()
@@ -127,12 +133,13 @@ const SidebarAdmin = () => {
               width={'35px'}
               borderRadius={3}
               fontWeight={'bold'}
+              color={'white'}
             >
-              A
+                {fullName.charAt(0).toUpperCase()}
             </Center>
           </Stack>
           <Stack direction={'column'} spacing={1} maxW={'120px'}>
-            <Tooltip label={'Jacobo Covarrubias Zapata'}>
+            <Tooltip label={fullName}>
               <Text
                 color={'acsys.titleColor'}
                 fontWeight={'bold'}
@@ -141,10 +148,10 @@ const SidebarAdmin = () => {
                 overflow={'hidden'}
                 whiteSpace={'nowrap'}
               >
-                Admin
+                {fullName}
               </Text>
             </Tooltip>
-            <Tooltip label={'jacovzapcovarrubias@gmail.com'}>
+            <Tooltip label={email}>
               <Text
                 color={'acsys.fontColor'}
                 fontSize={'10px'}
@@ -153,7 +160,7 @@ const SidebarAdmin = () => {
                 overflow={'hidden'}
                 whiteSpace={'nowrap'}
               >
-                admin@gmail.com
+                {email}
               </Text>
             </Tooltip>
           </Stack>

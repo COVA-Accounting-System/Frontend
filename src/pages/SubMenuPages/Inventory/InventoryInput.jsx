@@ -137,6 +137,8 @@ const InventoryInput = () => {
             expense.openModal()
           },
           onDelete: data => {
+            expense.setInventoryInput(data.inventoryInput)
+            expense.setAccountingSeat(data.accountingSeat)
             expense.setDeleteModalIsOpen(true)
             expense.setActualExpenseRedux(data)
           }

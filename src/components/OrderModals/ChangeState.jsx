@@ -129,7 +129,7 @@ const ChangeState = ({
               colorScheme='linkedin'
               isLoading={isLoading}
               onClick={onSaveClick}
-              disabled={actualStateNumber === orderStateNumber}
+              isDisabled={isLoading && actualStateNumber === orderStateNumber}
             >
               Guardar
             </Button>

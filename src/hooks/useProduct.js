@@ -41,13 +41,9 @@ export const useProduct = () => {
   }, [dispatch])
 
   useEffect(() => {
-      // console.log(isSubmited)
-      console.log('isLoading')
   }, [ isLoading])
 
   useEffect(() => {
-    // console.log(isSubmited)
-    console.log('is submited')
 }, [ isSubmited])
 
   const changeActionRedux = action => {

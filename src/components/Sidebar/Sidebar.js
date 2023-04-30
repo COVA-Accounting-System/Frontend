@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { FaBoxOpen, FaMoneyBillAlt } from 'react-icons/fa'
 import { RiArchiveDrawerFill } from 'react-icons/ri'
 import { AiFillSignal } from 'react-icons/ai'
@@ -14,8 +14,15 @@ import { BiLogOut } from 'react-icons/bi'
 import { Stack, Center, Tooltip, Text, IconButton } from '@chakra-ui/react'
 
 const Sidebar = () => {
+  const logOut = useLogOut()
 
-const logOut = useLogOut()
+  const [email, setEmail] = useState('')
+  const [fullName, setFullName] = useState('')
+
+  useEffect(() => {
+      setEmail(window.localStorage.getItem('email'))
+      setFullName(window.localStorage.getItem('fullName'))
+  },[])
 
   const [subMenus, setSubMenus] = useState([
     { name: 'submenu-production', isOpen: false, subElements: 2 },
@@ -305,7 +312,7 @@ const logOut = useLogOut()
             <li>
               <NavLink
                 className='element'
-                to='/ca/report'
+                to='/ca/costs'
                 id='reportButton'
                 style={({ isActive }) => (isActive ? activeStyle : {})}
               >
@@ -330,12 +337,13 @@ const logOut = useLogOut()
             width={'35px'}
             borderRadius={3}
             fontWeight={'bold'}
+            color={'white'}
           >
-            J
+            {fullName.charAt(0).toUpperCase()}
           </Center>
         </Stack>
         <Stack direction={'column'} spacing={1} maxW={'120px'}>
-          <Tooltip label={'Jacobo Covarrubias Zapata'}>
+          <Tooltip label={fullName}>
             <Text
               color={'acsys.titleColor'}
               fontWeight={'bold'}
@@ -344,10 +352,10 @@ const logOut = useLogOut()
               overflow={'hidden'}
               whiteSpace={'nowrap'}
             >
-              Jacobo Covarrubias. Z.
+              {fullName}
             </Text>
           </Tooltip>
-          <Tooltip label={'jacovzapcovarrubias@gmail.com'}>
+          <Tooltip label={email}>
             <Text
               color={'acsys.fontColor'}
               fontSize={'10px'}
@@ -356,7 +364,7 @@ const logOut = useLogOut()
               overflow={'hidden'}
               whiteSpace={'nowrap'}
             >
-              jacovzapcovarrubias@gmail.com
+              {email}
             </Text>
           </Tooltip>
         </Stack>

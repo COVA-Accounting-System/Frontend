@@ -8,7 +8,11 @@ export const authentication = async (email, password) => {
       password
     })
     window.localStorage.setItem('token', response.data.token)
-    return { loginSuccess: true, token: response.data.token }
+    window.localStorage.setItem('email', response.data.email)
+    window.localStorage.setItem('fullName', `${response.data.name} ${response.data.lastName}`)
+    return {
+      loginSuccess: true
+    }
   } catch (err) {
     console.log(`Error al iniciar sesión: ${err.message}`)
     return { loginSuccess: false, token: undefined }
@@ -23,6 +27,8 @@ export const adminAuthentication = async (email, password) => {
       password
     })
     window.localStorage.setItem('tokenAdmin', response.data.token)
+    window.localStorage.setItem('email', response.data.email)
+    window.localStorage.setItem('fullName', `${response.data.name}`)
     return { loginSuccess: true, token: response.data.token }
   } catch (err) {
     console.log(`Error al iniciar sesión: ${err.message}`)
@@ -33,6 +39,8 @@ export const adminAuthentication = async (email, password) => {
 export const logOut = () => {
   try {
     window.localStorage.removeItem('token')
+    window.localStorage.removeItem('email')
+    window.localStorage.removeItem('fullName')
     return true
   } catch (err) {
     console.log(`Error al cerrar sesión: ${err.message}`)
@@ -43,6 +51,8 @@ export const logOut = () => {
 export const AdminLogOut = () => {
   try {
     window.localStorage.removeItem('tokenAdmin')
+    window.localStorage.removeItem('email')
+    window.localStorage.removeItem('fullName')
     return true
   } catch (err) {
     console.log(`Error al cerrar sesión: ${err.message}`)

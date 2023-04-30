@@ -28,6 +28,7 @@ import { AddIcon } from '@chakra-ui/icons'
 import { DeleteIcon, EditIcon, CheckIcon, CloseIcon } from '@chakra-ui/icons'
 
 import SelectEntityFormControl from '../Input/SelectEntityFormControl'
+import SelectOrderFormControl from '../Input/SelectOrderFormControl'
 import DateFormControl from '../Input/DateFormControl'
 import TextFormControl from '../Input/TextFormControl'
 import PriceFormControl from '../Input/PriceFormControl'
@@ -64,7 +65,7 @@ const RegisterInventoryOutput = ({ inventoryOutputHook }) => {
         <ModalBody pb={3}>
           <Stack direction='column' spacing={3}>
             <Stack direction={'row'} spacing={4}>
-              <SelectEntityFormControl
+              <SelectOrderFormControl
                 labelName='Pedido'
                 paddingSpace={0}
                 value={inventoryOutputHook.order}

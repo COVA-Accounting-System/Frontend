@@ -9,7 +9,7 @@ const MaterialsTooltip = ({ data, getListOfMaterials }) => {
     <Tooltip
       label={
         <Stack spacing={0} lineHeight={5} marginTop={2} marginBottom={2}>
-          {listOfMaterials.map((material, index) => {
+          {listOfMaterials ? listOfMaterials.map((material, index) => {
             return (
               <Flex key={material._id} columnGap={2}>
                 <p>•</p>
@@ -19,12 +19,12 @@ const MaterialsTooltip = ({ data, getListOfMaterials }) => {
                 <p>{material.price} Bs.</p>
               </Flex>
             )
-          })}
+          }) : []}
         </Stack>
       }
     >
             <Stack spacing={0} lineHeight={5} marginTop={2} marginBottom={2}>
-          {listOfMaterials.map((material, index) => {
+          {listOfMaterials ? listOfMaterials.map((material, index) => {
             return (
               <Flex key={material._id} columnGap={2}>
                 <p>•</p>
@@ -34,7 +34,7 @@ const MaterialsTooltip = ({ data, getListOfMaterials }) => {
                 <p>{material.price} Bs.</p>
               </Flex>
             )
-          })}
+          }):[]}
         </Stack>
     </Tooltip>
   )

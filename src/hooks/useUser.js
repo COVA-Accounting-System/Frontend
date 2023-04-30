@@ -23,6 +23,8 @@ export const useUser = () => {
   const [isSubmited, setIsSubmited] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
 
+  const [isAproved, setIsAproved] = useState(false)
+
   const [users, setUsers] = useState([])
 
   const fields = ['Calzados', 'Marroquinería', 'Artesanía']
@@ -86,6 +88,7 @@ export const useUser = () => {
     setIsPasswordRight(false)
     setIsEmailRight(false)
     setIsSubmited(false)
+    setIsAproved(false)
   }
 
   const handleRegister = async e => {
@@ -99,7 +102,7 @@ export const useUser = () => {
       email !== '' &&
       password !== '' &&
       isPasswordRight &&
-      isEmailRight
+      isEmailRight && isAproved
     ) {
       setIsLoading(true)
       try {
@@ -217,7 +220,9 @@ export const useUser = () => {
     isEditModalOpen,
     setIsEditModalOpen,
     handleDelete,
-    users
+    users,
+    isAproved,
+    setIsAproved
 
   }
 }

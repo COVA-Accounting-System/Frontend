@@ -112,9 +112,7 @@ const EditModalAdmin = ({ userHook }) => {
 
           <ModalFooter>
             <Button
-              backgroundColor={'acsys.primaryColor'}
-              _hover={{ backgroundColor: '#098bb6' }}
-              colorScheme='linkedin'
+              colorScheme='teal'
               isLoading={userHook.isLoading}
               onClick={userHook.handleEdit}
             >

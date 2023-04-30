@@ -4,6 +4,7 @@ import { authentication } from '../../auth/authentication'
 // import Input from '../../components/Input/Input'
 import { useDispatch, useSelector } from 'react-redux'
 import { setLogged } from '../../reducers/authentication'
+
 import { Navigate, NavLink } from 'react-router-dom'
 import { inventoryError } from '../../services/toastService'
 import EmailFormControl from '../../components/Input/EmailFormControl'
@@ -25,7 +26,7 @@ const Login = () => {
     // event.preventDefault()
     if (email !== '' && password !== '') {
       setIsLoading(true)
-      const { loginSuccess, token } = await authentication(email, password)
+      const { loginSuccess } = await authentication(email, password)
       if (loginSuccess) {
         dispatch(setLogged(loginSuccess))
         setEmail('')
