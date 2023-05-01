@@ -44,7 +44,9 @@ const RegisterInventoryEntry = ({
   return (
     <>
       <ModalHeader color='acsys.titleColor' fontWeight='700' fontSize='25px'>
-        Registrar entrada de inventario
+        {inventoryInputHook.action === 'create'
+          ? 'Registrar entrada de inventario'
+          : 'Editar entrada de inventario'}
       </ModalHeader>
       <ModalCloseButton color={'acsys.titleColor'} />
 

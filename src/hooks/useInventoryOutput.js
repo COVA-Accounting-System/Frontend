@@ -9,7 +9,8 @@ import {
 } from '../reducers/inventoryOutputs'
 
 import { getConfig, addOneToInventoryOutputReducer } from '../reducers/config'
-import { getAllOrders } from '../reducers/orders'
+// import { getAllOrders } from '../reducers/orders'
+import { getAllOrders } from '../services/orderService'
 import { getAllEmployees } from '../reducers/employees'
 import { getAllRawMaterials } from '../reducers/rawMaterials'
 
@@ -29,9 +30,9 @@ export const useInventoryOutput = () => {
     return state.inventoryOutputs.data.filter(param => param.isVisible === true)
   })
 
-  const ordersList = useSelector(state => {
-    return state.orders.data.filter(param => param.isVisible === true)
-  })
+  // const ordersList = useSelector(state => {
+  //   return state.orders.data.filter(param => param.isVisible === true)
+  // })
 
   const employeesList = useSelector(state => {
     return state.employees.data.filter(param => param.isVisible === true)
@@ -60,6 +61,7 @@ export const useInventoryOutput = () => {
   const [listOfMaterials, setListOfMaterials] = useState([])
   const [isMaterialListEditing, setIsMaterialListEditing] = useState(false)
   const [indexOfMaterialToEdit, setIndexOfMaterialToEdit] = useState(0)
+  const [ordersList, setOrdersList] = useState([])
 
   const [numberOfInput, setNumberOfInput] = useState(0)
   const [date, setDate] = useState('')
@@ -77,7 +79,9 @@ export const useInventoryOutput = () => {
       dispatch(getAllRawMaterials())
     }
     if (ordersList.length === 0) {
-      dispatch(getAllOrders())
+      getAllOrders().then(element => {
+        setOrdersList(element)
+      })
     }
     if (config.inventoryOutputNumber === 0) {
       dispatch(getConfig())

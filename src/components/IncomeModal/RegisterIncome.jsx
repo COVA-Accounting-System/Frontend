@@ -77,6 +77,7 @@ const RegisterIncome = ({ income }) => {
               }}
               isSubmited={income.isSubmited}
               entityList={income.clientsList}
+              isDisabled={income.action !== 'create'}
               isRequired={true}
               isRequiredMessage='Este campo es obligatorio'
             />
@@ -104,7 +105,13 @@ const RegisterIncome = ({ income }) => {
               }
               isRequired={true}
               isRequiredMessage='Este campo es obligatorio'
-              isDisabled={income.clientId === '' ? true : false}
+              isDisabled={
+                income.action === 'create'
+                  ? income.clientId === ''
+                    ? true
+                    : false
+                  : true
+              }
             />
           </Stack>
           <Stack direction={'row'} spacing={5} justifyContent={'space-between'}>
@@ -121,7 +128,6 @@ const RegisterIncome = ({ income }) => {
                       ? income.order.orderBalance
                       : income.order.orderBalance + income.oldAmount
                     : Number.MAX_SAFE_INTEGER
-                  // Number.MAX_SAFE_INTEGER
                 }
                 isRequired
                 isRequiredMessage='Este campo es obligatorio'
@@ -154,7 +160,12 @@ const RegisterIncome = ({ income }) => {
       </ModalBody>
 
       <ModalFooter>
-        <Flex justifyContent={'space-between'} width={'100%'}>
+        <Flex
+          justifyContent={
+            income.action === 'create' ? 'space-between' : 'flex-end'
+          }
+          width={'100%'}
+        >
           <Button
             backgroundColor={'acsys.primaryColor'}
             _hover={{ backgroundColor: '#098bb6' }}

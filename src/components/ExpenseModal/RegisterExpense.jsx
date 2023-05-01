@@ -19,7 +19,7 @@ const RegisterExpense = ({ expenseHook, inventoryInputHook, isEditMode }) => {
   return (
     <>
       <ModalHeader color='acsys.titleColor' fontWeight='700' fontSize='25px'>
-        Registrar gasto
+        {isEditMode ? 'Editar gasto' : 'Registrar gasto'}
       </ModalHeader>
       <ModalCloseButton color={'acsys.titleColor'} />
 

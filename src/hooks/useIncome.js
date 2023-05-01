@@ -126,13 +126,21 @@ export const useIncome = () => {
 
   const filterAtSelectClientPrepayment = order => {
     if (clientId !== '') {
-      return order.orderClient._id === clientId && order.orderStateNumber !== 3
+      return (
+        order.orderClient._id === clientId &&
+        order.orderStateNumber !== 3 &&
+        order.orderBalance !== 0
+      )
     }
   }
 
   const filterAtSelectClientPayment = order => {
     if (clientId !== '') {
-      return order.orderClient._id === clientId && order.orderStateNumber === 3
+      return (
+        order.orderClient._id === clientId &&
+        order.orderStateNumber === 3 &&
+        order.orderBalance !== 0
+      )
     }
   }
 
