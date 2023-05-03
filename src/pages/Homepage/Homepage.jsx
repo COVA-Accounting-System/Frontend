@@ -1,5 +1,5 @@
 import React from 'react'
-import Navbar from './Navbar'
+import NavbarHomepage from '../../components/Navbar/NavbarHomepage'
 
 import { NavLink } from 'react-router-dom'
 
@@ -8,7 +8,7 @@ import { Stack, Text, Button, Flex } from '@chakra-ui/react'
 const Homepage = () => {
   return (
     <>
-      <Navbar />
+      <NavbarHomepage />
       <Stack mt={'180px'}>
         <Stack spacing={5}>
           <Stack display={'column'} textAlign={'center'} lineHeight={'90px'}>

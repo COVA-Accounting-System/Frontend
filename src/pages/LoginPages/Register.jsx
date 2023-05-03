@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
-import { Navigate, NavLink } from 'react-router-dom'
+import { Navigate } from 'react-router-dom'
+import Navbar from '../../components/Navbar/Navbar'
 
 import { useSelector } from 'react-redux'
 
 import './Login.scss'
-import { Stack, Text, Divider, Spinner, Box, Center } from '@chakra-ui/react'
+import { Stack, Text, Divider, Spinner, Box } from '@chakra-ui/react'
 
 const Register = () => {
   const isLogged = useSelector(state => state.authentication.isLogged)
@@ -15,8 +16,8 @@ const Register = () => {
       {isLogged ? (
         <Navigate to='/ca' replace />
       ) : (
-        <Stack direction={'column'} spacing={'24'}>
-          <Stack alignItems={'center'} direction={'row'} mt={4} ml={9}>
+        <Stack direction={'column'} spacing={'16'}>
+          {/* <Stack alignItems={'center'} direction={'row'} mt={4} ml={9}>
             <Text
               fontSize={'30px'}
               color={'acsys.iconColor'}
@@ -24,7 +25,8 @@ const Register = () => {
             >
               ACSYS
             </Text>
-          </Stack>
+          </Stack> */}
+          <Navbar/>
 
           <Stack direction={'column'} alignItems={'center'} spacing={6}>
             <Stack spacing={1} direciton={'column'} alignItems={'center'}>

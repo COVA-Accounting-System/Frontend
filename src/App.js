@@ -11,6 +11,7 @@ import Homepage from './pages/Homepage/Homepage'
 import Login from './pages/LoginPages/Login'
 import PageNotFound from './pages/LoginPages/PageNotFound'
 import Register from './pages/LoginPages/Register'
+import RecoverPassword from './pages/LoginPages/RecoverPassword'
 
 //Admin components
 import Admin from './pages/AdminPages/Admin'
@@ -50,6 +51,7 @@ const App = () => {
       <Route path='/' element={<Homepage />} />
       <Route path='/login' element={<Login />} />
       <Route path='/register' element={<Register />} />
+      <Route path='/recover' element={<RecoverPassword />} />
       <Route path='/admin' element={<Admin />}>
         <Route path='login' element={<LoginAdmin />} />
         {isAdminLogged ? (

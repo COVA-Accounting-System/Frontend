@@ -9,6 +9,7 @@ import { Navigate, NavLink } from 'react-router-dom'
 import { inventoryError } from '../../services/toastService'
 import EmailFormControl from '../../components/Input/EmailFormControl'
 import PasswordFormControl from '../../components/Input/PasswordFormControl'
+import Navbar from '../../components/Navbar/Navbar'
 
 import './Login.scss'
 import { Stack, Text, Button } from '@chakra-ui/react'
@@ -45,17 +46,8 @@ const Login = () => {
       {isLogged ? (
         <Navigate to='/ca' replace />
       ) : (
-        <Stack direction={'column'} spacing={'24'}>
-          <Stack alignItems={'center'} direction={'row'} mt={4} ml={9}>
-            <Text
-              fontSize={'30px'}
-              color={'acsys.iconColor'}
-              fontWeight={'bold'}
-            >
-              ACSYS
-            </Text>
-          </Stack>
-
+        <Stack direction={'column'} spacing={'16'}>
+          <Navbar />
           <Stack direction={'column'} alignItems={'center'} spacing={4}>
             <Text
               fontWeight={'bold'}
@@ -107,14 +99,16 @@ const Login = () => {
             </form>
 
             <Stack direction={'column'} alignItems={'center'}>
-              <Text
-                color={'acsys.fontColor'}
-                fontSize={'13px'}
-                textDecoration={'underline'}
-                _hover={{ color: 'acsys.titleColor' }}
-              >
-                ¿Olvidaste tu contraseña?
-              </Text>
+              <NavLink to='/recover'>
+                <Text
+                  color={'acsys.fontColor'}
+                  fontSize={'13px'}
+                  textDecoration={'underline'}
+                  _hover={{ color: 'acsys.titleColor' }}
+                >
+                  ¿Olvidaste tu contraseña?
+                </Text>
+              </NavLink>
               <Text color={'acsys.fontColor'} fontSize={'13px'}>
                 {`¿No tienes una cuenta? `}
                 <Text

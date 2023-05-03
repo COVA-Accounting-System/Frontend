@@ -4,7 +4,7 @@ import { Stack, Button, Text } from '@chakra-ui/react'
 
 import { NavLink } from 'react-router-dom'
 
-const Navbar = () => {
+const NavbarHomepage = () => {
   return (
     <Stack
       direction={'row'}
@@ -55,4 +55,4 @@ const Navbar = () => {
   )
 }
 
-export default Navbar
+export default NavbarHomepage

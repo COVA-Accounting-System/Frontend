@@ -8,6 +8,7 @@ import { Navigate, NavLink } from 'react-router-dom'
 import { inventoryError } from '../../services/toastService'
 import EmailFormControl from '../../components/Input/EmailFormControl'
 import PasswordFormControl from '../../components/Input/PasswordFormControl'
+import Navbar from '../../components/Navbar/Navbar'
 
 import { Stack, Text, Button } from '@chakra-ui/react'
 
@@ -43,8 +44,8 @@ const LoginAdmin = () => {
       {isAdminLogged ? (
         <Navigate to='/admin/management' replace />
       ) : (
-        <Stack direction={'column'} spacing={'24'}>
-          <Stack alignItems={'center'} direction={'row'} mt={4} ml={9}>
+        <Stack direction={'column'} spacing={'16'}>
+          {/* <Stack alignItems={'center'} direction={'row'} mt={4} ml={9}>
             <Text
               fontSize={'30px'}
               color={'acsys.iconColor'}
@@ -52,7 +53,8 @@ const LoginAdmin = () => {
             >
               ACSYS
             </Text>
-          </Stack>
+          </Stack> */}
+          <Navbar />
 
           <Stack direction={'column'} alignItems={'center'} spacing={4}>
             <Text
