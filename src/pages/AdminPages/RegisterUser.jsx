@@ -16,15 +16,10 @@ const RegisterUser = () => {
 
   return (
     <Stack
-      //center content
-      // alignItems={'center'}
       maxW={'700px'}
       ml={'200px'}
-      //center content
       justifyContent={'center'}
-      //full screen
       h={'100vh'}
-      //full screen
       spacing={'6'}
     >
       <Stack direction={'row'} justifyContent={'flex-start'}>

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import axios from 'axios'
 import Joi from 'joi'
-import { invetorySuccess, inventoryError } from '../services/toastService'
+import { inventoryError } from '../services/toastService'
 import { useParams } from 'react-router-dom'
 
 const forgotPasswordInstance = axios.create({

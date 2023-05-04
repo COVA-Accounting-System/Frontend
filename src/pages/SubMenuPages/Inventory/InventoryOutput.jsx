@@ -196,10 +196,6 @@ const InventoryOutput = () => {
           inventoryOutput.deleteActualInventoryOutput()
         }}
       />
-      {/* <ViewProduct
-        onClose={() => product.setViewModalIsOpen(false)}
-        isOpen={product.viewModalIsOpen}
-      /> */}
     </div>
   )
 }

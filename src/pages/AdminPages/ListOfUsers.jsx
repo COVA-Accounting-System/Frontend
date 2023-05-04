@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 
 import {
   Stack,
@@ -9,14 +9,13 @@ import {
   Tr,
   Th,
   Td,
-  TableCaption,
   TableContainer,
   Text,
-  IconButton
+  IconButton,
+  Input
 } from '@chakra-ui/react'
 
 import { DeleteIcon, EditIcon } from '@chakra-ui/icons'
-
 
 import DeleteModal from '../../components/DeleteModal/DeleteModal'
 import EditModalAdmin from './EditModalAdmin'
@@ -28,11 +27,29 @@ const ListOfUsers = () => {
   const user = useUser()
   return (
     <>
-      <Stack margin={12} spacing={6}>
+      <Stack margin={12} spacing={4}>
         <Stack>
           <Text fontSize={'40px'} fontWeight={'800'} color={'acsys.titleColor'}>
             Lista de usuarios
           </Text>
+        </Stack>
+        <Stack>
+        <Input
+                focusBorderColor='acsys.primaryColor'
+                placeholder='Buscar...'
+                size='sm'
+                width={450}
+                // onChange={onFilterTextBoxChanged}
+                onChange={(e) => user.setSearchText(e.target.value)}
+                color='acsys.iconColor'
+                id='filter-text-box'
+                spellCheck='false'
+                borderRadius='5px'
+                height='35px'
+                fontSize='15px'
+                autoComplete='off'
+                borderColor={'gray.200'}
+              />
         </Stack>
         <Stack>
           <TableContainer maxH={'calc(100vh - 190px)'} overflowY='auto'>
@@ -58,7 +75,7 @@ const ListOfUsers = () => {
                 </Tr>
               </Thead>
               <Tbody>
-                {user.users.map((userElement, index) => {
+                {user.filterUsers().map((userElement, index) => {
                   return (
                     <Tr key={`${userElement.name}-${index}`}>
                       <Td color={'acsys.iconColor'}>{userElement.name}</Td>
@@ -93,18 +110,8 @@ const ListOfUsers = () => {
                     </Tr>
                   )
                 })}
-                {/* <Tr>
-                <Td>inches</Td>
-                <Td>millimetres (mm)</Td>
-                <Td isNumeric>25.4</Td>
-              </Tr> */}
               </Tbody>
               <Tfoot>
-                {/* <Tr>
-                <Th>To convert</Th>
-                <Th>into</Th>
-                <Th isNumeric>multiply by</Th>
-              </Tr> */}
               </Tfoot>
             </Table>
           </TableContainer>

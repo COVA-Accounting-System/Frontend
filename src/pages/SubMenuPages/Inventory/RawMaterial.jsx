@@ -268,10 +268,6 @@ const RawMaterial = () => {
           rawMaterial.deleteActualRawMaterial()
         }}
       />
-      {/* <ViewProduct
-        onClose={() => product.setViewModalIsOpen(false)}
-        isOpen={product.viewModalIsOpen}
-      /> */}
     </div>
   )
 }

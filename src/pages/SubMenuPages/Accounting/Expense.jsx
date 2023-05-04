@@ -157,7 +157,6 @@ const Expense = () => {
           onDelete: data => {
             expense.setInventoryInput(data.inventoryInput)
             expense.setAccountingSeat(data.accountingSeat)
-            // expense.setInventoryInputId(data.inventoryInput._id)
             if (data.category === 'Materia prima') {
               expense.setDeleteRawMaterialModalIsOpen(true)
             } else {

@@ -38,15 +38,7 @@ const EditModalAdmin = ({ userHook }) => {
           <ModalCloseButton color={'acsys.titleColor'} />
           <ModalBody pb={3}>
             <Stack
-              //center content
-              // alignItems={'center'}
-              //   maxW={'700px'}
-              //   ml={'200px'}
-              //center content
               justifyContent={'center'}
-              //full screen
-              //   h={'100vh'}
-              //full screen
               spacing={'6'}
             >
               <Stack direction={'column'} spacing={5}>

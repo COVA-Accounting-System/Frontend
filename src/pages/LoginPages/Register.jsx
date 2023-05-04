@@ -17,15 +17,6 @@ const Register = () => {
         <Navigate to='/ca' replace />
       ) : (
         <Stack direction={'column'} spacing={'16'}>
-          {/* <Stack alignItems={'center'} direction={'row'} mt={4} ml={9}>
-            <Text
-              fontSize={'30px'}
-              color={'acsys.iconColor'}
-              fontWeight={'bold'}
-            >
-              ACSYS
-            </Text>
-          </Stack> */}
           <Navbar/>
 
           <Stack direction={'column'} alignItems={'center'} spacing={6}>
@@ -115,9 +106,6 @@ const Register = () => {
                   { !isMapLoaded && (
                     <Box
                       position={'absolute'}
-                      // width={'250px'}
-                      // height={'100%'}
-                      //center
                       top={'50%'}
                       left={'50%'}
                       transform={'translate(-50%, -50%)'}
@@ -125,7 +113,6 @@ const Register = () => {
                       <Spinner
                         thickness='2px'
                         speed='0.65s'
-                        // emptyColor='gray.200'
                         color='gray.500'
                         size='xl'
                       />
@@ -137,14 +124,10 @@ const Register = () => {
                     width='250px'
                     height='100%'
                     style={{
-                      // border: '1px solid #758399',
                       borderRadius: '10px',
                       marginTop: '0px'
                     }}
-                    //   style='border:0;'
-                    // allowfullscreen='true'
                     loading='lazy'
-                    // referrerpolicy='no-referrer-when-downgrade'
                     onLoad={() => setIsMapLoaded(true)}
                   ></iframe>
                 </Stack>

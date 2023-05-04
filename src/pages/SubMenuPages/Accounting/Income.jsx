@@ -187,7 +187,6 @@ const Income = () => {
                 backgroundColor={'acsys.primaryColor'}
                 _hover={{ backgroundColor: '#098bb6' }}
                 colorScheme='linkedin'
-                // color='white'
                 onClick={() => {
 
                   income.openModal()

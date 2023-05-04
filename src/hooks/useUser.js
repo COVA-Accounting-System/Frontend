@@ -24,6 +24,7 @@ export const useUser = () => {
   const [isLoading, setIsLoading] = useState(false)
 
   const [isAproved, setIsAproved] = useState(false)
+  const [searchText, setSearchText] = useState('')
 
   const [users, setUsers] = useState([])
 
@@ -91,6 +92,26 @@ export const useUser = () => {
     setIsAproved(false)
   }
 
+  const filterUsers = () => {
+    if (searchText.trim() === '') {
+      return users
+    }
+
+    const searchTerms = searchText.toLowerCase().split(' ')
+
+    return users.filter(user => {
+      const userString = [
+        user.name.toLowerCase(),
+        user.lastName.toLowerCase(),
+        user.field.toLowerCase(),
+        user.email.toLowerCase(),
+        user.phone
+      ].join(' ')
+
+      return searchTerms.every(term => userString.includes(term))
+    })
+  }
+
   const handleRegister = async e => {
     e.preventDefault()
     setIsSubmited(true)
@@ -102,7 +123,8 @@ export const useUser = () => {
       email !== '' &&
       password !== '' &&
       isPasswordRight &&
-      isEmailRight && isAproved
+      isEmailRight &&
+      isAproved
     ) {
       setIsLoading(true)
       try {
@@ -222,7 +244,8 @@ export const useUser = () => {
     handleDelete,
     users,
     isAproved,
-    setIsAproved
-
+    setIsAproved,
+    setSearchText,
+    filterUsers
   }
 }

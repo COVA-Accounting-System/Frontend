@@ -21,8 +21,6 @@ const Homepage = () => {
           <Stack
             direction={'row'}
             justifyContent={'center'}
-            // pl={'300px'}
-            // pr={40}
             textAlign={'center'}
           >
             <Text fontWeight={'400'} color={'acsys.gray2'} fontSize={'26px'}>
@@ -50,7 +48,6 @@ const Homepage = () => {
       <Stack></Stack>
       <Stack></Stack>
     </>
-    // <div>Homepage</div>
   )
 }
 
