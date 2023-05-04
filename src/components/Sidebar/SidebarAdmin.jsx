@@ -134,6 +134,7 @@ const SidebarAdmin = () => {
               borderRadius={3}
               fontWeight={'bold'}
               color={'white'}
+              useSelect={'none'}
             >
                 {fullName.charAt(0).toUpperCase()}
             </Center>

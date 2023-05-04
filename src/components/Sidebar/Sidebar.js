@@ -338,6 +338,7 @@ const Sidebar = () => {
             borderRadius={3}
             fontWeight={'bold'}
             color={'white'}
+            userSelect={'none'}
           >
             {fullName.charAt(0).toUpperCase()}
           </Center>
