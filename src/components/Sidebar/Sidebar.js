@@ -373,6 +373,7 @@ const Sidebar = () => {
           <Tooltip label={'Cerrar sesion'}>
             <IconButton
               color={'acsys.iconColor'}
+              height={'37px'}
               size={'sm'}
               icon={<BiLogOut />}
               onClick={logOut.logOutUser}
@@ -381,9 +382,6 @@ const Sidebar = () => {
         </Stack>
       </Stack>
     </Stack>
-    // <div className='sidebar-container'>
-
-    // </div>
   )
 }
 
