@@ -2,6 +2,7 @@ import React from 'react'
 
 // import FirstChart from '../../../components/Charts/FirstChart'
 import TotalProductionCost from '../../../components/Charts/TotalProductionCost'
+import TotalCostsPie from '../../../components/Charts/TotalCostsPie'
 import DateFormControl from '../../../components/Input/DateFormControl'
 
 import { Stack, Text, Grid, GridItem, Flex, Button } from '@chakra-ui/react'
@@ -10,13 +11,6 @@ import useCosts from '../../../hooks/useCosts'
 
 const Costs = () => {
   const costs = useCosts()
-  const chartData = [
-    { name: 'Enero', value: 4000 },
-    { name: 'Febrero', value: 3000 },
-    { name: 'Marzo', value: 2000 },
-    { name: 'Abril', value: 2780 },
-    { name: 'Mayo', value: 1890 }
-  ]
 
   return (
     <Flex
@@ -75,9 +69,11 @@ const Costs = () => {
           gap={4}
         >
           <GridItem rowSpan={1} colSpan={1}>
-            <TotalProductionCost data={chartData} />
+            <TotalProductionCost data={costs.costReportData.expenses} />
           </GridItem>
-          <GridItem rowSpan={1} colSpan={1} bg='tomato' />
+          <GridItem rowSpan={1} colSpan={1}  >
+            <TotalCostsPie data={costs.costReportData.expenses}/> 
+          </GridItem>
           <GridItem rowSpan={1} colSpan={1} bg='tomato' />
           <GridItem rowSpan={1} colSpan={1} bg='tomato' />
           <GridItem rowSpan={1} colSpan={1} bg='tomato' />

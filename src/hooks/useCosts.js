@@ -25,39 +25,50 @@ const useCosts = () => {
   }, [startDate, endDate])
 
   useEffect(() => {
-    const data = getCostReportData()
-    setCostReportData(data)
-    console.log(data)
+    generateInitialCostReport()
   }, [])
 
   const getCostReportData = async () => {
-    // setIsLoading(true)
     const response = await costReportInstance.get('/')
     if (response.status === 200) {
-      // invetorySuccess('Reporte de costos generado con éxito')
-      console.log('datos recuperados')
-      console.log(response.data)
-      return response.data
+      setCostReportData(response.data)
+      setStartDate(response.data.startDate)
+      setEndDate(response.data.endDate)
+      // console.log('hablado de mas ')
+      // console.log(response.data)
+      // invetorySuccess('Reporte recuperado con éxito')
+      // return response.data
     }
-    // inventoryError('Error al generar el reporte de costos')
-    console.log('datos recuperados')
-    console.log(response.data)
-    return []
-    // setIsLoading(false)
+      // inventoryError('Error al recuperar el reporte')
+  }
+
+  const generateInitialCostReport = async () => {
+    setIsLoading(true)
+    try{
+      const response = await costReportInstance.post('/generateInitialReport')
+      if (response.status === 200) {
+        setStartDate(response.data.startDate)
+        setEndDate(response.data.endDate)
+        setCostReportData(response.data)
+        invetorySuccess('Reporte de costos generado con éxito')
+      }    
+    }
+    catch(error){
+      console.log(error)
+    }
+    setIsLoading(false)
   }
 
   const generateCostReport = async () => {
     setIsLoading(true)
     const response = await costReportInstance.post('/generateReport', { startDate, endDate })
     if (response.status === 200) {
-      setCostReportData(response.data)
       invetorySuccess('Reporte de costos generado con éxito')
-      console.log(response.data)
+      setCostReportData(response.data)
     } else {
       inventoryError('Error al generar el reporte de costos')
     }
     setIsLoading(false)
-    return response.data
   }
 
   return {
