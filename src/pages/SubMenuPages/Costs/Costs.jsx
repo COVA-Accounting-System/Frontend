@@ -4,6 +4,7 @@ import React from 'react'
 import TotalProductionCost from '../../../components/Charts/TotalProductionCost'
 import TotalCostsPie from '../../../components/Charts/TotalCostsPie'
 import DateFormControl from '../../../components/Input/DateFormControl'
+import ProductListWithUnitCost from '../../../components/Charts/ProductListWithUnitCost'
 
 import { Stack, Text, Grid, GridItem, Flex, Button } from '@chakra-ui/react'
 
@@ -74,7 +75,9 @@ const Costs = () => {
           <GridItem rowSpan={1} colSpan={1}  >
             <TotalCostsPie data={costs.costReportData.expenses}/> 
           </GridItem>
-          <GridItem rowSpan={1} colSpan={1} bg='tomato' />
+          <GridItem rowSpan={1} colSpan={1} >
+            <ProductListWithUnitCost data={costs.costReportData.orders} />
+          </GridItem>
           <GridItem rowSpan={1} colSpan={1} bg='tomato' />
           <GridItem rowSpan={1} colSpan={1} bg='tomato' />
           <GridItem rowSpan={1} colSpan={1} bg='tomato' />

@@ -12,46 +12,20 @@ import {
   deleteExpenseAndInventoryInput
 } from '../reducers/expenses'
 
-import { getConfig, addOneToExpenseReducer, addOneToInventoryInputReducer } from '../reducers/config'
+import {
+  getConfig,
+  addOneToExpenseReducer,
+  addOneToInventoryInputReducer
+} from '../reducers/config'
 import { getAllProviders } from '../reducers/providers'
 import { getAllEmployees } from '../reducers/employees'
+import { getAllOrders } from '../services/orderService'
 
 import * as toast from '../services/toastService'
 import { changeAction, changeEntity } from '../reducers/crud'
 
 export const useExpense = () => {
   const dispatch = useDispatch()
-
-  const [modalIsOpen, setModalIsOpen] = useState(false)
-  const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false)
-  const [deleteRawMaterialModalIsOpen, setDeleteRawMaterialModalIsOpen] = useState(false)
-  // const [viewModalIsOpen, setViewModalIsOpen] = useState(false)
-
-  const [typeOfExpense, setTypeOfExpense] = useState({
-    rawMaterial: false,
-    labour: false,
-    indirectCosts: false
-  })
-
-  const [creditorEmployee, setCreditorEmployee] = useState({})
-  const [creditorEmployeeId, setCreditorEmployeeId] = useState('')
-  const [creditorProvider, setCreditorProvider] = useState({})
-  const [creditorProviderId, setCreditorProviderId] = useState('')
-  const [creditorEntity, setCreditorEntity] = useState('')
-
-  const [inventoryInput, setInventoryInput] = useState({})
-  const [inventoryInputId, setInventoryInputId] = useState('')
-
-  const [accountingSeat, setAccountingSeat] = useState(0)
-  const [category, setCategory] = useState('')
-  const [date, setDate] = useState('')
-  const [concept, setConcept] = useState('')
-  const [amount, setAmount] = useState('')
-
-  const [page, setPage] = useState(0)
-
-  const [isSubmited, setIsSubmited] = useState(false)
-  const [isLoading, setIsLoading] = useState(false)
 
   const action = useSelector(state => state.crud.action)
 
@@ -77,6 +51,42 @@ export const useExpense = () => {
 
   const config = useSelector(state => state.config.config)
 
+  const [modalIsOpen, setModalIsOpen] = useState(false)
+  const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false)
+  const [deleteRawMaterialModalIsOpen, setDeleteRawMaterialModalIsOpen] =
+    useState(false)
+  // const [viewModalIsOpen, setViewModalIsOpen] = useState(false)
+
+  const [typeOfExpense, setTypeOfExpense] = useState({
+    rawMaterial: false,
+    labour: false,
+    indirectCosts: false
+  })
+
+  const [creditorEmployee, setCreditorEmployee] = useState({})
+  const [creditorEmployeeId, setCreditorEmployeeId] = useState('')
+  const [creditorProvider, setCreditorProvider] = useState({})
+  const [creditorProviderId, setCreditorProviderId] = useState('')
+  const [creditorEntity, setCreditorEntity] = useState('')
+  const [order, setOrder] = useState({})
+  const [orderId, setOrderId] = useState('')
+
+  const [inventoryInput, setInventoryInput] = useState({})
+  const [inventoryInputId, setInventoryInputId] = useState('')
+
+  const [accountingSeat, setAccountingSeat] = useState(0)
+  const [category, setCategory] = useState('')
+  const [date, setDate] = useState('')
+  const [concept, setConcept] = useState('')
+  const [amount, setAmount] = useState('')
+
+  const [page, setPage] = useState(0)
+
+  const [isSubmited, setIsSubmited] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
+
+  const [ordersList, setOrdersList] = useState([])
+
   useEffect(() => {
     dispatch(getAllExpenses())
     if (providersList.length === 0) {
@@ -85,9 +95,16 @@ export const useExpense = () => {
     if (employeesList.length === 0) {
       dispatch(getAllEmployees())
     }
+    if (ordersList.length === 0) {
+      getAllOrders().then(element => {
+        setOrdersList(element)
+        console.log(element)
+      })
+    }
     if (config.expenseNumber === 0) {
       dispatch(getConfig())
     }
+ 
     dispatch(changeEntity({ entity: 'expense', entityName: 'gasto' }))
   }, [dispatch])
 
@@ -120,6 +137,8 @@ export const useExpense = () => {
     setConcept('')
     setAmount('')
     setCreditorEntity('')
+    setOrder({})
+    setOrderId('')
     setIsSubmited(false)
   }
 
@@ -141,7 +160,7 @@ export const useExpense = () => {
     setIsSubmited(false)
   }
 
-  const deleteActualExpenseRawMaterial = async (closeInventoryModal) => {
+  const deleteActualExpenseRawMaterial = async closeInventoryModal => {
     setIsLoading(true)
     await dispatch(
       deleteExpenseAndInventoryInput(
@@ -448,6 +467,11 @@ export const useExpense = () => {
     emptyFields,
     isLoading,
     expensesListForInventoryInput,
-    setAccountingNumberFromConfig
+    setAccountingNumberFromConfig,
+    ordersList,
+    order,
+    setOrder,
+    orderId,
+    setOrderId
   }
 }

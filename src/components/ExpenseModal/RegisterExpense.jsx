@@ -12,8 +12,10 @@ import {
 
 import TextFormControl from '../Input/TextFormControl'
 import SelectEntityFormControl from '../Input/SelectEntityFormControl'
+import SelectOrderFormControl from '../Input/SelectOrderFormControl'
 import PriceFormControl from '../Input/PriceFormControl'
 import DateFormControl from '../Input/DateFormControl'
+import Select from 'react-select'
 
 const RegisterExpense = ({ expenseHook, inventoryInputHook, isEditMode }) => {
   return (
@@ -25,7 +27,7 @@ const RegisterExpense = ({ expenseHook, inventoryInputHook, isEditMode }) => {
 
       <ModalBody pb={3}>
         <Stack direction='column' spacing={3} pl={2}>
-          <Stack direction={'row'} spacing={3}>
+          <Stack direction={'row'} spacing={4}>
             <TextFormControl
               labelName='Tipo de gasto'
               //   width='330px'
@@ -53,65 +55,222 @@ const RegisterExpense = ({ expenseHook, inventoryInputHook, isEditMode }) => {
               isRequired
               isRequiredMessage='Este campo es obligatorio'
               isDisabled={true}
-              
             />
           </Stack>
-          <Stack direction={'row'} spacing={3}>
-            {expenseHook.typeOfExpense.rawMaterial ? (
-              <SelectEntityFormControl
-                labelName='Proveedor'
-                paddingSpace={0}
-                value={expenseHook.creditorProvider}
-                isSubmited={expenseHook.isSubmited}
-                isRequired
-                isRequiredMessage='Este campo es obligatorio'
-                entityList={expenseHook.providersList}
-                isDisabled={true}
-                //   width={'250px'}
-              />
-            ) : expenseHook.typeOfExpense.labour ? (
-              <SelectEntityFormControl
-                labelName='Operador'
-                paddingSpace={0}
-                value={expenseHook.creditorEmployee}
-                onSelect={data => {
-                  expenseHook.setCreditorEmployee(data)
-                  expenseHook.setCreditorEmployeeId(data._id)
-                }}
-                isSubmited={expenseHook.isSubmited}
-                isRequired
-                isRequiredMessage='Este campo es obligatorio'
-                entityList={expenseHook.employeesList}
-                isDisabled={false}
-                //   width={'250px'}
-              />
-            ) : (
-              <TextFormControl
-                labelName='Entidad acreedora'
-                //   width='330px'
-                paddingSpace={0}
-                value={expenseHook.creditorEntity}
-                onInput={data => expenseHook.setCreditorEntity(data)}
-                isSubmited={expenseHook.isSubmited}
-                isRequired
-                isRequiredMessage='Este campo es obligatorio'
-                isDisabled={false}
-              />
-            )}
 
-            <DateFormControl
-              labelName='Fecha de gasto'
-              //   width='330px'
-              paddingSpace={0}
-              value={expenseHook.date}
-              onInput={data => expenseHook.setDate(data)}
-              isDisabled={expenseHook.typeOfExpense.rawMaterial ? true : false}
+          {expenseHook.typeOfExpense.rawMaterial ? (
+            <>
+              {' '}
+              <Stack direction={'row'} spacing={4}>
+                <SelectEntityFormControl
+                  labelName='Proveedor'
+                  paddingSpace={0}
+                  value={expenseHook.creditorProvider}
+                  isSubmited={expenseHook.isSubmited}
+                  isRequired
+                  isRequiredMessage='Este campo es obligatorio'
+                  entityList={expenseHook.providersList}
+                  isDisabled={true}
+                  //   width={'250px'}
+                />
+                <DateFormControl
+                  labelName='Fecha de gasto'
+                  //   width='330px'
+                  paddingSpace={0}
+                  value={expenseHook.date}
+                  onInput={data => expenseHook.setDate(data)}
+                  isDisabled={
+                    expenseHook.typeOfExpense.rawMaterial ? true : false
+                  }
+                  isSubmited={expenseHook.isSubmited}
+                  isRequired
+                  isRequiredMessage='Este campo es obligatorio'
+                />
+              </Stack>
+              <Stack direction={'row'} spacing={4}>
+                <PriceFormControl
+                  mt={0}
+                  labelName='Monto'
+                  value={expenseHook.amount}
+                  onInput={data => expenseHook.setAmount(data)}
+                  isSubmited={expenseHook.isSubmited}
+                  isRequired
+                  isRequiredMessage='Este campo es obligatorio'
+                  isDisabled={
+                    expenseHook.typeOfExpense.rawMaterial ? true : false
+                  }
+                />
+                <TextFormControl
+                  labelName='Concepto'
+                  // width='330px'
+                  paddingSpace={0}
+                  value={expenseHook.concept}
+                  onInput={data => expenseHook.setConcept(data)}
+                  isSubmited={expenseHook.isSubmited}
+                  isRequired
+                  isRequiredMessage='Este campo es obligatorio'
+                />
+              </Stack>
+            </>
+          ) : expenseHook.typeOfExpense.labour ? (
+            <>
+              {' '}
+              <Stack direction={'row'} spacing={4}>
+                <SelectEntityFormControl
+                  labelName='Operador'
+                  paddingSpace={0}
+                  value={expenseHook.creditorEmployee}
+                  onSelect={data => {
+                    expenseHook.setCreditorEmployee(data)
+                    expenseHook.setCreditorEmployeeId(data._id)
+                  }}
+                  isSubmited={expenseHook.isSubmited}
+                  isRequired
+                  isRequiredMessage='Este campo es obligatorio'
+                  entityList={expenseHook.employeesList}
+                  isDisabled={false}
+                  //   width={'250px'}
+                />
+                <SelectOrderFormControl
+                  labelName='Pedido'
+                  paddingSpace={0}
+                  value={expenseHook.order}
+                  onSelect={data => {
+                    expenseHook.setOrder(data)
+                    expenseHook.setOrderId(data._id)
+                  }}
+                  isSubmited={expenseHook.isSubmited}
+                  isRequired
+                  isRequiredMessage='Este campo es obligatorio'
+                  entityList={expenseHook.ordersList}
+                  isDisabled={false}
+                  //   width={'250px'}
+                />
+              </Stack>
+              <Stack direction={'row'} spacing={4}>
+                <PriceFormControl
+                  mt={0}
+                  labelName='Monto'
+                  value={expenseHook.amount}
+                  onInput={data => expenseHook.setAmount(data)}
+                  isSubmited={expenseHook.isSubmited}
+                  isRequired
+                  isRequiredMessage='Este campo es obligatorio'
+                  isDisabled={
+                    expenseHook.typeOfExpense.rawMaterial ? true : false
+                  }
+                />
+                <DateFormControl
+                  labelName='Fecha de gasto'
+                  //   width='330px'
+                  paddingSpace={0}
+                  value={expenseHook.date}
+                  onInput={data => expenseHook.setDate(data)}
+                  isDisabled={
+                    expenseHook.typeOfExpense.rawMaterial ? true : false
+                  }
+                  isSubmited={expenseHook.isSubmited}
+                  isRequired
+                  isRequiredMessage='Este campo es obligatorio'
+                />
+              </Stack>
+              <Stack direction={'row'} spacing={4}>
+                <TextFormControl
+                  labelName='Concepto'
+                  // width='330px'
+                  paddingSpace={0}
+                  value={expenseHook.concept}
+                  onInput={data => expenseHook.setConcept(data)}
+                  isSubmited={expenseHook.isSubmited}
+                  isRequired
+                  isRequiredMessage='Este campo es obligatorio'
+                />
+              </Stack>
+            </>
+          ) : (
+            <>
+              {' '}
+              <Stack direction={'row'} spacing={4}>
+                <TextFormControl
+                  labelName='Entidad acreedora'
+                  //   width='330px'
+                  paddingSpace={0}
+                  value={expenseHook.creditorEntity}
+                  onInput={data => expenseHook.setCreditorEntity(data)}
+                  isSubmited={expenseHook.isSubmited}
+                  isRequired
+                  isRequiredMessage='Este campo es obligatorio'
+                  isDisabled={false}
+                />
+                <DateFormControl
+                  labelName='Fecha de gasto'
+                  //   width='330px'
+                  paddingSpace={0}
+                  value={expenseHook.date}
+                  onInput={data => expenseHook.setDate(data)}
+                  isDisabled={
+                    expenseHook.typeOfExpense.rawMaterial ? true : false
+                  }
+                  isSubmited={expenseHook.isSubmited}
+                  isRequired
+                  isRequiredMessage='Este campo es obligatorio'
+                />
+              </Stack>
+              <Stack direction={'row'} spacing={4}>
+                <SelectEntityFormControl
+                  labelName='Operador'
+                  paddingSpace={0}
+                  value={expenseHook.creditorEmployee}
+                  onSelect={data => {
+                    expenseHook.setCreditorEmployee(data)
+                    expenseHook.setCreditorEmployeeId(data._id)
+                  }}
+                  isSubmited={expenseHook.isSubmited}
+                  isRequired
+                  isRequiredMessage='Este campo es obligatorio'
+                  entityList={expenseHook.employeesList}
+                  isDisabled={false}
+                  //   width={'250px'}
+                />
+              </Stack>
+              <Stack direction={'row'} spacing={4}>
+                <PriceFormControl
+                  mt={0}
+                  labelName='Monto'
+                  value={expenseHook.amount}
+                  onInput={data => expenseHook.setAmount(data)}
+                  isSubmited={expenseHook.isSubmited}
+                  isRequired
+                  isRequiredMessage='Este campo es obligatorio'
+                  isDisabled={
+                    expenseHook.typeOfExpense.rawMaterial ? true : false
+                  }
+                />
+                <TextFormControl
+                  labelName='Concepto'
+                  // width='330px'
+                  paddingSpace={0}
+                  value={expenseHook.concept}
+                  onInput={data => expenseHook.setConcept(data)}
+                  isSubmited={expenseHook.isSubmited}
+                  isRequired
+                  isRequiredMessage='Este campo es obligatorio'
+                />
+              </Stack>
+            </>
+          )}
+          {/* 
+          <Stack direction={'row'} spacing={4}>
+            <PriceFormControl
+              mt={0}
+              labelName='Monto'
+              value={expenseHook.amount}
+              onInput={data => expenseHook.setAmount(data)}
               isSubmited={expenseHook.isSubmited}
               isRequired
               isRequiredMessage='Este campo es obligatorio'
+              isDisabled={expenseHook.typeOfExpense.rawMaterial ? true : false}
             />
-          </Stack>
-          <Stack direction={'row'} spacing={3}>
             <TextFormControl
               labelName='Concepto'
               // width='330px'
@@ -122,16 +281,10 @@ const RegisterExpense = ({ expenseHook, inventoryInputHook, isEditMode }) => {
               isRequired
               isRequiredMessage='Este campo es obligatorio'
             />
-            <PriceFormControl
-              labelName='Monto'
-              value={expenseHook.amount}
-              onInput={data => expenseHook.setAmount(data)}
-              isSubmited={expenseHook.isSubmited}
-              isRequired
-              isRequiredMessage='Este campo es obligatorio'
-              isDisabled={expenseHook.typeOfExpense.rawMaterial ? true : false}
-            />
-          </Stack>
+          </Stack> */}
+          {/* <Stack direction={'row'} spacing={'3'}>
+
+          </Stack> */}
         </Stack>
       </ModalBody>
       <ModalFooter>
