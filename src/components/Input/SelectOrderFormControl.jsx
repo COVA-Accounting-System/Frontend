@@ -22,7 +22,6 @@ const SelectOrderFormControl = ({
 }) => {
 
   const isError = isSubmited && value._id === undefined
-  console.log(entityList)
   return (
     <FormControl mt={paddingSpace} isInvalid={isError} isRequired={isRequired}>
       <FormLabel

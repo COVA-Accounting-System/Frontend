@@ -86,6 +86,7 @@ export const useExpense = () => {
   const [isLoading, setIsLoading] = useState(false)
 
   const [ordersList, setOrdersList] = useState([])
+  const [orderList, setOrderList] = useState([])
 
   useEffect(() => {
     dispatch(getAllExpenses())
@@ -139,6 +140,7 @@ export const useExpense = () => {
     setCreditorEntity('')
     setOrder({})
     setOrderId('')
+    setOrderList([])
     setIsSubmited(false)
   }
 
@@ -244,7 +246,8 @@ export const useExpense = () => {
       creditorEmployeeId !== '' &&
       date !== '' &&
       amount !== '' &&
-      concept !== ''
+      concept !== '' &&
+      orderId !== ''
     ) {
       setIsLoading(true)
       await dispatch(
@@ -254,7 +257,8 @@ export const useExpense = () => {
           creditorEmployee: creditorEmployeeId,
           date,
           amount,
-          concept
+          concept,
+          singleOrder: orderId
         })
       ).then(status => {
         if (status) {
@@ -277,9 +281,11 @@ export const useExpense = () => {
       creditorEntity !== '' &&
       date !== '' &&
       amount !== '' &&
-      concept !== ''
+      concept !== '' && 
+      orderList.length > 0
     ) {
       setIsLoading(true)
+      console.log(orderList)
       await dispatch(
         createExpense({
           accountingSeat,
@@ -287,7 +293,8 @@ export const useExpense = () => {
           creditorEntity,
           date,
           amount,
-          concept
+          concept,
+          orderList
         })
       ).then(status => {
         if (status) {
@@ -345,7 +352,8 @@ export const useExpense = () => {
       creditorEmployeeId !== '' &&
       date !== '' &&
       amount !== '' &&
-      concept !== ''
+      concept !== '' && 
+      orderId !== ''
     ) {
       setIsLoading(true)
       await dispatch(
@@ -355,7 +363,8 @@ export const useExpense = () => {
           creditorEmployee: creditorEmployeeId,
           date,
           amount,
-          concept
+          concept,
+          singleOrder: orderId
         })
       ).then(status => {
         if (status) {
@@ -377,7 +386,8 @@ export const useExpense = () => {
       creditorEntity !== '' &&
       date !== '' &&
       amount !== '' &&
-      concept !== ''
+      concept !== '' &&
+      orderList.length > 0
     ) {
       setIsLoading(true)
       await dispatch(
@@ -387,7 +397,8 @@ export const useExpense = () => {
           creditorEntity,
           date,
           amount,
-          concept
+          concept,
+          orderList
         })
       ).then(status => {
         if (status) {
@@ -469,6 +480,9 @@ export const useExpense = () => {
     expensesListForInventoryInput,
     setAccountingNumberFromConfig,
     ordersList,
+    setOrdersList,  
+    orderList,
+    setOrderList,
     order,
     setOrder,
     orderId,

@@ -140,6 +140,8 @@ const Expense = () => {
                 labour: true,
                 indirectCosts: false
               })
+              expense.setOrder(data.singleOrder)
+              expense.setOrderId(data.singleOrder._id)
             }
             if (data.category === 'Costos indirectos de fabricación') {
               expense.setCreditorEntity(data.creditorEntity)
@@ -148,6 +150,7 @@ const Expense = () => {
                 labour: false,
                 indirectCosts: true
               })
+              expense.setOrderList(data.orderList)
             }
             expense.setPage(1)
             expense.changeActionRedux('edit')

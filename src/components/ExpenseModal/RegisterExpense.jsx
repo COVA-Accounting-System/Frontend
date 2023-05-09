@@ -7,7 +7,8 @@ import {
   Button,
   ModalCloseButton,
   Stack,
-  ModalFooter
+  ModalFooter,
+  Box
 } from '@chakra-ui/react'
 
 import TextFormControl from '../Input/TextFormControl'
@@ -15,7 +16,7 @@ import SelectEntityFormControl from '../Input/SelectEntityFormControl'
 import SelectOrderFormControl from '../Input/SelectOrderFormControl'
 import PriceFormControl from '../Input/PriceFormControl'
 import DateFormControl from '../Input/DateFormControl'
-import Select from 'react-select'
+import SelectMultipleOrders from '../Input/SelectMultipleOrders'
 
 const RegisterExpense = ({ expenseHook, inventoryInputHook, isEditMode }) => {
   return (
@@ -216,21 +217,13 @@ const RegisterExpense = ({ expenseHook, inventoryInputHook, isEditMode }) => {
                   isRequiredMessage='Este campo es obligatorio'
                 />
               </Stack>
-              <Stack direction={'row'} spacing={4}>
-                <SelectEntityFormControl
-                  labelName='Operador'
-                  paddingSpace={0}
-                  value={expenseHook.creditorEmployee}
-                  onSelect={data => {
-                    expenseHook.setCreditorEmployee(data)
-                    expenseHook.setCreditorEmployeeId(data._id)
-                  }}
+              <Stack direction={'row'} spacing={4} width={'100%'}>
+                <SelectMultipleOrders
+                  label={'Pedidos'}
+                  ordersList={expenseHook.ordersList}
+                  onSelectOrder={(orders) => expenseHook.setOrderList(orders)}
                   isSubmited={expenseHook.isSubmited}
-                  isRequired
-                  isRequiredMessage='Este campo es obligatorio'
-                  entityList={expenseHook.employeesList}
-                  isDisabled={false}
-                  //   width={'250px'}
+                  selectedOrders={expenseHook.orderList}
                 />
               </Stack>
               <Stack direction={'row'} spacing={4}>
@@ -259,32 +252,6 @@ const RegisterExpense = ({ expenseHook, inventoryInputHook, isEditMode }) => {
               </Stack>
             </>
           )}
-          {/* 
-          <Stack direction={'row'} spacing={4}>
-            <PriceFormControl
-              mt={0}
-              labelName='Monto'
-              value={expenseHook.amount}
-              onInput={data => expenseHook.setAmount(data)}
-              isSubmited={expenseHook.isSubmited}
-              isRequired
-              isRequiredMessage='Este campo es obligatorio'
-              isDisabled={expenseHook.typeOfExpense.rawMaterial ? true : false}
-            />
-            <TextFormControl
-              labelName='Concepto'
-              // width='330px'
-              paddingSpace={0}
-              value={expenseHook.concept}
-              onInput={data => expenseHook.setConcept(data)}
-              isSubmited={expenseHook.isSubmited}
-              isRequired
-              isRequiredMessage='Este campo es obligatorio'
-            />
-          </Stack> */}
-          {/* <Stack direction={'row'} spacing={'3'}>
-
-          </Stack> */}
         </Stack>
       </ModalBody>
       <ModalFooter>
