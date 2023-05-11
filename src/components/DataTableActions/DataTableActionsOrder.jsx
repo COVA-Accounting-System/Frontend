@@ -99,7 +99,7 @@ const DataTableActionsOrder = props => {
               onViewMaterial(data)
             }}
           >
-            Material utilizado
+            Costos de producción
           </MenuItem>
           <MenuDivider margin={0} />
           <MenuItem height='30px' fontWeight={500} onClick={() =>

@@ -28,7 +28,7 @@ const RawMaterialUsedTable = ({ data }) => {
               position={'sticky'}
               top={0}
               zIndex={1}
-              backgroundColor={'white'}
+              backgroundColor={'gray.100'}
               boxShadow={'0px 1px 1px rgba(0, 0, 0, 0.05)'}
             >
               <Tr>
@@ -97,32 +97,7 @@ const RawMaterialUsedTable = ({ data }) => {
           </Table>
         </TableContainer>
       </Stack>
-      <Stack direction={'row'} justifyContent={'flex-end'}>
-        <Stack
-          border={'1px'}
-          borderColor={'gray.300'}
-          borderRadius={'4px'}
-          direction={'row'}
-          padding={'10px'}
 
-          // width={'100%'}
-        >
-          <Text
-            color={'acsys.iconColor'}
-            fontSize={'14px'}
-            fontWeight={'medium'}
-          >
-            Costo en material:
-          </Text>
-          <Text
-            color={'acsys.iconColor'}
-            fontSize={'14px'}
-            // fontWeight={'medium'}
-          >
-            {data.orderMaterialCosts} Bs.
-          </Text>
-        </Stack>
-      </Stack>
     </Stack>
   )
 }
