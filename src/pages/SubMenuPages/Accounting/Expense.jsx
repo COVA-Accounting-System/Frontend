@@ -150,6 +150,7 @@ const Expense = () => {
                 labour: false,
                 indirectCosts: true
               })
+
               expense.setOrderList(data.orderList)
             }
             expense.setPage(1)

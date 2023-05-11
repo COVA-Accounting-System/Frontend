@@ -23,7 +23,6 @@ import {
 } from '@chakra-ui/react'
 
 const IncomesPayed = ({ data, modalIsOpen, onClose }) => {
-  console.log(data)
   return (
     <Modal size='lg' onClose={() => onClose()} isOpen={modalIsOpen}>
       <ModalOverlay />
@@ -189,7 +188,6 @@ const IncomesPayed = ({ data, modalIsOpen, onClose }) => {
                   <Tbody>
                     {data.listOfIncomes
                       ? data.listOfIncomes.map((income, index) => {
-                          console.log(income)
                           return (
                             <Tr
                               key={`income-${index}`}

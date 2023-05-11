@@ -285,7 +285,6 @@ export const useExpense = () => {
       orderList.length > 0
     ) {
       setIsLoading(true)
-      console.log(orderList)
       await dispatch(
         createExpense({
           accountingSeat,

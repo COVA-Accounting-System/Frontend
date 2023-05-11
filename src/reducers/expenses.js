@@ -131,3 +131,12 @@ export const deleteExpenseAndInventoryInput =
       console.error(err)
     }
   }
+
+  export const getExpensesGivenAnOrder = async (orderId) => {
+    try {
+      const expenses = await expenseInstance.get(`/getExpensesGivenAnOrder/${orderId}`)
+      return expenses.data
+    } catch (err) {
+      console.error(err)
+    }
+  }

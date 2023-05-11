@@ -30,7 +30,7 @@ import SearchByState from '../../../components/SearchInputs/SearchByState'
 import OrderPaidTag from '../../../components/OrderPaidTag/OrderPaidTag'
 import FeaturesTooltip from '../../../components/Tooltip/FeaturesTooltip'
 import ChangeState from '../../../components/OrderModals/ChangeState'
-import RawMaterialUsed from '../../../components/OrderModals/RawMaterialUsed'
+import OrderCostsReport from '../../../components/OrderModals/OrderCostsReport'
 import IncomesPayed from '../../../components/OrderModals/IncomesPayed'
 // import ClientPopover from '../../../components/Popover/ClientPopover'
 // import ProductPopover from '../../../components/Popover/ProductPopover'
@@ -233,6 +233,7 @@ const Order = () => {
           onViewMaterial: data => {
             order.setActualOrder(data)
             order.setViewMaterialModalIsOpen(true)
+            order.getExpensesOfOrder(data._id)
           },
           onViewIncomes: data => {
             order.setActualOrder(data)
@@ -533,12 +534,13 @@ const Order = () => {
           order.onEditState()
         }}
       />
-      <RawMaterialUsed
-        data={order.actualOrder}
+      <OrderCostsReport
+        orderData={order.actualOrder}
         modalIsOpen={order.viewMaterialModalIsOpen}
         onClose={() => {
           order.setViewMaterialModalIsOpen(false)
         }}
+        expenseData={order.orderExpenses}
       />
       <IncomesPayed
         data={order.actualOrder}

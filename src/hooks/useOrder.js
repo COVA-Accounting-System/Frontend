@@ -13,6 +13,7 @@ import {
 } from '../services/orderService'
 import { getAllClients } from '../reducers/clients'
 import { getAllProducts } from '../reducers/products'
+import { getExpensesGivenAnOrder } from '../reducers/expenses'
 import { getConfig, addOneToOrdersReducer } from '../reducers/config'
 import * as toast from '../services/toastService'
 import { changeEntity } from '../reducers/crud'
@@ -77,6 +78,8 @@ export const useOrder = () => {
 
   const [isSubmited, setIsSubmited] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
+
+  const [orderExpenses, setOrderExpenses] = useState([])
 
   useEffect(() => {
     if (clientsList.length === 0) {
@@ -176,6 +179,13 @@ export const useOrder = () => {
     setIsLoading(false)
   }
 
+  const getExpensesOfOrder = async (orderId) => {
+    console.log(orderId)
+    const expenses = await getExpensesGivenAnOrder(orderId)
+    console.log(expenses)
+    setOrderExpenses(expenses)
+  }
+
   const onMoveBackwardState = async data => {
     try {
       const updatedOrder = await changeStateBackward(data)
@@ -252,6 +262,8 @@ export const useOrder = () => {
           orderPayedPrice: 0,
           orderBalance: orderPrice,
           orderMaterialCosts: 0,
+          orderLabourCosts: 0,
+          orderIndirectCosts: 0,
           orderCreationDate: new Date(),
           orderDeliveryDate,
           uiName: `Pedido #${orderNumber} - ${orderProduct.uiName}`,
@@ -421,6 +433,8 @@ export const useOrder = () => {
     viewMaterialModalIsOpen,
     setViewMaterialModalIsOpen,
     incomesModalIsOpen,
-    setIncomesModalIsOpen
+    setIncomesModalIsOpen,
+    orderExpenses,
+    getExpensesOfOrder
   }
 }
