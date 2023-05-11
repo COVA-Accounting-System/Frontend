@@ -9,31 +9,42 @@ const NavbarHomepage = () => {
     <Stack
       direction={'row'}
       width={'100%'}
-      h={'80px'}
+      h={{ base: 12, sm: 12, md: 16, xl: 20 }}
       borderBottom={'1px'}
       borderColor={'#BDBDBD'}
       justifyContent={'space-between'}
-      pr={9}
-      pl={9}
+      px={{ base: 4, sm: 4, md: 4, xl: 8 }}
+      backgroundColor={'white'}
       //   stick to top
       position={'fixed'}
       top={0}
       zIndex={1}
     >
       <Stack alignItems={'center'} direction={'row'}>
-        <Text fontSize={'30px'} color={'acsys.iconColor'} fontWeight={'bold'}>
+        <Text fontSize={{
+          base: 'md',
+          sm: 'md',
+          md: 'x-large',
+          xl: 'x-large'
+        }} color={'acsys.iconColor'} fontWeight={'bold'}>
           ACSYS
         </Text>
       </Stack>
-      <Stack direction={'row'} spacing={4} alignItems={'center'}>
+      <Stack direction={'row'} spacing={{base: 0, sm: 0, md: 4, xl: 4}} alignItems={'center'}>
         <NavLink to='/login'>
           {' '}
           <Button
-            color={'acsys.iconColor'}
+            color={'gray.600'}
             fontWeight={'bold'}
             colorScheme='gray'
             fontSize={'sm'}
             w={'150px'}
+            size={{
+              base: 'sm',
+              sm: 'sm',
+              md: 'md',
+              xl: 'md',
+            }}
           >
             Iniciar sesión
           </Button>
@@ -44,8 +55,9 @@ const NavbarHomepage = () => {
             bgColor={'acsys.primaryColor'}
             fontWeight={'bold'}
             colorScheme='linkedin'
-            fontSize={'sm'}
+            fontSize={'md'}
             w={'150px'}
+            display={{ base: 'none', sm: 'none', md: 'block', xl: 'block' }}
           >
             Regístrate
           </Button>

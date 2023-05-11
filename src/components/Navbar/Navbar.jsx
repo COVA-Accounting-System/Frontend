@@ -9,12 +9,11 @@ const Navbar = () => {
     <Stack
       direction={'row'}
       width={'100%'}
-      h={'80px'}
+      h={{ base: 12, sm: 12, md: 16, xl: 20 }}
       borderBottom={'1px'}
       borderColor={'white'}
       justifyContent={'space-between'}
-      pr={9}
-      pl={9}
+      px={{ base: 4, sm: 4, md: 4, xl: 8 }}
       //   stick to top
       // position={'fixed'}
       // top={0}
@@ -22,7 +21,12 @@ const Navbar = () => {
     >
       <Stack alignItems={'center'} direction={'row'}>
         <NavLink to='/'>
-          <Text fontSize={'30px'} color={'acsys.iconColor'} fontWeight={'bold'}>
+          <Text color={'acsys.iconColor'} fontWeight={'bold'} fontSize={{
+          base: 'md',
+          sm: 'md',
+          md: 'x-large',
+          xl: 'x-large'
+        }} >
             ACSYS
           </Text>
         </NavLink>

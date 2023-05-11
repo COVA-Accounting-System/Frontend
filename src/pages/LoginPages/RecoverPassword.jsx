@@ -21,16 +21,20 @@ const RecoverPassword = () => {
       ) : (
         <Stack direction={'column'} spacing={'16'}>
           <Navbar />
-          <Stack alignItems={'center'} spacing='1'>
+          <Stack alignItems={'center'} spacing='1' px={10} textAlign={'center'} pb={32}>
             <Text
               fontWeight={'bold'}
-              fontSize={'40px'}
+              fontSize={{
+                base: '25px',
+                sm: '2xl',
+                md: '4xl',
+                xl: '40px'}}
               color={'acsys.titleColor'}
             >
               Recuperar contraseña
             </Text>
             <Text color={'acsys.titleColor'} fontSize={'14px'}>
-              Le enviaremos un email para que pueda recuperar su contraseña
+              Te enviaremos un email para que puedas recuperar tu contraseña
             </Text>
             <form onSubmit={handleSubmit} noValidate>
               <Stack

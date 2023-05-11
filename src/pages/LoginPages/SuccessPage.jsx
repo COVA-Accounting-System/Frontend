@@ -35,6 +35,7 @@ const SuccessPage = ({ isFromChangedPassword }) => {
       bgColor={'gray.100'}
       alignItems={'center'}
       justifyContent={'center'}
+      p={10}
     >
       <Stack textAlign={'center'} spacing={4} alignItems={'center'}>
         {isFromChangedPassword ? (

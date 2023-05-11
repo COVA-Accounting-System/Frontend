@@ -11,7 +11,6 @@ import EmailFormControl from '../../components/Input/EmailFormControl'
 import PasswordFormControl from '../../components/Input/PasswordFormControl'
 import Navbar from '../../components/Navbar/Navbar'
 
-import './Login.scss'
 import { Stack, Text, Button } from '@chakra-ui/react'
 
 const Login = () => {
@@ -46,12 +45,16 @@ const Login = () => {
       {isLogged ? (
         <Navigate to='/ca' replace />
       ) : (
-        <Stack direction={'column'} spacing={'16'}>
+        <Stack direction={'column'} spacing={'16'} pb={32}>
           <Navbar />
-          <Stack direction={'column'} alignItems={'center'} spacing={4}>
+          <Stack direction={'column'} alignItems={'center'} spacing={4} h={'100%'}>
             <Text
               fontWeight={'bold'}
-              fontSize={'40px'}
+              fontSize={{
+                base: '25px',
+                sm: '2xl',
+                md: '4xl',
+                xl: '40px'}}
               color={'acsys.titleColor'}
             >
               Iniciar sesión

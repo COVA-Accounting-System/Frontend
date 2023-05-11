@@ -24,10 +24,14 @@ const ChangePassword = () => {
       ) : (
         <Stack spacing={'16'}>
           <Navbar />
-          <Stack alignItems={'center'} spacing={4}>
+          <Stack alignItems={'center'} spacing={4} px={8} pb={32}>
             <Text
               fontWeight={'bold'}
-              fontSize={'40px'}
+              fontSize={{
+                base: '25px',
+                sm: '2xl',
+                md: '4xl',
+                xl: '40px'}}
               color={'acsys.titleColor'}
             >
               Cambiar contraseña
@@ -35,7 +39,7 @@ const ChangePassword = () => {
             <form onSubmit={handleSubmit} noValidate>
             <Stack maxW={'280px'} direction={'column'} spacing={6}>
               <PasswordFormControl
-                labelName={'Escriba su nueva contraseña'}
+                labelName={'Nueva contraseña'}
                 value={recoverPassword.newPassword}
                 onInput={e => {
                   recoverPassword.setNewPassword(e)
@@ -47,7 +51,7 @@ const ChangePassword = () => {
                 isRequired
               />
               <PasswordFormControl
-                labelName={'Confirme su nueva contraseña'}
+                labelName={'Confirmar contraseña'}
                 value={recoverPassword.confirmNewPassword}
                 onInput={e => {
                   recoverPassword.setConfirmNewPassword(e)

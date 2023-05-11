@@ -44,7 +44,7 @@ const LoginAdmin = () => {
       {isAdminLogged ? (
         <Navigate to='/admin/management' replace />
       ) : (
-        <Stack direction={'column'} spacing={'16'}>
+        <Stack direction={'column'} spacing={'16'} px={8} pb={32}>
           {/* <Stack alignItems={'center'} direction={'row'} mt={4} ml={9}>
             <Text
               fontSize={'30px'}
@@ -59,7 +59,11 @@ const LoginAdmin = () => {
           <Stack direction={'column'} alignItems={'center'} spacing={4}>
             <Text
               fontWeight={'bold'}
-              fontSize={'40px'}
+              fontSize={{
+                base: '25px',
+                sm: '2xl',
+                md: '4xl',
+                xl: '40px'}}
               color={'acsys.titleColor'}
               textAlign={'center'}
             >

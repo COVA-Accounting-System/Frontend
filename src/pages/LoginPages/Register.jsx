@@ -4,7 +4,6 @@ import Navbar from '../../components/Navbar/Navbar'
 
 import { useSelector } from 'react-redux'
 
-import './Login.scss'
 import { Stack, Text, Divider, Spinner, Box } from '@chakra-ui/react'
 
 const Register = () => {
@@ -17,13 +16,23 @@ const Register = () => {
         <Navigate to='/ca' replace />
       ) : (
         <Stack direction={'column'} spacing={'16'}>
-          <Navbar/>
+          <Navbar />
 
-          <Stack direction={'column'} alignItems={'center'} spacing={6}>
-            <Stack spacing={1} direciton={'column'} alignItems={'center'}>
+          <Stack direction={'column'} alignItems={'center'} spacing={6} px={8} pb={32}>
+            <Stack
+              spacing={1}
+              direciton={'column'}
+              alignItems={'center'}
+              textAlign={'center'}
+            >
               <Text
                 fontWeight={'bold'}
-                fontSize={'40px'}
+                fontSize={{
+                  base: '25px',
+                  sm: '2xl',
+                  md: '4xl',
+                  xl: '40px'
+                }}
                 color={'acsys.titleColor'}
               >
                 Regístrate
@@ -33,7 +42,16 @@ const Register = () => {
               </Text>
             </Stack>
 
-            <Stack direction={'row'} spacing={10} maxW={'500px'}>
+            <Stack
+              direction={{
+                base: 'column',
+                sm: 'column',
+                md: 'row',
+                xl: 'row'
+              }}
+              spacing={10}
+              maxW={'500px'}
+            >
               <Stack direction={'column'} spacing={9}>
                 <Stack direction={'column'} spacing={0}>
                   <Text
@@ -103,7 +121,7 @@ const Register = () => {
                   height={'100%'}
                   position={'relative'}
                 >
-                  { !isMapLoaded && (
+                  {!isMapLoaded && (
                     <Box
                       position={'absolute'}
                       top={'50%'}
@@ -121,7 +139,12 @@ const Register = () => {
                   <iframe
                     title='map'
                     src='https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1693.7982301986183!2d-66.12447529518575!3d-17.43117545958221!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x93e3719e08e9b8b1%3A0x49767983e0d89b01!2sProductive%20Innovation%20Center%20Leather%20PROBOLIVIA!5e0!3m2!1sen!2sus!4v1681113373604!5m2!1sen!2sus'
-                    width='250px'
+                    // width={{
+                    //   base: '100%',
+                    //   sm: '100%',
+                    //   md: '250px',
+                    //   xl: '250px'
+                    // }}
                     height='100%'
                     style={{
                       borderRadius: '10px',
