@@ -9,7 +9,7 @@ const NavbarHomepage = () => {
     <Stack
       direction={'row'}
       width={'100%'}
-      h={{ base: 12, sm: 12, md: 16, xl: 20 }}
+      h={{ base: 20, sm: 20, md: 20, xl: 20 }}
       borderBottom={'1px'}
       borderColor={'#BDBDBD'}
       justifyContent={'space-between'}
@@ -39,12 +39,7 @@ const NavbarHomepage = () => {
             colorScheme='gray'
             fontSize={'sm'}
             w={'150px'}
-            size={{
-              base: 'sm',
-              sm: 'sm',
-              md: 'md',
-              xl: 'md',
-            }}
+ 
           >
             Iniciar sesión
           </Button>

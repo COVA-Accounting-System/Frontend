@@ -45,15 +45,7 @@ const LoginAdmin = () => {
         <Navigate to='/admin/management' replace />
       ) : (
         <Stack direction={'column'} spacing={'16'} px={8} pb={32}>
-          {/* <Stack alignItems={'center'} direction={'row'} mt={4} ml={9}>
-            <Text
-              fontSize={'30px'}
-              color={'acsys.iconColor'}
-              fontWeight={'bold'}
-            >
-              ACSYS
-            </Text>
-          </Stack> */}
+
           <Navbar />
 
           <Stack direction={'column'} alignItems={'center'} spacing={4}>

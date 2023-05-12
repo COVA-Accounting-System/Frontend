@@ -19,11 +19,12 @@ import {
   PopoverTrigger,
   PopoverContent,
   PopoverHeader,
+  Text,
   PopoverBody,
   PopoverCloseButton
 } from '@chakra-ui/react'
 
-import { QuestionOutlineIcon, QuestionIcon } from '@chakra-ui/icons'
+import { QuestionIcon } from '@chakra-ui/icons'
 
 // COMPONENTS IMPORTS
 // import ViewClient from '../../../components/ViewModals/ViewClient'
@@ -159,12 +160,11 @@ const Client = () => {
   }, [])
 
   return (
-    <div>
-      <div className='page-container'>
-        <h1 className='page-title'>Clientes</h1>
-        <div className='elements-container'>
-          <section className='task-bar-datatable'>
-            <div className='input-container'>
+    <Stack h='100%' p={'8'}>
+        <Text fontSize={'27px'} fontWeight={'bold'} color={'acsys.titleColor'}>
+          Clientes
+        </Text>
+          <Stack direction={'row'} justifyContent={'space-between'}>
               <Input
                 focusBorderColor='acsys.primaryColor'
                 placeholder='Buscar...'
@@ -179,9 +179,7 @@ const Client = () => {
                 fontSize='15px'
                 autoComplete='off'
                 borderColor={'gray.200'}
-              />
-            </div>
-            <div className='button-container'>
+              />    
               <Button
                 backgroundColor={'acsys.primaryColor'}
                 _hover={{ backgroundColor: '#098bb6' }}
@@ -195,17 +193,14 @@ const Client = () => {
               >
                 Registrar cliente
               </Button>
-            </div>
-          </section>
-          <section className='table-section'>
+          </Stack>
+          <Stack height={'100%'}>
             <Table
               gridRef={gridRef}
               gridOptions={gridOptions}
               rowData={client.clientsList}
             />
-          </section>
-        </div>
-      </div>
+          </Stack>
       <Modal
         // initialFocusRef={initialRef}
         // finalFocusRef={finalRef}
@@ -271,11 +266,13 @@ const Client = () => {
                         <PopoverBody color={'acsys.iconColor'} fontSize={'sm'}>
                           Este es el monto que adeuda el cliente al momento del
                           registro, si el cliente no adeuda nada, puede dejar
-                          este campo en 0. Este monto se 
-                          <span style={{fontWeight: '600', color: '#109AC6'}}> actualiza
-                          automáticamente 
-                            </span> cuando un pedido es entregado o cuando
-                          se registra un ingreso.
+                          este campo en 0. Este monto se
+                          <span style={{ fontWeight: '600', color: '#109AC6' }}>
+                            {' '}
+                            actualiza automáticamente
+                          </span>{' '}
+                          cuando un pedido es entregado o cuando se registra un
+                          ingreso.
                         </PopoverBody>
                       </PopoverContent>
                     </Popover>
@@ -331,7 +328,7 @@ const Client = () => {
           client.deleteActualClient()
         }}
       />
-    </div>
+    </Stack>
   )
 }
 

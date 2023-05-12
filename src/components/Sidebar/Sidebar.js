@@ -70,13 +70,13 @@ const Sidebar = () => {
   return (
     <Stack
       height={'100%'}
-      width={'245px'}
+      minWidth={'245px'}
       borderRight={'1px'}
       borderColor={'gray.300'}
       direction={'column'}
       justifyContent={'space-between'}
-      // padding={5}
       pt={5}
+      overflowY={'auto'}
     >
       <Stack direction={'column'} spacing={5}>
         <Stack direction={'row'} justifyContent={'center'}>

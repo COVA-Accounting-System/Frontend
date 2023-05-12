@@ -12,9 +12,9 @@ $primary-color: #098bb6;
 
 .page-container{
     padding: 25px 40px;
-    min-width: calc(100vw - 245px);
+    // min-width: calc(100vw - 245px);
     // width: 300px;
-    // width: 100vw;
+    width: 100%;
 }
 
 .elements-container{
@@ -91,7 +91,7 @@ $primary-color: #098bb6;
     min-height: 300px;
     // min-height: 100%;
 
-    margin-top: 10px;
+    padding-top: 10px;
 }
 
 //employee
@@ -149,14 +149,6 @@ $primary-color: #098bb6;
             margin: 0px;
             display: flex;
             align-items: center;
-        }
-    }
-    .material-list-body{
-        &-row{
-            @extend .material-column-grid;
-            &-element{
-                
-            }
         }
     }
 }

@@ -10,9 +10,9 @@ const Homepage = () => {
     <>
       <NavbarHomepage />
       <Stack mt={{
-        base: '90px',
+        base: '110px',
         sm: '120px',
-        md: '185px',
+        md: '170px',
         xl: '180px'}}
         // px={5}
         >
@@ -42,7 +42,7 @@ const Homepage = () => {
             <Text
               fontWeight={'400'}
               color={'acsys.gray2'}
-              fontSize={{ base: 20, sm: 23, md: 22, xl: 26 }}
+              fontSize={{ base: 19, sm: 22, md: 22, xl: 26 }}
             >
               Visualiza tus ganancias, pérdidas y el precio real de
      
@@ -52,12 +52,7 @@ const Homepage = () => {
           <Flex justifyContent={'center'}>
             <NavLink to='/register'>
               <Button
-              size={{
-                base: 'sm',
-                sm: 'sm',
-                md: 'md',
-                xl: 'md'
-              }}
+            
               w={'150px'}
                 colorScheme='linkedin'
                 bg={'acsys.primaryColor'}
