@@ -12,6 +12,7 @@ import { useLogOut } from '../../hooks/useLogout'
 import { BiLogOut } from 'react-icons/bi'
 
 import { Stack, Center, Tooltip, Text, IconButton } from '@chakra-ui/react'
+import { HamburgerIcon } from '@chakra-ui/icons'
 
 const Sidebar = () => {
   const logOut = useLogOut()
@@ -19,10 +20,12 @@ const Sidebar = () => {
   const [email, setEmail] = useState('')
   const [fullName, setFullName] = useState('')
 
+  const [isSiderbarOpen, setIsSidebarOpen] = useState(true)
+
   useEffect(() => {
-      setEmail(window.localStorage.getItem('email'))
-      setFullName(window.localStorage.getItem('fullName'))
-  },[])
+    setEmail(window.localStorage.getItem('email'))
+    setFullName(window.localStorage.getItem('fullName'))
+  }, [])
 
   const [subMenus, setSubMenus] = useState([
     { name: 'submenu-production', isOpen: false, subElements: 2 },
@@ -70,7 +73,8 @@ const Sidebar = () => {
   return (
     <Stack
       height={'100%'}
-      minWidth={'245px'}
+      minWidth={isSiderbarOpen ? '245px' : '50px'}
+      maxW={isSiderbarOpen ? '245px' : '70px'}
       borderRight={'1px'}
       borderColor={'gray.300'}
       direction={'column'}
@@ -78,309 +82,327 @@ const Sidebar = () => {
       pt={5}
       overflowY={'auto'}
     >
-      <Stack direction={'column'} spacing={5}>
-        <Stack direction={'row'} justifyContent={'center'}>
+      <Stack direction={'column'}>
+        <Stack direction={'row'} justifyContent={'space-between'} px={isSiderbarOpen ? 6 : 4}>
           {' '}
-          <Text
-            color={'acsys.primaryColor'}
-            fontWeight={'bold'}
-            fontSize={'25px'}
-          >
-            ACSYS
-          </Text>
-        </Stack>
-        <Stack>
-          <ul>
-            <li>
-              <div
-                className='element'
-                id='accountingSubmenu'
-                onClick={() =>
-                  changeIsActiveAndOpenSubmenu('submenu-production')
-                }
-                style={subMenus[0].isOpen ? activeSubMenuItemStyle : {}}
-              >
-                <FaBoxOpen className='global-icon-class' />
-                Producción
-                <MdOutlineArrowRight
-                  className='arrow-icon-class'
-                  style={subMenus[0].isOpen ? rotateArrowStyle : {}}
-                />
-              </div>
-              <ul
-                id='submenu-production'
-                className='ul-element-inside'
-                style={
-                  subMenus[0].isOpen
-                    ? {
-                        height: subMenus[0].subElements * 49,
-                        borderBottom: '1px solid #e6e9f0'
-                      }
-                    : {}
-                }
-              >
-                <li>
-                  <NavLink
-                    className='element-inside'
-                    to='/ca/production/order'
-                    style={({ isActive }) => (isActive ? activeStyle : {})}
-                  >
-                    Pedidos
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink
-                    className='element-inside'
-                    to='/ca/production/product'
-                    style={({ isActive }) => (isActive ? activeStyle : {})}
-                  >
-                    Productos
-                  </NavLink>
-                </li>
-              </ul>
-            </li>
-            <li>
-              <div
-                className='element'
-                id='inventorySubmenu'
-                onClick={() =>
-                  changeIsActiveAndOpenSubmenu('submenu-inventory')
-                }
-                style={subMenus[1].isOpen ? activeSubMenuItemStyle : {}}
-              >
-                <RiArchiveDrawerFill className='global-icon-class' />
-                Inventario
-                <MdOutlineArrowRight
-                  className='arrow-icon-class'
-                  style={subMenus[1].isOpen ? rotateArrowStyle : {}}
-                />
-              </div>
-              <ul
-                id='submenu-inventory'
-                className='ul-element-inside'
-                tabIndex='0'
-                style={
-                  subMenus[1].isOpen
-                    ? {
-                        height: subMenus[1].subElements * 49,
-                        borderBottom: '1px solid #e6e9f0'
-                      }
-                    : {}
-                }
-              >
-                <li>
-                  <NavLink
-                    className='element-inside'
-                    to='/ca/inventory/raw-material'
-                    style={({ isActive }) => (isActive ? activeStyle : {})}
-                  >
-                    Materia Prima
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink
-                    className='element-inside'
-                    to='/ca/inventory/input'
-                    style={({ isActive }) => (isActive ? activeStyle : {})}
-                  >
-                    Entradas
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink
-                    className='element-inside'
-                    to='/ca/inventory/output'
-                    style={({ isActive }) => (isActive ? activeStyle : {})}
-                  >
-                    Salidas
-                  </NavLink>
-                </li>
-                {/* <li>
-              <NavLink
-                className='element-inside'
-                to='/ca/inventory/stock'
-                style={({ isActive }) => (isActive ? activeStyle : {})}
-              >
-                Stock
-              </NavLink>
-            </li> */}
-              </ul>
-            </li>
-            <li>
-              <div
-                className='element'
-                id='accountingSubmenu'
-                onClick={() =>
-                  changeIsActiveAndOpenSubmenu('submenu-accounting')
-                }
-                style={subMenus[2].isOpen ? activeSubMenuItemStyle : {}}
-              >
-                <FaMoneyBillAlt className='global-icon-class' />
-                Contabilidad
-                <MdOutlineArrowRight
-                  className='arrow-icon-class'
-                  style={subMenus[2].isOpen ? rotateArrowStyle : {}}
-                />
-              </div>
-              <ul
-                id='submenu-accounting'
-                className='ul-element-inside'
-                style={
-                  subMenus[2].isOpen
-                    ? {
-                        height: subMenus[2].subElements * 49,
-                        borderBottom: '1px solid #e6e9f0'
-                      }
-                    : {}
-                }
-              >
-                <li>
-                  <NavLink
-                    className='element-inside'
-                    to='/ca/accounting/income'
-                    style={({ isActive }) => (isActive ? activeStyle : {})}
-                  >
-                    Ingresos
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink
-                    className='element-inside'
-                    to='/ca/accounting/expense'
-                    style={({ isActive }) => (isActive ? activeStyle : {})}
-                  >
-                    Gastos
-                  </NavLink>
-                </li>
-              </ul>
-            </li>
-            <li>
-              <div
-                className='element'
-                id='contactSubmenu'
-                onClick={() => changeIsActiveAndOpenSubmenu('submenu-contact')}
-                style={subMenus[3].isOpen ? activeSubMenuItemStyle : {}}
-              >
-                <BsPersonFill className='global-icon-class' />
-                Contactos
-                <MdOutlineArrowRight
-                  className='arrow-icon-class'
-                  style={subMenus[3].isOpen ? rotateArrowStyle : {}}
-                />
-              </div>
-              <ul
-                id='submenu-contact'
-                className='ul-element-inside'
-                style={
-                  subMenus[3].isOpen
-                    ? {
-                        height: subMenus[3].subElements * 49,
-                        borderBottom: '1px solid #e6e9f0'
-                      }
-                    : {}
-                }
-              >
-                <li>
-                  <NavLink
-                    className='element-inside'
-                    to='/ca/contact/client'
-                    style={({ isActive }) => (isActive ? activeStyle : {})}
-                  >
-                    Clientes
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink
-                    className='element-inside'
-                    to='/ca/contact/employee'
-                    style={({ isActive }) => (isActive ? activeStyle : {})}
-                  >
-                    Operadores
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink
-                    className='element-inside'
-                    to='/ca/contact/provider'
-                    style={({ isActive }) => (isActive ? activeStyle : {})}
-                  >
-                    Proveedores
-                  </NavLink>
-                </li>
-              </ul>
-            </li>
-            <li>
-              <NavLink
-                className='element'
-                to='/ca/costs'
-                id='reportButton'
-                style={({ isActive }) => (isActive ? activeStyle : {})}
-              >
-                <AiFillSignal className='global-icon-class' />
-                Costos
-              </NavLink>
-            </li>
-          </ul>
-        </Stack>
-      </Stack>
-      <Stack
-        direction={'row'}
-        justifyContent={'space-between'}
-        alignItems={'center'}
-        maxWidth={'245px'}
-        padding={5}
-      >
-        <Stack>
-          <Center
-            bgColor={'acsys.primaryColor'}
-            height={'37px'}
-            width={'35px'}
-            borderRadius={3}
-            fontWeight={'bold'}
-            color={'white'}
-            userSelect={'none'}
-          >
-            {fullName.charAt(0).toUpperCase()}
-          </Center>
-        </Stack>
-        <Stack direction={'column'} spacing={1} maxW={'120px'}>
-          <Tooltip label={fullName}>
+          {isSiderbarOpen && (
             <Text
-              color={'acsys.titleColor'}
+              color={'acsys.primaryColor'}
               fontWeight={'bold'}
-              fontSize={'13px'}
-              textOverflow={'ellipsis'}
-              overflow={'hidden'}
-              whiteSpace={'nowrap'}
+              fontSize={'25px'}
             >
-              {fullName}
+              ACSYS
             </Text>
-          </Tooltip>
-          <Tooltip label={email}>
-            <Text
-              color={'acsys.fontColor'}
-              fontSize={'10px'}
-              fontWeight={'medium'}
-              textOverflow={'ellipsis'}
-              overflow={'hidden'}
-              whiteSpace={'nowrap'}
-            >
-              {email}
-            </Text>
-          </Tooltip>
+          )}
+          <IconButton
+            icon={<HamburgerIcon />}
+            onClick={() => {
+              setIsSidebarOpen(state => !state)
+            }}
+          />
         </Stack>
-        <Stack minW={'20px'}>
+        {isSiderbarOpen && (
+          <Stack>
+            <ul>
+              <li>
+                <div
+                  className='element'
+                  id='accountingSubmenu'
+                  onClick={() =>
+                    changeIsActiveAndOpenSubmenu('submenu-production')
+                  }
+                  style={subMenus[0].isOpen ? activeSubMenuItemStyle : {}}
+                >
+                  <FaBoxOpen className='global-icon-class' />
+                  Producción
+                  <MdOutlineArrowRight
+                    className='arrow-icon-class'
+                    style={subMenus[0].isOpen ? rotateArrowStyle : {}}
+                  />
+                </div>
+                <ul
+                  id='submenu-production'
+                  className='ul-element-inside'
+                  style={
+                    subMenus[0].isOpen
+                      ? {
+                          height: subMenus[0].subElements * 49,
+                          borderBottom: '1px solid #e6e9f0'
+                        }
+                      : {}
+                  }
+                >
+                  <li>
+                    <NavLink
+                      className='element-inside'
+                      to='/ca/production/order'
+                      style={({ isActive }) => (isActive ? activeStyle : {})}
+                    >
+                      Pedidos
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink
+                      className='element-inside'
+                      to='/ca/production/product'
+                      style={({ isActive }) => (isActive ? activeStyle : {})}
+                    >
+                      Productos
+                    </NavLink>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <div
+                  className='element'
+                  id='inventorySubmenu'
+                  onClick={() =>
+                    changeIsActiveAndOpenSubmenu('submenu-inventory')
+                  }
+                  style={subMenus[1].isOpen ? activeSubMenuItemStyle : {}}
+                >
+                  <RiArchiveDrawerFill className='global-icon-class' />
+                  Inventario
+                  <MdOutlineArrowRight
+                    className='arrow-icon-class'
+                    style={subMenus[1].isOpen ? rotateArrowStyle : {}}
+                  />
+                </div>
+                <ul
+                  id='submenu-inventory'
+                  className='ul-element-inside'
+                  tabIndex='0'
+                  style={
+                    subMenus[1].isOpen
+                      ? {
+                          height: subMenus[1].subElements * 49,
+                          borderBottom: '1px solid #e6e9f0'
+                        }
+                      : {}
+                  }
+                >
+                  <li>
+                    <NavLink
+                      className='element-inside'
+                      to='/ca/inventory/raw-material'
+                      style={({ isActive }) => (isActive ? activeStyle : {})}
+                    >
+                      Materia Prima
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink
+                      className='element-inside'
+                      to='/ca/inventory/input'
+                      style={({ isActive }) => (isActive ? activeStyle : {})}
+                    >
+                      Entradas
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink
+                      className='element-inside'
+                      to='/ca/inventory/output'
+                      style={({ isActive }) => (isActive ? activeStyle : {})}
+                    >
+                      Salidas
+                    </NavLink>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <div
+                  className='element'
+                  id='accountingSubmenu'
+                  onClick={() =>
+                    changeIsActiveAndOpenSubmenu('submenu-accounting')
+                  }
+                  style={subMenus[2].isOpen ? activeSubMenuItemStyle : {}}
+                >
+                  <FaMoneyBillAlt className='global-icon-class' />
+                  Contabilidad
+                  <MdOutlineArrowRight
+                    className='arrow-icon-class'
+                    style={subMenus[2].isOpen ? rotateArrowStyle : {}}
+                  />
+                </div>
+                <ul
+                  id='submenu-accounting'
+                  className='ul-element-inside'
+                  style={
+                    subMenus[2].isOpen
+                      ? {
+                          height: subMenus[2].subElements * 49,
+                          borderBottom: '1px solid #e6e9f0'
+                        }
+                      : {}
+                  }
+                >
+                  <li>
+                    <NavLink
+                      className='element-inside'
+                      to='/ca/accounting/income'
+                      style={({ isActive }) => (isActive ? activeStyle : {})}
+                    >
+                      Ingresos
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink
+                      className='element-inside'
+                      to='/ca/accounting/expense'
+                      style={({ isActive }) => (isActive ? activeStyle : {})}
+                    >
+                      Gastos
+                    </NavLink>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <div
+                  className='element'
+                  id='contactSubmenu'
+                  onClick={() =>
+                    changeIsActiveAndOpenSubmenu('submenu-contact')
+                  }
+                  style={subMenus[3].isOpen ? activeSubMenuItemStyle : {}}
+                >
+                  <BsPersonFill className='global-icon-class' />
+                  Contactos
+                  <MdOutlineArrowRight
+                    className='arrow-icon-class'
+                    style={subMenus[3].isOpen ? rotateArrowStyle : {}}
+                  />
+                </div>
+                <ul
+                  id='submenu-contact'
+                  className='ul-element-inside'
+                  style={
+                    subMenus[3].isOpen
+                      ? {
+                          height: subMenus[3].subElements * 49,
+                          borderBottom: '1px solid #e6e9f0'
+                        }
+                      : {}
+                  }
+                >
+                  <li>
+                    <NavLink
+                      className='element-inside'
+                      to='/ca/contact/client'
+                      style={({ isActive }) => (isActive ? activeStyle : {})}
+                    >
+                      Clientes
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink
+                      className='element-inside'
+                      to='/ca/contact/employee'
+                      style={({ isActive }) => (isActive ? activeStyle : {})}
+                    >
+                      Operadores
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink
+                      className='element-inside'
+                      to='/ca/contact/provider'
+                      style={({ isActive }) => (isActive ? activeStyle : {})}
+                    >
+                      Proveedores
+                    </NavLink>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <NavLink
+                  className='element'
+                  to='/ca/costs'
+                  id='reportButton'
+                  style={({ isActive }) => (isActive ? activeStyle : {})}
+                >
+                  <AiFillSignal className='global-icon-class' />
+                  Costos
+                </NavLink>
+              </li>
+            </ul>
+          </Stack>
+        )}
+      </Stack>
+      {isSiderbarOpen ? (
+        <Stack
+          direction={'row'}
+          justifyContent={'space-between'}
+          alignItems={'center'}
+          maxWidth={'245px'}
+          padding={5}
+        >
+          <Stack>
+            <Center
+              bgColor={'acsys.primaryColor'}
+              height={'37px'}
+              width={'35px'}
+              borderRadius={3}
+              fontWeight={'bold'}
+              color={'white'}
+              userSelect={'none'}
+            >
+              {fullName.charAt(0).toUpperCase()}
+            </Center>
+          </Stack>
+          <Stack direction={'column'} spacing={1} maxW={'120px'}>
+            <Tooltip label={fullName}>
+              <Text
+                color={'acsys.titleColor'}
+                fontWeight={'bold'}
+                fontSize={'13px'}
+                textOverflow={'ellipsis'}
+                overflow={'hidden'}
+                whiteSpace={'nowrap'}
+              >
+                {fullName}
+              </Text>
+            </Tooltip>
+            <Tooltip label={email}>
+              <Text
+                color={'acsys.fontColor'}
+                fontSize={'10px'}
+                fontWeight={'medium'}
+                textOverflow={'ellipsis'}
+                overflow={'hidden'}
+                whiteSpace={'nowrap'}
+              >
+                {email}
+              </Text>
+            </Tooltip>
+          </Stack>
+          <Stack minW={'20px'}>
+            <Tooltip label={'Cerrar sesion'}>
+              <IconButton
+                color={'acsys.iconColor'}
+                height={'37px'}
+                size={'sm'}
+                icon={<BiLogOut />}
+                onClick={logOut.logOutUser}
+              />
+            </Tooltip>
+          </Stack>
+        </Stack>
+      ) : (
+        
+        <Stack minW={'10px'} p={4}>
           <Tooltip label={'Cerrar sesion'}>
             <IconButton
               color={'acsys.iconColor'}
-              height={'37px'}
-              size={'sm'}
+              // height={'50px'}
+              // size={'sm'}
               icon={<BiLogOut />}
               onClick={logOut.logOutUser}
             />
           </Tooltip>
         </Stack>
-      </Stack>
+      )}
     </Stack>
   )
 }
