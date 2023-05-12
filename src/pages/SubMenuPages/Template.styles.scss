@@ -11,8 +11,8 @@ $chakra-border-input: #E2E8F0;
 $primary-color: #098bb6;
 
 .page-container{
-    margin: 25px 40px;
-    min-width: 900px;
+    padding: 25px 40px;
+    min-width: calc(100vw - 245px);
     // width: 300px;
     // width: 100vw;
 }
@@ -161,49 +161,3 @@ $primary-color: #098bb6;
     }
 }
 
-
-// .order-list-header{
-//     // width: 100%;
-//     display: grid;
-//     grid-template-columns: 16% 22% 15% 22% 15%  10%;
-//     margin-right: 11px;
-//     padding-left: 20px;
-//     background-color: $order-background-color;
-//     border-radius: 5px;
-//     height: 70px;
-//     margin-bottom: 10px;
-//     cursor: pointer;
-//     transition: height 0.2s ease;
-
-//     .order-column{
-//         // padding: 3px;
-//         position: relative;
-//         overflow: hidden;
-//         text-overflow: ellipsis;
-//         white-space: nowrap;
-//         margin-right: 15px;
-//         margin-top: 15px;
-//         // margin: 10px 0px 10px 0px;
-
-//         .order-column-title{
-//             text-align: left;
-//             font-size: 12px;
-//             font-weight: 600;
-//             color: $font-color;
-//             margin: 0px;
-//             margin-bottom: 5px;
-//         }
-//         .order-column-text{
-//             // position: absolute;
-//             // bottom: 12px;
-//             display: block;
-//             text-align: left;
-//             font-size: 15px;
-//             font-weight: 500;
-//             color: $title-color;
-//             margin: 0;
-
-//         }
-//     }
-
-// }
