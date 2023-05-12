@@ -42,6 +42,7 @@ const Provider = () => {
         resizable: true,
         sortable: true,
         unSortIcon: true,
+        suppressMovable: true,
         width: 250
       },
       {
@@ -50,6 +51,7 @@ const Provider = () => {
         resizable: true,
         sortable: true,
         unSortIcon: true,
+        suppressMovable: true,
         width: 160
       },
       {
@@ -60,13 +62,15 @@ const Provider = () => {
         },
         resizable: true,
         sortable: true,
-        unSortIcon: true
+        unSortIcon: true,
+        suppressMovable: true,
       },
       {
         headerName: 'Ciudad',
         field: 'city',
         resizable: true,
         sortable: true,
+        suppressMovable: true,
         unSortIcon: true
       },
       {
@@ -74,6 +78,7 @@ const Provider = () => {
         field: 'country',
         resizable: true,
         sortable: true,
+        suppressMovable: true,
         unSortIcon: true
       },
       {
@@ -82,6 +87,7 @@ const Provider = () => {
         resizable: true,
         sortable: true,
         unSortIcon: true,
+        suppressMovable: true,
         width: 300
         // maxWidth: 320,
       },
@@ -91,6 +97,7 @@ const Provider = () => {
         pinned: 'right',
         maxWidth: 160,
         cellRenderer: DataTableActions,
+        suppressMovable: true,
         colId: 'Actions',
         cellRendererParams: {
           // onView: () => {},
@@ -176,7 +183,7 @@ const Provider = () => {
         <Table
           gridRef={gridRef}
           gridOptions={gridOptions}
-          rowData={provider.providersList}
+          rowData={provider.providersList.reverse()}
         />
       </Stack>
       <Modal

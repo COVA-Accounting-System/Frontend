@@ -44,7 +44,7 @@ const LoginAdmin = () => {
       {isAdminLogged ? (
         <Navigate to='/admin/management' replace />
       ) : (
-        <Stack direction={'column'} spacing={'16'} px={8} pb={32}>
+        <Stack direction={'column'} spacing={'16'} pb={32}>
 
           <Navbar />
 

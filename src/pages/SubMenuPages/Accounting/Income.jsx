@@ -31,6 +31,7 @@ const Income = () => {
         resizable: true,
         sortable: true,
         unSortIcon: true,
+        suppressMovable: true,
         width: 150
         // minWidth: 120,
         // maxWidth: 250,
@@ -41,6 +42,7 @@ const Income = () => {
         resizable: true,
         sortable: true,
         unSortIcon: true,
+        suppressMovable: true,
         width: 300
         // cellRenderer: ClientPopover,
         // cellRendererParams: {
@@ -58,6 +60,7 @@ const Income = () => {
         resizable: true,
         sortable: true,
         unSortIcon: true,
+        suppressMovable: true,
         width: 250
         // cellRenderer: OrderPopover,
         // cellRendererParams: {
@@ -74,6 +77,7 @@ const Income = () => {
         },
         resizable: true,
         sortable: true,
+        suppressMovable: true,
         unSortIcon: true
       },
       {
@@ -81,6 +85,7 @@ const Income = () => {
         field: 'typeOfIncome',
         resizable: true,
         sortable: true,
+        suppressMovable: true,
         unSortIcon: true
         // minWidth: 140,
       },
@@ -89,7 +94,9 @@ const Income = () => {
         field: 'concept',
         resizable: true,
         sortable: true,
-        unSortIcon: true
+        unSortIcon: true,
+        suppressMovable: true,
+        
         // minWidth: 140,
       },
       {
@@ -100,6 +107,7 @@ const Income = () => {
         },
         resizable: true,
         sortable: true,
+        suppressMovable: true,
         unSortIcon: true
         // minWidth: 140,
       },
@@ -110,6 +118,7 @@ const Income = () => {
         maxWidth: 160,
         cellRenderer: DataTableActions,
         colId: 'Actions',
+        suppressMovable: true,
         cellRendererParams: {
           // onView: () => {},
           onEdit: data => {
@@ -193,7 +202,7 @@ const Income = () => {
         <Table
           gridRef={gridRef}
           gridOptions={gridOptions}
-          rowData={income.incomesList}
+          rowData={income.incomesList.reverse()}
         />
       </Stack>
       <IncomeModal income={income} />

@@ -34,6 +34,7 @@ const Expense = () => {
         resizable: true,
         sortable: true,
         unSortIcon: true,
+        suppressMovable: true,
         width: 150
         // minWidth: 120,
         // maxWidth: 250,
@@ -44,6 +45,7 @@ const Expense = () => {
         resizable: true,
         sortable: true,
         unSortIcon: true,
+        suppressMovable: true,
         // autoHeight: true,
         width: 250,
         cellRenderer: ExpenseCategoryTag
@@ -56,6 +58,7 @@ const Expense = () => {
         resizable: true,
         sortable: true,
         unSortIcon: true,
+        suppressMovable: true,
         width: 250,
         valueGetter: data => {
           return data.data.category === 'Materia prima'
@@ -76,6 +79,7 @@ const Expense = () => {
           return new Date(data.data.date).toLocaleDateString()
         },
         resizable: true,
+        suppressMovable: true,
         sortable: true,
         unSortIcon: true
       },
@@ -84,6 +88,7 @@ const Expense = () => {
         field: 'concept',
         resizable: true,
         sortable: true,
+        suppressMovable: true,
         unSortIcon: true
       },
       {
@@ -94,6 +99,7 @@ const Expense = () => {
         },
         resizable: true,
         sortable: true,
+        suppressMovable: true,
         unSortIcon: true
       },
       {
@@ -101,6 +107,7 @@ const Expense = () => {
         resizable: false,
         pinned: 'right',
         maxWidth: 160,
+        suppressMovable: true,
         cellRenderer: DataTableActions,
         colId: 'Actions',
         cellRendererParams: {
@@ -228,7 +235,7 @@ const Expense = () => {
         <Table
           gridRef={gridRef}
           gridOptions={gridOptions}
-          rowData={expense.expensesList}
+          rowData={expense.expensesList.reverse()}
         />
       </Stack>
       <ExpenseModal

@@ -43,7 +43,8 @@ const Employee = () => {
         field: 'name',
         resizable: true,
         sortable: true,
-        unSortIcon: true
+        unSortIcon: true,
+        suppressMovable: true
         // width: 160
         // minWidth: 120,
         // maxWidth: 250,
@@ -53,7 +54,8 @@ const Employee = () => {
         field: 'lastName',
         resizable: true,
         sortable: true,
-        unSortIcon: true
+        unSortIcon: true,
+        suppressMovable: true
         // minWidth: 130,
         // width: 210
         // maxWidth: 250,
@@ -64,7 +66,8 @@ const Employee = () => {
         resizable: true,
         sortable: true,
         unSortIcon: true,
-        width: 150
+        width: 150,
+        suppressMovable: true
         // minWidth: 60,
         // maxWidth: 160,
       },
@@ -75,7 +78,8 @@ const Employee = () => {
         },
         resizable: true,
         sortable: true,
-        unSortIcon: true
+        unSortIcon: true,
+        suppressMovable: true
         // width: 140
         // minWidth: 110,
         // maxWidth: 160,
@@ -88,7 +92,8 @@ const Employee = () => {
         },
         resizable: true,
         sortable: true,
-        unSortIcon: true
+        unSortIcon: true,
+        suppressMovable: true
         // width: 150
       },
       {
@@ -99,7 +104,8 @@ const Employee = () => {
         },
         resizable: true,
         sortable: true,
-        unSortIcon: true
+        unSortIcon: true,
+        suppressMovable: true
         // width: 150
         // minWidth: 140,
       },
@@ -111,7 +117,8 @@ const Employee = () => {
         },
         resizable: true,
         sortable: true,
-        unSortIcon: true
+        unSortIcon: true,
+        suppressMovable: true
         // width: 190
         // minWidth: 190,
       },
@@ -122,6 +129,7 @@ const Employee = () => {
         maxWidth: 160,
         cellRenderer: DataTableActions,
         colId: 'Actions',
+        suppressMovable: true,
         cellRendererParams: {
           // onView: data => {
           //   employee.setActualEmployeeRedux(data)
@@ -204,7 +212,7 @@ const Employee = () => {
           <Table
               gridRef={gridRef}
               gridOptions={gridOptions}
-              rowData={employee.employeesList}
+              rowData={employee.employeesList.reverse()}
             />
           </Stack>
       <Modal

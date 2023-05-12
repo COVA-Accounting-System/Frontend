@@ -31,6 +31,7 @@ const InventoryInput = () => {
         field: 'inventoryInput.numberOfInput',
         resizable: true,
         sortable: true,
+        suppressMovable: true,
         unSortIcon: true
         // width: 150
         // maxWidth: 300,
@@ -41,6 +42,7 @@ const InventoryInput = () => {
         resizable: true,
         sortable: true,
         unSortIcon: true,
+        suppressMovable: true,
         width: 250
         // cellRenderer: ProviderPopover,
         // cellRendererParams: {
@@ -58,6 +60,7 @@ const InventoryInput = () => {
         },
         resizable: true,
         sortable: true,
+        suppressMovable: true,
         unSortIcon: true
         // maxWidth: 177,
       },
@@ -68,6 +71,7 @@ const InventoryInput = () => {
         sortable: true,
         unSortIcon: true,
         autoHeight: true,
+        suppressMovable: true,
         cellRenderer: MaterialsTooltip,
         cellRendererParams: {
           getListOfMaterials: data => {
@@ -86,6 +90,7 @@ const InventoryInput = () => {
         resizable: true,
         sortable: true,
         unSortIcon: true,
+        suppressMovable: true,
         valueGetter: data => {
           return `${data.data.inventoryInput.totalPrice} Bs.`
         }
@@ -100,6 +105,7 @@ const InventoryInput = () => {
         maxWidth: 160,
         cellRenderer: DataTableActions,
         colId: 'Actions',
+        suppressMovable: true,
         cellRendererParams: {
           // onView: data => {
           //   product.setActualProductRedux(data)
@@ -216,7 +222,7 @@ const InventoryInput = () => {
           <Table
               gridRef={gridRef}
               gridOptions={gridOptions}
-              rowData={expense.expensesListForInventoryInput}
+              rowData={expense.expensesListForInventoryInput.reverse()}
             />
           </Stack>
       <ExpenseModal

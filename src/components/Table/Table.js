@@ -19,7 +19,7 @@ const Table = ({
         ref={gridRef}
         overlayNoRowsTemplate={'Cargando datos...'}
         // rowHeight={}
-
+      
         doesExternalFilterPass={doesExternalFilterPass}
         rowData={rowData}
         suppressRowTransform

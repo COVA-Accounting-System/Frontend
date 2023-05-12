@@ -7,11 +7,11 @@ import { Stack } from '@chakra-ui/react'
 
 const MainPageAdmin = () => {
   return (
-    <Stack direction={'row'}>
-        <SidebarAdmin />
-        <Stack w={'100%'}>
-          <Outlet />
-        </Stack>
+    <Stack direction={'row'} height={'100vh'} maxHeight={'100vh'}>
+      <SidebarAdmin />
+      <Stack w={'100%'}overflowX={'auto'}>
+        <Outlet />
+      </Stack>
     </Stack>
   )
 }

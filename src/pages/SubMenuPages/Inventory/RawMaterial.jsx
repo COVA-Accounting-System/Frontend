@@ -44,6 +44,7 @@ const RawMaterial = () => {
         field: 'name',
         resizable: true,
         sortable: true,
+        suppressMovable: true,
         unSortIcon: true
         // width: 250
         // maxWidth: 300,
@@ -54,6 +55,7 @@ const RawMaterial = () => {
         sortable: true,
         unSortIcon: true,
         autoHeight: true,
+        suppressMovable: true,
         valueGetter: data => {
           return data.data.features.map((feature, index) => {
             return `• ${feature.description}`
@@ -72,6 +74,7 @@ const RawMaterial = () => {
         field: 'unitMeasure.pluralSpanishName',
         resizable: true,
         sortable: true,
+        suppressMovable: true,
         unSortIcon: true
         // maxWidth: 177,
       },
@@ -80,6 +83,7 @@ const RawMaterial = () => {
         field: 'unitMeasure.uiName',
         resizable: true,
         sortable: true,
+        suppressMovable: true,
         unSortIcon: true
         // maxWidth: 180,
       },
@@ -90,6 +94,7 @@ const RawMaterial = () => {
         maxWidth: 160,
         cellRenderer: DataTableActions,
         colId: 'Actions',
+        suppressMovable: true,
         cellRendererParams: {
           // onView: data => {},
           onEdit: data => {
@@ -171,7 +176,7 @@ const RawMaterial = () => {
         <Table
           gridRef={gridRef}
           gridOptions={gridOptions}
-          rowData={rawMaterial.rawMaterialsList}
+          rowData={rawMaterial.rawMaterialsList.reverse()}
         />
       </Stack>
       <Modal

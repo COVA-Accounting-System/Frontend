@@ -27,7 +27,7 @@ const ListOfUsers = () => {
   const user = useUser()
   return (
     <>
-      <Stack margin={12} spacing={4}>
+      <Stack margin={12} spacing={4} minWidth={'850px'} >
         <Stack>
           <Text fontSize={'40px'} fontWeight={'800'} color={'acsys.titleColor'}>
             Lista de usuarios

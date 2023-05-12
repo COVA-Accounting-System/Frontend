@@ -62,6 +62,7 @@ const Order = () => {
         width: 160,
         cellRenderer: StateTag,
         unSortIcon: true,
+        suppressMovable: true,
         valueGetter: data => {
           return orderState[data.data.orderStateNumber].stateSpanish
         }
@@ -72,7 +73,10 @@ const Order = () => {
         resizable: true,
         sortable: true,
         unSortIcon: true,
-        width: 160
+        suppressMovable: true,
+        width: 160,
+        // sort: 'desc',
+        
         // minWidth: 120,
         // maxWidth: 250,
       },
@@ -82,6 +86,7 @@ const Order = () => {
         resizable: true,
         sortable: true,
         unSortIcon: true,
+        suppressMovable: true,
         // minWidth: 130,
         width: 250
         // cellRenderer: ClientPopover,
@@ -97,7 +102,9 @@ const Order = () => {
         field: 'orderProduct.uiName',
         resizable: true,
         sortable: true,
+        suppressMovable: true,
         unSortIcon: true
+        
         // cellRenderer: ProductPopover,
         // cellRendererParams: {
         //   getProductData: data => {
@@ -111,6 +118,7 @@ const Order = () => {
         resizable: true,
         sortable: true,
         autoHeight: true,
+        suppressMovable: true,
         // height: 100,
         unSortIcon: true,
         // wrapText: true,
@@ -134,6 +142,7 @@ const Order = () => {
         resizable: true,
         sortable: true,
         unSortIcon: true,
+        suppressMovable: true,
         valueGetter: data => {
           return new Date(data.data.orderDeliveryDate).toLocaleDateString()
         }
@@ -145,6 +154,7 @@ const Order = () => {
         resizable: true,
         sortable: true,
         unSortIcon: true,
+        suppressMovable: true,
         cellRenderer: OrderPaidTag
         // minWidth: 110,
         // maxWidth: 160,
@@ -155,6 +165,7 @@ const Order = () => {
         resizable: true,
         sortable: true,
         unSortIcon: true,
+        suppressMovable: true,
         valueGetter: data => {
           return `${data.data.orderPrice} Bs.`
         }
@@ -165,6 +176,7 @@ const Order = () => {
         resizable: true,
         sortable: true,
         unSortIcon: true,
+        suppressMovable: true,
         valueGetter: data => {
           return `${data.data.orderPrePayedPrice} Bs.`
         }
@@ -175,6 +187,7 @@ const Order = () => {
         resizable: true,
         sortable: true,
         unSortIcon: true,
+        suppressMovable: true,
         valueGetter: data => {
           return `${data.data.orderPayedPrice} Bs.`
         }
@@ -185,6 +198,7 @@ const Order = () => {
         resizable: true,
         sortable: true,
         unSortIcon: true,
+        suppressMovable: true,
         valueGetter: data => {
           return `${data.data.orderBalance} Bs.`
         }
@@ -197,6 +211,7 @@ const Order = () => {
         maxWidth: 160,
         cellRenderer: DataTableActionsOrder,
         colId: 'Actions',
+        suppressMovable: true,
         cellRendererParams: {
           // onView: () => {},
           onEdit: data => {
@@ -266,16 +281,6 @@ const Order = () => {
     }),
     [columnDefs]
   )
-
-  // const externalFilterChanged = useCallback(() => {
-  //   gridRef.current.api.onFilterChanged()
-  // }, [])
-
-  // const isExternalFilterPresent = () => {
-  //   // if ageType is not everyone, then we are filtering
-  //   // console.log(order.filterByState)
-  //   return true
-  // }
 
   const externalFilterChanged = useCallback(data => {
     state = data
@@ -359,7 +364,7 @@ const Order = () => {
           gridOptions={gridOptions}
           rowData={
             order.ordersList
-              ? order.ordersList.filter(param => param.isVisible === true)
+              ? order.ordersList.filter(param => param.isVisible === true).reverse()
               : []
           }
         />

@@ -52,7 +52,8 @@ const Client = () => {
         field: 'name',
         resizable: true,
         sortable: true,
-        unSortIcon: true
+        unSortIcon: true,
+        suppressMovable: true
         // width: 180,
         // minWidth: 100,
 
@@ -63,7 +64,8 @@ const Client = () => {
         field: 'lastName',
         resizable: true,
         sortable: true,
-        unSortIcon: true
+        unSortIcon: true,
+        suppressMovable: true
         // minWidth: 100,
         // width: 230
         // maxWidth: 270,
@@ -76,7 +78,8 @@ const Client = () => {
         },
         unSortIcon: true,
         sortable: true,
-        resizable: true
+        resizable: true,
+        suppressMovable: true
         // minWidth: 100,
         // width: 190
         // maxWidth: 200,
@@ -89,7 +92,8 @@ const Client = () => {
         },
         unSortIcon: true,
         sortable: true,
-        resizable: true
+        resizable: true,
+        suppressMovable: true
         // minWidth: 100,
         // width: 190
         // maxWidth: 200,
@@ -100,7 +104,8 @@ const Client = () => {
         resizable: true,
         sortable: true,
         // minWidth: 110,
-        flex: 1
+        flex: 1,
+        suppressMovable: true
       },
       {
         headerName: ' ',
@@ -109,6 +114,7 @@ const Client = () => {
         maxWidth: 160,
         cellRenderer: DataTableActions,
         colId: 'Actions',
+        suppressMovable: true,
         cellRendererParams: {
           // onView: data => {
           //   client.setActualClientRedux(data)
@@ -146,6 +152,7 @@ const Client = () => {
         // params.api.sizeColumnsToFit();
       },
       columnDefs,
+      deltaRowDataMode: 'prepend',
       cacheQuickFilter: true,
       // rowSelection: "single",
       animateRows: true
@@ -198,7 +205,7 @@ const Client = () => {
             <Table
               gridRef={gridRef}
               gridOptions={gridOptions}
-              rowData={client.clientsList}
+              rowData={client.clientsList.reverse()}
             />
           </Stack>
       <Modal

@@ -44,6 +44,7 @@ const Product = () => {
         field: 'productName',
         resizable: true,
         sortable: true,
+        suppressMovable: true,
         unSortIcon: true
       },
       {
@@ -53,6 +54,7 @@ const Product = () => {
         sortable: true,
         unSortIcon: true,
         autoHeight: true,
+        suppressMovable: true,
         valueGetter: data => {
           return data.data.productFeatures.map((feature, index) => {
             return `• ${feature.description}`
@@ -71,6 +73,7 @@ const Product = () => {
         field: 'productType',
         resizable: true,
         sortable: true,
+        suppressMovable: true,
         unSortIcon: true,
         width: 160
       },
@@ -80,6 +83,7 @@ const Product = () => {
         resizable: true,
         sortable: true,
         unSortIcon: true,
+        suppressMovable: true,
         valueGetter: data => {
           return `${data.data.productPrice} Bs.`
         }
@@ -92,6 +96,7 @@ const Product = () => {
         sortable: true,
         unSortIcon: true,
         flex: 1,
+        suppressMovable: true,
         valueGetter: data => {
           return `${data.data.productDozenPrice} Bs.`
         }
@@ -102,6 +107,7 @@ const Product = () => {
         pinned: 'right',
         maxWidth: 160,
         cellRenderer: DataTableActions,
+        suppressMovable: true,
         colId: 'Actions',
         cellRendererParams: {
           // onView: data => {
@@ -187,7 +193,7 @@ const Product = () => {
           <Table
               gridRef={gridRef}
               gridOptions={gridOptions}
-              rowData={product.productsList}
+              rowData={product.productsList.reverse()}
             />
           </Stack>
       <Modal

@@ -16,11 +16,13 @@ const RegisterUser = () => {
 
   return (
     <Stack
-      maxW={'700px'}
-      ml={'200px'}
+      // maxW={'700px'}
+      // ml={'200px'}
+      alignItems={'center'}
       justifyContent={'center'}
       h={'100vh'}
       spacing={'6'}
+      minWidth={'700px'}
     >
       <Stack direction={'row'} justifyContent={'flex-start'}>
         <Text fontSize={'40px'} fontWeight={'800'} color={'acsys.titleColor'}>
