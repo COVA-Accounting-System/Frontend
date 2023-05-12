@@ -1,7 +1,7 @@
 import React, { useMemo, useCallback, useRef } from 'react'
 
 // CHAKRA UI IMPORTS
-import { Input, Button } from '@chakra-ui/react'
+import { Input, Button, Stack, Text } from '@chakra-ui/react'
 
 // COMPONENTS IMPORTS
 import DataTableActions from '../../../components/DataTableActions/DataTableActions'
@@ -171,13 +171,12 @@ const InventoryInput = () => {
   }, [])
 
   return (
-    <div>
-      <div className='page-container'>
-        <h1 className='page-title'>Entradas de inventario</h1>
-        <div className='elements-container'>
-          <section className='task-bar-datatable'>
-            <div className='input-container'>
-              <Input
+      <Stack h='100%' p={'8'} minW={'850px'}>
+        <Text fontSize={'27px'} fontWeight={'bold'} color={'acsys.titleColor'}>
+        Entradas de inventario
+        </Text>
+          <Stack direction={'row'} justifyContent={'space-between'}>
+          <Input
                 focusBorderColor='acsys.primaryColor'
                 placeholder='Buscar...'
                 size='sm'
@@ -191,9 +190,7 @@ const InventoryInput = () => {
                 fontSize='15px'
                 autoComplete='off'
                 borderColor={'gray.200'}
-              />
-            </div>
-            <div className='button-container'>
+              />  
               <Button
                 backgroundColor={'acsys.primaryColor'}
                 _hover={{ backgroundColor: '#098bb6' }}
@@ -214,17 +211,14 @@ const InventoryInput = () => {
               >
                 Registrar entrada
               </Button>
-            </div>
-          </section>
-          <section className='table-section'>
-            <Table
+          </Stack>
+          <Stack height={'100%'}>
+          <Table
               gridRef={gridRef}
               gridOptions={gridOptions}
               rowData={expense.expensesListForInventoryInput}
             />
-          </section>
-        </div>
-      </div>
+          </Stack>
       <ExpenseModal
         expenseHook={expense}
         inventoryInputHook={inventoryInput}
@@ -248,7 +242,7 @@ const InventoryInput = () => {
         onClose={() => product.setViewModalIsOpen(false)}
         isOpen={product.viewModalIsOpen}
       /> */}
-    </div>
+    </Stack>
   )
 }
 

@@ -12,7 +12,7 @@ import DeleteModal from '../../../components/DeleteModal/DeleteModal'
 import Table from '../../../components/Table/Table'
 
 // CHAKRA UI IMPORTS
-import { Input, Button } from '@chakra-ui/react'
+import { Input, Button, Stack, Text } from '@chakra-ui/react'
 
 // HOOKS IMPORTS
 import { useExpense } from '../../../hooks/useExpense'
@@ -191,52 +191,46 @@ const Expense = () => {
   }, [])
 
   return (
-    <div>
-      <div className='page-container'>
-        <h1 className='page-title'>Gastos</h1>
-        <div className='elements-container'>
-          <section className='task-bar-datatable'>
-            <div className='input-container'>
-              <Input
-                focusBorderColor='acsys.primaryColor'
-                placeholder='Buscar...'
-                size='sm'
-                width={350}
-                onChange={onFilterTextBoxChanged}
-                color='acsys.iconColor'
-                id='filter-text-box'
-                spellCheck='false'
-                borderRadius='5px'
-                height='35px'
-                fontSize='15px'
-                autoComplete='off'
-                borderColor={'gray.200'}
-              />
-            </div>
-            <div className='button-container'>
-              <Button
-                backgroundColor={'acsys.primaryColor'}
-                _hover={{ backgroundColor: '#098bb6' }}
-                colorScheme='linkedin'
-                // color='white'
-                onClick={() => {
-                  expense.openModal()
-                  expense.changeActionRedux('create')
-                }}
-              >
-                Registrar gasto
-              </Button>
-            </div>
-          </section>
-          <section className='table-section'>
-            <Table
-              gridRef={gridRef}
-              gridOptions={gridOptions}
-              rowData={expense.expensesList}
-            />
-          </section>
-        </div>
-      </div>
+    <Stack h='100%' p={'8'} minW={'850px'}>
+      <Text fontSize={'27px'} fontWeight={'bold'} color={'acsys.titleColor'}>
+        Gastos
+      </Text>
+      <Stack direction={'row'} justifyContent={'space-between'}>
+        <Input
+          focusBorderColor='acsys.primaryColor'
+          placeholder='Buscar...'
+          size='sm'
+          width={350}
+          onChange={onFilterTextBoxChanged}
+          color='acsys.iconColor'
+          id='filter-text-box'
+          spellCheck='false'
+          borderRadius='5px'
+          height='35px'
+          fontSize='15px'
+          autoComplete='off'
+          borderColor={'gray.200'}
+        />
+        <Button
+          backgroundColor={'acsys.primaryColor'}
+          _hover={{ backgroundColor: '#098bb6' }}
+          colorScheme='linkedin'
+          // color='white'
+          onClick={() => {
+            expense.openModal()
+            expense.changeActionRedux('create')
+          }}
+        >
+          Registrar gasto
+        </Button>
+      </Stack>
+      <Stack height={'100%'}>
+        <Table
+          gridRef={gridRef}
+          gridOptions={gridOptions}
+          rowData={expense.expensesList}
+        />
+      </Stack>
       <ExpenseModal
         expenseHook={expense}
         inventoryInputHook={inventoryInput}
@@ -268,7 +262,7 @@ const Expense = () => {
           )
         }
       />
-    </div>
+    </Stack>
   )
 }
 

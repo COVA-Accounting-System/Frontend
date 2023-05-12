@@ -1,7 +1,7 @@
 import React, { useMemo, useCallback, useRef } from 'react'
 
 // CHAKRA UI IMPORTS
-import { Input, Button } from '@chakra-ui/react'
+import { Input, Button, Stack, Text } from '@chakra-ui/react'
 
 // COMPONENTS IMPORTS
 import DataTableActions from '../../../components/DataTableActions/DataTableActions'
@@ -15,7 +15,6 @@ import { useInventoryOutput } from '../../../hooks/useInventoryOutput'
 
 // STYLES IMPORTS
 import '../Template.styles.scss'
-
 
 const InventoryOutput = () => {
   const gridRef = useRef()
@@ -35,7 +34,6 @@ const InventoryOutput = () => {
         headerName: 'Pedido',
         valueGetter: data => {
           return `Pedido #${data.data.order.orderNumber} - ${data.data.order.orderProduct.uiName}`
-         
         },
         resizable: true,
         sortable: true,
@@ -66,7 +64,7 @@ const InventoryOutput = () => {
           getListOfMaterials: data => {
             return data.listOfMaterials
           }
-        },
+        }
       },
       {
         headerName: 'Precio estimado',
@@ -138,54 +136,47 @@ const InventoryOutput = () => {
   }, [])
 
   return (
-    <div>
-      <div className='page-container'>
-        <h1 className='page-title'>Salidas de inventario</h1>
-        <div className='elements-container'>
-          <section className='task-bar-datatable'>
-            <div className='input-container'>
-              <Input
-                focusBorderColor='acsys.primaryColor'
-                placeholder='Buscar...'
-                size='sm'
-                width={350}
-                onChange={onFilterTextBoxChanged}
-                color='acsys.iconColor'
-                id='filter-text-box'
-                spellCheck='false'
-                borderRadius='5px'
-                height='35px'
-                fontSize='15px'
-                autoComplete='off'
-                borderColor={'gray.200'}
-              />
-            </div>
-
-            <div className='button-container'>
-              <Button
-                backgroundColor={'acsys.primaryColor'}
-                _hover={{ backgroundColor: '#098bb6' }}
-                colorScheme='linkedin'
-                // color='white'
-                onClick={() => {
-                  inventoryOutput.setNumberOfInputFromConfig()
-                  inventoryOutput.openModal()
-                  inventoryOutput.changeActionRedux('create')
-                }}
-              >
-                Registrar salida
-              </Button>
-            </div>
-          </section>
-          <section className='table-section'>
-            <Table
-              gridRef={gridRef}
-              gridOptions={gridOptions}
-              rowData={inventoryOutput.inventoryOutputsList}
-            />
-          </section>
-        </div>
-      </div>
+    <Stack h='100%' p={'8'} minW={'850px'}>
+      <Text fontSize={'27px'} fontWeight={'bold'} color={'acsys.titleColor'}>
+        Salidas de inventario
+      </Text>
+      <Stack direction={'row'} justifyContent={'space-between'}>
+        <Input
+          focusBorderColor='acsys.primaryColor'
+          placeholder='Buscar...'
+          size='sm'
+          width={350}
+          onChange={onFilterTextBoxChanged}
+          color='acsys.iconColor'
+          id='filter-text-box'
+          spellCheck='false'
+          borderRadius='5px'
+          height='35px'
+          fontSize='15px'
+          autoComplete='off'
+          borderColor={'gray.200'}
+        />
+        <Button
+          backgroundColor={'acsys.primaryColor'}
+          _hover={{ backgroundColor: '#098bb6' }}
+          colorScheme='linkedin'
+          // color='white'
+          onClick={() => {
+            inventoryOutput.setNumberOfInputFromConfig()
+            inventoryOutput.openModal()
+            inventoryOutput.changeActionRedux('create')
+          }}
+        >
+          Registrar salida
+        </Button>
+      </Stack>
+      <Stack height={'100%'}>
+        <Table
+          gridRef={gridRef}
+          gridOptions={gridOptions}
+          rowData={inventoryOutput.inventoryOutputsList}
+        />
+      </Stack>
       <RegisterInventoryOutput inventoryOutputHook={inventoryOutput} />
       <DeleteModal
         isLoading={inventoryOutput.isLoading}
@@ -196,7 +187,7 @@ const InventoryOutput = () => {
           inventoryOutput.deleteActualInventoryOutput()
         }}
       />
-    </div>
+    </Stack>
   )
 }
 

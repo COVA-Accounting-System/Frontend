@@ -11,7 +11,9 @@ import {
   ModalBody,
   ModalCloseButton,
   Input,
-  Button
+  Button,
+  Stack,
+  Text
 } from '@chakra-ui/react'
 
 // COMPONENTS IMPORTS
@@ -149,13 +151,12 @@ const Product = () => {
   }, [])
 
   return (
-    <div>
-      <div className='page-container'>
-        <h1 className='page-title'>Productos</h1>
-        <div className='elements-container'>
-          <section className='task-bar-datatable'>
-            <div className='input-container'>
-              <Input
+      <Stack h='100%' p={'8'} minW={'850px'}>
+        <Text fontSize={'27px'} fontWeight={'bold'} color={'acsys.titleColor'}>
+        Productos
+        </Text>
+          <Stack direction={'row'} justifyContent={'space-between'}>
+          <Input
                 focusBorderColor='acsys.primaryColor'
                 placeholder='Buscar...'
                 size='sm'
@@ -170,9 +171,7 @@ const Product = () => {
                 autoComplete='off'
                 borderColor={'gray.200'}
               />
-            </div>
-            <div className='button-container'>
-              <Button
+                 <Button
                 backgroundColor={'acsys.primaryColor'}
                 _hover={{ backgroundColor: '#098bb6' }}
                 colorScheme='linkedin'
@@ -183,17 +182,14 @@ const Product = () => {
               >
                 Registrar producto
               </Button>
-            </div>
-          </section>
-          <section className='table-section'>
-            <Table
+          </Stack>
+          <Stack height={'100%'}>
+          <Table
               gridRef={gridRef}
               gridOptions={gridOptions}
               rowData={product.productsList}
             />
-          </section>
-        </div>
-      </div>
+          </Stack>
       <Modal
         size='sm'
         onClose={() => product.closeModal()}
@@ -307,7 +303,7 @@ const Product = () => {
         onClose={() => product.setViewModalIsOpen(false)}
         isOpen={product.viewModalIsOpen}
       /> */}
-    </div>
+    </Stack>
   )
 }
 

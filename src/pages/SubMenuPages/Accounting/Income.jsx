@@ -2,10 +2,7 @@
 import React, { useMemo, useCallback, useRef } from 'react'
 
 // CHAKRA UI IMPORTS
-import {
-  Input,
-  Button
-} from '@chakra-ui/react'
+import { Input, Button, Stack, Text } from '@chakra-ui/react'
 
 // COMPONENTS IMPORTS
 import DataTableActions from '../../../components/DataTableActions/DataTableActions'
@@ -160,54 +157,46 @@ const Income = () => {
   }, [])
 
   return (
-    <div>
-      <div className='page-container'>
-        <h1 className='page-title'>Ingresos</h1>
-        <div className='elements-container'>
-          <section className='task-bar-datatable'>
-            <div className='input-container'>
-              <Input
-                focusBorderColor='acsys.primaryColor'
-                placeholder='Buscar...'
-                size='sm'
-                width={350}
-                onChange={onFilterTextBoxChanged}
-                color='acsys.iconColor'
-                id='filter-text-box'
-                spellCheck='false'
-                borderRadius='5px'
-                height='35px'
-                fontSize='15px'
-                autoComplete='off'
-                borderColor={'gray.200'}
-              />
-            </div>
-            <div className='button-container'>
-              <Button
-                backgroundColor={'acsys.primaryColor'}
-                _hover={{ backgroundColor: '#098bb6' }}
-                colorScheme='linkedin'
-                onClick={() => {
-
-                  income.openModal()
-                  income.changeActionRedux('create')
-                }}
-              >
-                Registrar ingreso
-              </Button>
-            </div>
-          </section>
-          <section className='table-section'>
-            <Table
-              gridRef={gridRef}
-              gridOptions={gridOptions}
-              rowData={income.incomesList}
-            />
-          </section>
-        </div>
-      </div>
-      <IncomeModal income={income}/>
-
+    <Stack h='100%' p={'8'} minW={'850px'}>
+      <Text fontSize={'27px'} fontWeight={'bold'} color={'acsys.titleColor'}>
+        Ingresos
+      </Text>
+      <Stack direction={'row'} justifyContent={'space-between'}>
+        <Input
+          focusBorderColor='acsys.primaryColor'
+          placeholder='Buscar...'
+          size='sm'
+          width={350}
+          onChange={onFilterTextBoxChanged}
+          color='acsys.iconColor'
+          id='filter-text-box'
+          spellCheck='false'
+          borderRadius='5px'
+          height='35px'
+          fontSize='15px'
+          autoComplete='off'
+          borderColor={'gray.200'}
+        />
+        <Button
+          backgroundColor={'acsys.primaryColor'}
+          _hover={{ backgroundColor: '#098bb6' }}
+          colorScheme='linkedin'
+          onClick={() => {
+            income.openModal()
+            income.changeActionRedux('create')
+          }}
+        >
+          Registrar ingreso
+        </Button>
+      </Stack>
+      <Stack height={'100%'}>
+        <Table
+          gridRef={gridRef}
+          gridOptions={gridOptions}
+          rowData={income.incomesList}
+        />
+      </Stack>
+      <IncomeModal income={income} />
 
       <DeleteModal
         isLoading={income.isLoading}
@@ -218,7 +207,7 @@ const Income = () => {
           income.deleteActualIncome()
         }}
       />
-    </div>
+    </Stack>
   )
 }
 

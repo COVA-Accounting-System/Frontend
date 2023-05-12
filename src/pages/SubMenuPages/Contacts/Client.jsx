@@ -160,7 +160,7 @@ const Client = () => {
   }, [])
 
   return (
-    <Stack h='100%' p={'8'}>
+    <Stack h='100%' p={'8'} minW={'850px'}>
         <Text fontSize={'27px'} fontWeight={'bold'} color={'acsys.titleColor'}>
           Clientes
         </Text>

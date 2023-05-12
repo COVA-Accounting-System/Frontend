@@ -10,7 +10,7 @@ const MainPage = () => {
   return (
     <Stack direction={'row'} spacing={0} height={'100vh'} maxHeight={'100vh'}>
       <Sidebar />
-      <Stack w={'100%'} maxW={'100%'} height={'100vh'}>
+      <Stack height={'100vh'} width={'100%'} overflowX={'auto'}>
         <Outlet />
       </Stack>
     </Stack>

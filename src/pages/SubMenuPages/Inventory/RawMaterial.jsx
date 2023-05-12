@@ -10,7 +10,9 @@ import {
   ModalBody,
   ModalCloseButton,
   Input,
-  Button
+  Button,
+  Stack,
+  Text
 } from '@chakra-ui/react'
 
 import unitMeasures from '../../../assets/unitMeasures'
@@ -78,7 +80,7 @@ const RawMaterial = () => {
         field: 'unitMeasure.uiName',
         resizable: true,
         sortable: true,
-        unSortIcon: true,
+        unSortIcon: true
         // maxWidth: 180,
       },
       {
@@ -132,52 +134,46 @@ const RawMaterial = () => {
   }, [])
 
   return (
-    <div>
-      <div className='page-container'>
-        <h1 className='page-title'>Materia Prima</h1>
-        <div className='elements-container'>
-          <section className='task-bar-datatable'>
-            <div className='input-container'>
-              <Input
-                focusBorderColor='acsys.primaryColor'
-                placeholder='Buscar...'
-                size='sm'
-                width={350}
-                onChange={onFilterTextBoxChanged}
-                color='acsys.iconColor'
-                id='filter-text-box'
-                spellCheck='false'
-                borderRadius='5px'
-                height='35px'
-                fontSize='15px'
-                autoComplete='off'
-                borderColor={'gray.200'}
-              />
-            </div>
-            <div className='button-container'>
-              <Button
-                backgroundColor={'acsys.primaryColor'}
-                _hover={{ backgroundColor: '#098bb6' }}
-                colorScheme='linkedin'
-                // color='white'
-                onClick={() => {
-                  rawMaterial.openModal()
-                  rawMaterial.changeActionRedux('create')
-                }}
-              >
-                Registrar materia prima
-              </Button>
-            </div>
-          </section>
-          <section className='table-section'>
-            <Table
-              gridRef={gridRef}
-              gridOptions={gridOptions}
-              rowData={rawMaterial.rawMaterialsList}
-            />
-          </section>
-        </div>
-      </div>
+    <Stack h='100%' p={'8'} minW={'850px'}>
+      <Text fontSize={'27px'} fontWeight={'bold'} color={'acsys.titleColor'}>
+        Materia Prima
+      </Text>
+      <Stack direction={'row'} justifyContent={'space-between'}>
+        <Input
+          focusBorderColor='acsys.primaryColor'
+          placeholder='Buscar...'
+          size='sm'
+          width={350}
+          onChange={onFilterTextBoxChanged}
+          color='acsys.iconColor'
+          id='filter-text-box'
+          spellCheck='false'
+          borderRadius='5px'
+          height='35px'
+          fontSize='15px'
+          autoComplete='off'
+          borderColor={'gray.200'}
+        />
+        <Button
+          backgroundColor={'acsys.primaryColor'}
+          _hover={{ backgroundColor: '#098bb6' }}
+          colorScheme='linkedin'
+          // color='white'
+          onClick={() => {
+            rawMaterial.openModal()
+            rawMaterial.changeActionRedux('create')
+          }}
+        >
+          Registrar materia prima
+        </Button>
+      </Stack>
+      <Stack height={'100%'}>
+        <Table
+          gridRef={gridRef}
+          gridOptions={gridOptions}
+          rowData={rawMaterial.rawMaterialsList}
+        />
+      </Stack>
       <Modal
         size='sm'
         onClose={() => rawMaterial.closeModal()}
@@ -268,7 +264,7 @@ const RawMaterial = () => {
           rawMaterial.deleteActualRawMaterial()
         }}
       />
-    </div>
+    </Stack>
   )
 }
 

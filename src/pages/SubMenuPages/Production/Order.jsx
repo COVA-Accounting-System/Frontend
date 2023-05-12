@@ -11,7 +11,9 @@ import {
   ModalBody,
   ModalCloseButton,
   Input,
-  Button
+  Button,
+  Stack,
+  Text
 } from '@chakra-ui/react'
 
 // COMPONENTS IMPORTS
@@ -305,68 +307,63 @@ const Order = () => {
   }, [])
 
   return (
-    <div>
-      <div className='page-container'>
-        <h1 className='page-title'>Pedidos</h1>
-        <div className='elements-container'>
-          <section className='task-bar-datatable-production'>
-            <div className='input-container-production'>
-              <Input
-                focusBorderColor='acsys.primaryColor'
-                placeholder='Buscar...'
-                size='sm'
-                width={350}
-                onChange={onFilterTextBoxChanged}
-                color='acsys.iconColor'
-                id='filter-text-box'
-                spellCheck='false'
-                borderRadius='5px'
-                height='35px'
-                fontSize='15px'
-                autoComplete='off'
-                borderColor={'gray.200'}
-              />
-              <div className='search-by-state-container'>
-                <SearchByState
-                  filterByState={order.filterByState}
-                  setFilterByState={order.setFilterByState}
-                  externalFilterChanged={externalFilterChanged}
-                />
-              </div>
-            </div>
-
-            <div className='button-container'>
-              <Button
-                backgroundColor={'acsys.primaryColor'}
-                _hover={{ backgroundColor: '#098bb6' }}
-                colorScheme='linkedin'
-                // color='white'
-                onClick={() => {
-                  order.setOrderNumberDB()
-                  order.openModal()
-                  order.setAction('create')
-                  // order.changeActionRedux('create')
-                }}
-              >
-                Registrar pedido
-              </Button>
-            </div>
-          </section>
-          <section className='table-section'>
-            <Table
-              gridRef={gridRef}
-              doesExternalFilterPass={doesExternalFilterPass}
-              // isExternalFilterPresent={isExternalFilterPresent}
-              gridOptions={gridOptions}
-              rowData={
-                order.ordersList
-                  ? order.ordersList.filter(param => param.isVisible === true)
-                  : []
-              }
-            />
-          </section>
-        </div>
-      </div>
+    <Stack h='100%' p={'8'} minW={'850px'}>
+      <Text fontSize={'27px'} fontWeight={'bold'} color={'acsys.titleColor'}>
+        Pedidos
+      </Text>
+      <Stack direction={'row'} justifyContent={'space-between'}>
+        <Stack direction={'row'}>
+        <Input
+          focusBorderColor='acsys.primaryColor'
+          placeholder='Buscar...'
+          size='sm'
+          width={350}
+          onChange={onFilterTextBoxChanged}
+          color='acsys.iconColor'
+          id='filter-text-box'
+          spellCheck='false'
+          borderRadius='5px'
+          height='35px'
+          fontSize='15px'
+          autoComplete='off'
+          borderColor={'gray.200'}
+        />
+        <SearchByState
+          filterByState={order.filterByState}
+          setFilterByState={order.setFilterByState}
+          externalFilterChanged={externalFilterChanged}
+        />
+        </Stack>
+   
+        <Button
+          backgroundColor={'acsys.primaryColor'}
+          _hover={{ backgroundColor: '#098bb6' }}
+          colorScheme='linkedin'
+          // height={'35px'}
+          // color='white'
+          onClick={() => {
+            order.setOrderNumberDB()
+            order.openModal()
+            order.setAction('create')
+            // order.changeActionRedux('create')
+          }}
+        >
+          Registrar pedido
+        </Button>
+      </Stack>
+      <Stack height={'100%'}>
+        <Table
+          gridRef={gridRef}
+          doesExternalFilterPass={doesExternalFilterPass}
+          // isExternalFilterPresent={isExternalFilterPresent}
+          gridOptions={gridOptions}
+          rowData={
+            order.ordersList
+              ? order.ordersList.filter(param => param.isVisible === true)
+              : []
+          }
+        />
+      </Stack>
       <Modal
         size='sm'
         onClose={() => order.closeModal()}
@@ -547,7 +544,7 @@ const Order = () => {
         modalIsOpen={order.incomesModalIsOpen}
         onClose={() => order.setIncomesModalIsOpen(false)}
       />
-    </div>
+    </Stack>
   )
 }
 
