@@ -4,7 +4,20 @@ import { PieChart, Pie, Cell, Tooltip, Legend } from 'recharts'
 
 import { Stack } from '@chakra-ui/react'
 
-const COLORS = ['#0088FE', '#00C49F', '#FFBB28']
+const COLORS = ['#ECC94B', '#F56565', '#4299E1']
+
+const RADIAN = Math.PI / 180;
+const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index }) => {
+  const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
+  const x = cx + radius * Math.cos(-midAngle * RADIAN);
+  const y = cy + radius * Math.sin(-midAngle * RADIAN);
+
+  return (
+    <text x={x} y={y} fill="white" textAnchor={x > cx ? 'start' : 'end'} dominantBaseline="central">
+      {`${(percent * 100).toFixed(0)}%`}
+    </text>
+  );
+};
 
 const TotalCostsPie = ({ data }) => {
 
@@ -52,7 +65,8 @@ const TotalCostsPie = ({ data }) => {
             outerRadius='80%'
             fill='#8884d8'
             dataKey='amount'
-            label={({ name, amount }) => `${amount} Bs.`}
+            label={renderCustomizedLabel}
+            // label={({ name, amount }) => `${amount} Bs.`}
           >
             {formatedData.map((entry, index) => (
               <Cell
@@ -61,7 +75,7 @@ const TotalCostsPie = ({ data }) => {
               />
             ))}
           </Pie>
-          <Tooltip />
+          {/* <Tooltip /> */}
           <Legend />
         </PieChart>
       ) : null}
