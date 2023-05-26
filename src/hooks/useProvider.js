@@ -94,7 +94,6 @@ export const useProvider = () => {
       setIsLoading(true)
       await dispatch(
         createProvider({
-          ...actualProvider,
           storeName,
           uiName: storeName,
           nit,

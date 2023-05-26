@@ -10,16 +10,11 @@ const Table = ({
   gridRef,
   doesExternalFilterPass
 }) => {
-//  const a = isExternalFilterPresent()
-//   console.log(a)
-  // console.log(doesExternalFilterPass())
   return (
     <div className='ag-theme-alpine data-table-container'>
       <AgGridReact
         ref={gridRef}
-        overlayNoRowsTemplate={'Cargando datos...'}
-        // rowHeight={}
-      
+        overlayNoRowsTemplate={'Cargando datos...'}      
         doesExternalFilterPass={doesExternalFilterPass}
         rowData={rowData}
         suppressRowTransform
@@ -30,3 +25,4 @@ const Table = ({
 }
 
 export default Table
+
