@@ -74,7 +74,8 @@ const Sidebar = () => {
     <Stack
       height={'100%'}
       minWidth={isSiderbarOpen ? '245px' : '50px'}
-      maxW={isSiderbarOpen ? '245px' : '70px'}
+      // w={'0px'}
+      maxW={isSiderbarOpen ? '245px' : '100px'}
       borderRight={'1px'}
       borderColor={'gray.300'}
       direction={'column'}
@@ -83,7 +84,15 @@ const Sidebar = () => {
       overflowY={'auto'}
     >
       <Stack direction={'column'}>
-        <Stack direction={'row'} justifyContent={'space-between'} px={isSiderbarOpen ? 6 : 4}>
+        <Stack
+          direction={isSiderbarOpen ? 'row' : 'column'}
+          justifyContent={'space-between'}
+          px={
+            isSiderbarOpen
+              ? 6
+              : { base: 3, sm: 3, md: 3.5, xl: 4 }
+          }
+        >
           {' '}
           {isSiderbarOpen && (
             <Text
@@ -96,6 +105,7 @@ const Sidebar = () => {
           )}
           <IconButton
             icon={<HamburgerIcon />}
+            size={{base: 'sm', sm: 'sm', md: 'md', xl: 'md',}}
             onClick={() => {
               setIsSidebarOpen(state => !state)
             }}
@@ -330,7 +340,7 @@ const Sidebar = () => {
           </Stack>
         )}
       </Stack>
-      {isSiderbarOpen ? (
+      {isSiderbarOpen && (
         <Stack
           direction={'row'}
           justifyContent={'space-between'}
@@ -388,19 +398,6 @@ const Sidebar = () => {
               />
             </Tooltip>
           </Stack>
-        </Stack>
-      ) : (
-        
-        <Stack minW={'10px'} p={4}>
-          <Tooltip label={'Cerrar sesion'}>
-            <IconButton
-              color={'acsys.iconColor'}
-              // height={'50px'}
-              // size={'sm'}
-              icon={<BiLogOut />}
-              onClick={logOut.logOutUser}
-            />
-          </Tooltip>
         </Stack>
       )}
     </Stack>

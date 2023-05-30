@@ -32,9 +32,9 @@ const InventoryInput = () => {
         resizable: true,
         sortable: true,
         suppressMovable: true,
-        unSortIcon: true
-        // width: 150
-        // maxWidth: 300,
+        unSortIcon: true,
+        width: 150,
+        sort: 'desc', defaultSort: true
       },
       {
         headerName: 'Proveedor',
@@ -44,13 +44,6 @@ const InventoryInput = () => {
         unSortIcon: true,
         suppressMovable: true,
         width: 250
-        // cellRenderer: ProviderPopover,
-        // cellRendererParams: {
-        //   getProviderData: data => {
-        //     return data.creditorProvider
-        //   }
-        // },
-        // maxWidth: 160,
       },
       {
         headerName: 'Fecha de entrada',
@@ -62,7 +55,6 @@ const InventoryInput = () => {
         sortable: true,
         suppressMovable: true,
         unSortIcon: true
-        // maxWidth: 177,
       },
       {
         headerName: 'Materiales',
@@ -70,19 +62,15 @@ const InventoryInput = () => {
         resizable: true,
         sortable: true,
         unSortIcon: true,
-        autoHeight: true,
+        width: 300,
         suppressMovable: true,
         cellRenderer: MaterialsTooltip,
         cellRendererParams: {
           getListOfMaterials: data => {
             return data.inventoryInput.listOfMaterials
           }
-        }
-        // valueGetter: data => {
-        //   return `${data.data.inventoryInput.totalPrice} Bs.`
-        // },
-
-        // maxWidth: 180,
+        },
+        autoHeight: true
       },
       {
         headerName: 'Precio total',
@@ -94,8 +82,6 @@ const InventoryInput = () => {
         valueGetter: data => {
           return `${data.data.inventoryInput.totalPrice} Bs.`
         }
-
-        // maxWidth: 180,
       },
 
       {
@@ -103,14 +89,12 @@ const InventoryInput = () => {
         resizable: false,
         pinned: 'right',
         maxWidth: 160,
+        cellStyle: { overflow: 'visible' },
         cellRenderer: DataTableActions,
         colId: 'Actions',
         suppressMovable: true,
         cellRendererParams: {
-          // onView: data => {
-          //   product.setActualProductRedux(data)
-          //   product.setViewModalIsOpen(true)
-          // },
+
           onEdit: data => {
             expense.setAccountingSeat(data.accountingSeat)
             expense.setCategory(data.category)
@@ -222,7 +206,7 @@ const InventoryInput = () => {
           <Table
               gridRef={gridRef}
               gridOptions={gridOptions}
-              rowData={expense.expensesListForInventoryInput.reverse()}
+              rowData={expense.expensesListForInventoryInput}
             />
           </Stack>
       <ExpenseModal

@@ -35,9 +35,8 @@ const Expense = () => {
         sortable: true,
         unSortIcon: true,
         suppressMovable: true,
-        width: 150
-        // minWidth: 120,
-        // maxWidth: 250,
+        width: 150,
+        sort: 'desc', defaultSort: true
       },
       {
         headerName: 'Categoría',
@@ -46,17 +45,15 @@ const Expense = () => {
         sortable: true,
         unSortIcon: true,
         suppressMovable: true,
-        // autoHeight: true,
-        width: 250,
+        width: 350,
         cellRenderer: ExpenseCategoryTag
-        // cellRendererParams:
-        // maxWidth: 250,
       },
       {
         headerName: 'Acreedor',
         field: '',
         resizable: true,
         sortable: true,
+        cellStyle: { overflow: 'visible' },
         unSortIcon: true,
         suppressMovable: true,
         width: 250,
@@ -69,8 +66,6 @@ const Expense = () => {
             ? data.data.creditorEntity
             : ''
         }
-        // minWidth: 60,
-        // maxWidth: 160,
       },
       {
         headerName: 'Fecha',
@@ -89,7 +84,8 @@ const Expense = () => {
         resizable: true,
         sortable: true,
         suppressMovable: true,
-        unSortIcon: true
+        unSortIcon: true,
+        width: 270
       },
       {
         headerName: 'Monto',
@@ -107,6 +103,7 @@ const Expense = () => {
         resizable: false,
         pinned: 'right',
         maxWidth: 160,
+        cellStyle: { overflow: 'visible' },
         suppressMovable: true,
         cellRenderer: DataTableActions,
         colId: 'Actions',
@@ -235,7 +232,7 @@ const Expense = () => {
         <Table
           gridRef={gridRef}
           gridOptions={gridOptions}
-          rowData={expense.expensesList.reverse()}
+          rowData={expense.expensesList}
         />
       </Stack>
       <ExpenseModal

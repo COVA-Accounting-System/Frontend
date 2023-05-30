@@ -43,7 +43,7 @@ const Provider = () => {
         sortable: true,
         unSortIcon: true,
         suppressMovable: true,
-        width: 250
+        width: 250,
       },
       {
         headerName: 'NIT',
@@ -52,7 +52,7 @@ const Provider = () => {
         sortable: true,
         unSortIcon: true,
         suppressMovable: true,
-        width: 160
+        width: 160,
       },
       {
         headerName: 'Teléfono',
@@ -71,25 +71,25 @@ const Provider = () => {
         resizable: true,
         sortable: true,
         suppressMovable: true,
-        unSortIcon: true
+        unSortIcon: true,
       },
       {
-        headerName: 'Pais',
+        headerName: 'País',
         field: 'country',
         resizable: true,
         sortable: true,
         suppressMovable: true,
-        unSortIcon: true
+        unSortIcon: true,
+        width: 190,
       },
       {
-        headerName: 'Direccion',
+        headerName: 'Dirección',
         field: 'address',
         resizable: true,
         sortable: true,
         unSortIcon: true,
         suppressMovable: true,
-        width: 300
-        // maxWidth: 320,
+        width: 300,
       },
       {
         headerName: ' ',
@@ -98,6 +98,7 @@ const Provider = () => {
         maxWidth: 160,
         cellRenderer: DataTableActions,
         suppressMovable: true,
+        cellStyle: { overflow: 'visible' },
         colId: 'Actions',
         cellRendererParams: {
           // onView: () => {},
@@ -126,6 +127,7 @@ const Provider = () => {
   const gridOptions = useMemo(
     () => ({
       pagination: false,
+      
       onGridReady: params => {
         // params.columnApi.autoSizeAllColumns();
       },
@@ -146,7 +148,7 @@ const Provider = () => {
   }, [])
 
   return (
-    <Stack h='100%' p={'8'} minW={'850px'}>
+    <Stack h='100%' p={'8'} minW={'1000px'}>
       <Text fontSize={'27px'} fontWeight={'bold'} color={'acsys.titleColor'}>
         Proveedores
       </Text>
@@ -183,7 +185,7 @@ const Provider = () => {
         <Table
           gridRef={gridRef}
           gridOptions={gridOptions}
-          rowData={provider.providersList.reverse()}
+          rowData={provider.providersList}
         />
       </Stack>
       <Modal

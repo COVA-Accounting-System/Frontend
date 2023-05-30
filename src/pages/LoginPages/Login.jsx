@@ -31,6 +31,7 @@ const Login = () => {
         dispatch(setLogged(loginSuccess))
         setEmail('')
         setPassword('')
+        window.location.reload()
       } else {
         inventoryError('Usuario o contraseña incorrectos')
         dispatch(setLogged(loginSuccess))

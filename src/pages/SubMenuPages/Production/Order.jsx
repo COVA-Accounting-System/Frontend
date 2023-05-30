@@ -49,14 +49,11 @@ const Order = () => {
   const gridRef = useRef()
   const order = useOrder()
   var state = 'initial'
-  //pass ref to custom hook
-  // const orderState = useOrderState(gridRef.current)
 
   const columnDefs = useMemo(
     () => [
       {
         headerName: 'Estado',
-        // field: 'orderState',
         resizable: true,
         sortable: true,
         width: 160,
@@ -75,10 +72,7 @@ const Order = () => {
         unSortIcon: true,
         suppressMovable: true,
         width: 160,
-        // sort: 'desc',
-        
-        // minWidth: 120,
-        // maxWidth: 250,
+        sort: 'desc', defaultSort: true
       },
       {
         headerName: 'Cliente',
@@ -87,15 +81,7 @@ const Order = () => {
         sortable: true,
         unSortIcon: true,
         suppressMovable: true,
-        // minWidth: 130,
         width: 250
-        // cellRenderer: ClientPopover,
-        // cellRendererParams: {
-        //   getClientData: data => {
-        //     return data.orderClient
-        //   }
-        // }
-        // maxWidth: 250,
       },
       {
         headerName: 'Producto',
@@ -104,37 +90,6 @@ const Order = () => {
         sortable: true,
         suppressMovable: true,
         unSortIcon: true
-        
-        // cellRenderer: ProductPopover,
-        // cellRendererParams: {
-        //   getProductData: data => {
-        //     return data.orderProduct
-        //   }
-        // }
-      },
-      {
-        headerName: 'Características',
-        field: 'orderFeatures',
-        resizable: true,
-        sortable: true,
-        autoHeight: true,
-        suppressMovable: true,
-        // height: 100,
-        unSortIcon: true,
-        // wrapText: true,
-        valueGetter: data => {
-          return data.data.orderFeatures.map((feature, index) => {
-            return `• ${feature.description}`
-          })
-        },
-        cellRenderer: FeaturesTooltip,
-        cellRendererParams: {
-          getListOfFeatures: data => {
-            return data.orderFeatures
-          }
-        }
-        // minWidth: 60,
-        // maxWidth: 160,
       },
       {
         headerName: 'Fecha de entrega',
@@ -146,8 +101,26 @@ const Order = () => {
         valueGetter: data => {
           return new Date(data.data.orderDeliveryDate).toLocaleDateString()
         }
-        // minWidth: 60,
-        // maxWidth: 160,
+      },
+      {
+        headerName: 'Características',
+        field: 'orderFeatures',
+        resizable: true,
+        sortable: true,
+        suppressMovable: true,
+        width: 300,
+        unSortIcon: true,
+        valueGetter: data => {
+          return data.data.orderFeatures.map((feature, index) => {
+            return `• ${feature.description}`
+          })
+        },
+        cellRenderer: FeaturesTooltip,
+        cellRendererParams: {
+          getListOfFeatures: data => {
+            return data.orderFeatures
+          }
+        }
       },
       {
         headerName: 'Estado de pago',
@@ -156,8 +129,6 @@ const Order = () => {
         unSortIcon: true,
         suppressMovable: true,
         cellRenderer: OrderPaidTag
-        // minWidth: 110,
-        // maxWidth: 160,
       },
       {
         headerName: 'Precio total',
@@ -207,6 +178,7 @@ const Order = () => {
         headerName: ' ',
         resizable: false,
         pinned: 'right',
+        cellStyle: { overflow: 'visible' },
         // autoHeight: true,
         maxWidth: 160,
         cellRenderer: DataTableActionsOrder,
@@ -312,7 +284,7 @@ const Order = () => {
   }, [])
 
   return (
-    <Stack h='100%' p={'8'} minW={'850px'}>
+    <Stack h='100%' p={'8'} minW={'1000px'}>
       <Text fontSize={'27px'} fontWeight={'bold'} color={'acsys.titleColor'}>
         Pedidos
       </Text>
@@ -364,7 +336,7 @@ const Order = () => {
           gridOptions={gridOptions}
           rowData={
             order.ordersList
-              ? order.ordersList.filter(param => param.isVisible === true).reverse()
+              ? order.ordersList.filter(param => param.isVisible === true)
               : []
           }
         />

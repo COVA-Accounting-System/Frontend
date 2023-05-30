@@ -179,7 +179,7 @@ export const useOrder = () => {
     setIsLoading(false)
   }
 
-  const getExpensesOfOrder = async (orderId) => {
+  const getExpensesOfOrder = async orderId => {
     console.log(orderId)
     const expenses = await getExpensesGivenAnOrder(orderId)
     console.log(expenses)
@@ -284,7 +284,7 @@ export const useOrder = () => {
   const onEditState = async () => {
     setIsLoading(true)
     let updatedOrder
-    // let
+
     try {
       if (orderAsset[actualStateNumber].state === 'Delivered') {
         updatedOrder = await updateStateToDelivered({
@@ -299,13 +299,16 @@ export const useOrder = () => {
           orderState: orderAsset[actualStateNumber].state
         })
       }
+      console.log(updatedOrder)
       const newList = ordersList.map(order => {
         if (order._id === updatedOrder.data._id) {
           return { ...updatedOrder.data }
         }
         return order
       })
-      setOrdersList(newList)
+      console.log(newList)
+      setOrdersList(() => newList)
+      // setOrdersList(newList)
       setChangeStateModalIsOpen(false)
       emptyFields()
       toast.invetorySuccess('Estado editado con éxito')

@@ -15,8 +15,6 @@ const getAllOrders = async () => {
   }
 }
 
-const getOneOrder = data => {}
-
 const changeStateForward = data => {
     try {
         return orderInstance.put(`/changeStateFordward`, data)
@@ -49,17 +47,19 @@ const updateOrder = data => {
   }
 }
 
-export const updateStateToDelivered = data => {
+export const updateStateToDelivered = async data => {
   try {
-    return orderInstance.put('/updateStateToDelivered', data)
+    const response = await orderInstance.put('/updateStateToDelivered', data)
+    return response
   } catch (err) {
     console.error(err)
   }
 }
 
-export const updateStateToNotDelivered = data => {
+export const updateStateToNotDelivered = async data => {
   try {
-    return orderInstance.put('/updateStateToNotDelivered', data)
+    const response = await orderInstance.put('/updateStateToNotDelivered', data)
+    return response
   } catch (err) {
     console.error(err)
   }
@@ -75,7 +75,6 @@ const deleteOrder = data => {
 
 export {
   getAllOrders,
-  getOneOrder,
   createOrder,
   updateOrder,
   deleteOrder,

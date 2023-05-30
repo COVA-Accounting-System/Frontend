@@ -4,8 +4,9 @@ import axios from 'axios'
 export const orderInstance = axios.create({
   baseURL: `${process.env.REACT_APP_DATA_API}/order`,
   // timeout: 10000,
-  headers: { 'x-access-token': localStorage.getItem('token') }
+  // headers: { 'x-access-token': localStorage.getItem('token') }
 })
+
 
 const initialState = {
   data: [],

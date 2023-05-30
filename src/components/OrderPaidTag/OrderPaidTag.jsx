@@ -6,7 +6,7 @@ const OrderPaidTag = ({ data }) => {
   // console.log(data)
   return (
     // <Flex justifyContent={'center'} alignItems={'center'} >
-    <Flex height={'100%'} alignItems={'center'}>
+    <Flex height={'100%'} alignItems={'center'} >
       {data.orderPayedPrice === 0 && data.orderPrePayedPrice === 0 ? (
         <Tag colorScheme={'red'} fontSize={'small'} fontWeight={'semibold'}>
           NO PAGADO

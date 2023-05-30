@@ -1,7 +1,7 @@
 
 .state-tag-container{
-    display: flex;
-    height: 100%;
+    display: flex !important;
+    height: 100% !important;
     justify-content: left;
     align-items: center;
     // max-height: 10px;
@@ -11,10 +11,4 @@
 .state-tag-square{
     width: 10px;
     height: 10px;
-    // background-color: aqua;
-    // border: 1px solid black;
 }
-
-// .state-tag{
-//     font-weight: 700;
-// }

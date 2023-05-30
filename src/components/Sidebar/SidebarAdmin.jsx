@@ -63,6 +63,7 @@ const SidebarAdmin = () => {
 
           <IconButton
             icon={<HamburgerIcon />}
+            size={{base: 'sm', sm: 'sm', md: 'md', xl: 'md',}}
             onClick={() => {
               setIsSidebarExpanded(state => !state)
             }}
@@ -214,6 +215,7 @@ const SidebarAdmin = () => {
         <IconButton
           color={'acsys.iconColor'}
           // size={'sm'}
+          size={{base: 'sm', sm: 'sm', md: 'md', xl: 'md',}}
           icon={<BiLogOut />}
           onClick={onLogOut}
         />

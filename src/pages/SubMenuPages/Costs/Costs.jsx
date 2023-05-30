@@ -69,11 +69,13 @@ const Costs = () => {
 
       <Stack>
         <TotalProductionCost data={costs.costReportData.expenses} />
-
-        <TotalCostsPie data={costs.costReportData.expenses} />
-
-        <ProductListWithUnitCost data={costs.costReportData.orders} />
       </Stack>
+      <Stack w={'100%'} justifyContent={'center'} direction={'row'}>
+        <TotalCostsPie data={costs.costReportData.expenses} />
+      </Stack>
+
+      <ProductListWithUnitCost data={costs.costReportData.orders} />
+
       {/* <h1>Gráfico de barras de ventas</h1>
       <TotalProductionCost data={chartData} /> */}
     </Flex>

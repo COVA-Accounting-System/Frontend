@@ -2,7 +2,6 @@ import React from 'react'
 import './DataTableActions.scss'
 import {
   Button,
-  // ChevronDownIcon,
   Menu,
   MenuButton,
   MenuList,
@@ -14,13 +13,12 @@ import { ChevronDownIcon } from '@chakra-ui/icons'
 const DataTableActions = props => {
   const {
     data,
-    // onView,
     onEdit,
     onDelete
   } = props
 
   return (
-    <div className='submenu'>
+    // <div className='submenu'>
       <Menu>
         <MenuButton
           as={Button}
@@ -34,17 +32,11 @@ const DataTableActions = props => {
         </MenuButton>
         <MenuList
           size='lg'
-          zIndex={1}
+          zIndex={5}
           fontSize='14px'
-          // width="10px"
           minWidth='150px'
           color='acsys.titleColor'
-
-          // height={1}
         >
-          {/* <MenuItem height='30px' fontWeight={500} onClick={() => onView(data)}>
-            Ver
-          </MenuItem> */}
           <MenuItem height='30px' fontWeight={500} onClick={() => onEdit(data)}>
             Editar
           </MenuItem>
@@ -58,7 +50,7 @@ const DataTableActions = props => {
           </MenuItem>
         </MenuList>
       </Menu>
-    </div>
+    // </div>
   )
 }
 

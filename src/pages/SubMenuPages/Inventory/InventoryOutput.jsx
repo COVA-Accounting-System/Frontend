@@ -28,8 +28,9 @@ const InventoryOutput = () => {
         resizable: true,
         sortable: true,
         suppressMovable: true,
-        unSortIcon: true
-        // maxWidth: 300,
+        unSortIcon: true,
+        width: 150,
+        sort: 'desc', defaultSort: true
       },
       {
         headerName: 'Pedido',
@@ -41,7 +42,6 @@ const InventoryOutput = () => {
         unSortIcon: true,
         suppressMovable: true,
         width: 270
-        // maxWidth: 160,
       },
       {
         headerName: 'Fecha de salida',
@@ -53,11 +53,11 @@ const InventoryOutput = () => {
         sortable: true,
         suppressMovable: true,
         unSortIcon: true
-        // maxWidth: 177,
       },
       {
         headerName: 'Materiales',
         field: '',
+        width: 300,
         resizable: true,
         sortable: true,
         unSortIcon: true,
@@ -80,8 +80,6 @@ const InventoryOutput = () => {
         valueGetter: data => {
           return `${data.data.estimatedPrice} Bs.`
         },
-        // maxWidth: 180,
-        flex: 1
       },
       {
         headerName: ' ',
@@ -89,6 +87,7 @@ const InventoryOutput = () => {
         pinned: 'right',
         maxWidth: 160,
         cellRenderer: DataTableActions,
+        cellStyle: { overflow: 'visible' },
         suppressMovable: true,
         colId: 'Actions',
         cellRendererParams: {
@@ -180,7 +179,7 @@ const InventoryOutput = () => {
         <Table
           gridRef={gridRef}
           gridOptions={gridOptions}
-          rowData={inventoryOutput.inventoryOutputsList.reverse()}
+          rowData={inventoryOutput.inventoryOutputsList}
         />
       </Stack>
       <RegisterInventoryOutput inventoryOutputHook={inventoryOutput} />

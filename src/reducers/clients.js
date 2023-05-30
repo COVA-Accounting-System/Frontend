@@ -3,7 +3,6 @@ import axios from 'axios'
 
 export const clientInstance = axios.create({
   baseURL: `${process.env.REACT_APP_DATA_API}/contact/client`,
-  // timeout: 10000,
   headers: { 'x-access-token': localStorage.getItem('token') }
 })
 
@@ -26,7 +25,7 @@ const clientSlice = createSlice({
       state.data.push(action.payload)
     },
     editClient: (state, action) => {
-      state.data = state.data.map((client) => {
+      state.data = state.data.map(client => {
         if (client._id === action.payload._id) {
           client = action.payload
         }
@@ -40,7 +39,7 @@ export const { setInitialState, addClient, setActualClient, editClient } =
   clientSlice.actions
 export default clientSlice.reducer
 
-export const getAllClients = () => async (dispatch) => {
+export const getAllClients = () => async dispatch => {
   try {
     const clients = await clientInstance.get('/')
     dispatch(setInitialState(clients.data))
@@ -49,7 +48,7 @@ export const getAllClients = () => async (dispatch) => {
   }
 }
 
-export const createClient = (data) => async (dispatch) => {
+export const createClient = data => async dispatch => {
   try {
     const newClient = await clientInstance.post('/', data)
     dispatch(addClient(newClient.data))
@@ -59,7 +58,7 @@ export const createClient = (data) => async (dispatch) => {
   }
 }
 
-export const deleteClient = (data) => async (dispatch) => {
+export const deleteClient = data => async dispatch => {
   try {
     const deletedClient = await clientInstance.put('/delete', data)
     dispatch(editClient(deletedClient.data))
@@ -69,7 +68,7 @@ export const deleteClient = (data) => async (dispatch) => {
   }
 }
 
-export const updateClient = (data) => async (dispatch) => {
+export const updateClient = data => async dispatch => {
   try {
     const updatedClient = await clientInstance.put('/update', data)
     dispatch(editClient(updatedClient.data))

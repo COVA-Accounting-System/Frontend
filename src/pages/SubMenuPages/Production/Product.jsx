@@ -50,10 +50,10 @@ const Product = () => {
       {
         headerName: 'Caracteristicas',
         field: 'productFeatures',
+        width: 270,
         resizable: true,
         sortable: true,
         unSortIcon: true,
-        autoHeight: true,
         suppressMovable: true,
         valueGetter: data => {
           return data.data.productFeatures.map((feature, index) => {
@@ -95,7 +95,7 @@ const Product = () => {
         resizable: true,
         sortable: true,
         unSortIcon: true,
-        flex: 1,
+      
         suppressMovable: true,
         valueGetter: data => {
           return `${data.data.productDozenPrice} Bs.`
@@ -109,6 +109,7 @@ const Product = () => {
         cellRenderer: DataTableActions,
         suppressMovable: true,
         colId: 'Actions',
+        cellStyle: { overflow: 'visible' },
         cellRendererParams: {
           // onView: data => {
           //   product.setActualProductRedux(data)
@@ -138,7 +139,7 @@ const Product = () => {
     () => ({
       pagination: false,
       onGridReady: params => {
-        // params.api.sizeColumnsToFit();
+        params.api.sizeColumnsToFit();
       },
       onGridSizeChanged: params => {
         params.api.sizeColumnsToFit()
@@ -157,7 +158,7 @@ const Product = () => {
   }, [])
 
   return (
-      <Stack h='100%' p={'8'} minW={'850px'}>
+      <Stack h='100%' p={'8'} minW={'1000px'}>
         <Text fontSize={'27px'} fontWeight={'bold'} color={'acsys.titleColor'}>
         Productos
         </Text>
@@ -193,7 +194,7 @@ const Product = () => {
           <Table
               gridRef={gridRef}
               gridOptions={gridOptions}
-              rowData={product.productsList.reverse()}
+              rowData={product.productsList}
             />
           </Stack>
       <Modal

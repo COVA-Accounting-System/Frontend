@@ -32,9 +32,8 @@ const Income = () => {
         sortable: true,
         unSortIcon: true,
         suppressMovable: true,
-        width: 150
-        // minWidth: 120,
-        // maxWidth: 250,
+        width: 150,
+        sort: 'desc', defaultSort: true
       },
       {
         headerName: 'Cliente',
@@ -42,15 +41,7 @@ const Income = () => {
         resizable: true,
         sortable: true,
         unSortIcon: true,
-        suppressMovable: true,
-        width: 300
-        // cellRenderer: ClientPopover,
-        // cellRendererParams: {
-        //   getClientData: data => {
-        //     return data.client
-        //   }
-        // }
-        // maxWidth: 250,
+        suppressMovable: true
       },
       {
         headerName: 'Pedido',
@@ -61,13 +52,7 @@ const Income = () => {
         sortable: true,
         unSortIcon: true,
         suppressMovable: true,
-        width: 250
-        // cellRenderer: OrderPopover,
-        // cellRendererParams: {
-        //   getOrderData: data => {
-        //     return data.order
-        //   }
-        // }
+        width: 300
       },
       {
         headerName: 'Fecha',
@@ -87,7 +72,6 @@ const Income = () => {
         sortable: true,
         suppressMovable: true,
         unSortIcon: true
-        // minWidth: 140,
       },
       {
         headerName: 'Concepto',
@@ -96,8 +80,7 @@ const Income = () => {
         sortable: true,
         unSortIcon: true,
         suppressMovable: true,
-        
-        // minWidth: 140,
+        width: 270
       },
       {
         headerName: 'Monto',
@@ -109,13 +92,13 @@ const Income = () => {
         sortable: true,
         suppressMovable: true,
         unSortIcon: true
-        // minWidth: 140,
       },
       {
         headerName: ' ',
         resizable: false,
         pinned: 'right',
         maxWidth: 160,
+        cellStyle: { overflow: 'visible' },
         cellRenderer: DataTableActions,
         colId: 'Actions',
         suppressMovable: true,
@@ -202,7 +185,7 @@ const Income = () => {
         <Table
           gridRef={gridRef}
           gridOptions={gridOptions}
-          rowData={income.incomesList.reverse()}
+          rowData={income.incomesList}
         />
       </Stack>
       <IncomeModal income={income} />

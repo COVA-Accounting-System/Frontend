@@ -53,11 +53,9 @@ const Client = () => {
         resizable: true,
         sortable: true,
         unSortIcon: true,
-        suppressMovable: true
-        // width: 180,
-        // minWidth: 100,
-
-        // maxWidth: 230,
+        suppressMovable: true,
+        // minWidth: 150,
+    
       },
       {
         headerName: 'Apellidos',
@@ -65,10 +63,9 @@ const Client = () => {
         resizable: true,
         sortable: true,
         unSortIcon: true,
-        suppressMovable: true
-        // minWidth: 100,
-        // width: 230
-        // maxWidth: 270,
+        suppressMovable: true,
+        // minWidth: 150,
+      
       },
       {
         headerName: 'Teléfono',
@@ -79,10 +76,19 @@ const Client = () => {
         unSortIcon: true,
         sortable: true,
         resizable: true,
+        suppressMovable: true,
+        // minWidth: 150,
+    
+      },
+      {
+        headerName: 'Dirección',
+        field: 'address',
+        resizable: true,
+        sortable: true,
+        width: 250,
+        // minWidth: 200,
+    
         suppressMovable: true
-        // minWidth: 100,
-        // width: 190
-        // maxWidth: 200,
       },
       {
         headerName: 'Adeuda',
@@ -93,20 +99,11 @@ const Client = () => {
         unSortIcon: true,
         sortable: true,
         resizable: true,
-        suppressMovable: true
-        // minWidth: 100,
-        // width: 190
-        // maxWidth: 200,
+        suppressMovable: true,
+        // minWidth: 130,
+      
       },
-      {
-        headerName: 'Dirección',
-        field: 'address',
-        resizable: true,
-        sortable: true,
-        // minWidth: 110,
-        flex: 1,
-        suppressMovable: true
-      },
+ 
       {
         headerName: ' ',
         resizable: false,
@@ -115,6 +112,7 @@ const Client = () => {
         cellRenderer: DataTableActions,
         colId: 'Actions',
         suppressMovable: true,
+        cellStyle: { overflow: 'visible' },
         cellRendererParams: {
           // onView: data => {
           //   client.setActualClientRedux(data)
@@ -145,11 +143,11 @@ const Client = () => {
     () => ({
       pagination: false,
       onGridReady: params => {
-        // params.api.sizeColumnsToFit()
-        // params.columnApi.autoSizeAllColumns();
+        params.api.sizeColumnsToFit()
+        params.columnApi.autoSizeAllColumns();
       },
       onGridSizeChanged: params => {
-        // params.api.sizeColumnsToFit();
+        params.api.sizeColumnsToFit();
       },
       columnDefs,
       deltaRowDataMode: 'prepend',
@@ -167,7 +165,7 @@ const Client = () => {
   }, [])
 
   return (
-    <Stack h='100%' p={'8'} minW={'850px'}>
+    <Stack h='100%' p={'8'} minW={'1000px'}>
         <Text fontSize={'27px'} fontWeight={'bold'} color={'acsys.titleColor'}>
           Clientes
         </Text>
@@ -205,7 +203,7 @@ const Client = () => {
             <Table
               gridRef={gridRef}
               gridOptions={gridOptions}
-              rowData={client.clientsList.reverse()}
+              rowData={client.clientsList}
             />
           </Stack>
       <Modal

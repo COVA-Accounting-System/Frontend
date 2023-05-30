@@ -46,15 +46,13 @@ const RawMaterial = () => {
         sortable: true,
         suppressMovable: true,
         unSortIcon: true
-        // width: 250
-        // maxWidth: 300,
       },
       {
         headerName: 'Caracteristicas',
         resizable: true,
         sortable: true,
         unSortIcon: true,
-        autoHeight: true,
+        width: 270,
         suppressMovable: true,
         valueGetter: data => {
           return data.data.features.map((feature, index) => {
@@ -66,7 +64,8 @@ const RawMaterial = () => {
           getListOfFeatures: data => {
             return data.features
           }
-        }
+        },
+    
         // maxWidth: 160,
       },
       {
@@ -75,8 +74,7 @@ const RawMaterial = () => {
         resizable: true,
         sortable: true,
         suppressMovable: true,
-        unSortIcon: true
-        // maxWidth: 177,
+        unSortIcon: true,
       },
       {
         headerName: 'Nomeclatura',
@@ -85,7 +83,6 @@ const RawMaterial = () => {
         sortable: true,
         suppressMovable: true,
         unSortIcon: true
-        // maxWidth: 180,
       },
       {
         headerName: ' ',
@@ -94,6 +91,7 @@ const RawMaterial = () => {
         maxWidth: 160,
         cellRenderer: DataTableActions,
         colId: 'Actions',
+        cellStyle: { overflow: 'visible' },
         suppressMovable: true,
         cellRendererParams: {
           // onView: data => {},
@@ -120,10 +118,10 @@ const RawMaterial = () => {
     () => ({
       pagination: false,
       onGridReady: params => {
-        // params.api.sizeColumnsToFit();
+        params.api.sizeColumnsToFit();
       },
       onGridSizeChanged: params => {
-        // params.api.sizeColumnsToFit();
+        params.api.sizeColumnsToFit();
       },
       columnDefs,
       cacheQuickFilter: true,
@@ -139,7 +137,7 @@ const RawMaterial = () => {
   }, [])
 
   return (
-    <Stack h='100%' p={'8'} minW={'850px'}>
+    <Stack h='100%' p={'8'} minW={'1000px'}>
       <Text fontSize={'27px'} fontWeight={'bold'} color={'acsys.titleColor'}>
         Materia Prima
       </Text>
@@ -176,7 +174,7 @@ const RawMaterial = () => {
         <Table
           gridRef={gridRef}
           gridOptions={gridOptions}
-          rowData={rawMaterial.rawMaterialsList.reverse()}
+          rowData={rawMaterial.rawMaterialsList}
         />
       </Stack>
       <Modal

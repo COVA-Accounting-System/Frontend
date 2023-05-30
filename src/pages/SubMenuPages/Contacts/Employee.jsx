@@ -44,10 +44,7 @@ const Employee = () => {
         resizable: true,
         sortable: true,
         unSortIcon: true,
-        suppressMovable: true
-        // width: 160
-        // minWidth: 120,
-        // maxWidth: 250,
+        suppressMovable: true,
       },
       {
         headerName: 'Apellidos',
@@ -55,10 +52,7 @@ const Employee = () => {
         resizable: true,
         sortable: true,
         unSortIcon: true,
-        suppressMovable: true
-        // minWidth: 130,
-        // width: 210
-        // maxWidth: 250,
+        suppressMovable: true,
       },
       {
         headerName: 'CI',
@@ -67,9 +61,7 @@ const Employee = () => {
         sortable: true,
         unSortIcon: true,
         width: 150,
-        suppressMovable: true
-        // minWidth: 60,
-        // maxWidth: 160,
+        suppressMovable: true,
       },
       {
         headerName: 'Teléfono',
@@ -79,10 +71,7 @@ const Employee = () => {
         resizable: true,
         sortable: true,
         unSortIcon: true,
-        suppressMovable: true
-        // width: 140
-        // minWidth: 110,
-        // maxWidth: 160,
+        suppressMovable: true,
       },
       {
         headerName: 'Fecha de inicio',
@@ -93,8 +82,7 @@ const Employee = () => {
         resizable: true,
         sortable: true,
         unSortIcon: true,
-        suppressMovable: true
-        // width: 150
+        suppressMovable: true,
       },
       {
         headerName: 'Nacionalidad',
@@ -105,9 +93,7 @@ const Employee = () => {
         resizable: true,
         sortable: true,
         unSortIcon: true,
-        suppressMovable: true
-        // width: 150
-        // minWidth: 140,
+        suppressMovable: true,
       },
       {
         headerName: 'Fecha de nacimiento',
@@ -118,9 +104,7 @@ const Employee = () => {
         resizable: true,
         sortable: true,
         unSortIcon: true,
-        suppressMovable: true
-        // width: 190
-        // minWidth: 190,
+        suppressMovable: true,
       },
       {
         headerName: ' ',
@@ -129,6 +113,7 @@ const Employee = () => {
         maxWidth: 160,
         cellRenderer: DataTableActions,
         colId: 'Actions',
+        cellStyle: { overflow: 'visible' },
         suppressMovable: true,
         cellRendererParams: {
           // onView: data => {
@@ -175,7 +160,7 @@ const Employee = () => {
   }, [])
 
   return (
-    <Stack h='100%' p={'8'} minW={'850px'}>
+    <Stack h='100%' p={'8'} minW={'1000px'}>
       <Text fontSize={'27px'} fontWeight={'bold'} color={'acsys.titleColor'}>
       Operadores
         </Text>
@@ -212,7 +197,7 @@ const Employee = () => {
           <Table
               gridRef={gridRef}
               gridOptions={gridOptions}
-              rowData={employee.employeesList.reverse()}
+              rowData={employee.employeesList}
             />
           </Stack>
       <Modal
